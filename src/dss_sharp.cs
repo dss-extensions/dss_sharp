@@ -1,6 +1,6 @@
 // dss_sharp: A compatibility layer for DSS_CAPI that mimics the official OpenDSS COM interface.
 // Copyright (c) 2016-2018 Paulo Meira
-// version 0.9.4
+// version 0.10.0
 //
 // See LICENSE for more information.
 
@@ -71,17 +71,17 @@ namespace dss_sharp
             public static extern void DSS_Dispose_PInteger(ref IntPtr p);
 
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void DSS_Dispose_PPAnsiChar(ref IntPtr p, int cnt);
+            public static extern void DSS_Dispose_PPAnsiChar(ref IntPtr p, ref int[] cnt);
         
-            public static string[] get_string_array(ref IntPtr resultPtr, int resultCount)
+            public static string[] get_string_array(ref IntPtr resultPtr, int[] resultCount)
             {
-                string[] result = new string[resultCount];
-                for (int i = 0; i < resultCount; ++i)
+                string[] result = new string[resultCount[0]];
+                for (int i = 0; i < resultCount[0]; ++i)
                 {
                     IntPtr resultPtrInternal = Marshal.ReadIntPtr(resultPtr, IntPtr.Size * i);
                     result[i] = Marshal.PtrToStringAnsi(resultPtrInternal);
                 }
-                OpenDSS.Lib.DSS_Dispose_PPAnsiChar(ref resultPtr, resultCount);
+                OpenDSS.Lib.DSS_Dispose_PPAnsiChar(ref resultPtr, ref resultCount);
                 return result;
             }
         
@@ -111,7 +111,7 @@ namespace dss_sharp
         
         
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void ActiveClass_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void ActiveClass_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int ActiveClass_Get_First();
@@ -144,40 +144,40 @@ namespace dss_sharp
             public static extern int Bus_Get_NumNodes();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_SeqVoltages(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_SeqVoltages(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_Voltages(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_Voltages(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_Nodes(ref IntPtr /* int* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_Nodes(ref IntPtr /* int* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_Isc(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_Isc(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_Voc(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_Voc(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double Bus_Get_kVBase();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_puVoltages(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_puVoltages(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_Zsc0(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_Zsc0(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_Zsc1(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_Zsc1(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_ZscMatrix(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_ZscMatrix(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern ushort Bus_ZscRefresh();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_YscMatrix(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_YscMatrix(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern ushort Bus_Get_Coorddefined();
@@ -201,7 +201,7 @@ namespace dss_sharp
             public static extern int Bus_GetUniqueNodeNumber(int StartNumber);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_CplxSeqVoltages(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_CplxSeqVoltages(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double Bus_Get_Int_Duration();
@@ -222,16 +222,16 @@ namespace dss_sharp
             public static extern double Bus_Get_N_interrupts();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_puVLL(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_puVLL(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_VLL(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_VLL(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_puVmagAngle(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_puVmagAngle(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Bus_Get_VMagAngle(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Bus_Get_VMagAngle(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double Bus_Get_TotalMiles();
@@ -240,7 +240,7 @@ namespace dss_sharp
             public static extern int Bus_Get_SectionID();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Capacitors_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Capacitors_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Capacitors_Get_First();
@@ -292,7 +292,7 @@ namespace dss_sharp
             public static extern int Capacitors_Get_AvailableSteps();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Capacitors_Get_States(ref IntPtr /* int* */ ResultPtr, ref int ResultCount);
+            public static extern void Capacitors_Get_States(ref IntPtr /* int* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void Capacitors_Set_States([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] ValuePtr, int ValueCount);
@@ -304,7 +304,7 @@ namespace dss_sharp
             public static extern void Capacitors_Close();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CapControls_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void CapControls_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
@@ -425,25 +425,25 @@ namespace dss_sharp
             public static extern int Circuit_Get_NumNodes();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_LineLosses(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_LineLosses(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_Losses(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_Losses(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllBusVmag(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_AllBusVmag(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllBusVolts(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_AllBusVolts(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllElementNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_AllElementNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_SubstationLosses(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_SubstationLosses(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_TotalPower(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_TotalPower(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void Circuit_Disable([param: MarshalAs(UnmanagedType.LPStr)] string Name);
@@ -464,10 +464,10 @@ namespace dss_sharp
             public static extern int Circuit_NextPDElement();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllBusNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_AllBusNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllElementLosses(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_AllElementLosses(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void Circuit_Sample();
@@ -482,7 +482,7 @@ namespace dss_sharp
             public static extern double Circuit_Capacity(double Start, double Increment);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllBusVmagPu(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_AllBusVmagPu(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Circuit_SetActiveBus([param: MarshalAs(UnmanagedType.LPStr)] string BusName);
@@ -491,28 +491,28 @@ namespace dss_sharp
             public static extern int Circuit_SetActiveBusi(int BusIndex);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllNodeNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_AllNodeNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_SystemY(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_SystemY(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllBusDistances(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_AllBusDistances(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllNodeDistances(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_AllNodeDistances(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllNodeDistancesByPhase(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, int Phase);
+            public static extern void Circuit_Get_AllNodeDistancesByPhase(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, int Phase);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllNodeVmagByPhase(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, int Phase);
+            public static extern void Circuit_Get_AllNodeVmagByPhase(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, int Phase);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllNodeVmagPUByPhase(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, int Phase);
+            public static extern void Circuit_Get_AllNodeVmagPUByPhase(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, int Phase);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_AllNodeNamesByPhase(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount, int Phase);
+            public static extern void Circuit_Get_AllNodeNamesByPhase(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount, int Phase);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Circuit_SetActiveClass([param: MarshalAs(UnmanagedType.LPStr)] string ClassName);
@@ -533,16 +533,16 @@ namespace dss_sharp
             public static extern void Circuit_EndOfTimeStepUpdate();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_YNodeOrder(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_YNodeOrder(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_YCurrents(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_YCurrents(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Circuit_Get_YNodeVarray(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Circuit_Get_YNodeVarray(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_BusNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_BusNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
@@ -561,10 +561,10 @@ namespace dss_sharp
             public static extern void CktElement_Set_BusNames([In] string[] /* sbyte** */ ValuePtr, int ValueCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_Currents(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_Currents(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_Voltages(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_Voltages(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double CktElement_Get_EmergAmps();
@@ -573,25 +573,25 @@ namespace dss_sharp
             public static extern ushort CktElement_Get_Enabled();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_Losses(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_Losses(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double CktElement_Get_NormalAmps();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_PhaseLosses(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_PhaseLosses(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_Powers(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_Powers(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_SeqCurrents(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_SeqCurrents(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_SeqPowers(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_SeqPowers(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_SeqVoltages(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_SeqVoltages(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void CktElement_Close(int Term, int Phs);
@@ -612,16 +612,16 @@ namespace dss_sharp
             public static extern ushort CktElement_IsOpen(int Term, int Phs);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_AllPropertyNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_AllPropertyNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int CktElement_Get_NumProperties();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_Residuals(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_Residuals(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_Yprim(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_Yprim(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
@@ -652,16 +652,16 @@ namespace dss_sharp
             public static extern ushort CktElement_Get_HasSwitchControl();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_CplxSeqVoltages(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_CplxSeqVoltages(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_CplxSeqCurrents(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_CplxSeqCurrents(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_AllVariableNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_AllVariableNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_AllVariableValues(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_AllVariableValues(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double CktElement_Get_Variable([param: MarshalAs(UnmanagedType.LPStr)] string MyVarName, int Code);
@@ -670,7 +670,7 @@ namespace dss_sharp
             public static extern double CktElement_Get_Variablei(int Idx, int Code);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_NodeOrder(ref IntPtr /* int* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_NodeOrder(ref IntPtr /* int* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern ushort CktElement_Get_HasOCPDevice();
@@ -685,13 +685,13 @@ namespace dss_sharp
             public static extern int CktElement_Get_OCPDevType();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_CurrentsMagAng(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_CurrentsMagAng(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CktElement_Get_VoltagesMagAng(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void CktElement_Get_VoltagesMagAng(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CmathLib_Get_cmplx(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, double RealPart, double ImagPart);
+            public static extern void CmathLib_Get_cmplx(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, double RealPart, double ImagPart);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double CmathLib_Get_cabs(double realpart, double imagpart);
@@ -700,16 +700,16 @@ namespace dss_sharp
             public static extern double CmathLib_Get_cdang(double RealPart, double ImagPart);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CmathLib_Get_ctopolardeg(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, double RealPart, double ImagPart);
+            public static extern void CmathLib_Get_ctopolardeg(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, double RealPart, double ImagPart);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CmathLib_Get_pdegtocomplex(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, double magnitude, double angle);
+            public static extern void CmathLib_Get_pdegtocomplex(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, double magnitude, double angle);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CmathLib_Get_cmul(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, double a1, double b1, double a2, double b2);
+            public static extern void CmathLib_Get_cmul(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, double a1, double b1, double a2, double b2);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CmathLib_Get_cdiv(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, double a1, double b1, double a2, double b2);
+            public static extern void CmathLib_Get_cdiv(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, double a1, double b1, double a2, double b2);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void CtrlQueue_ClearQueue();
@@ -745,7 +745,7 @@ namespace dss_sharp
             public static extern void CtrlQueue_DoAllQueue();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void CtrlQueue_Get_Queue(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void CtrlQueue_Get_Queue(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int DSS_Get_NumCircuits();
@@ -761,10 +761,10 @@ namespace dss_sharp
             public static extern ushort DSS_Start(int code);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void DSS_Get_Classes(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void DSS_Get_Classes(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void DSS_Get_UserClasses(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void DSS_Get_UserClasses(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int DSS_Get_NumClasses();
@@ -790,7 +790,7 @@ namespace dss_sharp
             public static extern int DSS_SetActiveClass([param: MarshalAs(UnmanagedType.LPStr)] string ClassName);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void DSSElement_Get_AllPropertyNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void DSSElement_Get_AllPropertyNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
@@ -800,10 +800,10 @@ namespace dss_sharp
             public static extern int DSSElement_Get_NumProperties();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void DSSimComs_BusVoltagepu(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, ulong Index);
+            public static extern void DSSimComs_BusVoltagepu(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, ulong Index);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void DSSimComs_BusVoltage(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, ulong Index);
+            public static extern void DSSimComs_BusVoltage(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, ulong Index);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void DSSProgress_Close();
@@ -870,7 +870,7 @@ namespace dss_sharp
             public static extern int Error_Get_Number();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Fuses_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Fuses_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Fuses_Get_Count();
@@ -949,7 +949,7 @@ namespace dss_sharp
             public static extern int Fuses_Get_NumPhases();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Generators_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Generators_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Generators_Get_First();
@@ -962,10 +962,10 @@ namespace dss_sharp
             public static extern int Generators_Get_Next();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Generators_Get_RegisterNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Generators_Get_RegisterNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Generators_Get_RegisterValues(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Generators_Get_RegisterValues(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern ushort Generators_Get_ForcedON();
@@ -1040,7 +1040,7 @@ namespace dss_sharp
             public static extern void Generators_Set_Vminpu(double Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void ISources_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void ISources_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int ISources_Get_Count();
@@ -1144,13 +1144,13 @@ namespace dss_sharp
             public static extern void LineCodes_Set_C1(double Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void LineCodes_Get_Cmatrix(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void LineCodes_Get_Cmatrix(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void LineCodes_Get_Rmatrix(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void LineCodes_Get_Rmatrix(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void LineCodes_Get_Xmatrix(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void LineCodes_Get_Xmatrix(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void LineCodes_Set_Cmatrix([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] double[] ValuePtr, int ValueCount);
@@ -1174,10 +1174,10 @@ namespace dss_sharp
             public static extern void LineCodes_Set_EmergAmps(double Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void LineCodes_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void LineCodes_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Lines_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Lines_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
@@ -1247,19 +1247,19 @@ namespace dss_sharp
             public static extern double Lines_Get_C1();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Lines_Get_Cmatrix(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Lines_Get_Cmatrix(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double Lines_Get_R0();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Lines_Get_Rmatrix(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Lines_Get_Rmatrix(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double Lines_Get_X0();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Lines_Get_Xmatrix(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Lines_Get_Xmatrix(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void Lines_Set_C0(double Value);
@@ -1320,7 +1320,7 @@ namespace dss_sharp
             public static extern void Lines_Set_Xg(double Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Lines_Get_Yprim(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Lines_Get_Yprim(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void Lines_Set_Yprim([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] double[] ValuePtr, int ValueCount);
@@ -1351,7 +1351,7 @@ namespace dss_sharp
             public static extern void Lines_Set_Units(int Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Loads_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Loads_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Loads_Get_First();
@@ -1568,7 +1568,7 @@ namespace dss_sharp
             public static extern void Loads_Set_Yearly([param: MarshalAs(UnmanagedType.LPStr)] string Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Loads_Get_ZIPV(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Loads_Get_ZIPV(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void Loads_Set_ZIPV([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] double[] ValuePtr, int ValueCount);
@@ -1599,16 +1599,16 @@ namespace dss_sharp
             public static extern int LoadShapes_Get_Next();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void LoadShapes_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void LoadShapes_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int LoadShapes_Get_Npts();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void LoadShapes_Get_Pmult(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void LoadShapes_Get_Pmult(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void LoadShapes_Get_Qmult(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void LoadShapes_Get_Qmult(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void LoadShapes_Set_Npts(int Value);
@@ -1623,7 +1623,7 @@ namespace dss_sharp
             public static extern void LoadShapes_Normalize();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void LoadShapes_Get_TimeArray(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void LoadShapes_Get_TimeArray(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void LoadShapes_Set_TimeArray([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] double[] ValuePtr, int ValueCount);
@@ -1665,7 +1665,7 @@ namespace dss_sharp
             public static extern void LoadShapes_Set_UseActual([MarshalAs(UnmanagedType.U2)] bool Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Meters_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Meters_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Meters_Get_First();
@@ -1678,10 +1678,10 @@ namespace dss_sharp
             public static extern int Meters_Get_Next();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Meters_Get_RegisterNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Meters_Get_RegisterNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Meters_Get_RegisterValues(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Meters_Get_RegisterValues(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void Meters_Reset();
@@ -1699,22 +1699,22 @@ namespace dss_sharp
             public static extern void Meters_Set_Name([param: MarshalAs(UnmanagedType.LPStr)] string Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Meters_Get_Totals(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Meters_Get_Totals(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Meters_Get_Peakcurrent(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Meters_Get_Peakcurrent(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void Meters_Set_Peakcurrent([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] double[] ValuePtr, int ValueCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Meters_Get_CalcCurrent(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Meters_Get_CalcCurrent(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void Meters_Set_CalcCurrent([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] double[] ValuePtr, int ValueCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Meters_Get_AllocFactors(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Meters_Get_AllocFactors(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void Meters_Set_AllocFactors([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] double[] ValuePtr, int ValueCount);
@@ -1748,7 +1748,7 @@ namespace dss_sharp
             public static extern void Meters_SaveAll();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Meters_Get_AllEndElements(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Meters_Get_AllEndElements(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Meters_Get_CountEndElements();
@@ -1757,7 +1757,7 @@ namespace dss_sharp
             public static extern int Meters_Get_Count();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Meters_Get_AllBranchesInZone(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Meters_Get_AllBranchesInZone(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Meters_Get_CountBranches();
@@ -1820,7 +1820,7 @@ namespace dss_sharp
             public static extern int Meters_Get_SectTotalCust();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Monitors_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Monitors_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
@@ -1861,7 +1861,7 @@ namespace dss_sharp
             public static extern void Monitors_Set_Name([param: MarshalAs(UnmanagedType.LPStr)] string Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Monitors_Get_ByteStream(ref IntPtr /* byte* */ ResultPtr, ref int ResultCount);
+            public static extern void Monitors_Get_ByteStream(ref IntPtr /* byte* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Monitors_Get_SampleCount();
@@ -1882,19 +1882,19 @@ namespace dss_sharp
             public static extern void Monitors_ProcessAll();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Monitors_Get_Channel(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, int Index);
+            public static extern void Monitors_Get_Channel(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, int Index);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Monitors_Get_dblFreq(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Monitors_Get_dblFreq(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Monitors_Get_dblHour(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Monitors_Get_dblHour(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Monitors_Get_FileVersion();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Monitors_Get_Header(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Monitors_Get_Header(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Monitors_Get_NumChannels();
@@ -1974,13 +1974,13 @@ namespace dss_sharp
             public static extern void Parser_ResetDelimiters();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Parser_Get_Vector(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, int ExpectedSize);
+            public static extern void Parser_Get_Vector(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, int ExpectedSize);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Parser_Get_Matrix(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, int ExpectedOrder);
+            public static extern void Parser_Get_Matrix(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, int ExpectedOrder);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Parser_Get_SymMatrix(ref IntPtr /* double* */ ResultPtr, ref int ResultCount, int ExpectedOrder);
+            public static extern void Parser_Get_SymMatrix(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount, int ExpectedOrder);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int PDElements_Get_Count();
@@ -2044,13 +2044,13 @@ namespace dss_sharp
             public static extern void PDElements_Set_RepairTime(double Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void PVSystems_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void PVSystems_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void PVSystems_Get_RegisterNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void PVSystems_Get_RegisterNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void PVSystems_Get_RegisterValues(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void PVSystems_Get_RegisterValues(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int PVSystems_Get_First();
@@ -2093,7 +2093,7 @@ namespace dss_sharp
             public static extern double PVSystems_Get_PF();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Reclosers_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Reclosers_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Reclosers_Get_Count();
@@ -2141,7 +2141,7 @@ namespace dss_sharp
             public static extern int Reclosers_Get_NumFast();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Reclosers_Get_RecloseIntervals(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Reclosers_Get_RecloseIntervals(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Reclosers_Get_Shots();
@@ -2189,7 +2189,7 @@ namespace dss_sharp
             public static extern void Reclosers_Set_idx(int Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void RegControls_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void RegControls_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double RegControls_Get_CTPrimary();
@@ -2339,7 +2339,7 @@ namespace dss_sharp
             public static extern void RegControls_Reset();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Relays_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Relays_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Relays_Get_Count();
@@ -2390,13 +2390,13 @@ namespace dss_sharp
             public static extern void Relays_Set_idx(int Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Sensors_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Sensors_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Sensors_Get_Count();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Sensors_Get_Currents(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Sensors_Get_Currents(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Sensors_Get_First();
@@ -2405,13 +2405,13 @@ namespace dss_sharp
             public static extern ushort Sensors_Get_IsDelta();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Sensors_Get_kVARS(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Sensors_Get_kVARS(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Sensors_Get_kVS(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Sensors_Get_kVS(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Sensors_Get_kWS(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Sensors_Get_kWS(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ConstCharPtrMarshaler))]
@@ -2534,7 +2534,7 @@ namespace dss_sharp
             public static extern void Settings_Set_ZoneLock([MarshalAs(UnmanagedType.U2)] bool Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Settings_Get_LossRegs(ref IntPtr /* int* */ ResultPtr, ref int ResultCount);
+            public static extern void Settings_Get_LossRegs(ref IntPtr /* int* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double Settings_Get_LossWeight();
@@ -2543,7 +2543,7 @@ namespace dss_sharp
             public static extern ushort Settings_Get_Trapezoidal();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Settings_Get_UEregs(ref IntPtr /* int* */ ResultPtr, ref int ResultCount);
+            public static extern void Settings_Get_UEregs(ref IntPtr /* int* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double Settings_Get_UEweight();
@@ -2567,7 +2567,7 @@ namespace dss_sharp
             public static extern ushort Settings_Get_ControlTrace();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Settings_Get_VoltageBases(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void Settings_Get_VoltageBases(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void Settings_Set_ControlTrace([MarshalAs(UnmanagedType.U2)] bool Value);
@@ -2740,7 +2740,7 @@ namespace dss_sharp
             public static extern void Solution_Set_DefaultYearly([param: MarshalAs(UnmanagedType.LPStr)] string Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Solution_Get_EventLog(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Solution_Get_EventLog(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double Solution_Get_dblHour();
@@ -2857,7 +2857,7 @@ namespace dss_sharp
             public static extern int SwtControls_Get_Action();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void SwtControls_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void SwtControls_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double SwtControls_Get_Delay();
@@ -2936,10 +2936,10 @@ namespace dss_sharp
             public static extern int Topology_Get_ActiveBranch();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Topology_Get_AllIsolatedBranches(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Topology_Get_AllIsolatedBranches(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Topology_Get_AllLoopedPairs(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Topology_Get_AllLoopedPairs(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Topology_Get_BackwardBranch();
@@ -2970,7 +2970,7 @@ namespace dss_sharp
             public static extern void Topology_Set_BranchName([param: MarshalAs(UnmanagedType.LPStr)] string Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Topology_Get_AllIsolatedLoads(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Topology_Get_AllIsolatedLoads(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Topology_Get_FirstLoad();
@@ -2992,7 +2992,7 @@ namespace dss_sharp
             public static extern void Topology_Set_BusName([param: MarshalAs(UnmanagedType.LPStr)] string Value);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Transformers_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Transformers_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Transformers_Get_First();
@@ -3108,7 +3108,7 @@ namespace dss_sharp
             public static extern int Transformers_Get_Count();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void Vsources_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int ResultCount);
+            public static extern void Vsources_Get_AllNames(ref IntPtr /* sbyte** */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern int Vsources_Get_Count();
@@ -3176,7 +3176,7 @@ namespace dss_sharp
             public static extern int XYCurves_Get_Npts();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void XYCurves_Get_Xarray(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void XYCurves_Get_Xarray(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void XYCurves_Set_Npts(int Value);
@@ -3191,7 +3191,7 @@ namespace dss_sharp
             public static extern double XYCurves_Get_y();
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-            public static extern void XYCurves_Get_Yarray(ref IntPtr /* double* */ ResultPtr, ref int ResultCount);
+            public static extern void XYCurves_Get_Yarray(ref IntPtr /* double* */ ResultPtr, ref int[] ResultCount);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern void XYCurves_Set_x(double Value);
@@ -3276,7 +3276,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.ActiveClass_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -3367,9 +3367,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_CplxSeqVoltages(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3420,9 +3420,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_Isc(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3473,9 +3473,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_Nodes(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_int32_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_int32_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3506,9 +3506,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_SeqVoltages(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3529,9 +3529,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_VLL(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3542,9 +3542,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_VMagAngle(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3555,9 +3555,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_Voc(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3568,9 +3568,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_Voltages(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3581,9 +3581,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_YscMatrix(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3594,9 +3594,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_Zsc0(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3607,9 +3607,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_Zsc1(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3620,9 +3620,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_ZscMatrix(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3643,9 +3643,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_puVLL(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3656,9 +3656,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_puVmagAngle(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3669,9 +3669,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Bus_Get_puVoltages(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -3749,7 +3749,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Capacitors_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -3842,9 +3842,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Capacitors_Get_States(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_int32_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_int32_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Capacitors_Set_States(value, value.Length);
@@ -3894,7 +3894,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CapControls_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -4149,9 +4149,9 @@ namespace dss_sharp
         public /*static*/ double[] cdiv(double a1, double b1, double a2, double b2)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.CmathLib_Get_cdiv(ref resultPtr, ref resultCount, a1, b1, a2, b2);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
 
         /// <summary>
@@ -4160,9 +4160,9 @@ namespace dss_sharp
         public /*static*/ double[] cmplx(double RealPart, double ImagPart)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.CmathLib_Get_cmplx(ref resultPtr, ref resultCount, RealPart, ImagPart);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
 
         /// <summary>
@@ -4171,9 +4171,9 @@ namespace dss_sharp
         public /*static*/ double[] cmul(double a1, double b1, double a2, double b2)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.CmathLib_Get_cmul(ref resultPtr, ref resultCount, a1, b1, a2, b2);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
 
         /// <summary>
@@ -4182,9 +4182,9 @@ namespace dss_sharp
         public /*static*/ double[] ctopolardeg(double RealPart, double ImagPart)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.CmathLib_Get_ctopolardeg(ref resultPtr, ref resultCount, RealPart, ImagPart);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
 
         /// <summary>
@@ -4193,9 +4193,9 @@ namespace dss_sharp
         public /*static*/ double[] pdegtocomplex(double magnitude, double angle)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.CmathLib_Get_pdegtocomplex(ref resultPtr, ref resultCount, magnitude, angle);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
     } // CmathLib 
 
@@ -4275,7 +4275,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CtrlQueue_Get_Queue(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -4310,17 +4310,17 @@ namespace dss_sharp
         public /*static*/ double[] BusVoltage(ulong Index)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.DSSimComs_BusVoltage(ref resultPtr, ref resultCount, Index);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
 
         public /*static*/ double[] BusVoltagepu(ulong Index)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.DSSimComs_BusVoltagepu(ref resultPtr, ref resultCount, Index);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
     } // DSSimComs 
 
@@ -4524,7 +4524,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Fuses_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -4706,7 +4706,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Generators_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -4814,7 +4814,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Generators_Get_RegisterNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -4827,9 +4827,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Generators_Get_RegisterValues(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -4941,7 +4941,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.ISources_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -5044,7 +5044,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.LineCodes_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -5083,9 +5083,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.LineCodes_Get_Cmatrix(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.LineCodes_Set_Cmatrix(value, value.Length);
@@ -5211,9 +5211,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.LineCodes_Get_Rmatrix(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.LineCodes_Set_Rmatrix(value, value.Length);
@@ -5263,9 +5263,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.LineCodes_Get_Xmatrix(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.LineCodes_Set_Xmatrix(value, value.Length);
@@ -5289,7 +5289,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Lines_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -5351,9 +5351,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Lines_Get_Cmatrix(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Lines_Set_Cmatrix(value, value.Length);
@@ -5560,9 +5560,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Lines_Get_Rmatrix(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Lines_Set_Rmatrix(value, value.Length);
@@ -5645,9 +5645,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Lines_Get_Xmatrix(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Lines_Set_Xmatrix(value, value.Length);
@@ -5661,9 +5661,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Lines_Get_Yprim(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Lines_Set_Yprim(value, value.Length);
@@ -5682,7 +5682,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Loads_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -6032,9 +6032,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Loads_Get_ZIPV(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Loads_Set_ZIPV(value, value.Length);
@@ -6199,7 +6199,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.LoadShapes_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -6308,9 +6308,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.LoadShapes_Get_Pmult(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.LoadShapes_Set_Pmult(value, value.Length);
@@ -6337,9 +6337,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.LoadShapes_Get_Qmult(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.LoadShapes_Set_Qmult(value, value.Length);
@@ -6353,9 +6353,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.LoadShapes_Get_TimeArray(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.LoadShapes_Set_TimeArray(value, value.Length);
@@ -6447,7 +6447,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Meters_Get_AllBranchesInZone(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -6460,7 +6460,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Meters_Get_AllEndElements(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -6473,7 +6473,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Meters_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -6486,9 +6486,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Meters_Get_AllocFactors(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Meters_Set_AllocFactors(value, value.Length);
@@ -6512,9 +6512,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Meters_Get_CalcCurrent(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Meters_Set_CalcCurrent(value, value.Length);
@@ -6688,9 +6688,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Meters_Get_Peakcurrent(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Meters_Set_Peakcurrent(value, value.Length);
@@ -6704,7 +6704,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Meters_Get_RegisterNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -6717,9 +6717,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Meters_Get_RegisterValues(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -6823,9 +6823,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Meters_Get_Totals(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
     } // Meters 
@@ -6840,9 +6840,9 @@ namespace dss_sharp
         public /*static*/ double[] Channel(int Index)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.Monitors_Get_Channel(ref resultPtr, ref resultCount, Index);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
 
         public /*static*/ void Process()
@@ -6897,7 +6897,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Monitors_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -6910,9 +6910,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Monitors_Get_ByteStream(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_int8_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_int8_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -6976,7 +6976,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Monitors_Get_Header(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -7069,9 +7069,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Monitors_Get_dblFreq(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -7082,9 +7082,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Monitors_Get_dblHour(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
     } // Monitors 
@@ -7099,9 +7099,9 @@ namespace dss_sharp
         public /*static*/ double[] Matrix(int ExpectedOrder)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.Parser_Get_Matrix(ref resultPtr, ref resultCount, ExpectedOrder);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
 
         /// <summary>
@@ -7110,9 +7110,9 @@ namespace dss_sharp
         public /*static*/ double[] SymMatrix(int ExpectedOrder)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.Parser_Get_SymMatrix(ref resultPtr, ref resultCount, ExpectedOrder);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
 
         /// <summary>
@@ -7121,9 +7121,9 @@ namespace dss_sharp
         public /*static*/ double[] Vector(int ExpectedSize)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.Parser_Get_Vector(ref resultPtr, ref resultCount, ExpectedSize);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
 
         public /*static*/ void ResetDelimiters()
@@ -7440,7 +7440,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.PVSystems_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -7522,7 +7522,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.PVSystems_Get_RegisterNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -7535,9 +7535,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.PVSystems_Get_RegisterValues(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -7609,7 +7609,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Reclosers_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -7759,9 +7759,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Reclosers_Get_RecloseIntervals(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -7835,7 +7835,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.RegControls_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -8170,7 +8170,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Relays_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -8308,7 +8308,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Sensors_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -8331,9 +8331,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Sensors_Get_Currents(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Sensors_Set_Currents(value, value.Length);
@@ -8459,9 +8459,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Sensors_Get_kVARS(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Sensors_Set_kVARS(value, value.Length);
@@ -8475,9 +8475,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Sensors_Get_kVS(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Sensors_Set_kVS(value, value.Length);
@@ -8504,9 +8504,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Sensors_Get_kWS(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Sensors_Set_kWS(value, value.Length);
@@ -8603,9 +8603,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Settings_Get_LossRegs(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_int32_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_int32_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Settings_Set_LossRegs(value, value.Length);
@@ -8697,9 +8697,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Settings_Get_UEregs(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_int32_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_int32_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Settings_Set_UEregs(value, value.Length);
@@ -8726,9 +8726,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Settings_Get_VoltageBases(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.Settings_Set_VoltageBases(value, value.Length);
@@ -8963,7 +8963,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Solution_Get_EventLog(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -9380,7 +9380,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.SwtControls_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -9567,7 +9567,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Topology_Get_AllIsolatedBranches(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -9580,7 +9580,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Topology_Get_AllIsolatedLoads(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -9593,7 +9593,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Topology_Get_AllLoopedPairs(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -9747,7 +9747,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Transformers_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -10013,7 +10013,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Vsources_Get_AllNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -10203,9 +10203,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.XYCurves_Get_Xarray(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
             set {
                     OpenDSS.Lib.XYCurves_Set_Xarray(value, value.Length);
@@ -10245,9 +10245,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.XYCurves_Get_Yarray(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10357,7 +10357,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_AllPropertyNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -10370,7 +10370,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_AllVariableNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -10383,9 +10383,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_AllVariableValues(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10397,7 +10397,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_BusNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -10413,9 +10413,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_CplxSeqCurrents(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10426,9 +10426,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_CplxSeqVoltages(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10439,9 +10439,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_Currents(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10452,9 +10452,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_CurrentsMagAng(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10565,9 +10565,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_Losses(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10588,9 +10588,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_NodeOrder(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_int32_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_int32_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10685,9 +10685,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_PhaseLosses(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10698,9 +10698,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_Powers(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10711,9 +10711,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_Residuals(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10724,9 +10724,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_SeqCurrents(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10737,9 +10737,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_SeqPowers(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10750,9 +10750,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_SeqVoltages(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10763,9 +10763,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_Voltages(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10776,9 +10776,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_VoltagesMagAng(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -10789,9 +10789,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.CktElement_Get_Yprim(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
     } // CktElement 
@@ -10808,7 +10808,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.DSSElement_Get_AllPropertyNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -10913,9 +10913,9 @@ namespace dss_sharp
         public /*static*/ double[] AllNodeDistancesByPhase(int Phase)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.Circuit_Get_AllNodeDistancesByPhase(ref resultPtr, ref resultCount, Phase);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
 
         /// <summary>
@@ -10924,7 +10924,7 @@ namespace dss_sharp
         public /*static*/ string[] AllNodeNamesByPhase(int Phase)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.Circuit_Get_AllNodeNamesByPhase(ref resultPtr, ref resultCount, Phase);
             return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
         }
@@ -10935,9 +10935,9 @@ namespace dss_sharp
         public /*static*/ double[] AllNodeVmagByPhase(int Phase)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.Circuit_Get_AllNodeVmagByPhase(ref resultPtr, ref resultCount, Phase);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
 
         /// <summary>
@@ -10946,9 +10946,9 @@ namespace dss_sharp
         public /*static*/ double[] AllNodeVmagPUByPhase(int Phase)
         {
             IntPtr resultPtr = new IntPtr();
-            int resultCount = 0;
+            int[] resultCount = new int[2];
             OpenDSS.Lib.Circuit_Get_AllNodeVmagPUByPhase(ref resultPtr, ref resultCount, Phase);
-            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+            return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
         }
 
         public /*static*/ int NextElement()
@@ -11008,9 +11008,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_AllBusDistances(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -11021,7 +11021,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_AllBusNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -11034,9 +11034,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_AllBusVmag(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -11047,9 +11047,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_AllBusVmagPu(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -11060,9 +11060,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_AllBusVolts(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -11073,9 +11073,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_AllElementLosses(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -11086,7 +11086,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_AllElementNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -11099,9 +11099,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_AllNodeDistances(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -11112,7 +11112,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_AllNodeNames(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -11125,9 +11125,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_LineLosses(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -11138,9 +11138,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_Losses(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -11201,9 +11201,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_SubstationLosses(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -11214,9 +11214,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_SystemY(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -11227,9 +11227,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_TotalPower(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -11240,9 +11240,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_YCurrents(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
 
@@ -11253,7 +11253,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_YNodeOrder(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -11266,9 +11266,9 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.Circuit_Get_YNodeVarray(ref resultPtr, ref resultCount);
-                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount);
+                return OpenDSS.Lib.get_float64_array(ref resultPtr, resultCount[0]);
             }
         }
     } // Circuit 
@@ -11316,7 +11316,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.DSS_Get_Classes(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
@@ -11382,7 +11382,7 @@ namespace dss_sharp
         {
             get {
                 IntPtr resultPtr = new IntPtr();
-                int resultCount = 0;
+                int[] resultCount = new int[2];
                 OpenDSS.Lib.DSS_Get_UserClasses(ref resultPtr, ref resultCount);
                 return OpenDSS.Lib.get_string_array(ref resultPtr, resultCount);
             }
