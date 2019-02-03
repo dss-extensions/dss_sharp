@@ -479,6 +479,12 @@ namespace dss_sharp
             public static extern int Circuit_SetActiveElement([param: MarshalAs(UnmanagedType.LPStr)] string FullName);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
+            public static extern void Circuit_SetCktElementName([param: MarshalAs(UnmanagedType.LPStr)] string FullName);
+            
+            [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
+            public static extern void Circuit_SetCktElementIndex(int idx);
+            
+            [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
             public static extern double Circuit_Capacity(double Start, double Increment);
             
             [DllImport("dss_capi", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
@@ -10872,6 +10878,47 @@ namespace dss_sharp
         public /*static*/ Vsources Vsources = new dss_sharp.Vsources();
         public /*static*/ LineCodes LineCodes = new dss_sharp.LineCodes();
 
+
+        /// <summary>
+        /// Activates and returns a bus by its (zero-based) index.
+        /// </summary>
+        public Bus get_Buses(int idx)
+        {
+            if (OpenDSS.Lib.Circuit_SetActiveBusi(idx) < 0)
+                return null;
+
+            return this.ActiveBus;
+        }
+
+        /// <summary>
+        /// Activates and returns a bus by its name.
+        /// </summary>
+        public Bus get_Buses(string name)
+        {
+            if (OpenDSS.Lib.Circuit_SetActiveBus(Name) < 0)
+                return null;
+
+            return this.ActiveBus;
+        }
+
+        /// <summary>
+        /// Activates and returns a CktElement by its global (zero-based) index.
+        /// </summary>
+        public CktElement get_CktElements(int idx)
+        {
+            OpenDSS.Lib.Circuit_SetCktElementIndex(idx);
+            return this.ActiveCktElement;
+        }
+        
+        /// <summary>
+        /// Activates and returns a CktElement by its full name (e.g. "load.abc").
+        /// </summary>
+        public CktElement get_CktElements(string fullName)
+        {
+            OpenDSS.Lib.Circuit_SetCktElementName(Name);
+            return this.ActiveCktElement;
+        }
+        
         public /*static*/ double Capacity(double Start, double Increment)
         {
             return OpenDSS.Lib.Circuit_Capacity(Start, Increment);
