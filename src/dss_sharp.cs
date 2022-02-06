@@ -306,7 +306,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Bus_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Bus_Get_Name(ctx));
                 }
                 finally
                 {
@@ -800,7 +800,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CNData_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_CNData_Get_Name(ctx));
                 }
                 finally
                 {
@@ -1413,7 +1413,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Capacitors_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Capacitors_Get_Name(ctx));
                 }
                 finally
                 {
@@ -1752,7 +1752,7 @@ namespace dss_sharp
         {
             try
             {
-                return DSS_CAPI.ctx_CktElement_Get_Controller(ctx, idx);
+                return APIUtil.get_string(DSS_CAPI.ctx_CktElement_Get_Controller(ctx, idx));
             }
             finally
             {
@@ -1953,7 +1953,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CktElement_Get_DisplayName(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_CktElement_Get_DisplayName(ctx));
                 }
                 finally
                 {
@@ -2040,7 +2040,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CktElement_Get_EnergyMeter(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_CktElement_Get_EnergyMeter(ctx));
                 }
                 finally
                 {
@@ -2058,7 +2058,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CktElement_Get_GUID(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_CktElement_Get_GUID(ctx));
                 }
                 finally
                 {
@@ -2167,7 +2167,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CktElement_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_CktElement_Get_Name(ctx));
                 }
                 finally
                 {
@@ -2631,7 +2631,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Generators_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Generators_Get_Name(ctx));
                 }
                 finally
                 {
@@ -3097,7 +3097,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Lines_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Lines_Get_Name(ctx));
                 }
                 finally
                 {
@@ -3186,7 +3186,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Lines_Get_Bus1(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Lines_Get_Bus1(ctx));
                 }
                 finally
                 {
@@ -3215,7 +3215,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Lines_Get_Bus2(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Lines_Get_Bus2(ctx));
                 }
                 finally
                 {
@@ -3358,7 +3358,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Lines_Get_Geometry(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Lines_Get_Geometry(ctx));
                 }
                 finally
                 {
@@ -3416,7 +3416,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Lines_Get_LineCode(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Lines_Get_LineCode(ctx));
                 }
                 finally
                 {
@@ -3685,7 +3685,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Lines_Get_Spacing(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Lines_Get_Spacing(ctx));
                 }
                 finally
                 {
@@ -3986,7 +3986,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Settings_Get_AutoBusList(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Settings_Get_AutoBusList(ctx));
                 }
                 finally
                 {
@@ -4248,7 +4248,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Settings_Get_PriceCurve(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Settings_Get_PriceCurve(ctx));
                 }
                 finally
                 {
@@ -4511,7 +4511,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_ActiveClass_Get_ActiveClassName(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_ActiveClass_Get_ActiveClassName(ctx));
                 }
                 finally
                 {
@@ -4583,7 +4583,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_ActiveClass_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_ActiveClass_Get_Name(ctx));
                 }
                 finally
                 {
@@ -4648,7 +4648,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_ActiveClass_Get_ActiveClassParent(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_ActiveClass_Get_ActiveClassParent(ctx));
                 }
                 finally
                 {
@@ -4728,7 +4728,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CapControls_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_CapControls_Get_Name(ctx));
                 }
                 finally
                 {
@@ -4846,7 +4846,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CapControls_Get_Capacitor(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_CapControls_Get_Capacitor(ctx));
                 }
                 finally
                 {
@@ -4988,7 +4988,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CapControls_Get_MonitoredObj(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_CapControls_Get_MonitoredObj(ctx));
                 }
                 finally
                 {
@@ -5849,7 +5849,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Circuit_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Circuit_Get_Name(ctx));
                 }
                 finally
                 {
@@ -6387,7 +6387,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_DSS_Get_DataPath(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_DSS_Get_DataPath(ctx));
                 }
                 finally
                 {
@@ -6416,7 +6416,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_DSS_Get_DefaultEditor(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_DSS_Get_DefaultEditor(ctx));
                 }
                 finally
                 {
@@ -6506,7 +6506,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_DSS_Get_Version(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_DSS_Get_Version(ctx));
                 }
                 finally
                 {
@@ -6719,7 +6719,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_DSSElement_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_DSSElement_Get_Name(ctx));
                 }
                 finally
                 {
@@ -6863,7 +6863,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_DSSProperty_Get_Description(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_DSSProperty_Get_Description(ctx));
                 }
                 finally
                 {
@@ -6881,7 +6881,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_DSSProperty_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_DSSProperty_Get_Name(ctx));
                 }
                 finally
                 {
@@ -6896,7 +6896,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_DSSProperty_Get_Val(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_DSSProperty_Get_Val(ctx));
                 }
                 finally
                 {
@@ -6931,7 +6931,7 @@ namespace dss_sharp
         {
             try
             {
-                return DSS_CAPI.ctx_DSS_Executive_Get_Command(ctx, i);
+                return APIUtil.get_string(DSS_CAPI.ctx_DSS_Executive_Get_Command(ctx, i));
             }
             finally
             {
@@ -6946,7 +6946,7 @@ namespace dss_sharp
         {
             try
             {
-                return DSS_CAPI.ctx_DSS_Executive_Get_CommandHelp(ctx, i);
+                return APIUtil.get_string(DSS_CAPI.ctx_DSS_Executive_Get_CommandHelp(ctx, i));
             }
             finally
             {
@@ -6961,7 +6961,7 @@ namespace dss_sharp
         {
             try
             {
-                return DSS_CAPI.ctx_DSS_Executive_Get_Option(ctx, i);
+                return APIUtil.get_string(DSS_CAPI.ctx_DSS_Executive_Get_Option(ctx, i));
             }
             finally
             {
@@ -6976,7 +6976,7 @@ namespace dss_sharp
         {
             try
             {
-                return DSS_CAPI.ctx_DSS_Executive_Get_OptionHelp(ctx, i);
+                return APIUtil.get_string(DSS_CAPI.ctx_DSS_Executive_Get_OptionHelp(ctx, i));
             }
             finally
             {
@@ -6991,7 +6991,7 @@ namespace dss_sharp
         {
             try
             {
-                return DSS_CAPI.ctx_DSS_Executive_Get_OptionValue(ctx, i);
+                return APIUtil.get_string(DSS_CAPI.ctx_DSS_Executive_Get_OptionValue(ctx, i));
             }
             finally
             {
@@ -7086,7 +7086,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Error_Get_Description(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Error_Get_Description(ctx));
                 }
                 finally
                 {
@@ -7262,7 +7262,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Fuses_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Fuses_Get_Name(ctx));
                 }
                 finally
                 {
@@ -7405,7 +7405,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Fuses_Get_MonitoredObj(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Fuses_Get_MonitoredObj(ctx));
                 }
                 finally
                 {
@@ -7512,7 +7512,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Fuses_Get_SwitchedObj(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Fuses_Get_SwitchedObj(ctx));
                 }
                 finally
                 {
@@ -7570,7 +7570,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Fuses_Get_TCCcurve(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Fuses_Get_TCCcurve(ctx));
                 }
                 finally
                 {
@@ -7661,7 +7661,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_ISources_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_ISources_Get_Name(ctx));
                 }
                 finally
                 {
@@ -7887,7 +7887,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_LineCodes_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_LineCodes_Get_Name(ctx));
                 }
                 finally
                 {
@@ -8435,7 +8435,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Monitors_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Monitors_Get_Name(ctx));
                 }
                 finally
                 {
@@ -8639,7 +8639,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Monitors_Get_Element(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Monitors_Get_Element(ctx));
                 }
                 finally
                 {
@@ -8668,7 +8668,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Monitors_Get_FileName(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Monitors_Get_FileName(ctx));
                 }
                 finally
                 {
@@ -8969,7 +8969,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Parser_Get_BeginQuote(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Parser_Get_BeginQuote(ctx));
                 }
                 finally
                 {
@@ -8998,7 +8998,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Parser_Get_CmdString(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Parser_Get_CmdString(ctx));
                 }
                 finally
                 {
@@ -9045,7 +9045,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Parser_Get_Delimiters(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Parser_Get_Delimiters(ctx));
                 }
                 finally
                 {
@@ -9074,7 +9074,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Parser_Get_EndQuote(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Parser_Get_EndQuote(ctx));
                 }
                 finally
                 {
@@ -9121,7 +9121,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Parser_Get_NextParam(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Parser_Get_NextParam(ctx));
                 }
                 finally
                 {
@@ -9139,7 +9139,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Parser_Get_StrValue(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Parser_Get_StrValue(ctx));
                 }
                 finally
                 {
@@ -9158,7 +9158,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Parser_Get_WhiteSpace(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Parser_Get_WhiteSpace(ctx));
                 }
                 finally
                 {
@@ -9253,7 +9253,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_ReduceCkt_Get_EditString(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_ReduceCkt_Get_EditString(ctx));
                 }
                 finally
                 {
@@ -9282,7 +9282,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_ReduceCkt_Get_StartPDElement(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_ReduceCkt_Get_StartPDElement(ctx));
                 }
                 finally
                 {
@@ -9311,7 +9311,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_ReduceCkt_Get_EnergyMeter(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_ReduceCkt_Get_EnergyMeter(ctx));
                 }
                 finally
                 {
@@ -9852,7 +9852,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Solution_Get_DefaultDaily(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Solution_Get_DefaultDaily(ctx));
                 }
                 finally
                 {
@@ -9881,7 +9881,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Solution_Get_DefaultYearly(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Solution_Get_DefaultYearly(ctx));
                 }
                 finally
                 {
@@ -10120,7 +10120,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Solution_Get_LDCurve(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Solution_Get_LDCurve(ctx));
                 }
                 finally
                 {
@@ -10323,7 +10323,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Solution_Get_ModeID(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Solution_Get_ModeID(ctx));
                 }
                 finally
                 {
@@ -10868,7 +10868,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_LineGeometries_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_LineGeometries_Get_Name(ctx));
                 }
                 finally
                 {
@@ -11315,7 +11315,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_LineSpacings_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_LineSpacings_Get_Name(ctx));
                 }
                 finally
                 {
@@ -11595,7 +11595,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_LoadShapes_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_LoadShapes_Get_Name(ctx));
                 }
                 finally
                 {
@@ -12045,7 +12045,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Loads_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Loads_Get_Name(ctx));
                 }
                 finally
                 {
@@ -12151,7 +12151,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Loads_Get_CVRcurve(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Loads_Get_CVRcurve(ctx));
                 }
                 finally
                 {
@@ -12293,7 +12293,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Loads_Get_Growth(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Loads_Get_Growth(ctx));
                 }
                 finally
                 {
@@ -12554,7 +12554,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Loads_Get_Spectrum(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Loads_Get_Spectrum(ctx));
                 }
                 finally
                 {
@@ -12757,7 +12757,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Loads_Get_Yearly(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Loads_Get_Yearly(ctx));
                 }
                 finally
                 {
@@ -12816,7 +12816,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Loads_Get_daily(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Loads_Get_daily(ctx));
                 }
                 finally
                 {
@@ -12845,7 +12845,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Loads_Get_duty(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Loads_Get_duty(ctx));
                 }
                 finally
                 {
@@ -13215,7 +13215,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Meters_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Meters_Get_Name(ctx));
                 }
                 finally
                 {
@@ -13616,7 +13616,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Meters_Get_MeteredElement(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Meters_Get_MeteredElement(ctx));
                 }
                 finally
                 {
@@ -14157,7 +14157,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_PDElements_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_PDElements_Get_Name(ctx));
                 }
                 finally
                 {
@@ -14702,7 +14702,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_PVSystems_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_PVSystems_Get_Name(ctx));
                 }
                 finally
                 {
@@ -14950,7 +14950,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_PVSystems_Get_daily(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_PVSystems_Get_daily(ctx));
                 }
                 finally
                 {
@@ -14981,7 +14981,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_PVSystems_Get_duty(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_PVSystems_Get_duty(ctx));
                 }
                 finally
                 {
@@ -15013,7 +15013,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_PVSystems_Get_yearly(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_PVSystems_Get_yearly(ctx));
                 }
                 finally
                 {
@@ -15045,7 +15045,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_PVSystems_Get_Tdaily(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_PVSystems_Get_Tdaily(ctx));
                 }
                 finally
                 {
@@ -15080,7 +15080,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_PVSystems_Get_Tduty(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_PVSystems_Get_Tduty(ctx));
                 }
                 finally
                 {
@@ -15113,7 +15113,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_PVSystems_Get_Tyearly(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_PVSystems_Get_Tyearly(ctx));
                 }
                 finally
                 {
@@ -15253,7 +15253,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Reactors_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Reactors_Get_Name(ctx));
                 }
                 finally
                 {
@@ -15525,7 +15525,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Reactors_Get_Bus1(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Reactors_Get_Bus1(ctx));
                 }
                 finally
                 {
@@ -15555,7 +15555,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Reactors_Get_Bus2(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Reactors_Get_Bus2(ctx));
                 }
                 finally
                 {
@@ -15584,7 +15584,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Reactors_Get_LCurve(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Reactors_Get_LCurve(ctx));
                 }
                 finally
                 {
@@ -15613,7 +15613,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Reactors_Get_RCurve(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Reactors_Get_RCurve(ctx));
                 }
                 finally
                 {
@@ -15985,7 +15985,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Reclosers_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Reclosers_Get_Name(ctx));
                 }
                 finally
                 {
@@ -16144,7 +16144,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Reclosers_Get_MonitoredObj(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Reclosers_Get_MonitoredObj(ctx));
                 }
                 finally
                 {
@@ -16337,7 +16337,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Reclosers_Get_SwitchedObj(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Reclosers_Get_SwitchedObj(ctx));
                 }
                 finally
                 {
@@ -16457,7 +16457,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_RegControls_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_RegControls_Get_Name(ctx));
                 }
                 finally
                 {
@@ -16807,7 +16807,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_RegControls_Get_MonitoredBus(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_RegControls_Get_MonitoredBus(ctx));
                 }
                 finally
                 {
@@ -17068,7 +17068,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_RegControls_Get_Transformer(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_RegControls_Get_Transformer(ctx));
                 }
                 finally
                 {
@@ -17217,7 +17217,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Relays_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Relays_Get_Name(ctx));
                 }
                 finally
                 {
@@ -17294,7 +17294,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Relays_Get_MonitoredObj(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Relays_Get_MonitoredObj(ctx));
                 }
                 finally
                 {
@@ -17352,7 +17352,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Relays_Get_SwitchedObj(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Relays_Get_SwitchedObj(ctx));
                 }
                 finally
                 {
@@ -17472,7 +17472,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Sensors_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Sensors_Get_Name(ctx));
                 }
                 finally
                 {
@@ -17632,7 +17632,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Sensors_Get_MeteredElement(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Sensors_Get_MeteredElement(ctx));
                 }
                 finally
                 {
@@ -17958,7 +17958,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_SwtControls_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_SwtControls_Get_Name(ctx));
                 }
                 finally
                 {
@@ -18192,7 +18192,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_SwtControls_Get_SwitchedObj(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_SwtControls_Get_SwitchedObj(ctx));
                 }
                 finally
                 {
@@ -18312,7 +18312,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_TSData_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_TSData_Get_Name(ctx));
                 }
                 finally
                 {
@@ -18845,7 +18845,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Text_Get_Command(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Text_Get_Command(ctx));
                 }
                 finally
                 {
@@ -18874,7 +18874,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Text_Get_Result(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Text_Get_Result(ctx));
                 }
                 finally
                 {
@@ -19008,7 +19008,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Topology_Get_BranchName(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Topology_Get_BranchName(ctx));
                 }
                 finally
                 {
@@ -19037,7 +19037,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Topology_Get_BusName(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Topology_Get_BusName(ctx));
                 }
                 finally
                 {
@@ -19308,7 +19308,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Transformers_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Transformers_Get_Name(ctx));
                 }
                 finally
                 {
@@ -19646,7 +19646,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Transformers_Get_XfmrCode(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Transformers_Get_XfmrCode(ctx));
                 }
                 finally
                 {
@@ -19887,7 +19887,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Transformers_Get_strWdgCurrents(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Transformers_Get_strWdgCurrents(ctx));
                 }
                 finally
                 {
@@ -20063,7 +20063,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Vsources_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_Vsources_Get_Name(ctx));
                 }
                 finally
                 {
@@ -20347,7 +20347,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_WireData_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_WireData_Get_Name(ctx));
                 }
                 finally
                 {
@@ -20752,7 +20752,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_XYCurves_Get_Name(ctx);
+                    return APIUtil.get_string(DSS_CAPI.ctx_XYCurves_Get_Name(ctx));
                 }
                 finally
                 {

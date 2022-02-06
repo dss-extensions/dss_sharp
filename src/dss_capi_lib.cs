@@ -54,28 +54,14 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void DSS_Dispose_PPAnsiChar(ref IntPtr /* char** */ p, int cnt);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string DSS_Get_PAnsiChar(IntPtr /* void */ p, int index);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string DSS_Get_PAnsiChar(IntPtr /* void */ p, int index);
-        #endif
+        public static extern IntPtr DSS_Get_PAnsiChar(IntPtr /* void */ p, int index);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Obj_Activate(IntPtr /* void */ obj);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string Obj_GetAsString(IntPtr /* void */ obj, int Index);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string Obj_GetAsString(IntPtr /* void */ obj, int Index);
-        #endif
+        public static extern IntPtr Obj_GetAsString(IntPtr /* void */ obj, int Index);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double Obj_GetFloat64(IntPtr /* void */ obj, int Index);
@@ -100,15 +86,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Obj_GetInt32s(IntPtr /* void */ obj, int Index, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string Obj_GetName(IntPtr /* void */ obj);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string Obj_GetName(IntPtr /* void */ obj);
-        #endif
+        public static extern IntPtr Obj_GetName(IntPtr /* void */ obj);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Obj_GetObject(IntPtr /* void */ obj, int Index);
@@ -116,15 +95,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Obj_GetObjects(IntPtr /* void */ obj, int Index, IntPtr[] ResultPtr, int[] ResultCount);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string Obj_GetString(IntPtr /* void */ obj, int Index);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string Obj_GetString(IntPtr /* void */ obj, int Index);
-        #endif
+        public static extern IntPtr Obj_GetString(IntPtr /* void */ obj, int Index);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Obj_GetStrings(IntPtr /* void */ obj, int Index, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
@@ -188,25 +160,11 @@ namespace dss_sharp
         public static extern void Obj_SetStrings(IntPtr /* void */ obj, int Index, [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr)] string[] Value, int ValueCount);
         #endif
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_ActiveClass_Get_ActiveClassName(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_ActiveClass_Get_ActiveClassName(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_ActiveClass_Get_ActiveClassName(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_ActiveClass_Get_ActiveClassParent(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_ActiveClass_Get_ActiveClassParent(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_ActiveClass_Get_ActiveClassParent(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_ActiveClass_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
@@ -220,15 +178,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_ActiveClass_Get_First(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_ActiveClass_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_ActiveClass_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_ActiveClass_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_ActiveClass_Get_Next(IntPtr /* void */ ctx);
@@ -301,15 +252,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Bus_Get_N_interrupts(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Bus_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Bus_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Bus_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Bus_Get_Next(IntPtr /* void */ ctx);
@@ -467,15 +411,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_CNData_Get_InsLayer(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_CNData_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_CNData_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_CNData_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_CNData_Get_Next(IntPtr /* void */ ctx);
@@ -581,15 +518,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_CapControls_Get_CTratio(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_CapControls_Get_Capacitor(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_CapControls_Get_Capacitor(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_CapControls_Get_Capacitor(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_CapControls_Get_Count(IntPtr /* void */ ctx);
@@ -609,28 +539,14 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_CapControls_Get_Mode(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_CapControls_Get_MonitoredObj(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_CapControls_Get_MonitoredObj(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_CapControls_Get_MonitoredObj(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_CapControls_Get_MonitoredTerm(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_CapControls_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_CapControls_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_CapControls_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_CapControls_Get_Next(IntPtr /* void */ ctx);
@@ -751,15 +667,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_Capacitors_Get_IsDelta(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Capacitors_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Capacitors_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Capacitors_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Capacitors_Get_Next(IntPtr /* void */ ctx);
@@ -946,15 +855,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Circuit_Get_Losses_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Circuit_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Circuit_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Circuit_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Circuit_Get_NumBuses(IntPtr /* void */ ctx);
@@ -1087,15 +989,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_CktElement_Get_BusNames_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_CktElement_Get_Controller(IntPtr /* void */ ctx, int idx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_CktElement_Get_Controller(IntPtr /* void */ ctx, int idx);
-        #endif
+        public static extern IntPtr ctx_CktElement_Get_Controller(IntPtr /* void */ ctx, int idx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_CktElement_Get_CplxSeqCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
@@ -1121,15 +1016,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_CktElement_Get_Currents_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_CktElement_Get_DisplayName(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_CktElement_Get_DisplayName(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_CktElement_Get_DisplayName(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_CktElement_Get_EmergAmps(IntPtr /* void */ ctx);
@@ -1137,25 +1025,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_CktElement_Get_Enabled(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_CktElement_Get_EnergyMeter(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_CktElement_Get_EnergyMeter(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_CktElement_Get_EnergyMeter(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_CktElement_Get_GUID(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_CktElement_Get_GUID(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_CktElement_Get_GUID(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_CktElement_Get_Handle(IntPtr /* void */ ctx);
@@ -1178,15 +1052,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_CktElement_Get_Losses_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_CktElement_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_CktElement_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_CktElement_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_CktElement_Get_NodeOrder(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
@@ -1379,15 +1246,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_DSSElement_Get_AllPropertyNames_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_DSSElement_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_DSSElement_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_DSSElement_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_DSSElement_Get_NumProperties(IntPtr /* void */ ctx);
@@ -1409,35 +1269,14 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_DSSProgress_Show(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_DSSProperty_Get_Description(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_DSSProperty_Get_Description(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_DSSProperty_Get_Description(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_DSSProperty_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_DSSProperty_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_DSSProperty_Get_Name(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_DSSProperty_Get_Val(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_DSSProperty_Get_Val(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_DSSProperty_Get_Val(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_DSSProperty_Set_Index(IntPtr /* void */ ctx, int Value);
@@ -1464,25 +1303,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_DSS_DisposeGRData(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_DSS_Executive_Get_Command(IntPtr /* void */ ctx, int i);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_DSS_Executive_Get_Command(IntPtr /* void */ ctx, int i);
-        #endif
+        public static extern IntPtr ctx_DSS_Executive_Get_Command(IntPtr /* void */ ctx, int i);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_DSS_Executive_Get_CommandHelp(IntPtr /* void */ ctx, int i);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_DSS_Executive_Get_CommandHelp(IntPtr /* void */ ctx, int i);
-        #endif
+        public static extern IntPtr ctx_DSS_Executive_Get_CommandHelp(IntPtr /* void */ ctx, int i);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_DSS_Executive_Get_NumCommands(IntPtr /* void */ ctx);
@@ -1490,35 +1315,14 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_DSS_Executive_Get_NumOptions(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_DSS_Executive_Get_Option(IntPtr /* void */ ctx, int i);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_DSS_Executive_Get_Option(IntPtr /* void */ ctx, int i);
-        #endif
+        public static extern IntPtr ctx_DSS_Executive_Get_Option(IntPtr /* void */ ctx, int i);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_DSS_Executive_Get_OptionHelp(IntPtr /* void */ ctx, int i);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_DSS_Executive_Get_OptionHelp(IntPtr /* void */ ctx, int i);
-        #endif
+        public static extern IntPtr ctx_DSS_Executive_Get_OptionHelp(IntPtr /* void */ ctx, int i);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_DSS_Executive_Get_OptionValue(IntPtr /* void */ ctx, int i);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_DSS_Executive_Get_OptionValue(IntPtr /* void */ ctx, int i);
-        #endif
+        public static extern IntPtr ctx_DSS_Executive_Get_OptionValue(IntPtr /* void */ ctx, int i);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr ctx_DSS_GR_CountPtr_PByte(IntPtr /* void */ ctx);
@@ -1556,25 +1360,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_DSS_Get_Classes_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_DSS_Get_DataPath(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_DSS_Get_DataPath(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_DSS_Get_DataPath(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_DSS_Get_DefaultEditor(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_DSS_Get_DefaultEditor(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_DSS_Get_DefaultEditor(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_DSS_Get_LegacyModels(IntPtr /* void */ ctx);
@@ -1594,15 +1384,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_DSS_Get_UserClasses_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_DSS_Get_Version(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_DSS_Get_Version(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_DSS_Get_Version(IntPtr /* void */ ctx);
 
         #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
@@ -1692,15 +1475,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Dispose(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Error_Get_Description(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Error_Get_Description(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Error_Get_Description(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_Error_Get_EarlyAbort(IntPtr /* void */ ctx);
@@ -1748,28 +1524,14 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Fuses_Get_First(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Fuses_Get_MonitoredObj(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Fuses_Get_MonitoredObj(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Fuses_Get_MonitoredObj(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Fuses_Get_MonitoredTerm(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Fuses_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Fuses_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Fuses_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Fuses_Get_Next(IntPtr /* void */ ctx);
@@ -1786,28 +1548,14 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Fuses_Get_State(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Fuses_Get_SwitchedObj(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Fuses_Get_SwitchedObj(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Fuses_Get_SwitchedObj(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Fuses_Get_SwitchedTerm(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Fuses_Get_TCCcurve(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Fuses_Get_TCCcurve(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Fuses_Get_TCCcurve(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Fuses_Get_idx(IntPtr /* void */ ctx);
@@ -1890,25 +1638,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_GICSources_Get_AllNames_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_GICSources_Get_Bus1(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_GICSources_Get_Bus1(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_GICSources_Get_Bus1(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_GICSources_Get_Bus2(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_GICSources_Get_Bus2(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_GICSources_Get_Bus2(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_GICSources_Get_Count(IntPtr /* void */ ctx);
@@ -1934,15 +1668,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_GICSources_Get_Lon2(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_GICSources_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_GICSources_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_GICSources_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_GICSources_Get_Next(IntPtr /* void */ ctx);
@@ -2009,15 +1736,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Generators_Get_Model(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Generators_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Generators_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Generators_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Generators_Get_Next(IntPtr /* void */ ctx);
@@ -2131,15 +1851,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_ISources_Get_Frequency(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_ISources_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_ISources_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_ISources_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_ISources_Get_Next(IntPtr /* void */ ctx);
@@ -2197,15 +1910,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_LineCodes_Get_IsZ1Z0(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_LineCodes_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_LineCodes_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_LineCodes_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_LineCodes_Get_Next(IntPtr /* void */ ctx);
@@ -2323,15 +2029,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_LineGeometries_Get_First(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_LineGeometries_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_LineGeometries_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_LineGeometries_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_LineGeometries_Get_Nconds(IntPtr /* void */ ctx);
@@ -2445,15 +2144,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_LineSpacings_Get_First(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_LineSpacings_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_LineSpacings_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_LineSpacings_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_LineSpacings_Get_Nconds(IntPtr /* void */ ctx);
@@ -2514,25 +2206,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Lines_Get_AllNames_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Lines_Get_Bus1(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Lines_Get_Bus1(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Lines_Get_Bus1(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Lines_Get_Bus2(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Lines_Get_Bus2(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Lines_Get_Bus2(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Lines_Get_C0(IntPtr /* void */ ctx);
@@ -2555,15 +2233,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Lines_Get_First(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Lines_Get_Geometry(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Lines_Get_Geometry(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Lines_Get_Geometry(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_Lines_Get_IsSwitch(IntPtr /* void */ ctx);
@@ -2571,25 +2242,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Lines_Get_Length(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Lines_Get_LineCode(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Lines_Get_LineCode(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Lines_Get_LineCode(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Lines_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Lines_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Lines_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Lines_Get_Next(IntPtr /* void */ ctx);
@@ -2627,15 +2284,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Lines_Get_SeasonRating(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Lines_Get_Spacing(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Lines_Get_Spacing(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Lines_Get_Spacing(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Lines_Get_TotalCust(IntPtr /* void */ ctx);
@@ -2812,15 +2462,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_LoadShapes_Get_MinInterval(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_LoadShapes_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_LoadShapes_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_LoadShapes_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_LoadShapes_Get_Next(IntPtr /* void */ ctx);
@@ -2947,15 +2590,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Loads_Get_AllocationFactor(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Loads_Get_CVRcurve(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Loads_Get_CVRcurve(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Loads_Get_CVRcurve(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Loads_Get_CVRvars(IntPtr /* void */ ctx);
@@ -2975,15 +2611,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Loads_Get_First(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Loads_Get_Growth(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Loads_Get_Growth(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Loads_Get_Growth(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_Loads_Get_IsDelta(IntPtr /* void */ ctx);
@@ -2991,15 +2620,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Loads_Get_Model(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Loads_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Loads_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Loads_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Loads_Get_Next(IntPtr /* void */ ctx);
@@ -3025,25 +2647,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Loads_Get_Rneut(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Loads_Get_Sensor(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Loads_Get_Sensor(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Loads_Get_Sensor(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Loads_Get_Spectrum(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Loads_Get_Spectrum(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Loads_Get_Spectrum(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Loads_Get_Status(IntPtr /* void */ ctx);
@@ -3063,15 +2671,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Loads_Get_Xneut(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Loads_Get_Yearly(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Loads_Get_Yearly(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Loads_Get_Yearly(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Loads_Get_ZIPV(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
@@ -3079,25 +2680,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Loads_Get_ZIPV_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Loads_Get_daily(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Loads_Get_daily(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Loads_Get_daily(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Loads_Get_duty(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Loads_Get_duty(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Loads_Get_duty(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Loads_Get_idx(IntPtr /* void */ ctx);
@@ -3342,28 +2929,14 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Meters_Get_First(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Meters_Get_MeteredElement(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Meters_Get_MeteredElement(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Meters_Get_MeteredElement(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Meters_Get_MeteredTerminal(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Meters_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Meters_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Meters_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Meters_Get_Next(IntPtr /* void */ ctx);
@@ -3516,25 +3089,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Monitors_Get_Count(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Monitors_Get_Element(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Monitors_Get_Element(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Monitors_Get_Element(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Monitors_Get_FileName(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Monitors_Get_FileName(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Monitors_Get_FileName(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Monitors_Get_FileVersion(IntPtr /* void */ ctx);
@@ -3551,15 +3110,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Monitors_Get_Mode(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Monitors_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Monitors_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Monitors_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Monitors_Get_Next(IntPtr /* void */ ctx);
@@ -3775,15 +3327,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_PDElements_Get_Lambda(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_PDElements_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_PDElements_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_PDElements_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_PDElements_Get_Next(IntPtr /* void */ ctx);
@@ -3844,15 +3389,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_PVSystems_Get_IrradianceNow(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_PVSystems_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_PVSystems_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_PVSystems_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_PVSystems_Get_Next(IntPtr /* void */ ctx);
@@ -3875,65 +3413,23 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_PVSystems_Get_RegisterValues_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_PVSystems_Get_Sensor(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_PVSystems_Get_Sensor(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_PVSystems_Get_Sensor(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_PVSystems_Get_Tdaily(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_PVSystems_Get_Tdaily(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_PVSystems_Get_Tdaily(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_PVSystems_Get_Tduty(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_PVSystems_Get_Tduty(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_PVSystems_Get_Tduty(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_PVSystems_Get_Tyearly(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_PVSystems_Get_Tyearly(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_PVSystems_Get_Tyearly(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_PVSystems_Get_daily(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_PVSystems_Get_daily(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_PVSystems_Get_daily(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_PVSystems_Get_duty(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_PVSystems_Get_duty(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_PVSystems_Get_duty(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_PVSystems_Get_idx(IntPtr /* void */ ctx);
@@ -3947,15 +3443,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_PVSystems_Get_kvar(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_PVSystems_Get_yearly(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_PVSystems_Get_yearly(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_PVSystems_Get_yearly(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_PVSystems_Set_Irradiance(IntPtr /* void */ ctx, double Value);
@@ -4034,48 +3523,20 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_Parser_Get_AutoIncrement(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Parser_Get_BeginQuote(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Parser_Get_BeginQuote(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Parser_Get_BeginQuote(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Parser_Get_CmdString(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Parser_Get_CmdString(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Parser_Get_CmdString(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Parser_Get_DblValue(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Parser_Get_Delimiters(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Parser_Get_Delimiters(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Parser_Get_Delimiters(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Parser_Get_EndQuote(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Parser_Get_EndQuote(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Parser_Get_EndQuote(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Parser_Get_IntValue(IntPtr /* void */ ctx);
@@ -4086,25 +3547,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Parser_Get_Matrix_GR(IntPtr /* void */ ctx, int ExpectedOrder);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Parser_Get_NextParam(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Parser_Get_NextParam(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Parser_Get_NextParam(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Parser_Get_StrValue(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Parser_Get_StrValue(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Parser_Get_StrValue(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Parser_Get_SymMatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, int ExpectedOrder);
@@ -4118,15 +3565,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Parser_Get_Vector_GR(IntPtr /* void */ ctx, int ExpectedSize);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Parser_Get_WhiteSpace(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Parser_Get_WhiteSpace(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Parser_Get_WhiteSpace(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Parser_ResetDelimiters(IntPtr /* void */ ctx);
@@ -4185,25 +3625,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Reactors_Get_AllNames_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Reactors_Get_Bus1(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Reactors_Get_Bus1(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Reactors_Get_Bus1(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Reactors_Get_Bus2(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Reactors_Get_Bus2(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Reactors_Get_Bus2(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Reactors_Get_Count(IntPtr /* void */ ctx);
@@ -4214,28 +3640,14 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_Reactors_Get_IsDelta(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Reactors_Get_LCurve(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Reactors_Get_LCurve(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Reactors_Get_LCurve(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Reactors_Get_LmH(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Reactors_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Reactors_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Reactors_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Reactors_Get_Next(IntPtr /* void */ ctx);
@@ -4249,15 +3661,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Reactors_Get_R(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Reactors_Get_RCurve(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Reactors_Get_RCurve(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Reactors_Get_RCurve(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Reactors_Get_Rmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
@@ -4432,28 +3837,14 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Reclosers_Get_GroundTrip(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Reclosers_Get_MonitoredObj(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Reclosers_Get_MonitoredObj(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Reclosers_Get_MonitoredObj(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Reclosers_Get_MonitoredTerm(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Reclosers_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Reclosers_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Reclosers_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Reclosers_Get_Next(IntPtr /* void */ ctx);
@@ -4482,15 +3873,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Reclosers_Get_State(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Reclosers_Get_SwitchedObj(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Reclosers_Get_SwitchedObj(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Reclosers_Get_SwitchedObj(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Reclosers_Get_SwitchedTerm(IntPtr /* void */ ctx);
@@ -4585,38 +3969,17 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_ReduceCkt_DoSwitches(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_ReduceCkt_Get_EditString(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_ReduceCkt_Get_EditString(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_ReduceCkt_Get_EditString(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_ReduceCkt_Get_EnergyMeter(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_ReduceCkt_Get_EnergyMeter(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_ReduceCkt_Get_EnergyMeter(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_ReduceCkt_Get_KeepLoad(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_ReduceCkt_Get_StartPDElement(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_ReduceCkt_Get_StartPDElement(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_ReduceCkt_Get_StartPDElement(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_ReduceCkt_Get_Zmag(IntPtr /* void */ ctx);
@@ -4703,25 +4066,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_RegControls_Get_MaxTapChange(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_RegControls_Get_MonitoredBus(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_RegControls_Get_MonitoredBus(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_RegControls_Get_MonitoredBus(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_RegControls_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_RegControls_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_RegControls_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_RegControls_Get_Next(IntPtr /* void */ ctx);
@@ -4750,15 +4099,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_RegControls_Get_TapWinding(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_RegControls_Get_Transformer(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_RegControls_Get_Transformer(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_RegControls_Get_Transformer(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_RegControls_Get_VoltageLimit(IntPtr /* void */ ctx);
@@ -4881,28 +4223,14 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Relays_Get_First(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Relays_Get_MonitoredObj(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Relays_Get_MonitoredObj(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Relays_Get_MonitoredObj(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Relays_Get_MonitoredTerm(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Relays_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Relays_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Relays_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Relays_Get_Next(IntPtr /* void */ ctx);
@@ -4913,15 +4241,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Relays_Get_State(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Relays_Get_SwitchedObj(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Relays_Get_SwitchedObj(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Relays_Get_SwitchedObj(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Relays_Get_SwitchedTerm(IntPtr /* void */ ctx);
@@ -5001,28 +4322,14 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_Sensors_Get_IsDelta(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Sensors_Get_MeteredElement(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Sensors_Get_MeteredElement(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Sensors_Get_MeteredElement(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Sensors_Get_MeteredTerminal(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Sensors_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Sensors_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Sensors_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Sensors_Get_Next(IntPtr /* void */ ctx);
@@ -5131,15 +4438,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_Settings_Get_AllowDuplicates(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Settings_Get_AutoBusList(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Settings_Get_AutoBusList(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Settings_Get_AutoBusList(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Settings_Get_CktModel(IntPtr /* void */ ctx);
@@ -5171,15 +4471,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Settings_Get_NormVminpu(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Settings_Get_PriceCurve(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Settings_Get_PriceCurve(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Settings_Get_PriceCurve(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Settings_Get_PriceSignal(IntPtr /* void */ ctx);
@@ -5342,25 +4635,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_Solution_Get_Converged(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Solution_Get_DefaultDaily(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Solution_Get_DefaultDaily(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Solution_Get_DefaultDaily(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Solution_Get_DefaultYearly(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Solution_Get_DefaultYearly(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Solution_Get_DefaultYearly(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Solution_Get_EventLog(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
@@ -5407,15 +4686,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Solution_Get_Iterations(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Solution_Get_LDCurve(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Solution_Get_LDCurve(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Solution_Get_LDCurve(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Solution_Get_Laplacian(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
@@ -5441,15 +4713,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Solution_Get_Mode(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Solution_Get_ModeID(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Solution_Get_ModeID(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Solution_Get_ModeID(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Solution_Get_MostIterationsDone(IntPtr /* void */ ctx);
@@ -5653,15 +4918,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Storages_Get_First(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Storages_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Storages_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Storages_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Storages_Get_Next(IntPtr /* void */ ctx);
@@ -5722,15 +4980,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort ctx_SwtControls_Get_IsLocked(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_SwtControls_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_SwtControls_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_SwtControls_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_SwtControls_Get_Next(IntPtr /* void */ ctx);
@@ -5741,15 +4992,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_SwtControls_Get_State(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_SwtControls_Get_SwitchedObj(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_SwtControls_Get_SwitchedObj(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_SwtControls_Get_SwitchedObj(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_SwtControls_Get_SwitchedTerm(IntPtr /* void */ ctx);
@@ -5841,15 +5085,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_TSData_Get_InsLayer(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_TSData_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_TSData_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_TSData_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_TSData_Get_Next(IntPtr /* void */ ctx);
@@ -5943,25 +5180,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_TSData_Set_idx(IntPtr /* void */ ctx, int Value);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Text_Get_Command(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Text_Get_Command(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Text_Get_Command(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Text_Get_Result(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Text_Get_Result(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Text_Get_Result(IntPtr /* void */ ctx);
 
         #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
@@ -5998,25 +5221,11 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Topology_Get_BackwardBranch(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Topology_Get_BranchName(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Topology_Get_BranchName(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Topology_Get_BranchName(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Topology_Get_BusName(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Topology_Get_BusName(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Topology_Get_BusName(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Topology_Get_First(IntPtr /* void */ ctx);
@@ -6100,15 +5309,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Transformers_Get_MinTap(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Transformers_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Transformers_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Transformers_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Transformers_Get_Next(IntPtr /* void */ ctx);
@@ -6146,15 +5348,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Transformers_Get_WdgVoltages_GR(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Transformers_Get_XfmrCode(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Transformers_Get_XfmrCode(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Transformers_Get_XfmrCode(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Transformers_Get_Xhl(IntPtr /* void */ ctx);
@@ -6177,15 +5372,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Transformers_Get_kVA(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Transformers_Get_strWdgCurrents(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Transformers_Get_strWdgCurrents(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Transformers_Get_strWdgCurrents(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ctx_Transformers_Set_CoreType(IntPtr /* void */ ctx, int Value);
@@ -6283,15 +5471,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_Vsources_Get_Frequency(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_Vsources_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_Vsources_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_Vsources_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_Vsources_Get_Next(IntPtr /* void */ ctx);
@@ -6358,15 +5539,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern double ctx_WireData_Get_GMRac(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_WireData_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_WireData_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_WireData_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_WireData_Get_Next(IntPtr /* void */ ctx);
@@ -6448,15 +5622,8 @@ namespace dss_sharp
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_XYCurves_Get_First(IntPtr /* void */ ctx);
 
-        #if NETSTANDARD2_1_OR_GREATER
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPUTF8Str)]
-        public static extern string ctx_XYCurves_Get_Name(IntPtr /* void */ ctx);
-        #else
-        [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static extern string ctx_XYCurves_Get_Name(IntPtr /* void */ ctx);
-        #endif
+        public static extern IntPtr ctx_XYCurves_Get_Name(IntPtr /* void */ ctx);
 
         [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
         public static extern int ctx_XYCurves_Get_Next(IntPtr /* void */ ctx);

@@ -90,6 +90,7 @@ namespace dss_sharp
             );
             
         }
+        
         public double[] get_float64_gr_array()
         {
             int cnt = Marshal.ReadInt32(gr_float64_count);
@@ -117,6 +118,15 @@ namespace dss_sharp
             return res;
         }
 
+        public static string get_string(IntPtr pchar)
+        {
+#if NETSTANDARD2_1_OR_GREATER
+            return Marshal.PtrToStringUTF8(pchar);
+#else                
+            return Marshal.PtrToStringAnsi(pchar);
+#endif                
+        }
+
         public string[] get_string_array(StringArrayDelegate1 fn, bool extra=false, bool empty_to_none=false)
         {
             IntPtr resultPtr = new IntPtr();
@@ -126,11 +136,7 @@ namespace dss_sharp
             for (int i = 0; i < resultCount[0]; ++i)
             {
                 IntPtr resultPtrInternal = Marshal.ReadIntPtr(resultPtr, IntPtr.Size * i);
-#if NETSTANDARD2_1_OR_GREATER
-                result[i] = Marshal.PtrToStringUTF8(resultPtrInternal);
-#else                
-                result[i] = Marshal.PtrToStringAnsi(resultPtrInternal);
-#endif                
+                result[i] = get_string(resultPtrInternal);
             }
             if (empty_to_none && (resultCount[0] == 0))
             {
@@ -161,11 +167,7 @@ namespace dss_sharp
             for (int i = 0; i < resultCount[0]; ++i)
             {
                 IntPtr resultPtrInternal = Marshal.ReadIntPtr(resultPtr, IntPtr.Size * i);
-#if NETSTANDARD2_1_OR_GREATER
-                result[i] = Marshal.PtrToStringUTF8(resultPtrInternal);
-#else                
-                result[i] = Marshal.PtrToStringAnsi(resultPtrInternal);
-#endif                
+                result[i] = get_string(resultPtrInternal);
             }
             DSS_CAPI.DSS_Dispose_PPAnsiChar(ref resultPtr, resultCount[1]);
             return result;
@@ -177,7 +179,7 @@ namespace dss_sharp
             if (error_num != 0)
             {
                 Marshal.WriteInt32(errorPtr, 0);
-                throw new DSSException(error_num, DSS_CAPI.ctx_Error_Get_Description(ctx));
+                throw new DSSException(error_num, get_string(DSS_CAPI.ctx_Error_Get_Description(ctx)));
             }
         }
     }
