@@ -2559,6 +2559,25 @@ namespace dss_sharp
                 }
             }
         }
+
+        /// <summary>
+        /// Array of integers, a copy of the internal NodeRef of the CktElement.
+        /// </summary>
+        public int[] NodeRef
+        {
+            get
+            {
+                try
+                {
+                    DSS_CAPI.ctx_CktElement_Get_NodeRef_GR(ctx);
+                    return apiutil.get_int32_gr_array();
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }        
     }
 
     public class Generators : ContextState
