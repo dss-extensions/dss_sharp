@@ -6273,435 +6273,6 @@ namespace dss_sharp
         }
     }
 
-    public class DSS : ContextState
-    {
-        public Circuit ActiveCircuit;
-        public Circuit Circuits;
-        public Error Error;
-        public Text Text;
-        public DSSProgress DSSProgress;
-        public ActiveClass ActiveClass;
-        public DSS_Executive Executive;
-        public DSSEvents Events;
-        public Parser Parser;
-        public DSSimComs DSSim_Coms;
-        public YMatrix YMatrix;
-
-        public DSS(APIUtil util) : base(util)
-        {
-            ActiveCircuit = new Circuit(util);
-            Circuits = new Circuit(util);
-            Error = new Error(util);
-            Text = new Text(util);
-            DSSProgress = new DSSProgress(util);
-            ActiveClass = new ActiveClass(util);
-            Executive = new DSS_Executive(util);
-            Events = new DSSEvents(util);
-            Parser = new Parser(util);
-            DSSim_Coms = new DSSimComs(util);
-            YMatrix = new YMatrix(util);
-        }
-    
-
-        /// <summary>
-        /// Expose DSS without a constructor parameters for backwards compatibility.
-        /// This contructors always exposes the prime/default instance of OpenDSS.
-        /// </summary>
-        public DSS(): this(new APIUtil(DSS_CAPI.ctx_Get_Prime()))
-        {
-        }
-
-        /// <summary>
-        /// Creates a new DSS engine context.
-        /// A DSS Context encapsulates most of the global state of the original OpenDSS engine,
-        /// allowing the user to create multiple instances in the same process. By creating contexts
-        /// manually, the management of threads and potential issues should be handled by the user.
-        /// (API Extension)
-        /// </summary>
-        public DSS NewContext()
-        {
-            try
-            {
-                APIUtil new_api_util = new APIUtil(DSS_CAPI.ctx_New());
-                return new DSS(new_api_util);
-            }
-            finally
-            {
-                CheckForError();
-            }
-        }
-
-        public void ClearAll()
-        {
-            try
-            {
-                DSS_CAPI.ctx_DSS_ClearAll(ctx);
-            }
-            finally
-            {
-                CheckForError();
-            }
-        }
-
-        public void Reset()
-        {
-            try
-            {
-                DSS_CAPI.ctx_DSS_Reset(ctx);
-            }
-            finally
-            {
-                CheckForError();
-            }
-        }
-
-        public int SetActiveClass(string ClassName)
-        {
-            try
-            {
-                return DSS_CAPI.ctx_DSS_SetActiveClass(ctx, ClassName);
-            }
-            finally
-            {
-                CheckForError();
-            }
-        }
-
-        public bool Start(int code)
-        {
-            try
-            {
-                return (DSS_CAPI.ctx_DSS_Start(ctx, code) != 0);
-            }
-            finally
-            {
-                CheckForError();
-            }
-        }
-
-        /// <summary>
-        /// List of DSS intrinsic classes (names of the classes)
-        /// </summary>
-        public string[] Classes
-        {
-            get
-            {
-                try
-                {
-                    return apiutil.get_string_array(DSS_CAPI.ctx_DSS_Get_Classes);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-        }
-
-        /// <summary>
-        /// DSS Data File Path.  Default path for reports, etc. from DSS
-        /// </summary>
-        public string DataPath
-        {
-            get
-            {
-                try
-                {
-                    return APIUtil.get_string(DSS_CAPI.ctx_DSS_Get_DataPath(ctx));
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-            set
-            {
-                try
-                {
-                    DSS_CAPI.ctx_DSS_Set_DataPath(ctx, value);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Returns the path name for the default text editor.
-        /// </summary>
-        public string DefaultEditor
-        {
-            get
-            {
-                try
-                {
-                    return APIUtil.get_string(DSS_CAPI.ctx_DSS_Get_DefaultEditor(ctx));
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Number of Circuits currently defined
-        /// </summary>
-        public int NumCircuits
-        {
-            get
-            {
-                try
-                {
-                    return DSS_CAPI.ctx_DSS_Get_NumCircuits(ctx);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Number of DSS intrinsic classes
-        /// </summary>
-        public int NumClasses
-        {
-            get
-            {
-                try
-                {
-                    return DSS_CAPI.ctx_DSS_Get_NumClasses(ctx);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Number of user-defined classes
-        /// </summary>
-        public int NumUserClasses
-        {
-            get
-            {
-                try
-                {
-                    return DSS_CAPI.ctx_DSS_Get_NumUserClasses(ctx);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-        }
-
-        /// <summary>
-        /// List of user-defined classes
-        /// </summary>
-        public string[] UserClasses
-        {
-            get
-            {
-                try
-                {
-                    return apiutil.get_string_array(DSS_CAPI.ctx_DSS_Get_UserClasses);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Get version string for the DSS.
-        /// </summary>
-        public string Version
-        {
-            get
-            {
-                try
-                {
-                    return APIUtil.get_string(DSS_CAPI.ctx_DSS_Get_Version(ctx));
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets/sets whether text output is allowed
-        /// </summary>
-        public bool AllowForms
-        {
-            get
-            {
-                try
-                {
-                    return (DSS_CAPI.ctx_DSS_Get_AllowForms(ctx) != 0);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-            set
-            {
-                try
-                {
-                    DSS_CAPI.ctx_DSS_Set_AllowForms(ctx, value);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets/sets whether running the external editor for "Show" is allowed
-        /// 
-        /// AllowEditor controls whether the external editor is used in commands like "Show".
-        /// If you set to 0 (false), the editor is not executed. Note that other side effects,
-        /// such as the creation of files, are not affected.
-        /// </summary>
-        public bool AllowEditor
-        {
-            get
-            {
-                try
-                {
-                    return (DSS_CAPI.ctx_DSS_Get_AllowEditor(ctx) != 0);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-            set
-            {
-                try
-                {
-                    DSS_CAPI.ctx_DSS_Set_AllowEditor(ctx, value);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-        }
-
-        public void ShowPanel()
-        {
-            try
-            {
-                // #warning ("ShowPanel is not implemented.");
-            }
-            finally
-            {
-                CheckForError();
-            }
-        }
-
-        public Circuit NewCircuit(string name)
-        {
-            try
-            {
-                DSS_CAPI.ctx_DSS_NewCircuit(ctx, name);
-                return ActiveCircuit;
-            }
-            finally
-            {
-                CheckForError();
-            }
-        }
-
-        /// <summary>
-        /// If enabled, the legacy/deprecated models for PVSystem, InvControl, Storage and StorageControl are used.
-        /// In the official OpenDSS version 9.0, the old models where removed. They are temporarily present here
-        /// but may be removed in the near future. If they are important to you, please open an issue on GitHub
-        /// or contact the authors from DSS Extensions: https://github.com/dss-extensions/
-        /// 
-        /// After toggling LegacyModels, run a "clear" command and the models will be loaded accordingly.
-        /// Defaults to False. 
-        /// 
-        /// This can also be enabled by setting the environment variable DSS_CAPI_LEGACY_MODELS to 1.
-        /// 
-        /// (API Extension)
-        /// </summary>
-        public bool LegacyModels
-        {
-            get
-            {
-                try
-                {
-                    return (DSS_CAPI.ctx_DSS_Get_LegacyModels(ctx) != 0);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-            set
-            {
-                try
-                {
-                    DSS_CAPI.ctx_DSS_Set_LegacyModels(ctx, value);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-        }
-
-        /// <summary>
-        /// If disabled, the engine will not change the active working directory during execution. E.g. a "compile"
-        /// command will not "chdir" to the file path.
-        /// 
-        /// If you have issues with long paths, enabling this might help in some scenarios.
-        /// 
-        /// Defaults to True (allow changes, backwards compatible) in the 0.10.x versions of DSS C-API. 
-        /// This might change to False in future versions.
-        /// 
-        /// This can also be set through the environment variable DSS_CAPI_ALLOW_CHANGE_DIR. Set it to 0 to
-        /// disallow changing the active working directory.
-        /// 
-        /// (API Extension)
-        /// </summary>
-        public bool AllowChangeDir
-        {
-            get
-            {
-                try
-                {
-                    return (DSS_CAPI.ctx_DSS_Get_AllowChangeDir(ctx) != 0);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-            set
-            {
-                try
-                {
-                    DSS_CAPI.ctx_DSS_Set_AllowChangeDir(ctx, value);
-                }
-                finally
-                {
-                    CheckForError();
-                }
-            }
-        }
-
-    }
-
     public class DSSElement : ContextState
     {
         public DSSProperty Properties;
@@ -21232,4 +20803,432 @@ namespace dss_sharp
         }
     }
 
+    public class DSS : ContextState
+    {
+        public Circuit ActiveCircuit;
+        public Circuit Circuits;
+        public Error Error;
+        public Text Text;
+        public DSSProgress DSSProgress;
+        public ActiveClass ActiveClass;
+        public DSS_Executive Executive;
+        public DSSEvents Events;
+        public Parser Parser;
+        public DSSimComs DSSim_Coms;
+        public YMatrix YMatrix;
+
+        public DSS(APIUtil util) : base(util)
+        {
+            ActiveCircuit = new Circuit(util);
+            Circuits = new Circuit(util);
+            Error = new Error(util);
+            Text = new Text(util);
+            DSSProgress = new DSSProgress(util);
+            ActiveClass = new ActiveClass(util);
+            Executive = new DSS_Executive(util);
+            Events = new DSSEvents(util);
+            Parser = new Parser(util);
+            DSSim_Coms = new DSSimComs(util);
+            YMatrix = new YMatrix(util);
+        }
+    
+
+        /// <summary>
+        /// Expose DSS without a constructor parameters for backwards compatibility.
+        /// This contructors always exposes the prime/default instance of OpenDSS.
+        /// </summary>
+        public DSS(): this(new APIUtil(DSS_CAPI.ctx_Get_Prime()))
+        {
+        }
+
+        /// <summary>
+        /// Creates a new DSS engine context.
+        /// A DSS Context encapsulates most of the global state of the original OpenDSS engine,
+        /// allowing the user to create multiple instances in the same process. By creating contexts
+        /// manually, the management of threads and potential issues should be handled by the user.
+        /// (API Extension)
+        /// </summary>
+        public DSS NewContext()
+        {
+            try
+            {
+                APIUtil new_api_util = new APIUtil(DSS_CAPI.ctx_New());
+                return new DSS(new_api_util);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        public void ClearAll()
+        {
+            try
+            {
+                DSS_CAPI.ctx_DSS_ClearAll(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        public void Reset()
+        {
+            try
+            {
+                DSS_CAPI.ctx_DSS_Reset(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        public int SetActiveClass(string ClassName)
+        {
+            try
+            {
+                return DSS_CAPI.ctx_DSS_SetActiveClass(ctx, ClassName);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        public bool Start(int code)
+        {
+            try
+            {
+                return (DSS_CAPI.ctx_DSS_Start(ctx, code) != 0);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// List of DSS intrinsic classes (names of the classes)
+        /// </summary>
+        public string[] Classes
+        {
+            get
+            {
+                try
+                {
+                    return apiutil.get_string_array(DSS_CAPI.ctx_DSS_Get_Classes);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// DSS Data File Path.  Default path for reports, etc. from DSS
+        /// </summary>
+        public string DataPath
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_DSS_Get_DataPath(ctx));
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_DSS_Set_DataPath(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns the path name for the default text editor.
+        /// </summary>
+        public string DefaultEditor
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_DSS_Get_DefaultEditor(ctx));
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Number of Circuits currently defined
+        /// </summary>
+        public int NumCircuits
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_DSS_Get_NumCircuits(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Number of DSS intrinsic classes
+        /// </summary>
+        public int NumClasses
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_DSS_Get_NumClasses(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Number of user-defined classes
+        /// </summary>
+        public int NumUserClasses
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_DSS_Get_NumUserClasses(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// List of user-defined classes
+        /// </summary>
+        public string[] UserClasses
+        {
+            get
+            {
+                try
+                {
+                    return apiutil.get_string_array(DSS_CAPI.ctx_DSS_Get_UserClasses);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get version string for the DSS.
+        /// </summary>
+        public string Version
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_DSS_Get_Version(ctx));
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets/sets whether text output is allowed
+        /// </summary>
+        public bool AllowForms
+        {
+            get
+            {
+                try
+                {
+                    return (DSS_CAPI.ctx_DSS_Get_AllowForms(ctx) != 0);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_DSS_Set_AllowForms(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets/sets whether running the external editor for "Show" is allowed
+        /// 
+        /// AllowEditor controls whether the external editor is used in commands like "Show".
+        /// If you set to 0 (false), the editor is not executed. Note that other side effects,
+        /// such as the creation of files, are not affected.
+        /// </summary>
+        public bool AllowEditor
+        {
+            get
+            {
+                try
+                {
+                    return (DSS_CAPI.ctx_DSS_Get_AllowEditor(ctx) != 0);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_DSS_Set_AllowEditor(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        public void ShowPanel()
+        {
+            try
+            {
+                // #warning ("ShowPanel is not implemented.");
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        public Circuit NewCircuit(string name)
+        {
+            try
+            {
+                DSS_CAPI.ctx_DSS_NewCircuit(ctx, name);
+                return ActiveCircuit;
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// If enabled, the legacy/deprecated models for PVSystem, InvControl, Storage and StorageControl are used.
+        /// In the official OpenDSS version 9.0, the old models where removed. They are temporarily present here
+        /// but may be removed in the near future. If they are important to you, please open an issue on GitHub
+        /// or contact the authors from DSS Extensions: https://github.com/dss-extensions/
+        /// 
+        /// After toggling LegacyModels, run a "clear" command and the models will be loaded accordingly.
+        /// Defaults to False. 
+        /// 
+        /// This can also be enabled by setting the environment variable DSS_CAPI_LEGACY_MODELS to 1.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public bool LegacyModels
+        {
+            get
+            {
+                try
+                {
+                    return (DSS_CAPI.ctx_DSS_Get_LegacyModels(ctx) != 0);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_DSS_Set_LegacyModels(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// If disabled, the engine will not change the active working directory during execution. E.g. a "compile"
+        /// command will not "chdir" to the file path.
+        /// 
+        /// If you have issues with long paths, enabling this might help in some scenarios.
+        /// 
+        /// Defaults to True (allow changes, backwards compatible) in the 0.10.x versions of DSS C-API. 
+        /// This might change to False in future versions.
+        /// 
+        /// This can also be set through the environment variable DSS_CAPI_ALLOW_CHANGE_DIR. Set it to 0 to
+        /// disallow changing the active working directory.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public bool AllowChangeDir
+        {
+            get
+            {
+                try
+                {
+                    return (DSS_CAPI.ctx_DSS_Get_AllowChangeDir(ctx) != 0);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_DSS_Set_AllowChangeDir(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+    }
 }
