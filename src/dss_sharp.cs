@@ -635,6 +635,25 @@ namespace dss_sharp
         }
 
         /// <summary>
+        /// Array of doubles (complex) containing the complete 012 Zsc matrix
+        /// </summary>
+        public double[] ZSC012Matrix
+        {
+            get
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Bus_Get_ZSC012Matrix_GR(ctx);
+                    return apiutil.get_float64_gr_array();
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
         /// X Coordinate for bus (double)
         /// </summary>
         public double x
@@ -1733,6 +1752,52 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Value as return and error code in Code parameter. For PCElement, get the value of a variable by integer index. If Code>0 then no variable by this index or not a PCelement.
+        /// </summary>
+        public double VariableByIndex(int Idx, ref int Code)
+        {
+            return Variablei(Idx, ref Code);
+        }
+
+        /// <summary>
+        /// Value as return and error code in Code parameter. For PCElement, get the value of a variable by name. If Code>0 then no variable by this name or not a PCelement.
+        /// </summary>
+        public double VariableByName(string Name, ref int Code)
+        {
+            return Variable(Name, ref Code);
+        }
+
+        /// <summary>
+        /// Set the Value of a variable by indx if a PCElement. If Code>0 then no variable by this index or not a PCelement.
+        /// </summary>
+        public void VariableByIndex(int Idx, ref int Code, double Value)
+        {
+            try
+            {
+                DSS_CAPI.ctx_CktElement_Set_Variablei(ctx, Idx, ref Code, Value);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Set the Value of a variable by name if a PCElement. If Code>0 then no variable by this name or not a PCelement.
+        /// </summary>
+        public void VariableByName(string Name, ref int Code, double Value)
+        {
+            try
+            {
+                DSS_CAPI.ctx_CktElement_Set_Variable(ctx, Name, ref Code, Value);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
         public void Close(int Term, int Phs)
         {
             try
@@ -1840,7 +1905,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Array of strings. Get  Bus definitions to which each terminal is connected. 0-based array.
+        /// Array of strings. Get  Bus definitions to which each terminal is connected.
         /// </summary>
         public string[] BusNames
         {
@@ -2577,7 +2642,7 @@ namespace dss_sharp
                     CheckForError();
                 }
             }
-        }        
+        }
     }
 
     public class Generators : ContextState
@@ -3037,6 +3102,256 @@ namespace dss_sharp
                 try
                 {
                     DSS_CAPI.ctx_Generators_Set_kvar(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Name of the loadshape for a daily generation profile.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public string daily
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_Generators_Get_daily(ctx));
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Generators_Set_daily(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Name of the loadshape for a duty cycle simulation.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public string duty
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_Generators_Get_duty(ctx));
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Generators_Set_duty(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Name of yearly loadshape
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public string Yearly
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_Generators_Get_Yearly(ctx));
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Generators_Set_Yearly(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Response to dispatch multipliers: Fixed=1 (dispatch multipliers do not apply), Variable=0 (follows curves).
+        /// 
+        /// Related enumeration: GeneratorStatus
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public int Status
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Generators_Get_Status(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Generators_Set_Status(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Generator connection. True/1 if delta connection, False/0 if wye.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public bool IsDelta
+        {
+            get
+            {
+                try
+                {
+                    return (DSS_CAPI.ctx_Generators_Get_IsDelta(ctx) != 0);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Generators_Set_IsDelta(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// kVA rating of electrical machine. Applied to machine or inverter definition for Dynamics mode solutions.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public double kva
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Generators_Get_kva(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Generators_Set_kva(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// An arbitrary integer number representing the class of Generator so that Generator values may be segregated by class.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public int Class
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Generators_Get_Class_(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Generators_Set_Class_(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Bus to which the Generator is connected. May include specific node specification.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public string Bus1
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_Generators_Get_Bus1(ctx));
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Generators_Set_Bus1(ctx, value);
                 }
                 finally
                 {
@@ -4026,7 +4341,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// {dssMultiphase * | dssPositiveSeq} IIndicate if the circuit model is positive sequence.
+        /// {dssMultiphase (0) * | dssPositiveSeq (1) } Indicate if the circuit model is positive sequence.
         /// </summary>
         public int CktModel
         {
@@ -4512,6 +4827,42 @@ namespace dss_sharp
                 }
             }
         }
+
+        /// <summary>
+        /// Controls whether `First`/`Next` iteration includes or skips disabled circuit elements.
+        /// The default behavior from OpenDSS is to skip those. The user can still activate the element by name or index.
+        /// 
+        /// The default value for IterateDisabled is 0, keeping the original behavior.
+        /// Set it to 1 (or `True`) to include disabled elements.
+        /// Other numeric values are reserved for other potential behaviors.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public int IterateDisabled
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Settings_Get_IterateDisabled(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Settings_Set_IterateDisabled(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
     }
 
     public class ActiveClass : ContextState
@@ -4673,6 +5024,27 @@ namespace dss_sharp
                 {
                     CheckForError();
                 }
+            }
+        }
+        /// <summary>
+        /// Returns the data (as a list) of all elements from the active class as a JSON-encoded string.
+        /// 
+        /// The `options` parameter contains bit-flags to toggle specific features.
+        /// See `Obj_ToJSON` (C-API) for more.
+        /// 
+        /// Additionally, the `ExcludeDisabled` flag can be used to excluded disabled elements from the output.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public string ToJSON(int options=0)
+        {
+            try
+            {
+                return APIUtil.get_string(DSS_CAPI.ctx_ActiveClass_ToJSON(ctx, options));
+            }
+            finally
+            {
+                CheckForError();
             }
         }
     }
@@ -5273,6 +5645,8 @@ namespace dss_sharp
         public TSData TSData;
         public Reactors Reactors;
         public ReduceCkt ReduceCkt;
+        public Storages Storages;
+        public GICSources GICSources;
 
         public Circuit(APIUtil util) : base(util)
         {
@@ -5316,6 +5690,8 @@ namespace dss_sharp
             TSData = new TSData(util);
             Reactors = new Reactors(util);
             ReduceCkt = new ReduceCkt(util);
+            Storages = new Storages(util);
+            GICSources = new GICSources(util);
         }
     
         /// <summary>
@@ -6063,6 +6439,24 @@ namespace dss_sharp
                 }
             }
         }
+        /// <summary>
+        /// Array of total losses (complex) in a selection of elements.
+        /// Use the element indices (starting at 1) as parameter.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public double[] ElementLosses(int[] value)
+        {
+            try
+            {
+                DSS_CAPI.ctx_Circuit_Get_ElementLosses_GR(ctx, value, value.Length);
+                return apiutil.get_float64_gr_array();
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
     }
 
     public class CtrlQueue : ContextState
@@ -6333,6 +6727,25 @@ namespace dss_sharp
                 {
                     CheckForError();
                 }
+            }
+        }
+        /// <summary>
+        /// Returns the properties of the active DSS object as a JSON-encoded string.
+        /// 
+        /// The `options` parameter contains bit-flags to toggle specific features.
+        /// See `Obj_ToJSON` (C-API) for more.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public string ToJSON(int options=0)
+        {
+            try
+            {
+                return APIUtil.get_string(DSS_CAPI.ctx_DSSElement_ToJSON(ctx, options));
+            }
+            finally
+            {
+                CheckForError();
             }
         }
     }
@@ -6920,6 +7333,9 @@ namespace dss_sharp
         }
 
 
+        /// <summary>
+        /// Close all phases of the fuse.
+        /// </summary>
         public void Close()
         {
             try
@@ -6932,6 +7348,9 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Current state of the fuses. TRUE if any fuse on any phase is blown. Else FALSE.
+        /// </summary>
         public bool IsBlown()
         {
             try
@@ -6944,11 +7363,29 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Manual opening of all phases of the fuse.
+        /// </summary>
         public void Open()
         {
             try
             {
                 DSS_CAPI.ctx_Fuses_Open(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Reset fuse to normal state.
+        /// </summary>
+        public void Reset()
+        {
+            try
+            {
+                DSS_CAPI.ctx_Fuses_Reset(ctx);
             }
             finally
             {
@@ -7172,6 +7609,64 @@ namespace dss_sharp
                 try
                 {
                     DSS_CAPI.ctx_Fuses_Set_TCCcurve(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Array of strings indicating the state of each phase of the fuse.
+        /// </summary>
+        public string[] State
+        {
+            get
+            {
+                try
+                {
+                    return apiutil.get_string_array(DSS_CAPI.ctx_Fuses_Get_State);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Fuses_Set_State(ctx, value, value.Length);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Array of strings indicating the normal state of each phase of the fuse.
+        /// </summary>
+        public string[] NormalState
+        {
+            get
+            {
+                try
+                {
+                    return apiutil.get_string_array(DSS_CAPI.ctx_Fuses_Get_NormalState);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Fuses_Set_NormalState(ctx, value, value.Length);
                 }
                 finally
                 {
@@ -9895,7 +10390,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_Solution_Set_Mode(ctx, Mode);
+                    DSS_CAPI.ctx_Solution_Set_Mode(ctx, value);
                 }
                 finally
                 {
@@ -10007,7 +10502,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_Solution_Set_Random(ctx, Random);
+                    DSS_CAPI.ctx_Solution_Set_Random(ctx, value);
                 }
                 finally
                 {
@@ -10833,6 +11328,35 @@ namespace dss_sharp
                 }
             }
         }
+
+        /// <summary>
+        /// Number of conductors in this geometry. Default is 3. Triggers memory allocations. Define first!
+        /// </summary>
+        public int Nconds
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_LineGeometries_Get_Nconds(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_LineGeometries_Set_Nconds(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
     }
 
     public class LineSpacings : ContextState
@@ -11561,6 +12085,42 @@ namespace dss_sharp
                 {
                     CheckForError();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Converts the current LoadShape data to float32/single precision.
+        /// If there is no data or the data is already represented using float32, nothing is done.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public void UseFloat32()
+        {
+            try
+            {
+                DSS_CAPI.ctx_LoadShapes_UseFloat32(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Converts the current LoadShape data to float64/double precision.
+        /// If there is no data or the data is already represented using float64, nothing is done.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public void UseFloat64()
+        {
+            try
+            {
+                DSS_CAPI.ctx_LoadShapes_UseFloat64(ctx);
+            }
+            finally
+            {
+                CheckForError();
             }
         }
     }
@@ -12679,6 +13239,24 @@ namespace dss_sharp
                 try
                 {
                     DSS_CAPI.ctx_Loads_Set_xfkVA(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Name of the sensor monitoring this load.
+        /// </summary>
+        public string Sensor
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_Loads_Get_Sensor(ctx));
                 }
                 finally
                 {
@@ -14361,7 +14939,7 @@ namespace dss_sharp
 
 
         /// <summary>
-        /// Get/set the present value of the Irradiance property in W/m²
+        /// Get/set the present value of the Irradiance property in kW/m²
         /// </summary>
         public double Irradiance
         {
@@ -14764,6 +15342,24 @@ namespace dss_sharp
                 try
                 {
                     DSS_CAPI.ctx_PVSystems_Set_Pmpp(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Name of the sensor monitoring this element.
+        /// </summary>
+        public string Sensor
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_PVSystems_Get_Sensor(ctx));
                 }
                 finally
                 {
@@ -15975,6 +16571,83 @@ namespace dss_sharp
                 }
             }
         }
+
+        /// <summary>
+        /// Reset recloser to normal state. 
+        /// If open, lock out the recloser. 
+        /// If closed, resets recloser to first operation.
+        /// </summary>
+        public void Reset()
+        {
+            try
+            {
+                DSS_CAPI.ctx_Reclosers_Reset(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Get/Set present state of recloser. 
+        /// If set to open (ActionCodes.Open=1), open recloser's controlled element and lock out the recloser. 
+        /// If set to close (ActionCodes.Close=2), close recloser's controlled element and resets recloser to first operation.
+        /// </summary>
+        public int State
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Reclosers_Get_State(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Reclosers_Set_State(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get/set normal state (ActionCodes.Open=1, ActionCodes.Close=2) of the recloser.
+        /// </summary>
+        public int NormalState
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Reclosers_Get_NormalState(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Reclosers_Set_NormalState(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
     }
 
     public class RegControls : ContextState
@@ -16990,6 +17663,113 @@ namespace dss_sharp
                 }
             }
         }
+
+        /// <summary>
+        /// Open relay's controlled element and lock out the relay.
+        /// </summary>
+        public void Open()
+        {
+            try
+            {
+                DSS_CAPI.ctx_Relays_Open(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Close the switched object controlled by the relay. Resets relay to first operation.
+        /// </summary>
+        public void Close()
+        {
+            try
+            {
+                DSS_CAPI.ctx_Relays_Close(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Reset relay to normal state. 
+        /// If open, lock out the relay. 
+        /// If closed, resets relay to first operation.
+        /// </summary>
+        public void Reset()
+        {
+            try
+            {
+                DSS_CAPI.ctx_Relays_Reset(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Get/Set present state of relay. 
+        /// If set to open, open relay's controlled element and lock out the relay. 
+        /// If set to close, close relay's controlled element and resets relay to first operation.
+        /// </summary>
+        public int State
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Relays_Get_State(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Relays_Set_State(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Normal state of relay.
+        /// </summary>
+        public int NormalState
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Relays_Get_NormalState(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Relays_Set_NormalState(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
     }
 
     public class Sensors : ContextState
@@ -17469,6 +18249,25 @@ namespace dss_sharp
                 try
                 {
                     DSS_CAPI.ctx_Sensors_Set_kWS(ctx, value, value.Length);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Array of doubles for the allocation factors for each phase.
+        /// </summary>
+        public double[] AllocationFactor
+        {
+            get
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Sensors_Get_AllocationFactor_GR(ctx);
+                    return apiutil.get_float64_gr_array();
                 }
                 finally
                 {
@@ -18425,6 +19224,43 @@ namespace dss_sharp
         public Text(APIUtil util) : base(util)
         {
         }
+    
+
+            /// <summary>
+            /// Runs a list of strings as commands directly in the DSS engine.
+            /// Intermediate results are ignored.
+            /// 
+            /// (API Extensions)
+            /// </summary>
+            public void Commands(string[] value)
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Text_CommandArray(ctx, value, value.Length);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+
+            /// <summary>
+            /// Runs a large string as commands directly in the DSS engine.
+            /// Intermediate results are ignored.
+            /// 
+            /// (API Extensions)
+            /// </summary>
+            public void Commands(string value)
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Text_CommandBlock(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
 
         /// <summary>
         /// Input command string for the DSS.
@@ -20270,6 +21106,35 @@ namespace dss_sharp
                 }
             }
         }
+
+        /// <summary>
+        /// Equivalent conductor radius for capacitance calcs. Specify this for bundled conductors. Defaults to same value as radius.
+        /// </summary>
+        public double CapRadius
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_WireData_Get_CapRadius(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_WireData_Set_CapRadius(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
     }
 
     public class XYCurves : ContextState
@@ -20587,7 +21452,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Amount to shift Y valiue from original curve
+        /// Amount to shift Y value from original curve
         /// </summary>
         public double Yshift
         {
@@ -20793,6 +21658,136 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Sparse solver options. See the enumeration SparseSolverOptions
+        /// </summary>
+        public ulong SolverOptions
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_YMatrix_Get_SolverOptions(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_YMatrix_Set_SolverOptions(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        public bool CheckConvergence()
+        {
+            try
+            {
+                return (DSS_CAPI.ctx_YMatrix_CheckConvergence(ctx) != 0);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        public void SetGeneratordQdV()
+        {
+            try
+            {
+                DSS_CAPI.ctx_YMatrix_SetGeneratordQdV(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        public bool LoadsNeedUpdating
+        {
+            get
+            {
+                try
+                {
+                    return (DSS_CAPI.ctx_YMatrix_Get_LoadsNeedUpdating(ctx) != 0);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_YMatrix_Set_LoadsNeedUpdating(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        public bool SolutionInitialized
+        {
+            get
+            {
+                try
+                {
+                    return (DSS_CAPI.ctx_YMatrix_Get_SolutionInitialized(ctx) != 0);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_YMatrix_Set_SolutionInitialized(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        public int Iteration
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_YMatrix_Get_Iteration(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_YMatrix_Set_Iteration(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
     }
 
     public class DSSEvents : ContextState
@@ -20800,6 +21795,1014 @@ namespace dss_sharp
 
         public DSSEvents(APIUtil util) : base(util)
         {
+        }
+    }
+
+    public class ZIP : ContextState
+    {
+
+        public ZIP(APIUtil util) : base(util)
+        {
+        }
+    
+        /// <summary>
+        /// Extracts the contents of the file "FileName" from the current (open) ZIP file.
+        /// Returns a byte-string.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public byte[] Extract(string FileName)
+        {
+            try
+            {
+                DSS_CAPI.ctx_ZIP_Extract_GR(ctx, FileName);
+                return apiutil.get_int8_gr_array();
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// List of strings consisting of all names match the regular expression provided in regexp.
+        /// If no expression is provided, all names in the current open ZIP are returned.
+        /// 
+        /// See https://regex.sorokin.engineer/en/latest/regular_expressions.html for information on 
+        /// the expression syntax and options.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public string[] List(string regexp="")
+        {
+            try
+            {
+                return apiutil.get_string_array(DSS_CAPI.ctx_ZIP_List, regexp);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Opens and prepares a ZIP file to be used by the DSS text parser.
+        /// Currently, the ZIP format support is limited by what is provided in the Free Pascal distribution.
+        /// Besides that, the full filenames inside the ZIP must be shorter than 256 characters.
+        /// The limitations should be removed in a future revision.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public void Open(string FileName)
+        {
+            try
+            {
+                DSS_CAPI.ctx_ZIP_Open(ctx, FileName);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Closes the current open ZIP file
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public void Close()
+        {
+            try
+            {
+                DSS_CAPI.ctx_ZIP_Close(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Runs a "Redirect" command inside the current (open) ZIP file.
+        /// In the current implementation, all files required by the script must
+        /// be present inside the ZIP, using relative paths. The only exceptions are
+        /// memory-mapped files.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public void Redirect(string FileInZip)
+        {
+            try
+            {
+                DSS_CAPI.ctx_ZIP_Redirect(ctx, FileInZip);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Check if the given path name is present in the current ZIP file.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public bool Contains(string Name)
+        {
+            try
+            {
+                return (DSS_CAPI.ctx_ZIP_Contains(ctx, Name) != 0);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+    }
+
+    public class GICSources : ContextState
+    {
+
+        public GICSources(APIUtil util) : base(util)
+        {
+        }
+
+        /// <summary>
+        /// Array of strings with all GICSource names in the circuit.
+        /// </summary>
+        public string[] AllNames
+        {
+            get
+            {
+                try
+                {
+                    return apiutil.get_string_array(DSS_CAPI.ctx_GICSources_Get_AllNames);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Number of GICSource objects in active circuit.
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_GICSources_Get_Count(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the first GICSource active. Returns 0 if no more.
+        /// </summary>
+        public int First
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_GICSources_Get_First(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the active GICSource by Name.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_GICSources_Get_Name(ctx));
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_GICSources_Set_Name(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the next GICSource active. Returns 0 if no more.
+        /// </summary>
+        public int Next
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_GICSources_Get_Next(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get/set active GICSource by index; index is 1-based: 1..count
+        /// </summary>
+        public int idx
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_GICSources_Get_idx(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_GICSources_Set_idx(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// First bus name of GICSource (Created name)
+        /// </summary>
+        public string Bus1
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_GICSources_Get_Bus1(ctx));
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Second bus name
+        /// </summary>
+        public string Bus2
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_GICSources_Get_Bus2(ctx));
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Number of Phases, this GICSource element.
+        /// </summary>
+        public int Phases
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_GICSources_Get_Phases(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_GICSources_Set_Phases(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Northward E Field V/km
+        /// </summary>
+        public double EN
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_GICSources_Get_EN(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_GICSources_Set_EN(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Eastward E Field, V/km
+        /// </summary>
+        public double EE
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_GICSources_Get_EE(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_GICSources_Set_EE(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Latitude of Bus1 (degrees)
+        /// </summary>
+        public double Lat1
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_GICSources_Get_Lat1(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_GICSources_Set_Lat1(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Latitude of Bus2 (degrees)
+        /// </summary>
+        public double Lat2
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_GICSources_Get_Lat2(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_GICSources_Set_Lat2(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Longitude of Bus1 (Degrees)
+        /// </summary>
+        public double Lon1
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_GICSources_Get_Lon1(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_GICSources_Set_Lon1(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Longitude of Bus2 (Degrees)
+        /// </summary>
+        public double Lon2
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_GICSources_Get_Lon2(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_GICSources_Set_Lon2(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Specify dc voltage directly
+        /// </summary>
+        public double Volts
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_GICSources_Get_Volts(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_GICSources_Set_Volts(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+    }
+
+    public class Storages : ContextState
+    {
+
+        public Storages(APIUtil util) : base(util)
+        {
+        }
+
+        /// <summary>
+        /// Array of strings with all Storage names in the circuit.
+        /// </summary>
+        public string[] AllNames
+        {
+            get
+            {
+                try
+                {
+                    return apiutil.get_string_array(DSS_CAPI.ctx_Storages_Get_AllNames);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Number of Storage objects in active circuit.
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Storages_Get_Count(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the first Storage active. Returns 0 if no more.
+        /// </summary>
+        public int First
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Storages_Get_First(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the active Storage by Name.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                try
+                {
+                    return APIUtil.get_string(DSS_CAPI.ctx_Storages_Get_Name(ctx));
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Storages_Set_Name(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the next Storage active. Returns 0 if no more.
+        /// </summary>
+        public int Next
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Storages_Get_Next(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get/set active Storage by index; index is 1-based: 1..count
+        /// </summary>
+        public int idx
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Storages_Get_idx(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Storages_Set_idx(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Per unit state of charge
+        /// </summary>
+        public double puSOC
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Storages_Get_puSOC(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Storages_Set_puSOC(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get/set state: 0=Idling; 1=Discharging; -1=Charging;
+        /// 
+        /// Related enumeration: StorageStates
+        /// </summary>
+        public int State
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Storages_Get_State(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Storages_Set_State(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Array of Names of all Storage energy meter registers
+        /// </summary>
+        public string[] RegisterNames
+        {
+            get
+            {
+                try
+                {
+                    return apiutil.get_string_array(DSS_CAPI.ctx_Storages_Get_RegisterNames);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Array of values in Storage registers.
+        /// </summary>
+        public double[] RegisterValues
+        {
+            get
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Storages_Get_RegisterValues_GR(ctx);
+                    return apiutil.get_float64_gr_array();
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+    }
+
+    public class Parallel : ContextState
+    {
+
+        public Parallel(APIUtil util) : base(util)
+        {
+        }
+
+        public void CreateActor()
+        {
+            try
+            {
+                DSS_CAPI.ctx_Parallel_CreateActor(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        public void Wait()
+        {
+            try
+            {
+                DSS_CAPI.ctx_Parallel_Wait(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Gets/sets the ID of the Active Actor
+        /// </summary>
+        public int ActiveActor
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Parallel_Get_ActiveActor(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Parallel_Set_ActiveActor(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// (read) Sets ON/OFF (1/0) Parallel features of the Engine
+        /// (write) Delivers if the Parallel features of the Engine are Active
+        /// </summary>
+        public int ActiveParallel
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Parallel_Get_ActiveParallel(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Parallel_Set_ActiveParallel(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets/sets the CPU of the Active Actor
+        /// </summary>
+        public int ActorCPU
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Parallel_Get_ActorCPU(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Parallel_Set_ActorCPU(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the progress of all existing actors in pct
+        /// </summary>
+        public int[] ActorProgress
+        {
+            get
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Parallel_Get_ActorProgress_GR(ctx);
+                    return apiutil.get_int32_gr_array();
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the status of each actor
+        /// </summary>
+        public int[] ActorStatus
+        {
+            get
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Parallel_Get_ActorStatus_GR(ctx);
+                    return apiutil.get_int32_gr_array();
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// (read) Reads the values of the ConcatenateReports option (1=enabled, 0=disabled)
+        /// (write) Enable/Disable (1/0) the ConcatenateReports option for extracting monitors data
+        /// </summary>
+        public int ConcatenateReports
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Parallel_Get_ConcatenateReports(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_Parallel_Set_ConcatenateReports(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Delivers the number of CPUs on the current PC
+        /// </summary>
+        public int NumCPUs
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Parallel_Get_NumCPUs(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Delivers the number of Cores of the local PC
+        /// </summary>
+        public int NumCores
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Parallel_Get_NumCores(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the number of Actors created
+        /// </summary>
+        public int NumOfActors
+        {
+            get
+            {
+                try
+                {
+                    return DSS_CAPI.ctx_Parallel_Get_NumOfActors(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
         }
     }
 
@@ -20816,6 +22819,8 @@ namespace dss_sharp
         public Parser Parser;
         public DSSimComs DSSim_Coms;
         public YMatrix YMatrix;
+        public ZIP ZIP;
+        // public Obj Obj;
 
         public DSS(APIUtil util) : base(util)
         {
@@ -20830,15 +22835,21 @@ namespace dss_sharp
             Parser = new Parser(util);
             DSSim_Coms = new DSSimComs(util);
             YMatrix = new YMatrix(util);
+            ZIP = new ZIP(util);
+            // Obj = new Obj(util); -- not yet...
         }
     
 
         /// <summary>
         /// Expose DSS without a constructor parameters for backwards compatibility.
         /// This contructors always exposes the prime/default instance of OpenDSS.
+        ///
+        /// For creating new independent instances, use the static helper function
+        /// <cref>NewContext</cref>.
         /// </summary>
-        public DSS(): this(new APIUtil(DSS_CAPI.ctx_Get_Prime()))
+        public DSS(): this(new APIUtil(DSS_CAPI.ctx_Get_Prime(), false))
         {
+            DSS_CAPI.ctx_DSS_Start(ctx, 0);
         }
 
         /// <summary>
@@ -20846,19 +22857,14 @@ namespace dss_sharp
         /// A DSS Context encapsulates most of the global state of the original OpenDSS engine,
         /// allowing the user to create multiple instances in the same process. By creating contexts
         /// manually, the management of threads and potential issues should be handled by the user.
+        ///
         /// (API Extension)
         /// </summary>
-        public DSS NewContext()
+        static public DSS NewContext()
         {
-            try
-            {
-                APIUtil new_api_util = new APIUtil(DSS_CAPI.ctx_New());
-                return new DSS(new_api_util);
-            }
-            finally
-            {
-                CheckForError();
-            }
+            DSS_CAPI.ctx_DSS_Start(DSS_CAPI.ctx_Get_Prime(), 0);
+            APIUtil new_api_util = new APIUtil(DSS_CAPI.ctx_New(), true);
+            return new DSS(new_api_util);
         }
 
         public void ClearAll()
@@ -21099,6 +23105,8 @@ namespace dss_sharp
         /// AllowEditor controls whether the external editor is used in commands like "Show".
         /// If you set to 0 (false), the editor is not executed. Note that other side effects,
         /// such as the creation of files, are not affected.
+        /// 
+        /// (API Extension)
         /// </summary>
         public bool AllowEditor
         {
@@ -21161,6 +23169,8 @@ namespace dss_sharp
         /// Defaults to False. 
         /// 
         /// This can also be enabled by setting the environment variable DSS_CAPI_LEGACY_MODELS to 1.
+        /// 
+        /// NOTE: this option will be removed in a future release.
         /// 
         /// (API Extension)
         /// </summary>
@@ -21230,5 +23240,84 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// If enabled, the `DOScmd` command is allowed. Otherwise, an error is reported if the user tries to use it.
+        /// 
+        /// Defaults to False/0 (disabled state). Users should consider DOScmd deprecated on DSS Extensions.
+        /// 
+        /// This can also be set through the environment variable DSS_CAPI_ALLOW_DOSCMD. Setting it to 1 enables
+        /// the command.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public bool AllowDOScmd
+        {
+            get
+            {
+                try
+                {
+                    return (DSS_CAPI.ctx_DSS_Get_AllowDOScmd(ctx) != 0);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_DSS_Set_AllowDOScmd(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// If enabled, in case of errors or empty arrays, the API returns arrays with values compatible with the 
+        /// official OpenDSS COM interface. 
+        /// 
+        /// For example, consider the function `Loads_Get_ZIPV`. If there is no active circuit or active load element:
+        /// - In the disabled state (COMErrorResults=False), the function will return "[]", an array with 0 elements.
+        /// - In the enabled state (COMErrorResults=True), the function will return "[0.0]" instead. This should
+        /// be compatible with the return value of the official COM interface.
+        /// 
+        /// Defaults to True/1 (enabled state) in the v0.12.x series. This will change to false in future series.
+        /// 
+        /// This can also be set through the environment variable DSS_CAPI_COM_DEFAULTS. Setting it to 0 disables
+        /// the legacy/COM behavior. The value can be toggled through the API at any time.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public bool COMErrorResults
+        {
+            get
+            {
+                try
+                {
+                    return (DSS_CAPI.ctx_DSS_Get_COMErrorResults(ctx) != 0);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_DSS_Set_COMErrorResults(ctx, value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
+
     }
+
 }

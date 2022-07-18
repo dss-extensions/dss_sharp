@@ -63,6 +63,8 @@ namespace dss_sharp
     {
         public delegate void StringArrayDelegate1(IntPtr ctx, ref IntPtr resultPtr, int[] resultCount);
         public delegate void StringArrayDelegate2(IntPtr ctx, ref IntPtr resultPtr, int[] resultCount, int param1);
+        public delegate void StringArrayDelegate3(IntPtr ctx, ref IntPtr resultPtr, int[] resultCount, string param1);
+        public bool ownsCtx;
         public IntPtr ctx;
         public IntPtr errorPtr;
         private IntPtr 
@@ -70,11 +72,12 @@ namespace dss_sharp
             gr_int32_data, gr_int32_count,
             gr_int8_data, gr_int8_count;
 
-        public APIUtil(IntPtr context)
+        public APIUtil(IntPtr context, bool ownsContext)
         {
             IntPtr unused1 = IntPtr.Zero;
             IntPtr unused2 = IntPtr.Zero;
 
+            ownsCtx = ownsContext;
             ctx = context;
             errorPtr = DSS_CAPI.ctx_Error_Get_NumberPtr(ctx);
             DSS_CAPI.ctx_DSS_GetGRPointers(
@@ -89,6 +92,12 @@ namespace dss_sharp
                 ref gr_int8_count
             );
             
+        }
+
+        ~APIUtil()
+        {
+            if (!ownsCtx) return;
+            DSS_CAPI.ctx_Dispose(ctx);
         }
         
         public double[] get_float64_gr_array()
@@ -159,6 +168,21 @@ namespace dss_sharp
         }
 
         public string[] get_string_array(StringArrayDelegate2 fn, int param1)
+        {
+            IntPtr resultPtr = new IntPtr();
+            int[] resultCount = new int[2];
+            fn(ctx, ref resultPtr, resultCount, param1);
+            string[] result = new string[resultCount[0]];
+            for (int i = 0; i < resultCount[0]; ++i)
+            {
+                IntPtr resultPtrInternal = Marshal.ReadIntPtr(resultPtr, IntPtr.Size * i);
+                result[i] = get_string(resultPtrInternal);
+            }
+            DSS_CAPI.DSS_Dispose_PPAnsiChar(ref resultPtr, resultCount[1]);
+            return result;
+        }
+
+        public string[] get_string_array(StringArrayDelegate3 fn, string param1)
         {
             IntPtr resultPtr = new IntPtr();
             int[] resultCount = new int[2];
