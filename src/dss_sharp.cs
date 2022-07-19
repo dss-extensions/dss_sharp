@@ -11,10 +11,197 @@
         
 using System;
 using System.Runtime.InteropServices;
+using dss_sharp.detail;
+using dss_sharp.native;
 
 namespace dss_sharp
 {
+    public enum MonitorModes {
+        dssVI = 0x00000000, // Monitor records Voltage and Current at the terminal (Default)
+        dssPower = 0x00000001, // Monitor records kW, kvar or kVA, angle values, etc. at the terminal to which it is connected.
+        dssTaps = 0x00000002, // For monitoring Regulator and Transformer taps
+        dssStates = 0x00000003, // For monitoring State Variables (for PC Elements only)
+        dssSequence = 0x00000010, // Reports the monitored quantities as sequence quantities
+        dssMagnitude = 0x00000020, // Reports the monitored quantities in Magnitude Only
+        dssPosOnly = 0x00000040 // Reports the Positive Seq only or avg of all phases
+    };
 
+    public enum SolveModes {
+        dssSnapShot = 0, // Solve a single snapshot power flow
+        dssDaily = 1, // Solve following Daily load shapes
+        dssYearly = 2, // Solve following Yearly load shapes
+        dssMonte1 = 3, // Monte Carlo Mode 1
+        dssLD1 = 4, // Load-duration Mode 1
+        dssPeakDay = 5, // Solves for Peak Day using Daily load curve
+        dssDutyCycle = 6, // Solve following Duty Cycle load shapes
+        dssDirect = 7, // Solve direct (forced admittance model)
+        dssMonteFault = 8, // Monte carlo Fault Study
+        dssFaultStudy = 9, // Fault study at all buses
+        dssMonte2 = 10, // Monte Carlo Mode 2
+        dssMonte3 = 11, // Monte Carlo Mode 3
+        dssLD2 = 12, // Load-Duration Mode 2
+        dssAutoAdd = 13, // Auto add generators or capacitors
+        dssDynamic = 14, // Solve for dynamics
+        dssHarmonic = 15 // Harmonic solution mode
+    };
+
+    public enum Options {
+        dssPowerFlow = 1,
+        dssAdmittance = 2,
+        dssNormalSolve = 0,
+        dssNewtonSolve = 1,
+        dssStatic = 0,
+        dssEvent = 1,
+        dssTime = 2,
+        dssMultiphase = 0,
+        dssPositiveSeq = 1,
+        dssGaussian = 1,
+        dssUniform = 2,
+        dssLogNormal = 3,
+        dssAddGen = 1,
+        dssAddCap = 2,
+        dssControlOFF = -1
+    };
+
+    public enum CapControlModes {
+        dssCapControlCurrent = 0, // Current control, ON and OFF settings on CT secondary
+        dssCapControlVoltage = 1, // Voltage control, ON and OFF settings on the PT secondary base
+        dssCapControlKVAR = 2, // kVAR control, ON and OFF settings on PT / CT base
+        dssCapControlTime = 3, // Time control, ON and OFF settings are seconds from midnight
+        dssCapControlPF = 4 // ON and OFF settings are power factor, negative for leading
+    };
+
+    public enum ActionCodes {
+        dssActionNone = 0, // No action
+        dssActionOpen = 1, // Open a switch
+        dssActionClose = 2, // Close a switch
+        dssActionReset = 3, // Reset to the shelf state (unlocked, closed for a switch)
+        dssActionLock = 4, // Lock a switch, prventing both manual and automatic operation
+        dssActionUnlock = 5, // Unlock a switch, permitting both manual and automatic operation
+        dssActionTapUp = 6, // Move a regulator tap up
+        dssActionTapDown = 7 // Move a regulator tap down
+    };
+
+    public enum LoadStatus {
+        dssLoadVariable = 0,
+        dssLoadFixed = 1,
+        dssLoadExempt = 2
+    };
+
+    public enum LoadModels {
+        dssLoadConstPQ = 1,
+        dssLoadConstZ = 2,
+        dssLoadMotor = 3,
+        dssLoadCVR = 4,
+        dssLoadConstI = 5,
+        dssLoadConstPFixedQ = 6,
+        dssLoadConstPFixedX = 7,
+        dssLoadZIPV = 8
+    };
+
+    public enum LineUnits {
+        dssLineUnitsNone = 0, // No line length unit.
+        dssLineUnitsMiles = 1, // Line length units in miles.
+        dssLineUnitskFt = 2, // Line length units are in thousand feet.
+        dssLineUnitskm = 3, // Line length units are km.
+        dssLineUnitsmeter = 4, // Line length units are meters.
+        dssLineUnitsft = 5, // Line units in feet.
+        dssLineUnitsinch = 6, // Line length units are inches.
+        dssLineUnitscm = 7, // Line units are cm.
+        dssLineUnitsmm = 8, // Line length units are mm.
+        dssLineUnitsMaxnum = 9 // Maximum number of line units constants.
+    };
+
+    public enum SolutionLoadModels { // Solution.LoadModel
+        PowerFlow = 1, // Power Flow load model option
+        Admittance = 2 // Admittance load model option
+    };
+
+    public enum SolutionAlgorithms { // Solution.Algorithm
+        NormalSolve = 0, // Solution algorithm option - Normal solution mode
+        NewtonSolve = 1 // Solution algorithm option - Newton solution
+    };
+
+    public enum ControlModes { // Solution.ControlMode
+        Static = 0, // Control Mode option - Static
+        Event = 1, // Control Mode Option - Event driven solution mode
+        Time = 2, // Control mode option - Time driven mode
+        Multirate = 3, // Control mode option - Multirate mode
+        ControlOff = -1 // Control Mode OFF
+    };
+
+    public enum CktModels { // Settings.CktModel
+        Multiphase = 0, // Circuit model is multiphase (default)
+        PositiveSeq = 1 // Circuit model is positive sequence model only
+    };
+
+    public enum RandomModes { // Solution.Random
+        Gaussian = 1, // Gaussian
+        Uniform = 2, // Uniform
+        LogNormal = 3 // Log normal
+    };
+
+    public enum AutoAddTypes { // Solution.AddType
+        AddGen = 1, // Add generators in AutoAdd mode
+        AddCap = 2 // Add capacitors in AutoAdd mode
+    };
+
+    public enum GeneratorStatus {
+        Variable = 0,
+        Fixed = 1
+    };
+
+    public enum YMatrixModes { // Solution.BuildYMatrix, YMatrix.BuildYMatrixD
+        SeriesOnly = 1,
+        WholeMatrix = 2
+    };
+
+    public enum StorageStates { // Storages.State
+        Charging = -1,
+        Idling = 0,
+        Discharging = 1
+    };
+
+    // EXPERIMENTAL: For message/write callbacks
+    public enum DSSMessageType {
+        Error = -1,
+        General = 0,
+        Info = 1,
+        Help = 2,
+        Progress = 3,
+        ProgressCaption = 4,
+        ProgressFormCaption = 5,
+        ProgressPercent = 6,
+        FireOffEditor = 7
+    };
+
+    [Flags]
+    public enum DSSJSONFlags {
+        Full = 0x00000001, // 1 << 0,
+        SkipRedundant = 0x00000002, // 1 << 1;
+        EnumAsInt = 0x00000004, // 1 << 2,
+        FullNames = 0x00000008, // 1 << 3,
+        Pretty = 0x00000010, // 1 << 4, 
+        ExcludeDisabled = 0x00000020, // 1 << 5,
+        State = 0x00000040, // 1 << 6, // NOT IMPLEMENTED
+        Debug = 0x00000080 // 1 << 7 // NOT IMPLEMENTED
+    };
+
+    public enum BatchOperation {
+        Set = 0,
+        Multiply = 1,
+        Increment = 2
+    };
+
+    public enum SolverOptions {
+        // The values themselves are subject to change in future versions,
+        // use this enum for easier upgrades
+        ReuseNothing = 0,
+        ReuseCompressedMatrix = 1, // Reuse only the prepared CSC matrix
+        ReuseSymbolicFactorization = 2, // Reuse the symbolic factorization, implies ReuseCompressedMatrix
+        ReuseNumericFactorization = 3, // Reuse the numeric factorization, implies ReuseSymbolicFactorization
+        AlwaysResetYPrimInvalid = 0x10000000 // Bit flag, see CktElement.pas
+    };
 
     public class Bus : ContextState
     {
@@ -3210,13 +3397,13 @@ namespace dss_sharp
         /// 
         /// (API Extension)
         /// </summary>
-        public int Status
+        public GeneratorStatus Status
         {
             get
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Generators_Get_Status(ctx);
+                    return (GeneratorStatus)DSS_CAPI.ctx_Generators_Get_Status(ctx);
                 }
                 finally
                 {
@@ -3227,7 +3414,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_Generators_Set_Status(ctx, value);
+                    DSS_CAPI.ctx_Generators_Set_Status(ctx, (int)value);
                 }
                 finally
                 {
@@ -5036,11 +5223,11 @@ namespace dss_sharp
         /// 
         /// (API Extension)
         /// </summary>
-        public string ToJSON(int options=0)
+        public string ToJSON(DSSJSONFlags options=0)
         {
             try
             {
-                return APIUtil.get_string(DSS_CAPI.ctx_ActiveClass_ToJSON(ctx, options));
+                return APIUtil.get_string(DSS_CAPI.ctx_ActiveClass_ToJSON(ctx, (int)options));
             }
             finally
             {
@@ -5344,13 +5531,13 @@ namespace dss_sharp
         /// <summary>
         /// Type of automatic controller.
         /// </summary>
-        public int Mode
+        public CapControlModes Mode
         {
             get
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CapControls_Get_Mode(ctx);
+                    return (CapControlModes)DSS_CAPI.ctx_CapControls_Get_Mode(ctx);
                 }
                 finally
                 {
@@ -5361,7 +5548,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_CapControls_Set_Mode(ctx, value);
+                    DSS_CAPI.ctx_CapControls_Set_Mode(ctx, (int)value);
                 }
                 finally
                 {
@@ -5647,6 +5834,7 @@ namespace dss_sharp
         public ReduceCkt ReduceCkt;
         public Storages Storages;
         public GICSources GICSources;
+        public Parallel Parallel;
 
         public Circuit(APIUtil util) : base(util)
         {
@@ -5692,6 +5880,7 @@ namespace dss_sharp
             ReduceCkt = new ReduceCkt(util);
             Storages = new Storages(util);
             GICSources = new GICSources(util);
+            Parallel = new Parallel(util);
         }
     
         /// <summary>
@@ -6737,11 +6926,11 @@ namespace dss_sharp
         /// 
         /// (API Extension)
         /// </summary>
-        public string ToJSON(int options=0)
+        public string ToJSON(DSSJSONFlags options=0)
         {
             try
             {
-                return APIUtil.get_string(DSS_CAPI.ctx_DSSElement_ToJSON(ctx, options));
+                return APIUtil.get_string(DSS_CAPI.ctx_DSSElement_ToJSON(ctx, (int)options));
             }
             finally
             {
@@ -12495,13 +12684,13 @@ namespace dss_sharp
         /// <summary>
         /// The Load Model defines variation of P and Q with voltage.
         /// </summary>
-        public int Model
+        public LoadModels Model
         {
             get
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Loads_Get_Model(ctx);
+                    return (LoadModels)DSS_CAPI.ctx_Loads_Get_Model(ctx);
                 }
                 finally
                 {
@@ -12512,7 +12701,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_Loads_Set_Model(ctx, value);
+                    DSS_CAPI.ctx_Loads_Set_Model(ctx, (int)value);
                 }
                 finally
                 {
@@ -12727,13 +12916,13 @@ namespace dss_sharp
         /// <summary>
         /// Response to load multipliers: Fixed (growth only), Exempt (no LD curve), Variable (all).
         /// </summary>
-        public int Status
+        public LoadStatus Status
         {
             get
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Loads_Get_Status(ctx);
+                    return (LoadStatus)DSS_CAPI.ctx_Loads_Get_Status(ctx);
                 }
                 finally
                 {
@@ -12744,7 +12933,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_Loads_Set_Status(ctx, value);
+                    DSS_CAPI.ctx_Loads_Set_Status(ctx, (int)value);
                 }
                 finally
                 {
@@ -16594,13 +16783,13 @@ namespace dss_sharp
         /// If set to open (ActionCodes.Open=1), open recloser's controlled element and lock out the recloser. 
         /// If set to close (ActionCodes.Close=2), close recloser's controlled element and resets recloser to first operation.
         /// </summary>
-        public int State
+        public ActionCodes State
         {
             get
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Reclosers_Get_State(ctx);
+                    return (ActionCodes)DSS_CAPI.ctx_Reclosers_Get_State(ctx);
                 }
                 finally
                 {
@@ -16611,7 +16800,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_Reclosers_Set_State(ctx, value);
+                    DSS_CAPI.ctx_Reclosers_Set_State(ctx, (int)value);
                 }
                 finally
                 {
@@ -16623,13 +16812,13 @@ namespace dss_sharp
         /// <summary>
         /// Get/set normal state (ActionCodes.Open=1, ActionCodes.Close=2) of the recloser.
         /// </summary>
-        public int NormalState
+        public ActionCodes NormalState
         {
             get
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Reclosers_Get_NormalState(ctx);
+                    return (ActionCodes)DSS_CAPI.ctx_Reclosers_Get_NormalState(ctx);
                 }
                 finally
                 {
@@ -16640,7 +16829,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_Reclosers_Set_NormalState(ctx, value);
+                    DSS_CAPI.ctx_Reclosers_Set_NormalState(ctx, (int)value);
                 }
                 finally
                 {
@@ -17716,13 +17905,13 @@ namespace dss_sharp
         /// If set to open, open relay's controlled element and lock out the relay. 
         /// If set to close, close relay's controlled element and resets relay to first operation.
         /// </summary>
-        public int State
+        public ActionCodes State
         {
             get
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Relays_Get_State(ctx);
+                    return (ActionCodes)DSS_CAPI.ctx_Relays_Get_State(ctx);
                 }
                 finally
                 {
@@ -17733,7 +17922,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_Relays_Set_State(ctx, value);
+                    DSS_CAPI.ctx_Relays_Set_State(ctx, (int)value);
                 }
                 finally
                 {
@@ -17745,13 +17934,13 @@ namespace dss_sharp
         /// <summary>
         /// Normal state of relay.
         /// </summary>
-        public int NormalState
+        public ActionCodes NormalState
         {
             get
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Relays_Get_NormalState(ctx);
+                    return (ActionCodes)DSS_CAPI.ctx_Relays_Get_NormalState(ctx);
                 }
                 finally
                 {
@@ -17762,7 +17951,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_Relays_Set_NormalState(ctx, value);
+                    DSS_CAPI.ctx_Relays_Set_NormalState(ctx, (int)value);
                 }
                 finally
                 {
@@ -18430,13 +18619,13 @@ namespace dss_sharp
         /// <summary>
         /// Open or Close the switch. No effect if switch is locked.  However, Reset removes any lock and then closes the switch (shelf state).
         /// </summary>
-        public int Action
+        public ActionCodes Action
         {
             get
             {
                 try
                 {
-                    return DSS_CAPI.ctx_SwtControls_Get_Action(ctx);
+                    return (ActionCodes)DSS_CAPI.ctx_SwtControls_Get_Action(ctx);
                 }
                 finally
                 {
@@ -18447,7 +18636,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_SwtControls_Set_Action(ctx, value);
+                    DSS_CAPI.ctx_SwtControls_Set_Action(ctx, (int)value);
                 }
                 finally
                 {
@@ -18517,13 +18706,13 @@ namespace dss_sharp
         /// <summary>
         /// Get/set Normal state of switch (see actioncodes) dssActionOpen or dssActionClose
         /// </summary>
-        public int NormalState
+        public ActionCodes NormalState
         {
             get
             {
                 try
                 {
-                    return DSS_CAPI.ctx_SwtControls_Get_NormalState(ctx);
+                    return (ActionCodes)DSS_CAPI.ctx_SwtControls_Get_NormalState(ctx);
                 }
                 finally
                 {
@@ -18534,7 +18723,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_SwtControls_Set_NormalState(ctx, value);
+                    DSS_CAPI.ctx_SwtControls_Set_NormalState(ctx, (int)value);
                 }
                 finally
                 {
@@ -18546,13 +18735,13 @@ namespace dss_sharp
         /// <summary>
         /// Set it to force the switch to a specified state, otherwise read its present state.
         /// </summary>
-        public int State
+        public ActionCodes State
         {
             get
             {
                 try
                 {
-                    return DSS_CAPI.ctx_SwtControls_Get_State(ctx);
+                    return (ActionCodes)DSS_CAPI.ctx_SwtControls_Get_State(ctx);
                 }
                 finally
                 {
@@ -18563,7 +18752,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    DSS_CAPI.ctx_SwtControls_Set_State(ctx, value);
+                    DSS_CAPI.ctx_SwtControls_Set_State(ctx, (int)value);
                 }
                 finally
                 {
