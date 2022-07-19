@@ -1,0 +1,1534 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpTOC>
+
+  <HelpTOCNode Id="205d1368-67fc-4696-8c97-980e67275c73" Title="dss_sharp" Url="html/4e5abd5c-88b4-0bdb-c3e3-fd3abe65891c.htm">
+    <HelpTOCNode Title="ActionCodes Enumeration" Url="html/8371635b-2f72-d98e-ba32-a8aa42237211.htm" />
+    <HelpTOCNode Id="5ff4790b-ca7c-4056-9da7-f5ad0571bb77" Title="ActiveClass Class" Url="html/ddb5da31-73b0-1f13-8896-1d6223ed5c7c.htm">
+      <HelpTOCNode Title="ActiveClass Constructor " Url="html/054fba38-ef3b-28c4-6b01-0da8df498b6b.htm" />
+      <HelpTOCNode Id="102650e9-9f74-4538-8715-fb8366477d76" Title="ActiveClass Properties" Url="html/6c132fa0-6ed4-ee6b-0d26-0b1344a49278.htm">
+        <HelpTOCNode Title="ActiveClassName Property " Url="html/62708c3e-d306-ac50-36e3-5d307d2b5cb6.htm" />
+        <HelpTOCNode Title="ActiveClassParent Property " Url="html/9737b39e-1795-5c3c-087b-05b97616b6c8.htm" />
+        <HelpTOCNode Title="AllNames Property " Url="html/3769db7a-e0d8-641d-3e11-25cd92c5ecbf.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/c0318203-e4ed-f5ea-b3a6-512babe5995d.htm" />
+        <HelpTOCNode Title="First Property " Url="html/cd8072ec-713d-bbeb-6342-c2082e15deb9.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/82436d12-633b-9798-c2fd-9c9d7046bded.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/7aeeddc5-e624-ece1-8a05-2a5614d80a1e.htm" />
+        <HelpTOCNode Title="NumElements Property " Url="html/79a5109f-c24f-d69f-034c-69bee147cd4d.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="726fe8f2-2da1-425e-bdac-3658b4394f22" Title="ActiveClass Methods" Url="html/6df42a60-7f39-6e25-9a0e-28b9f216be34.htm">
+        <HelpTOCNode Title="ToJSON Method " Url="html/76e5f26a-e810-ec66-932d-603bcde3c362.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ActiveClass Fields" Url="html/3a012d2c-cb54-befa-4e71-5560dea28858.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="AutoAddTypes Enumeration" Url="html/4bad9e1c-82cb-c715-df7f-714f499c104a.htm" />
+    <HelpTOCNode Title="BatchOperation Enumeration" Url="html/7ece075a-7e7d-7360-7799-104e4ea8aeed.htm" />
+    <HelpTOCNode Id="313a10ce-95d9-4819-a1b0-c1f34575b293" Title="Bus Class" Url="html/611b4848-c192-699f-b4d4-26a83d05c5a7.htm">
+      <HelpTOCNode Title="Bus Constructor " Url="html/5934f3be-47c1-92ed-b315-bb1941d0ad69.htm" />
+      <HelpTOCNode Id="9129c66a-f732-4ec7-8c17-a1ae5dc09cab" Title="Bus Properties" Url="html/ab6766a3-8c8f-3c2d-d2a5-9f4691f18099.htm">
+        <HelpTOCNode Title="AllPCEatBus Property " Url="html/da05aac4-09b6-7c5e-3b7b-6bf9df15e068.htm" />
+        <HelpTOCNode Title="AllPDEatBus Property " Url="html/8d7755e1-7693-05b6-f913-5615207e1e87.htm" />
+        <HelpTOCNode Title="Coorddefined Property " Url="html/1fd92cb5-f011-6f6b-e865-ab4750af65ee.htm" />
+        <HelpTOCNode Title="CplxSeqVoltages Property " Url="html/0b22d5ab-24bc-4d93-d4f5-1f148d3e5c4b.htm" />
+        <HelpTOCNode Title="Cust_Duration Property " Url="html/549eefc0-3ac5-eacc-6068-c829840e9c4c.htm" />
+        <HelpTOCNode Title="Cust_Interrupts Property " Url="html/cb71ad18-5687-6592-53d3-67b639765325.htm" />
+        <HelpTOCNode Title="Distance Property " Url="html/f4befbd9-b1e2-acf3-1052-f700d3d5127a.htm" />
+        <HelpTOCNode Title="Int_Duration Property " Url="html/4195e844-5e7c-98aa-d085-16a2c4813ef4.htm" />
+        <HelpTOCNode Title="Isc Property " Url="html/bbea0efa-f8e4-f1b7-2a27-a15cc75bf95c.htm" />
+        <HelpTOCNode Id="f177d171-08e7-440f-ad2c-69fbf8ce74a4" Title="Item Property " Url="html/fa9327cc-a094-6fd0-bf63-6a554514e51a.htm">
+          <HelpTOCNode Title="Item Property (Int32)" Url="html/a8fea875-7d00-6c08-d4a3-da33e03eaa27.htm" />
+          <HelpTOCNode Title="Item Property (String)" Url="html/8bbd220d-cffe-29fe-0842-15e2499e02a3.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="kVBase Property " Url="html/1e48bd31-0e15-da87-dee7-ce5660ae2fce.htm" />
+        <HelpTOCNode Title="Lambda Property " Url="html/ef1bafb7-eb8b-07ed-dec2-609ceb82af11.htm" />
+        <HelpTOCNode Title="LineList Property " Url="html/59e93274-736d-a4df-10a9-711c0938d53b.htm" />
+        <HelpTOCNode Title="LoadList Property " Url="html/8e8f2383-15ab-81de-30fc-622387afba69.htm" />
+        <HelpTOCNode Title="N_Customers Property " Url="html/c627ee37-ec77-5cb9-9baa-eb881a2baf9e.htm" />
+        <HelpTOCNode Title="N_interrupts Property " Url="html/25458c95-0b38-8ac9-7dee-f7814a4e4cd5.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/32d1be8a-1e75-fbcd-8f9d-8b19dbe3c194.htm" />
+        <HelpTOCNode Title="Nodes Property " Url="html/4e190072-b88b-83a6-efd4-b1d75cab7e2c.htm" />
+        <HelpTOCNode Title="NumNodes Property " Url="html/ea191f65-c23c-3996-b43f-7bc75fe131a8.htm" />
+        <HelpTOCNode Title="puVLL Property " Url="html/f9e55ab5-4ba7-285e-677d-3c6836adb47b.htm" />
+        <HelpTOCNode Title="puVmagAngle Property " Url="html/069ab3ad-a03f-fe87-59c9-414d5834f21d.htm" />
+        <HelpTOCNode Title="puVoltages Property " Url="html/d2c848fc-8892-000b-48a8-03833d230b32.htm" />
+        <HelpTOCNode Title="SectionID Property " Url="html/99064969-8e1c-08cd-f93d-bc1027539b05.htm" />
+        <HelpTOCNode Title="SeqVoltages Property " Url="html/ce9e7c4a-d022-da01-9dc2-10747ca48de4.htm" />
+        <HelpTOCNode Title="TotalMiles Property " Url="html/14c88c57-794e-6d21-6861-b457ca112655.htm" />
+        <HelpTOCNode Title="VLL Property " Url="html/3af1c50f-f599-db61-d8bd-85e7991895e0.htm" />
+        <HelpTOCNode Title="VMagAngle Property " Url="html/8058f8c5-3362-b25f-5657-7d6854e6b8ed.htm" />
+        <HelpTOCNode Title="Voc Property " Url="html/5c2b3330-fd34-8e2c-50c8-7a0bacb80a37.htm" />
+        <HelpTOCNode Title="Voltages Property " Url="html/adc8793f-c302-c251-e992-f565ca85d744.htm" />
+        <HelpTOCNode Title="x Property " Url="html/7cbc1b59-d5a9-5f8a-1d81-8d794bea9bdf.htm" />
+        <HelpTOCNode Title="y Property " Url="html/fafa6e49-5f78-bfb0-925b-d6448f3edef9.htm" />
+        <HelpTOCNode Title="YscMatrix Property " Url="html/1cefc6bd-7e04-1690-ee79-d1a4a47c12ca.htm" />
+        <HelpTOCNode Title="Zsc0 Property " Url="html/ca27978a-050a-6b00-6c0a-6b73a1833093.htm" />
+        <HelpTOCNode Title="ZSC012Matrix Property " Url="html/8ed9bb12-4eb9-d606-23d6-db63d1641111.htm" />
+        <HelpTOCNode Title="Zsc1 Property " Url="html/d70e8415-f4b3-dc0e-253b-758dd9fc38ba.htm" />
+        <HelpTOCNode Title="ZscMatrix Property " Url="html/0f72e5df-5cb1-75bb-fecd-6d01c7da8178.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="b44b9356-91bc-40d7-9c24-6add660d7bbb" Title="Bus Methods" Url="html/14c4923e-4ffb-be78-de81-205ad25a3ddb.htm">
+        <HelpTOCNode Title="GetUniqueNodeNumber Method " Url="html/e1af7301-55a8-4e34-fdce-9159c6201d74.htm" />
+        <HelpTOCNode Title="ZscRefresh Method " Url="html/2da86880-0474-957a-c6a4-5d144cece35d.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Bus Fields" Url="html/288ad386-6826-da43-2468-a115dcdbd689.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="650460bd-dea2-45da-a927-739bedad6373" Title="Capacitors Class" Url="html/d2649152-0ce9-c488-cefb-bf0f0310ce85.htm">
+      <HelpTOCNode Title="Capacitors Constructor " Url="html/8438fa14-b138-787b-1cbe-9f9ada94d05c.htm" />
+      <HelpTOCNode Id="3431c32a-74f1-434c-bb96-b1d185bf1e2c" Title="Capacitors Properties" Url="html/d66975d9-6446-6954-d571-55b1a1d75a45.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/e26aee81-e088-fed9-1252-afd6d5479cd5.htm" />
+        <HelpTOCNode Title="AvailableSteps Property " Url="html/36f2b419-04a8-9681-22b6-352a7ddd8a62.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/0e552e3e-73b1-5d4f-d1aa-1828ebe12e02.htm" />
+        <HelpTOCNode Title="First Property " Url="html/c88fe592-fca3-64fa-2d8b-25a70da97198.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/032dd5b0-a2c3-6364-4691-4ea27dfea616.htm" />
+        <HelpTOCNode Title="IsDelta Property " Url="html/5ef740aa-5648-a77b-ab4e-2c085aebddb7.htm" />
+        <HelpTOCNode Title="kV Property " Url="html/ab176324-acd5-0762-ddcc-126ff79f7a37.htm" />
+        <HelpTOCNode Title="kvar Property " Url="html/7024a737-ad85-ce90-b1fa-566855ce5f84.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/e49a41d9-bd1a-d1af-5745-30b0a1710aff.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/766ebc26-e8a2-f113-9fcf-68b181f2a335.htm" />
+        <HelpTOCNode Title="NumSteps Property " Url="html/9ac63542-1694-a8f6-4109-cef4f620b05b.htm" />
+        <HelpTOCNode Title="States Property " Url="html/c8c8085e-809f-f98b-c030-8ab1704c3666.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="f840df0c-693b-4ca8-932d-37a576878651" Title="Capacitors Methods" Url="html/9efd0c84-15cf-fc36-b12c-5bab13b179e4.htm">
+        <HelpTOCNode Title="AddStep Method " Url="html/75c2b4bd-ebe8-1bae-3aa4-ec33a89f68a3.htm" />
+        <HelpTOCNode Title="Close Method " Url="html/d5e7a686-7e67-3602-97a6-7cd1f838aa8d.htm" />
+        <HelpTOCNode Title="Open Method " Url="html/47fbd651-2b22-9338-439b-222b2fff8d57.htm" />
+        <HelpTOCNode Title="SubtractStep Method " Url="html/ed2a6c31-e820-5b82-9277-d1ef45d8c752.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Capacitors Fields" Url="html/531f5d4b-07d8-81dd-f202-52c4fcc20740.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="CapControlModes Enumeration" Url="html/8147e7ce-07b7-8953-5d1b-38ce3c4a2daa.htm" />
+    <HelpTOCNode Id="8bab9a5d-95a3-4725-9c48-9ade8e5bd4bb" Title="CapControls Class" Url="html/4823e5f7-4b63-46d6-439d-4ebdcae155ab.htm">
+      <HelpTOCNode Title="CapControls Constructor " Url="html/94f13954-3410-f066-7c5e-9d5ae772100e.htm" />
+      <HelpTOCNode Id="cf86ff3b-bd1b-48f9-9203-8134d9de158c" Title="CapControls Properties" Url="html/9e6a8c53-dbea-1891-0bb6-1b3157548454.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/a3eb0330-fb1c-18f8-1afb-a29432f4c4be.htm" />
+        <HelpTOCNode Title="Capacitor Property " Url="html/e06ee7d7-fbfd-31d9-ff31-c24ae6e7751a.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/7bb7f4e5-c446-bb01-5ccc-8740becf1bd8.htm" />
+        <HelpTOCNode Title="CTratio Property " Url="html/170c3352-3aa5-6973-4af5-37b053806024.htm" />
+        <HelpTOCNode Title="DeadTime Property " Url="html/647a39ac-c92f-60d3-e557-f8cb937e14ec.htm" />
+        <HelpTOCNode Title="Delay Property " Url="html/6c8cbeed-b27d-1392-5a36-319d49b4a6e2.htm" />
+        <HelpTOCNode Title="DelayOff Property " Url="html/7d97be2d-f20f-479b-86de-f605f7141e79.htm" />
+        <HelpTOCNode Title="First Property " Url="html/00b3a95a-7785-ed87-f8ce-6ca4cf4b6c94.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/0b6ce9c5-3049-70d8-7196-7bd63c812e31.htm" />
+        <HelpTOCNode Title="Mode Property " Url="html/7edc0ded-763a-6ed3-375d-2b450783325d.htm" />
+        <HelpTOCNode Title="MonitoredObj Property " Url="html/5915a249-f8fe-151a-73b7-b80ef888ddc2.htm" />
+        <HelpTOCNode Title="MonitoredTerm Property " Url="html/18f8c5fe-801a-7c5d-e29b-14fff8aa6dbd.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/f2d6d74c-4bc1-35c5-e242-f0706c5b445c.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/ce75bbf8-3caf-b850-f04c-aea164b47338.htm" />
+        <HelpTOCNode Title="OFFSetting Property " Url="html/c7adac4a-d51d-b0d1-506a-5c91917c974e.htm" />
+        <HelpTOCNode Title="ONSetting Property " Url="html/899fc8a5-06e2-bb81-cb5d-6e18dd877d05.htm" />
+        <HelpTOCNode Title="PTratio Property " Url="html/f5fc26aa-387a-c6ac-6e11-12189ac44120.htm" />
+        <HelpTOCNode Title="UseVoltOverride Property " Url="html/f5963179-db80-2962-5d13-1b71fce9295e.htm" />
+        <HelpTOCNode Title="Vmax Property " Url="html/3f5605c3-9b9c-93ee-998a-1dbac1723772.htm" />
+        <HelpTOCNode Title="Vmin Property " Url="html/378775c8-4521-e6d6-bb9b-f6ce13a17714.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="a657d954-cf4a-4b78-a3a5-3b71355f341a" Title="CapControls Methods" Url="html/9e799316-c2e0-874c-5b2c-a69e38f9c99d.htm">
+        <HelpTOCNode Title="Reset Method " Url="html/69ae992f-b24e-d2d2-7412-cf6c7a6a6f95.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="CapControls Fields" Url="html/ebb36130-7372-d0c3-8b27-f849b4d1a912.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="53e4ca39-4035-45e6-9891-92f374fcbc6f" Title="Circuit Class" Url="html/0cf5caa5-1b91-78ec-d840-87ba0aa47494.htm">
+      <HelpTOCNode Title="Circuit Constructor " Url="html/185be072-552e-3717-761b-8ec61f103791.htm" />
+      <HelpTOCNode Id="65d10a41-21e3-4c05-87e9-7fd8b538ee2b" Title="Circuit Properties" Url="html/9033aac8-77d2-23a2-a796-85984f1cd647.htm">
+        <HelpTOCNode Title="AllBusDistances Property " Url="html/aaa87860-16a2-0bf9-5e1a-4c1b004c4ffe.htm" />
+        <HelpTOCNode Title="AllBusNames Property " Url="html/a45ff2f8-7525-561f-7d7c-40df9061e13f.htm" />
+        <HelpTOCNode Title="AllBusVmag Property " Url="html/119274d5-27db-51e9-3a85-1f59597f0516.htm" />
+        <HelpTOCNode Title="AllBusVmagPu Property " Url="html/e0a85868-14b8-9c3b-4e0f-a903c7321460.htm" />
+        <HelpTOCNode Title="AllBusVolts Property " Url="html/79743573-ee26-3dbc-0e15-78fa21879817.htm" />
+        <HelpTOCNode Title="AllElementLosses Property " Url="html/f01d5dbe-3353-42c2-e0d1-d24c96154531.htm" />
+        <HelpTOCNode Title="AllElementNames Property " Url="html/b05e3352-1fb1-7446-2fab-8d2ef9484587.htm" />
+        <HelpTOCNode Title="AllNodeDistances Property " Url="html/34af88fa-cc1d-dbf8-f539-1eee290c1d39.htm" />
+        <HelpTOCNode Title="AllNodeNames Property " Url="html/9e09d466-6ecf-c3e6-90ec-1d9f61bb5a9f.htm" />
+        <HelpTOCNode Title="LineLosses Property " Url="html/002425e1-af67-ca36-d4a7-f5eb3f4de8b4.htm" />
+        <HelpTOCNode Title="Losses Property " Url="html/9cb9423d-2149-a98b-d154-5a7f73a84dd2.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/0849201f-b216-da57-a1fe-de31bd03df72.htm" />
+        <HelpTOCNode Title="NumBuses Property " Url="html/9ed0c1f0-aa64-48b2-c7a9-8aa4a37187f1.htm" />
+        <HelpTOCNode Title="NumCktElements Property " Url="html/14b261bd-0205-616c-92ef-ce9cd3005c4e.htm" />
+        <HelpTOCNode Title="NumNodes Property " Url="html/f18b8020-6725-c5e4-580f-a8a73e5654eb.htm" />
+        <HelpTOCNode Title="ParentPDElement Property " Url="html/ba65fe10-93c1-6aaa-dee6-d26ff677b63c.htm" />
+        <HelpTOCNode Title="SubstationLosses Property " Url="html/dc4784ae-ac9f-934e-11e5-ce4fd43c99d9.htm" />
+        <HelpTOCNode Title="SystemY Property " Url="html/91b45754-c255-5439-6351-4bdee4d13997.htm" />
+        <HelpTOCNode Title="TotalPower Property " Url="html/e53a0da1-654f-d4f0-a0d9-001a4de996e5.htm" />
+        <HelpTOCNode Title="YCurrents Property " Url="html/0372cc87-fdc5-076f-8b78-93833c693627.htm" />
+        <HelpTOCNode Title="YNodeOrder Property " Url="html/4dc0d8f6-427b-7549-295b-cda7cbd739ae.htm" />
+        <HelpTOCNode Title="YNodeVarray Property " Url="html/cf5eb2d1-e6f0-e96b-507f-cc29b84f0a5f.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="81f6fa78-0e8e-4786-9d64-e96351136d76" Title="Circuit Methods" Url="html/eceea3a2-5ef0-50d9-c502-19926217c0a7.htm">
+        <HelpTOCNode Title="AllNodeDistancesByPhase Method " Url="html/306a83e8-d125-1128-2587-12adb19cd02d.htm" />
+        <HelpTOCNode Title="AllNodeNamesByPhase Method " Url="html/ea67892b-a8dd-f028-b7b9-bc4fdd98fd5b.htm" />
+        <HelpTOCNode Title="AllNodeVmagByPhase Method " Url="html/f3e7a09c-13dc-3885-0a29-2d26a48b0712.htm" />
+        <HelpTOCNode Title="AllNodeVmagPUByPhase Method " Url="html/f5710a6c-323a-c715-fbc2-be667f0680fc.htm" />
+        <HelpTOCNode Title="Capacity Method " Url="html/61567e51-6d3e-a88a-3e95-a2f3252a087a.htm" />
+        <HelpTOCNode Title="Disable Method " Url="html/1ac61af8-3af9-ec1b-510b-9c3fcec007b4.htm" />
+        <HelpTOCNode Title="ElementLosses Method " Url="html/53524212-cf4c-0c69-fbb6-a77de25f1afe.htm" />
+        <HelpTOCNode Title="Enable Method " Url="html/74070eb1-b6fb-e6cc-2552-836d3623ee79.htm" />
+        <HelpTOCNode Title="EndOfTimeStepUpdate Method " Url="html/c0dbe29c-dfdb-652a-adae-2a766ff47f22.htm" />
+        <HelpTOCNode Title="FirstElement Method " Url="html/839f2b3f-42c3-c20d-3d63-ae5c6f50e0b7.htm" />
+        <HelpTOCNode Title="FirstPCElement Method " Url="html/e3aea483-7a80-b983-f0e9-754e9217831d.htm" />
+        <HelpTOCNode Title="FirstPDElement Method " Url="html/3f7b993f-b75f-95ac-90f2-4520ca2b813d.htm" />
+        <HelpTOCNode Id="8a1b8b65-e6b0-4cb2-a049-a6c1a52736fd" Title="get_Buses Method " Url="html/9c73f6fc-d5f7-b8aa-e2f2-957562426642.htm">
+          <HelpTOCNode Title="get_Buses Method (Int32)" Url="html/965f13f0-9909-9477-13b7-8d3289f72dcd.htm" />
+          <HelpTOCNode Title="get_Buses Method (String)" Url="html/fbb2f424-f878-297d-32f7-4d3f488edbd1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="488642ea-bcac-4a1d-97ee-653cb6937ba0" Title="get_CktElements Method " Url="html/63cd5ca1-064f-b11f-f56c-ecc177278cc9.htm">
+          <HelpTOCNode Title="get_CktElements Method (Int32)" Url="html/bce1fb87-caa2-f940-67eb-7da7534be133.htm" />
+          <HelpTOCNode Title="get_CktElements Method (String)" Url="html/a7bf41bb-a67c-1bd8-f262-eaf302d2148e.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="NextElement Method " Url="html/ec5b803f-fc22-4f2a-68ca-4be4f2b274c2.htm" />
+        <HelpTOCNode Title="NextPCElement Method " Url="html/25e53251-c5fa-9ea6-b893-c0236f2dc32e.htm" />
+        <HelpTOCNode Title="NextPDElement Method " Url="html/a420619b-5232-a13a-0427-f5d98c695ac6.htm" />
+        <HelpTOCNode Title="Sample Method " Url="html/bf6b81e9-52e7-ad63-206e-eb967067180e.htm" />
+        <HelpTOCNode Title="SaveSample Method " Url="html/31129ac5-e990-3467-17dd-35839abb6a17.htm" />
+        <HelpTOCNode Title="SetActiveBus Method " Url="html/4621e345-fdc4-7b5d-82c3-05bf49a633c5.htm" />
+        <HelpTOCNode Title="SetActiveBusi Method " Url="html/b93a4e99-e86a-807c-9e21-433873fc032b.htm" />
+        <HelpTOCNode Title="SetActiveClass Method " Url="html/ba1e1b6e-7a01-2068-061f-68a8b44eb1fb.htm" />
+        <HelpTOCNode Title="SetActiveElement Method " Url="html/390cba13-206e-fbe8-2356-8fc363bc9b33.htm" />
+        <HelpTOCNode Title="UpdateStorage Method " Url="html/dc698acb-cbb8-8b73-22ce-c29b34f4af82.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="0db76359-ed2c-4a07-a1e4-bed0605bb21f" Title="Circuit Fields" Url="html/c763bc8e-a9af-9927-bcd3-c1790b8cf2e4.htm">
+        <HelpTOCNode Title="ActiveBus Field" Url="html/38524af9-4496-2482-819c-95f3d02121de.htm" />
+        <HelpTOCNode Title="ActiveCktElement Field" Url="html/dfc3d80f-9cf6-43b2-aeb8-f82bd809b853.htm" />
+        <HelpTOCNode Title="ActiveClass Field" Url="html/40174d76-8123-b558-7b0a-9088a3d01feb.htm" />
+        <HelpTOCNode Title="ActiveDSSElement Field" Url="html/aea21872-9bc5-a20c-1f4b-c998f454d8d7.htm" />
+        <HelpTOCNode Title="ActiveElement Field" Url="html/7c85aff9-3608-879f-faca-4e5162d1e9af.htm" />
+        <HelpTOCNode Title="Buses Field" Url="html/d9b98d45-044e-fb59-2590-c4708149e85b.htm" />
+        <HelpTOCNode Title="Capacitors Field" Url="html/4a1e5edc-fb69-1b97-3cb0-cf3e56ff2874.htm" />
+        <HelpTOCNode Title="CapControls Field" Url="html/a7fd560a-bb17-5edb-5690-cb0895ae0f1d.htm" />
+        <HelpTOCNode Title="CktElements Field" Url="html/24b6675c-6f48-d523-d6bb-9275eb8b0555.htm" />
+        <HelpTOCNode Title="CNData Field" Url="html/fcc97013-f655-1cc1-986a-1b9331cd2e0e.htm" />
+        <HelpTOCNode Title="CtrlQueue Field" Url="html/2048ab66-4f0e-b979-504f-2a30abbd5494.htm" />
+        <HelpTOCNode Title="DSSim_Coms Field" Url="html/a4772154-3872-faec-751a-8544944ffd86.htm" />
+        <HelpTOCNode Title="Fuses Field" Url="html/aa8c173c-7391-18a6-ecd1-226d32fd283d.htm" />
+        <HelpTOCNode Title="Generators Field" Url="html/99ea1212-c66c-da25-2d98-0e2b55c63eab.htm" />
+        <HelpTOCNode Title="GICSources Field" Url="html/fd9f43a5-7e3d-e3b3-9205-a33abe7fd096.htm" />
+        <HelpTOCNode Title="Isources Field" Url="html/059e73a1-a428-511c-baed-ccd7106a97b3.htm" />
+        <HelpTOCNode Title="LineCodes Field" Url="html/0ec42e9f-36e4-c6d4-be06-b697d4a31c4b.htm" />
+        <HelpTOCNode Title="LineGeometries Field" Url="html/dba59cae-1f73-24d9-2cbc-d6546f476c83.htm" />
+        <HelpTOCNode Title="Lines Field" Url="html/156cb754-50ff-b87b-f765-789ae5d826e0.htm" />
+        <HelpTOCNode Title="LineSpacings Field" Url="html/e8470fa3-0c11-80cc-9e70-411a10468658.htm" />
+        <HelpTOCNode Title="Loads Field" Url="html/2c786255-4314-75c7-2a92-09517b82acec.htm" />
+        <HelpTOCNode Title="LoadShapes Field" Url="html/ecad9d1c-009c-4d83-b6cc-80ea50deb59d.htm" />
+        <HelpTOCNode Title="Meters Field" Url="html/d06d0e7d-b508-77d3-1265-19841db37d95.htm" />
+        <HelpTOCNode Title="Monitors Field" Url="html/0ae073f1-5cee-3d35-14ec-e55c99a40971.htm" />
+        <HelpTOCNode Title="PDElements Field" Url="html/fa6ca71a-d059-2096-770b-960acf80434c.htm" />
+        <HelpTOCNode Title="PVSystems Field" Url="html/5ea95eff-8073-b955-9d8c-ec1d78460f33.htm" />
+        <HelpTOCNode Title="Reactors Field" Url="html/efac9834-a391-6ff2-8108-4bc02c7af810.htm" />
+        <HelpTOCNode Title="Reclosers Field" Url="html/2ea2cf9e-9749-1d36-5e7e-758668607e44.htm" />
+        <HelpTOCNode Title="ReduceCkt Field" Url="html/5dfd670f-8778-ced8-7470-e15fd90a6f9f.htm" />
+        <HelpTOCNode Title="RegControls Field" Url="html/2220ebc2-b932-d943-b4b3-de222ed85db4.htm" />
+        <HelpTOCNode Title="Relays Field" Url="html/c5f99f43-9904-f991-36f2-2a7af1d01575.htm" />
+        <HelpTOCNode Title="Sensors Field" Url="html/85db5c89-7832-237c-ec74-9d760c8bb96f.htm" />
+        <HelpTOCNode Title="Settings Field" Url="html/ca65b92b-e698-5457-0e2b-3ad13795f12b.htm" />
+        <HelpTOCNode Title="Solution Field" Url="html/7502d8ff-ea07-dd49-e19f-2892e32151f6.htm" />
+        <HelpTOCNode Title="Storages Field" Url="html/54cf9cd7-8ff4-f0b5-2ca0-bf2156f39348.htm" />
+        <HelpTOCNode Title="SwtControls Field" Url="html/65c3076f-d637-bacf-fd02-fcfe6c555800.htm" />
+        <HelpTOCNode Title="Topology Field" Url="html/f80ec16b-cabb-7806-9372-38fd790768c0.htm" />
+        <HelpTOCNode Title="Transformers Field" Url="html/21845435-0140-53e3-8335-a807fc521621.htm" />
+        <HelpTOCNode Title="TSData Field" Url="html/a2b93eaa-1e0b-90d1-2ff1-634e013a1e90.htm" />
+        <HelpTOCNode Title="Vsources Field" Url="html/c2450c51-4971-895b-61cf-9b5ba97daac8.htm" />
+        <HelpTOCNode Title="WireData Field" Url="html/d3384548-b717-c964-1a51-61f77dd16a32.htm" />
+        <HelpTOCNode Title="XYCurves Field" Url="html/d496c1df-ae0f-7350-ac58-75ce9592b56b.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="3424bef3-2ff9-4028-b343-9170d7d3d3c9" Title="CktElement Class" Url="html/d968b498-118c-ee9f-3653-dedaf0ca7877.htm">
+      <HelpTOCNode Title="CktElement Constructor " Url="html/fa770171-20c9-f82c-d1a6-eb6b0799ba4e.htm" />
+      <HelpTOCNode Id="17bd4118-132c-4fb0-b2d8-84daced11202" Title="CktElement Properties" Url="html/2b07bad0-4d8f-eb9f-a195-725ec7150607.htm">
+        <HelpTOCNode Title="AllPropertyNames Property " Url="html/603322ae-ae55-b9b6-4464-7710751f6bdb.htm" />
+        <HelpTOCNode Title="AllVariableNames Property " Url="html/ea6ad358-0048-ffdd-84c1-2ff820def41e.htm" />
+        <HelpTOCNode Title="AllVariableValues Property " Url="html/ca47082c-debc-934a-44c4-dbd85e698e3d.htm" />
+        <HelpTOCNode Title="BusNames Property " Url="html/f56112de-454c-7241-f839-21cd0230b045.htm" />
+        <HelpTOCNode Title="CplxSeqCurrents Property " Url="html/cbb2a1cc-08e6-b183-566b-c87447d7bf20.htm" />
+        <HelpTOCNode Title="CplxSeqVoltages Property " Url="html/eea13a13-3dcb-a83e-144d-b4ddbd9d6ef4.htm" />
+        <HelpTOCNode Title="Currents Property " Url="html/415dd7ed-05e0-4c1a-1a6b-780559e96021.htm" />
+        <HelpTOCNode Title="CurrentsMagAng Property " Url="html/58bfa249-7dd2-b895-808e-3f14fd9fa8f9.htm" />
+        <HelpTOCNode Title="DisplayName Property " Url="html/f0b4f35c-8cfd-bb74-0f2e-c45f3df5f787.htm" />
+        <HelpTOCNode Title="EmergAmps Property " Url="html/396eab74-a9c3-b5a7-f804-b075dbb04cec.htm" />
+        <HelpTOCNode Title="Enabled Property " Url="html/5e7ea9c1-bd15-7fc8-7559-821f4d7ecf32.htm" />
+        <HelpTOCNode Title="EnergyMeter Property " Url="html/8473756e-1e9a-532b-cb99-eea8d1b00381.htm" />
+        <HelpTOCNode Title="GUID Property " Url="html/88a4ad3d-a7d6-8f7d-48ff-30d43082f962.htm" />
+        <HelpTOCNode Title="Handle Property " Url="html/b44ddbc9-a9df-0d6f-1102-b0314a824a09.htm" />
+        <HelpTOCNode Title="HasOCPDevice Property " Url="html/7403a153-195a-a361-910a-62e1ce953936.htm" />
+        <HelpTOCNode Title="HasSwitchControl Property " Url="html/6b6047b8-4c9d-9c75-04e5-809a3e603ad2.htm" />
+        <HelpTOCNode Title="HasVoltControl Property " Url="html/3b7d459b-32a5-ec38-f480-8573a72d20f4.htm" />
+        <HelpTOCNode Title="IsIsolated Property " Url="html/d60ae2e4-c8ba-a5ed-9ffa-104e9acd655f.htm" />
+        <HelpTOCNode Title="Losses Property " Url="html/f83c8728-395e-da99-0984-f3acb2897140.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/cf127efb-1589-4582-1e0f-c311ef0b9fb4.htm" />
+        <HelpTOCNode Title="NodeOrder Property " Url="html/08174f57-47d1-368f-84e6-9d240aa48fc8.htm" />
+        <HelpTOCNode Title="NodeRef Property " Url="html/12df1638-0b37-02f6-68e0-eea19e13964e.htm" />
+        <HelpTOCNode Title="NormalAmps Property " Url="html/fe3e66ef-2020-01dc-cf28-5b0cdb7cfe94.htm" />
+        <HelpTOCNode Title="NumConductors Property " Url="html/3c324fe4-9ea6-7f83-bf88-c6b50263ad3d.htm" />
+        <HelpTOCNode Title="NumControls Property " Url="html/21aed612-87af-13b0-6bf2-1d9fc4ae86be.htm" />
+        <HelpTOCNode Title="NumPhases Property " Url="html/afa071c3-1423-6b3c-b7ba-d43ce01b87e9.htm" />
+        <HelpTOCNode Title="NumProperties Property " Url="html/2c377de6-7dcb-1238-1ba2-0c71aa8cf6d1.htm" />
+        <HelpTOCNode Title="NumTerminals Property " Url="html/ae8b7669-8818-d99d-9ef3-eb81a4f92661.htm" />
+        <HelpTOCNode Title="OCPDevIndex Property " Url="html/b25fc514-5ac8-4fb6-2bfa-da4b8bf2abb7.htm" />
+        <HelpTOCNode Title="OCPDevType Property " Url="html/7617ce57-b7cf-5af7-385a-c01284b9e360.htm" />
+        <HelpTOCNode Title="PhaseLosses Property " Url="html/7c273871-d8bf-04d8-d98d-d2e1d022dcda.htm" />
+        <HelpTOCNode Title="Powers Property " Url="html/391f2f40-e596-345f-65c7-9129053f9d6b.htm" />
+        <HelpTOCNode Title="Residuals Property " Url="html/e8b7f082-c224-974d-47dc-4ecb306a6da9.htm" />
+        <HelpTOCNode Title="SeqCurrents Property " Url="html/6f26d371-0500-a236-4287-9253271e61db.htm" />
+        <HelpTOCNode Title="SeqPowers Property " Url="html/856e5e59-1ffb-c43c-5993-92b68c8de264.htm" />
+        <HelpTOCNode Title="SeqVoltages Property " Url="html/2487c57b-c83b-3668-6655-66c1dd87238d.htm" />
+        <HelpTOCNode Title="TotalPowers Property " Url="html/30b597d8-6846-9fc7-9004-c41276f46381.htm" />
+        <HelpTOCNode Title="Voltages Property " Url="html/9b7889c1-ab61-36c0-c9fd-09b8c2b1f5ae.htm" />
+        <HelpTOCNode Title="VoltagesMagAng Property " Url="html/da291f12-f836-7d47-96b0-e093002373e4.htm" />
+        <HelpTOCNode Title="Yprim Property " Url="html/d04ac7d9-ebc4-2387-2e19-d63c037df180.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="412bf5ab-7c3c-4b85-9ff5-f4715a67cc72" Title="CktElement Methods" Url="html/48666fdc-a227-65ee-662f-1e9d69809937.htm">
+        <HelpTOCNode Title="Close Method " Url="html/9ad91276-f99d-e551-9285-44a35f5abcf5.htm" />
+        <HelpTOCNode Title="Controller Method " Url="html/137bfbaa-a331-1292-dc3c-a4cf2d78e24d.htm" />
+        <HelpTOCNode Title="IsOpen Method " Url="html/15d44e2f-5270-51a0-d08f-92a617c6d44e.htm" />
+        <HelpTOCNode Title="Open Method " Url="html/87c6d39c-c02b-2b0d-a54e-41c3190af5ec.htm" />
+        <HelpTOCNode Title="Variable Method " Url="html/4dedf022-a998-c3d6-bf52-3b644a2f114e.htm" />
+        <HelpTOCNode Id="6f95780b-e371-4d57-a7de-ec7ef476685a" Title="VariableByIndex Method " Url="html/487f2310-6dea-9cf1-7007-7262e6b1d36d.htm">
+          <HelpTOCNode Title="VariableByIndex Method (Int32, Int32)" Url="html/72c43b11-7962-cd10-090e-735350b33827.htm" />
+          <HelpTOCNode Title="VariableByIndex Method (Int32, Int32, Double)" Url="html/5c310fd6-a86e-1adf-a881-ddca03e859be.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="abea5049-aab8-4541-a371-ebaec69087bc" Title="VariableByName Method " Url="html/aa1c7f6e-86a3-2ebf-aae8-b927a15035cd.htm">
+          <HelpTOCNode Title="VariableByName Method (String, Int32)" Url="html/7b3904c5-39f9-65e4-2ac6-64d10915ebd6.htm" />
+          <HelpTOCNode Title="VariableByName Method (String, Int32, Double)" Url="html/0c99e045-c189-b115-6f0e-5e47fdc0c2fa.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Variablei Method " Url="html/8424e8ce-3b51-2c93-30fc-417aef5fd746.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="dddacaad-e2b1-4945-8c32-778e9426f5fa" Title="CktElement Fields" Url="html/8c85681f-ba52-f33e-79db-bd8f4e7ec5a6.htm">
+        <HelpTOCNode Title="Properties Field" Url="html/86a1b648-7bb9-b8ff-2e34-fe70d83e5dbe.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="CktModels Enumeration" Url="html/fa70e790-803b-968a-97d5-4968ac29ef4f.htm" />
+    <HelpTOCNode Id="43efbab9-cac3-4d33-a592-caf132e60e21" Title="CNData Class" Url="html/4db2e491-4bfd-6c13-acd7-fa42e5665634.htm">
+      <HelpTOCNode Title="CNData Constructor " Url="html/40b8c87d-2cf6-622b-96b7-14eee40de1cd.htm" />
+      <HelpTOCNode Id="7edd1b26-0140-4297-940d-d219976fe3a2" Title="CNData Properties" Url="html/80f7dbd3-223f-1c34-dd33-4a603cf9f9d5.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/255bfb33-28de-36df-657a-43b44bb670bc.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/2b051370-83c2-f4d4-9f29-5480964bfe82.htm" />
+        <HelpTOCNode Title="DiaCable Property " Url="html/0a3d787a-e4ca-59be-0a85-e9ec192e9396.htm" />
+        <HelpTOCNode Title="DiaIns Property " Url="html/9c157598-03ee-9521-1ad4-ebce4ad65e7d.htm" />
+        <HelpTOCNode Title="Diameter Property " Url="html/1836900a-6307-2867-0059-d9f0a1e5e622.htm" />
+        <HelpTOCNode Title="DiaStrand Property " Url="html/469cd383-a059-08e6-41b5-c9bcfba751de.htm" />
+        <HelpTOCNode Title="EmergAmps Property " Url="html/9ac373f1-4552-bbe5-315f-e18c8167b890.htm" />
+        <HelpTOCNode Title="EpsR Property " Url="html/0bce581a-46c6-476c-a0b4-8b32389e435a.htm" />
+        <HelpTOCNode Title="First Property " Url="html/98e170a8-a2e4-8892-a4ff-4cc72f1c4583.htm" />
+        <HelpTOCNode Title="GMRac Property " Url="html/0a175a21-8afd-7d86-3745-0267c7afb8ad.htm" />
+        <HelpTOCNode Title="GmrStrand Property " Url="html/4f263caa-7b51-70b7-517d-8e423c531160.htm" />
+        <HelpTOCNode Title="GMRUnits Property " Url="html/809610a8-5a8a-3c87-4c20-37b3b860e8f1.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/df1dc5eb-f42a-608c-0973-a813e1c1698a.htm" />
+        <HelpTOCNode Title="InsLayer Property " Url="html/42eb2f07-e1ed-a31e-1496-da8b6bbd04ef.htm" />
+        <HelpTOCNode Title="k Property " Url="html/b62bbda2-dfdd-06e5-6949-703870406da6.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/87e84c93-c528-82d5-a048-55405c409c79.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/9b0d2daf-1de6-044b-fad7-75d13c76fb7e.htm" />
+        <HelpTOCNode Title="NormAmps Property " Url="html/938cb227-221e-5888-b5ab-a7557191e2fd.htm" />
+        <HelpTOCNode Title="Rac Property " Url="html/1ae51c83-fd17-c6fb-c0f0-009e6c0539c8.htm" />
+        <HelpTOCNode Title="Radius Property " Url="html/e8e494c6-dca7-5871-e12f-650da6d29a6a.htm" />
+        <HelpTOCNode Title="RadiusUnits Property " Url="html/feaf9aa6-4471-a7ca-010d-a7bdd6495dbb.htm" />
+        <HelpTOCNode Title="Rdc Property " Url="html/a691f21e-f8f4-4544-39e8-bb4d62fb6841.htm" />
+        <HelpTOCNode Title="ResistanceUnits Property " Url="html/b3ee049f-2923-74bf-9ac0-bd355bd088db.htm" />
+        <HelpTOCNode Title="RStrand Property " Url="html/b8988aa8-91ea-40b1-3146-f812912f8525.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="CNData Methods" Url="html/6536a71f-534a-d6b2-461e-734c919a96e6.htm" />
+      <HelpTOCNode Title="CNData Fields" Url="html/3bd1a917-bff8-2ce8-0502-d50845b1bfbf.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="ControlModes Enumeration" Url="html/e279f587-363a-4ce9-0b52-5099d5a7c89a.htm" />
+    <HelpTOCNode Id="6347b4b5-c046-4dcd-8fe3-0464e8c3d487" Title="CtrlQueue Class" Url="html/8b2ec438-789f-24d4-c27b-15b7beeb3b93.htm">
+      <HelpTOCNode Title="CtrlQueue Constructor " Url="html/8a221b7b-72c7-35e1-40d9-457e2d2a3cab.htm" />
+      <HelpTOCNode Id="34503f79-b971-4a23-99dd-cb13b3db3361" Title="CtrlQueue Properties" Url="html/fed6d0f4-e44e-8cce-b715-4d477be797c3.htm">
+        <HelpTOCNode Title="Action Property " Url="html/a5fb65d9-2cd6-17f3-1770-da2f0a035b42.htm" />
+        <HelpTOCNode Title="ActionCode Property " Url="html/24ac7e4b-9561-e288-53ea-09a49fbdb91f.htm" />
+        <HelpTOCNode Title="DeviceHandle Property " Url="html/c728dd9b-ee0b-909e-b8be-1df5d2678f59.htm" />
+        <HelpTOCNode Title="NumActions Property " Url="html/a8b1a624-1a29-c995-4b5e-168cec347f88.htm" />
+        <HelpTOCNode Title="PopAction Property " Url="html/7b6e62b6-a171-f014-d8ed-d2a1bfd5f471.htm" />
+        <HelpTOCNode Title="Queue Property " Url="html/01801ed1-8195-5a04-6c66-b1d75453ee55.htm" />
+        <HelpTOCNode Title="QueueSize Property " Url="html/2fec671e-972c-6ef1-b1b7-e341cf671438.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="a7cd3ac6-064e-4f8d-98f0-b63fdd7ea83d" Title="CtrlQueue Methods" Url="html/9bbb6f6d-b8d2-bbf8-1e1c-917145f9f867.htm">
+        <HelpTOCNode Title="ClearActions Method " Url="html/70a489b0-b694-a9fa-97d7-7ec304ca7376.htm" />
+        <HelpTOCNode Title="ClearQueue Method " Url="html/ed0de78a-fce9-45ff-058c-aca257a8ab0b.htm" />
+        <HelpTOCNode Title="Delete Method " Url="html/9e566906-79fc-61f1-61ce-a9e3013e776e.htm" />
+        <HelpTOCNode Title="DoAllQueue Method " Url="html/1848f451-e371-5014-8af7-55b34a9e6abf.htm" />
+        <HelpTOCNode Title="Push Method " Url="html/3b7e0f20-7541-678c-33f0-ade1dd16d55c.htm" />
+        <HelpTOCNode Title="Show Method " Url="html/b8850f5b-c32d-02b8-647a-0cacfe1d09c2.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="CtrlQueue Fields" Url="html/fd696dfc-f0d7-8d23-d1b9-155b51134d94.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="6da6eb5c-b995-4bdf-b416-925260fa04cd" Title="DSS Class" Url="html/6ec40528-724b-089f-8ac5-ce043f8f981f.htm">
+      <HelpTOCNode Id="7b589c07-c00d-49bc-9eb3-f8361511bcea" Title="DSS Constructor " Url="html/8b5fff1e-b4bf-a3d4-f14b-2c4773818614.htm">
+        <HelpTOCNode Title="DSS Constructor " Url="html/9aaced04-f47e-7058-4734-631f279e3fbc.htm" />
+        <HelpTOCNode Title="DSS Constructor (APIUtil)" Url="html/2e4fd80a-b24b-6336-eee9-9958d60f03d9.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="ed4be936-aa2e-43ed-8a94-59c1e67bb7c7" Title="DSS Properties" Url="html/fae076cc-65b4-91ba-0e1c-b1166df4a04a.htm">
+        <HelpTOCNode Title="AllowChangeDir Property " Url="html/25c06aaf-5e55-71d8-b2e5-4442cb75b502.htm" />
+        <HelpTOCNode Title="AllowDOScmd Property " Url="html/5a92a80a-a854-c5ee-5275-d658a95e7b2b.htm" />
+        <HelpTOCNode Title="AllowEditor Property " Url="html/f0bc0ea6-b014-c507-e245-f74bfed1ef26.htm" />
+        <HelpTOCNode Title="AllowForms Property " Url="html/015a203a-cbe4-71b2-ad8e-9b2680c093fa.htm" />
+        <HelpTOCNode Title="Classes Property " Url="html/e6788e81-7579-e2f3-461c-c31ebdd5c2ee.htm" />
+        <HelpTOCNode Title="COMErrorResults Property " Url="html/59fea261-88ca-f1b3-e783-a87a9d4b8098.htm" />
+        <HelpTOCNode Title="DataPath Property " Url="html/4a47a2f8-38fa-835c-8fa3-2f4c6b974a4b.htm" />
+        <HelpTOCNode Title="DefaultEditor Property " Url="html/25e1f8ed-0c97-d952-d0a5-3286dcdcc80b.htm" />
+        <HelpTOCNode Title="LegacyModels Property " Url="html/62a4d834-988f-f80f-a527-525a2873be9b.htm" />
+        <HelpTOCNode Title="NumCircuits Property " Url="html/aaf5f334-03e0-8065-9939-542a81643860.htm" />
+        <HelpTOCNode Title="NumClasses Property " Url="html/6ccc5130-99b5-6b23-4281-f1a7f268f6be.htm" />
+        <HelpTOCNode Title="NumUserClasses Property " Url="html/5d7384f8-0c4e-e5cb-c3c7-b72e59e29384.htm" />
+        <HelpTOCNode Title="UserClasses Property " Url="html/92337ae6-c2c5-9fc5-1dcf-90a4e09e435c.htm" />
+        <HelpTOCNode Title="Version Property " Url="html/4c6a7d0e-dcc3-6cf8-c698-d827807ff650.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="26a8b3cd-1230-426a-9db2-b02bf6d59ef4" Title="DSS Methods" Url="html/1b26e07e-12f2-6c7f-fc69-3fc8aad3c20c.htm">
+        <HelpTOCNode Title="ClearAll Method " Url="html/0e9bbe0f-5d92-200b-5f7c-08d1a2a33582.htm" />
+        <HelpTOCNode Title="NewCircuit Method " Url="html/62f61616-cc83-bfa1-5cbf-081d4ab15216.htm" />
+        <HelpTOCNode Title="NewContext Method " Url="html/d0e4d400-3bd9-1244-3cac-8f1234cbad9f.htm" />
+        <HelpTOCNode Title="Reset Method " Url="html/f2248185-f6de-b235-75f7-4e3fefc43dbe.htm" />
+        <HelpTOCNode Title="SetActiveClass Method " Url="html/27aae471-1aa5-7af9-0aab-f6ca18de657a.htm" />
+        <HelpTOCNode Title="ShowPanel Method " Url="html/0c233c96-e641-1678-c6e6-ce6c3e85b7bf.htm" />
+        <HelpTOCNode Title="Start Method " Url="html/de0b3749-8ddb-41bb-5206-40316ce73558.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="0c455c73-c92c-455c-ba41-2ea67651556d" Title="DSS Fields" Url="html/571b7415-7787-78b0-4b02-c7f63dc193c8.htm">
+        <HelpTOCNode Title="ActiveCircuit Field" Url="html/fbeb9b28-0c7a-9ad5-b52d-8e39042a225c.htm" />
+        <HelpTOCNode Title="ActiveClass Field" Url="html/4a86049b-5990-69ad-d7da-8e6b6567a862.htm" />
+        <HelpTOCNode Title="Circuits Field" Url="html/21c9b4f3-0364-bea6-229d-79d84ea5f0fb.htm" />
+        <HelpTOCNode Title="DSSim_Coms Field" Url="html/4a2d8b6a-95e3-1b25-7755-3b656b494205.htm" />
+        <HelpTOCNode Title="DSSProgress Field" Url="html/4c880911-d1bc-e952-1ebe-9e9ef5c6edf3.htm" />
+        <HelpTOCNode Title="Error Field" Url="html/c0c79d54-d039-6ace-aa8d-37da549fc9d5.htm" />
+        <HelpTOCNode Title="Events Field" Url="html/7def7630-0042-4875-9add-7f42d52cf9fa.htm" />
+        <HelpTOCNode Title="Executive Field" Url="html/8d79b9a2-fa42-88f5-0946-2facc42cbf3a.htm" />
+        <HelpTOCNode Title="Parser Field" Url="html/dbc8bd34-42c9-4527-5c79-a8cef0c918c9.htm" />
+        <HelpTOCNode Title="Text Field" Url="html/922afbd8-e071-dddd-7ead-ade343f1c44b.htm" />
+        <HelpTOCNode Title="YMatrix Field" Url="html/87b4f4cd-86b6-ccfb-8a15-e73444041efc.htm" />
+        <HelpTOCNode Title="ZIP Field" Url="html/f0d14f5a-fa53-fee7-4079-40d74f421e4e.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="9f0558e4-5c29-49df-9249-f92a1fe53593" Title="DSS_Executive Class" Url="html/af5b9e74-7188-38d4-fb3b-cffe856cc4e1.htm">
+      <HelpTOCNode Title="DSS_Executive Constructor " Url="html/8bd63ca3-d410-5995-478f-108989bd26fc.htm" />
+      <HelpTOCNode Id="6377c481-c21f-45a8-8fcd-8a8a94050238" Title="DSS_Executive Properties" Url="html/3fd19231-b428-8b53-546e-7cc09c461959.htm">
+        <HelpTOCNode Title="NumCommands Property " Url="html/c4105924-db6e-29b2-d858-edc6f0c86710.htm" />
+        <HelpTOCNode Title="NumOptions Property " Url="html/39214863-f5b5-03ab-c48f-1460a31246bc.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="002b69cd-9192-4bc7-9177-6f8aea16734b" Title="DSS_Executive Methods" Url="html/1608d100-cea5-8c5c-1ed9-92243130ae83.htm">
+        <HelpTOCNode Title="Command Method " Url="html/9d31d850-5817-166e-e391-6f0e4a0fcf84.htm" />
+        <HelpTOCNode Title="CommandHelp Method " Url="html/5df51bfa-1f7e-1fa4-b874-cc01600c9ad5.htm" />
+        <HelpTOCNode Title="Option Method " Url="html/bc727367-fb17-2f2d-29c2-d3ff26986fca.htm" />
+        <HelpTOCNode Title="OptionHelp Method " Url="html/1148a5bc-b115-35dc-0157-20cea2f9bd41.htm" />
+        <HelpTOCNode Title="OptionValue Method " Url="html/6594892d-dd91-144b-d470-56278c4af867.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="DSS_Executive Fields" Url="html/b049e86a-2f5e-50e5-44c6-4f9fcb182639.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="423842fb-9483-490a-a325-c2a94923311d" Title="DSSElement Class" Url="html/2a31785c-48f1-ee11-7bca-6f83d9938691.htm">
+      <HelpTOCNode Title="DSSElement Constructor " Url="html/ee7d8e42-6361-6a09-20ea-ffbd2ee6d39c.htm" />
+      <HelpTOCNode Id="974487ec-3fd3-4879-989d-fe98a29ec92d" Title="DSSElement Properties" Url="html/95ee99e0-4c3f-9334-6a42-16bfd0f79edd.htm">
+        <HelpTOCNode Title="AllPropertyNames Property " Url="html/c840e8ba-659a-b5ca-fdaa-92a6c898f463.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/a1440d7b-42fd-de92-39a0-3948ffaeb2e8.htm" />
+        <HelpTOCNode Title="NumProperties Property " Url="html/131fb376-9fdc-efb8-496a-778c918f47ec.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="5f342405-9c06-4b38-9655-27ec4227e7d3" Title="DSSElement Methods" Url="html/da0a2220-acdc-7ef1-e071-7b8ab805d3a8.htm">
+        <HelpTOCNode Title="ToJSON Method " Url="html/14e2f873-df22-ec74-f163-c6f479530ded.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="1970da97-9f0b-402b-a92b-eeda551ccb20" Title="DSSElement Fields" Url="html/3eadbda8-2344-7ee2-19ae-6a4c31eeb186.htm">
+        <HelpTOCNode Title="Properties Field" Url="html/7d7d7450-79e5-c06e-a06c-b05233489dad.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="d970cd91-7538-48a5-9779-787bcd8a5401" Title="DSSEvents Class" Url="html/99d052f2-14ca-140b-a122-0f3615c3e76c.htm">
+      <HelpTOCNode Title="DSSEvents Constructor " Url="html/efe05d15-5747-b93e-2082-01e530e2e082.htm" />
+      <HelpTOCNode Title="DSSEvents Methods" Url="html/3ea0fc6e-8ace-e605-7151-6a0285fb89bb.htm" />
+      <HelpTOCNode Title="DSSEvents Fields" Url="html/3dedecd0-216a-d9c5-41b3-3ff4e3d562f1.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="2559d6e7-a4fb-4298-9417-61ba22f8b8c3" Title="DSSException Class" Url="html/e4b6020d-eb6f-575a-5238-cac1efaf6596.htm">
+      <HelpTOCNode Title="DSSException Constructor " Url="html/71c71b41-5c25-39f0-77e6-e5040308b7ca.htm" />
+      <HelpTOCNode Title="DSSException Properties" Url="html/0f789070-3f57-0e72-2aae-49654f056d4a.htm" />
+      <HelpTOCNode Title="DSSException Methods" Url="html/88c69e08-ce71-fdaf-a133-fa410a334c14.htm" />
+      <HelpTOCNode Title="DSSException Events" Url="html/5ed25672-fa16-61bb-3f3c-12faeb179567.htm" />
+      <HelpTOCNode Id="df26090f-c6db-45e4-a845-e23328b911d8" Title="DSSException Fields" Url="html/c26fc581-3ff5-8e98-4e5b-88889a6f26e0.htm">
+        <HelpTOCNode Title="ErrorMessage Field" Url="html/aef21e66-0d8a-0ec9-1e81-754550710a20.htm" />
+        <HelpTOCNode Title="ErrorNumber Field" Url="html/e1792ccd-9020-fa7e-43b4-c657ea9de7ac.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="66b009ea-041d-4249-9605-ca631ad9ee42" Title="DSSimComs Class" Url="html/b2f71004-0aa6-71c2-f591-a23acf3730cb.htm">
+      <HelpTOCNode Title="DSSimComs Constructor " Url="html/22649889-01ad-b56f-8d80-c40d37a51fc3.htm" />
+      <HelpTOCNode Id="28117b25-83bc-48e4-a993-0ab09ca3081d" Title="DSSimComs Methods" Url="html/a929766a-ad28-0e2b-e1da-41bab7d5cd6a.htm">
+        <HelpTOCNode Title="BusVoltage Method " Url="html/686a5dcd-2a4f-9222-adea-ee88587b0950.htm" />
+        <HelpTOCNode Title="BusVoltagepu Method " Url="html/9caf0d0e-e384-291a-8d74-98b21ed2e285.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="DSSimComs Fields" Url="html/52a08e6b-a9de-ef75-0082-2d29b40dcd48.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="DSSJSONFlags Enumeration" Url="html/24a260ac-32a8-9ea7-22d9-1fbe2c6fb8e0.htm" />
+    <HelpTOCNode Title="DSSMessageType Enumeration" Url="html/ce8e38df-e24f-7976-0242-e40399d7949b.htm" />
+    <HelpTOCNode Id="c7ac4b80-6376-49a4-9319-1f2ec0e3eb7d" Title="DSSProgress Class" Url="html/f2c1cc99-a70c-4630-e619-3ce6ac4601f6.htm">
+      <HelpTOCNode Title="DSSProgress Constructor " Url="html/e8208eae-cc85-c30d-a3a3-d123579ebf82.htm" />
+      <HelpTOCNode Id="91d71e06-d6f1-43f6-a268-d02e431b38d1" Title="DSSProgress Properties" Url="html/f88c667a-48de-a02f-2a6d-c11b330ef2f2.htm">
+        <HelpTOCNode Title="Caption Property " Url="html/3811b6c2-59c8-f9d6-3c14-df0866a40056.htm" />
+        <HelpTOCNode Title="PctProgress Property " Url="html/3940c6c1-d0f6-cd41-c0dd-364ab57d6425.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="94858b5e-8de1-45e0-91dd-323598c38c22" Title="DSSProgress Methods" Url="html/93fa007d-3110-11cd-1fa4-5f1414cddf5a.htm">
+        <HelpTOCNode Title="Close Method " Url="html/dd6e8b38-d8f9-6bbe-872e-d0ae2f364f50.htm" />
+        <HelpTOCNode Title="Show Method " Url="html/13805ce7-577f-d281-e010-078d8c0ffef3.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="DSSProgress Fields" Url="html/20f3a43b-819a-75bc-10b9-2554a56c4300.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="509a1b67-890b-49b8-be08-38e440082d11" Title="DSSProperty Class" Url="html/944fead8-e9f8-0d61-dfd5-fc045b7899db.htm">
+      <HelpTOCNode Title="DSSProperty Constructor " Url="html/460429c5-da52-6d6d-dcee-ed7e15eb71cd.htm" />
+      <HelpTOCNode Id="3ef99b0f-d1ee-4612-8038-5d3a3d9a6b81" Title="DSSProperty Properties" Url="html/fc049606-44fc-5c10-1fe6-0a44a8a97a9b.htm">
+        <HelpTOCNode Title="Description Property " Url="html/67f78358-8a7d-8aaa-bf63-6c58334cb202.htm" />
+        <HelpTOCNode Id="7ca600b5-370d-405b-ba0c-84fcd38054fc" Title="Item Property " Url="html/32bfc73d-7c51-5b61-c251-a0b04f38621a.htm">
+          <HelpTOCNode Title="Item Property (Int32)" Url="html/db1839e0-b479-9ae3-ce57-3dbba65e1b54.htm" />
+          <HelpTOCNode Title="Item Property (String)" Url="html/9facf789-d8bd-b430-4a73-339181b4c7bb.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Name Property " Url="html/6039b645-a182-39e1-2e93-9665bea5df58.htm" />
+        <HelpTOCNode Title="Val Property " Url="html/66753890-9892-df10-f914-60ed6038c655.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="DSSProperty Methods" Url="html/6ad3f00c-34f8-4973-aa52-472aa8d81c76.htm" />
+      <HelpTOCNode Title="DSSProperty Fields" Url="html/7db25677-4eec-6d86-b529-12349c9a6393.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="e6c25c7c-e6f7-425c-a1d6-868fc8b69721" Title="Error Class" Url="html/b44ebdc3-0f6f-8776-155e-fa0bafd32bdb.htm">
+      <HelpTOCNode Title="Error Constructor " Url="html/16e3efbf-bf91-8c32-c5c4-aa3a0eb996d0.htm" />
+      <HelpTOCNode Id="c226d641-2257-480d-b069-b0e692456b12" Title="Error Properties" Url="html/e3b959c6-6c3e-6aa9-9374-69c02735b475.htm">
+        <HelpTOCNode Title="Description Property " Url="html/85d9e38e-5e0a-e24c-d078-524b99d1675d.htm" />
+        <HelpTOCNode Title="EarlyAbort Property " Url="html/8bd3c5c6-3eb1-48c5-80eb-b6ef03c62b81.htm" />
+        <HelpTOCNode Title="ExtendedErrors Property " Url="html/d39d7dc8-18c7-5f54-e791-6c4f483fe702.htm" />
+        <HelpTOCNode Title="Number Property " Url="html/a2b3ed10-7a18-7c9a-8bc3-c9e813a86714.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Error Methods" Url="html/14fc6465-1adc-9ee3-5691-45d37953cbb9.htm" />
+      <HelpTOCNode Title="Error Fields" Url="html/5373a1af-bcdd-ed5e-4a58-244962a0d1e2.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="b2a72b15-29da-4c41-b650-7e08124167ae" Title="Fuses Class" Url="html/a171983a-ef1e-00b8-22fe-48f91b0adca5.htm">
+      <HelpTOCNode Title="Fuses Constructor " Url="html/c01a4dc9-438c-51ad-1c9c-032bfba0c941.htm" />
+      <HelpTOCNode Id="0fd77878-d885-417f-8530-addcaead7ec4" Title="Fuses Properties" Url="html/144ac26e-7019-5db3-6215-9e79f79f1adb.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/6b673413-20c9-dd42-ed85-2cdf9ff162eb.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/5f230da1-216c-ec3d-b324-68f3f78d31b1.htm" />
+        <HelpTOCNode Title="Delay Property " Url="html/106b9cf6-fd51-16c8-2dd3-97c873206279.htm" />
+        <HelpTOCNode Title="First Property " Url="html/09f795be-234f-5977-378e-8f0deeb2202e.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/ed496f62-4d8a-c4cd-98f9-f300e6466afd.htm" />
+        <HelpTOCNode Title="MonitoredObj Property " Url="html/3f16a9f5-eae5-28b3-738e-d8a3903e14ce.htm" />
+        <HelpTOCNode Title="MonitoredTerm Property " Url="html/e3a5f37c-d066-b7af-340f-f69e50115498.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/e1068768-008d-8408-ddeb-93e683c2424f.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/c64224be-2466-c3fc-88a8-12023de4e769.htm" />
+        <HelpTOCNode Title="NormalState Property " Url="html/ac41d751-71aa-38c1-507c-72016261d4e8.htm" />
+        <HelpTOCNode Title="NumPhases Property " Url="html/6f25afec-e1e3-82d8-5b8d-d0809ae92e5f.htm" />
+        <HelpTOCNode Title="RatedCurrent Property " Url="html/8f1c8531-72a5-1aa6-50f2-a854a8514940.htm" />
+        <HelpTOCNode Title="State Property " Url="html/5058162f-8137-fc16-1611-c1821f0dee08.htm" />
+        <HelpTOCNode Title="SwitchedObj Property " Url="html/a2f741ba-2a74-9dd1-029c-c725649be46a.htm" />
+        <HelpTOCNode Title="SwitchedTerm Property " Url="html/9c711b86-6dd7-5ee9-ca0f-b70b56c5f29d.htm" />
+        <HelpTOCNode Title="TCCcurve Property " Url="html/bdcd09ff-9878-1d88-19d7-e28bab4b4726.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="559ab3e8-7826-42c0-8f39-df2cd27bec2e" Title="Fuses Methods" Url="html/17ff9e09-0570-82cc-21f5-ba15368b2e5e.htm">
+        <HelpTOCNode Title="Close Method " Url="html/625b2940-9b39-e579-0cc0-ad6224f215d8.htm" />
+        <HelpTOCNode Title="IsBlown Method " Url="html/01a1ec4e-9d8e-781d-ca43-515b57777ce2.htm" />
+        <HelpTOCNode Title="Open Method " Url="html/9279f45d-ee5d-c23f-c419-31b9c3da8f9a.htm" />
+        <HelpTOCNode Title="Reset Method " Url="html/f25bb8ed-cbd6-07fd-1591-c8ccaa5a7424.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Fuses Fields" Url="html/86263bea-6fb5-1f5b-354b-72cccf3510f9.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="147ca6da-9640-489c-a39b-88e4ede76158" Title="Generators Class" Url="html/351c3481-5a9d-d6e4-889a-d8d7afbe5354.htm">
+      <HelpTOCNode Title="Generators Constructor " Url="html/4076844f-c916-73da-6db7-57dbc86ccba8.htm" />
+      <HelpTOCNode Id="7d94fbbc-8659-4265-8323-8bc0c8517769" Title="Generators Properties" Url="html/e59e6cb4-cea2-7249-fbdb-4ac56cca7efa.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/69eeb89c-aaed-356a-d515-349779d78200.htm" />
+        <HelpTOCNode Title="Bus1 Property " Url="html/8e7c5fa5-b23b-371b-9a06-af27c7e5056b.htm" />
+        <HelpTOCNode Title="Class Property " Url="html/43a7323e-cbec-0c89-48d9-be6ab05bf97d.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/dd0b0e76-8fb0-d721-576c-ff02a51cfb31.htm" />
+        <HelpTOCNode Title="daily Property " Url="html/416a9d48-e6aa-de25-8232-69229e1a65d8.htm" />
+        <HelpTOCNode Title="duty Property " Url="html/b2862f31-7c4e-8517-424a-18956fd4973c.htm" />
+        <HelpTOCNode Title="First Property " Url="html/fabced7a-f564-5562-e7a4-f0c600cd0113.htm" />
+        <HelpTOCNode Title="ForcedON Property " Url="html/a4b99ecd-84bc-b939-1f0a-d9f95d2a991a.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/7500a0bf-7c23-930d-f146-453c5d87a960.htm" />
+        <HelpTOCNode Title="IsDelta Property " Url="html/d960aa15-b256-2347-58ed-96f341b2360b.htm" />
+        <HelpTOCNode Title="kV Property " Url="html/9cdfbcfb-d336-ff0f-bfeb-034e054fc045.htm" />
+        <HelpTOCNode Title="kva Property " Url="html/b69f2d9e-515a-6aa4-bd78-2cf594361b64.htm" />
+        <HelpTOCNode Title="kvar Property " Url="html/b595da7c-d675-bc41-f7ff-95be2aea386e.htm" />
+        <HelpTOCNode Title="kVArated Property " Url="html/0b65c576-5710-7c3c-5544-9fd819d9d4bf.htm" />
+        <HelpTOCNode Title="kW Property " Url="html/12c9b484-eec0-a3a9-60c8-e5790c4a78cc.htm" />
+        <HelpTOCNode Title="Model Property " Url="html/8a8b38cf-23ff-28a3-e94c-d6b31a60a038.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/3eb55cee-300a-420c-28c4-529f7f6307a5.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/f6c616a4-efda-35d6-a4bb-ac460801ef3a.htm" />
+        <HelpTOCNode Title="PF Property " Url="html/b71c0904-f8fd-1cce-d879-1c9a38868300.htm" />
+        <HelpTOCNode Title="Phases Property " Url="html/e91fdefc-34b6-6039-eaf7-4f2e04546766.htm" />
+        <HelpTOCNode Title="RegisterNames Property " Url="html/05af376f-bb58-d312-ea10-81f04d86dead.htm" />
+        <HelpTOCNode Title="RegisterValues Property " Url="html/6a28d54b-02e8-7b1f-4eb2-0f9882a91d47.htm" />
+        <HelpTOCNode Title="Status Property " Url="html/8c9a44d9-4165-8d06-5657-6aaa24edc544.htm" />
+        <HelpTOCNode Title="Vmaxpu Property " Url="html/a8b1deb3-68b5-3ec4-31fc-7e033a3dde46.htm" />
+        <HelpTOCNode Title="Vminpu Property " Url="html/ba124e81-0437-e79c-a142-d26cfca9e6c9.htm" />
+        <HelpTOCNode Title="Yearly Property " Url="html/aa273be7-e77b-78ca-db5f-84e24cc1502e.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Generators Methods" Url="html/ee05ab5a-8911-acc6-38b2-f8f150aa5590.htm" />
+      <HelpTOCNode Title="Generators Fields" Url="html/77c75d06-4ed4-2a4f-e722-605325eff06c.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="GeneratorStatus Enumeration" Url="html/763b14a5-72c7-ffe8-0882-a4a9ef74d1f7.htm" />
+    <HelpTOCNode Id="d4117e76-0cc3-4ba6-ab28-775bd8bfe347" Title="GICSources Class" Url="html/720284ea-7f11-ce1d-802b-8ef310d30323.htm">
+      <HelpTOCNode Title="GICSources Constructor " Url="html/677faa3f-c90f-7262-a4fe-435031f77927.htm" />
+      <HelpTOCNode Id="de313d00-5da9-4913-ace6-c67ba7c4c554" Title="GICSources Properties" Url="html/099b176a-3816-2d72-fbcb-45fb339a8636.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/ebdd7e3c-3643-eb33-316f-5a817d838d68.htm" />
+        <HelpTOCNode Title="Bus1 Property " Url="html/b2f62969-aff2-38c1-8b9c-eb6c73e859cc.htm" />
+        <HelpTOCNode Title="Bus2 Property " Url="html/b6771375-049c-0dd3-7600-46708b50d836.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/a0aaf373-928c-de60-b1b5-0cb1f411a9c2.htm" />
+        <HelpTOCNode Title="EE Property " Url="html/e7789245-4692-9542-fdb6-0798de28cfff.htm" />
+        <HelpTOCNode Title="EN Property " Url="html/39ab9821-e587-98e9-908e-59ff6c857b38.htm" />
+        <HelpTOCNode Title="First Property " Url="html/10c29b71-4f6f-b070-dcad-e2480a82b014.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/40bf5f3f-6dc8-acd2-fa39-4cd8b76ac1d0.htm" />
+        <HelpTOCNode Title="Lat1 Property " Url="html/5a8f4504-177d-3191-856e-76d42ab0369f.htm" />
+        <HelpTOCNode Title="Lat2 Property " Url="html/3c12454b-b091-3994-0e0f-13ce238376f6.htm" />
+        <HelpTOCNode Title="Lon1 Property " Url="html/f0445734-8f1f-5b4e-206f-29594b7b7282.htm" />
+        <HelpTOCNode Title="Lon2 Property " Url="html/43e11a38-15b0-2058-0868-8242506476e5.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/ce73e2f6-ad71-da7c-2a57-d63b0e30480e.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/e01d0baa-b2e4-b54e-2124-fdc062edcc3e.htm" />
+        <HelpTOCNode Title="Phases Property " Url="html/220da4af-d434-5e79-866e-3db2c1ff23ab.htm" />
+        <HelpTOCNode Title="Volts Property " Url="html/6dd5d434-3365-6f76-c35e-6dd2a3b3db98.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="GICSources Methods" Url="html/598a84a8-16ba-f530-3f76-59901cfe5688.htm" />
+      <HelpTOCNode Title="GICSources Fields" Url="html/1e7dc8b9-d2ff-617c-ecb2-f12dce8ccc58.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="e5f48751-6664-449c-b9d1-f39d16e3eb13" Title="ISources Class" Url="html/dc9385ae-3809-e751-4e8c-6d0a6c1f4141.htm">
+      <HelpTOCNode Title="ISources Constructor " Url="html/3f1295b0-7c94-7e0e-358a-35d6d8863f4c.htm" />
+      <HelpTOCNode Id="c43ca43c-570b-4fa8-8fb9-061159634b74" Title="ISources Properties" Url="html/fe89166b-9266-e8fa-bcdf-7cc259340c94.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/12aadd7d-7fb1-caa5-c748-823db6843d2c.htm" />
+        <HelpTOCNode Title="Amps Property " Url="html/63b7fb08-35e7-6fa1-f14c-de1e33f30bc9.htm" />
+        <HelpTOCNode Title="AngleDeg Property " Url="html/60ebb512-b35f-7257-49cd-e823282e15be.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/0975d39a-bb14-090f-7427-040c3ac14b24.htm" />
+        <HelpTOCNode Title="First Property " Url="html/18650851-fd8e-5ca7-8bb3-2db8ab99c083.htm" />
+        <HelpTOCNode Title="Frequency Property " Url="html/3b13fdbe-d658-acb6-8376-c92b4b70d97f.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/6e177389-d9a1-d5a8-17cc-7de54f69a762.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/10569e31-de29-89b4-450b-688e4a14391f.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/76f67a22-c4de-c3ee-69ce-3946fe4ebc93.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ISources Methods" Url="html/aac88c2e-f0b4-be03-dbec-fd864598d936.htm" />
+      <HelpTOCNode Title="ISources Fields" Url="html/09761585-8a18-683b-fcb8-7664d35a0010.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="49f7831c-7c34-4972-8af1-a33a74c533c5" Title="LineCodes Class" Url="html/ef029d32-0a65-af24-e871-73ecd4845e07.htm">
+      <HelpTOCNode Title="LineCodes Constructor " Url="html/5b8586f7-f6d2-19f9-f771-89dd87e6e832.htm" />
+      <HelpTOCNode Id="e59fda54-65af-4037-9cf3-2e9ee3c0629a" Title="LineCodes Properties" Url="html/8755a6f2-c175-0b43-ce5b-8fa572b256f7.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/7b2e98cf-5a03-c95b-0416-ded45ec11c18.htm" />
+        <HelpTOCNode Title="C0 Property " Url="html/2028393c-1990-20b0-1808-fd9d34e2e42a.htm" />
+        <HelpTOCNode Title="C1 Property " Url="html/69c40370-0fee-038a-2a54-061e48df417a.htm" />
+        <HelpTOCNode Title="Cmatrix Property " Url="html/1d041dcd-3abf-f3ba-ab50-9a50bd3e8261.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/1745c3c6-b910-9528-1e9d-b5f61f120739.htm" />
+        <HelpTOCNode Title="EmergAmps Property " Url="html/d7315148-ba8a-e338-9bf7-0b57f2d18306.htm" />
+        <HelpTOCNode Title="First Property " Url="html/09e693de-d75b-955a-8efe-377ab3c0b42b.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/b8baf7e3-990b-0b82-3b98-591d9fdf72da.htm" />
+        <HelpTOCNode Title="IsZ1Z0 Property " Url="html/50710481-be1a-6b7d-0acf-1286afd815db.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/d96f4f7e-d0af-fe66-4771-75ac5f60be59.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/8b53bf0d-fe47-41f6-ddd7-4655e70f9815.htm" />
+        <HelpTOCNode Title="NormAmps Property " Url="html/e9764afd-8ccf-22e4-d2dc-19d32067ab10.htm" />
+        <HelpTOCNode Title="Phases Property " Url="html/ccb72c72-7aba-65e6-e891-457b3955b4e5.htm" />
+        <HelpTOCNode Title="R0 Property " Url="html/ed1838ad-aca3-e05d-edc8-596058bcb611.htm" />
+        <HelpTOCNode Title="R1 Property " Url="html/2e45d5dd-1744-0d32-69a5-921abe938c55.htm" />
+        <HelpTOCNode Title="Rmatrix Property " Url="html/5f1bd6b6-d27f-2413-27e6-625b33b41408.htm" />
+        <HelpTOCNode Title="Units Property " Url="html/1a4aba6a-9df4-db8e-a968-e14411bc2004.htm" />
+        <HelpTOCNode Title="X0 Property " Url="html/e80af70d-9212-2811-2403-2e198f5d1f10.htm" />
+        <HelpTOCNode Title="X1 Property " Url="html/32ca1ef7-09b9-53ba-a608-41be7d0c526d.htm" />
+        <HelpTOCNode Title="Xmatrix Property " Url="html/52b5ebf4-d29a-477a-2de1-c73065c9812f.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="LineCodes Methods" Url="html/dc3ed7cd-74e4-ba65-731a-028d40c3ea3e.htm" />
+      <HelpTOCNode Title="LineCodes Fields" Url="html/ff23a6bd-1429-8344-773c-00ad39b54d2e.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="1f3a347e-54a7-4582-ae72-a848cd2add3c" Title="LineGeometries Class" Url="html/d28aaf13-92ef-7bcb-9b2a-fed951dfc831.htm">
+      <HelpTOCNode Title="LineGeometries Constructor " Url="html/45acd784-a08c-9bfe-28ee-9d26ae4b1983.htm" />
+      <HelpTOCNode Id="a2b8dbde-7f0a-4aac-b2d0-3c69b6806650" Title="LineGeometries Properties" Url="html/0aed6fa9-a00b-2a92-3f3d-70f287d3aa32.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/9d4b8111-1c25-effe-a2de-2bf76f8fa354.htm" />
+        <HelpTOCNode Title="Conductors Property " Url="html/79209791-3f5c-be32-633e-1a561926495b.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/3ad7b5a5-c550-a423-8b59-7471ac93cb8a.htm" />
+        <HelpTOCNode Title="EmergAmps Property " Url="html/590b20c6-d012-788c-a812-1b1efb6b0a11.htm" />
+        <HelpTOCNode Title="First Property " Url="html/841cabf4-7127-160d-6c6d-6cb1d689bdba.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/f4196e08-a8da-aa86-2a58-1c2cd794806b.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/5ee59ee6-ee9d-9742-3fd0-e80ca33b36fc.htm" />
+        <HelpTOCNode Title="Nconds Property " Url="html/a903aeb4-2114-22d3-a38a-5cdc4c4d2e5c.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/bebd56e7-c32c-bb29-76c1-cb79176fdb06.htm" />
+        <HelpTOCNode Title="NormAmps Property " Url="html/36de4c4e-beac-c5f2-9153-3487a338fd0d.htm" />
+        <HelpTOCNode Title="Phases Property " Url="html/21afd8fa-8e50-d4a4-95bf-d3e81df28b45.htm" />
+        <HelpTOCNode Title="Reduce Property " Url="html/210ac3a3-b85a-6f7c-c56f-c8924089744e.htm" />
+        <HelpTOCNode Title="RhoEarth Property " Url="html/97c82dc3-9489-2312-6aed-4b3b8da73129.htm" />
+        <HelpTOCNode Title="Units Property " Url="html/8d79af1e-d6aa-ffa8-ee1a-8f38d434bd16.htm" />
+        <HelpTOCNode Title="Xcoords Property " Url="html/dd1c37ab-cbec-943c-9441-207a8d6d70ac.htm" />
+        <HelpTOCNode Title="Ycoords Property " Url="html/2b852f39-a541-8437-88a7-7ab6c0e6c9ba.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="c644d3b2-f1b9-4288-9e61-c7dbb7824b9c" Title="LineGeometries Methods" Url="html/ff3a3536-f814-2807-7322-426e6771a870.htm">
+        <HelpTOCNode Title="Cmatrix Method " Url="html/dd3f7bab-46d6-d9b9-241c-ea1048bb3b10.htm" />
+        <HelpTOCNode Title="Rmatrix Method " Url="html/d56ec096-a375-3d67-ca07-27f1ea0eb77d.htm" />
+        <HelpTOCNode Title="Xmatrix Method " Url="html/f94cbe38-88f6-5411-6199-f0bd6b8484dd.htm" />
+        <HelpTOCNode Title="Zmatrix Method " Url="html/e241adcf-e808-cbd8-51e0-726ae6ffcfaa.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="LineGeometries Fields" Url="html/2beecc2e-9ef5-3e80-38d6-812a8a01e47e.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="4e7ab827-5729-4a32-b7cd-13b1fe9596dd" Title="Lines Class" Url="html/bc148028-57d7-d09b-abdb-3f1cbd5920ef.htm">
+      <HelpTOCNode Title="Lines Constructor " Url="html/2af4a2bc-5378-0acb-f18a-985c8d176a25.htm" />
+      <HelpTOCNode Id="21199209-9d34-4e39-8b7c-43a7353681ac" Title="Lines Properties" Url="html/3e44f290-a5bc-6cd7-b9c4-ce872ed0d55b.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/8c1e2c8f-7f74-d400-3282-8a9ca575cf71.htm" />
+        <HelpTOCNode Title="Bus1 Property " Url="html/5447fd4e-5009-6c4c-e42f-5a1049c21c85.htm" />
+        <HelpTOCNode Title="Bus2 Property " Url="html/5646e3e3-406e-70ad-180b-a9e8c6d4bd57.htm" />
+        <HelpTOCNode Title="C0 Property " Url="html/d7b38a5f-8ee6-bb0a-512f-a7b82d68ed55.htm" />
+        <HelpTOCNode Title="C1 Property " Url="html/5b7e2534-a664-0e09-7a03-7275183db543.htm" />
+        <HelpTOCNode Title="Cmatrix Property " Url="html/812b3828-b216-7263-0e61-68f1d523043a.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/030c54e4-1585-28a4-fa4f-9cfbe069c17e.htm" />
+        <HelpTOCNode Title="EmergAmps Property " Url="html/807406a9-fa8d-8ae4-f7d8-9eb63eb11b61.htm" />
+        <HelpTOCNode Title="First Property " Url="html/0f330bed-6750-5c89-1fb6-584c6f9fde4a.htm" />
+        <HelpTOCNode Title="Geometry Property " Url="html/5df5c7ce-3308-b43e-ab7d-ff47a49a9e77.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/8b0dbfc1-62d1-e4d5-23e8-82d9672671f5.htm" />
+        <HelpTOCNode Title="IsSwitch Property " Url="html/b19c8641-c8ed-54d9-b9bd-11d1dbe87023.htm" />
+        <HelpTOCNode Title="Length Property " Url="html/f877c347-257c-fd17-93b8-f069240008a4.htm" />
+        <HelpTOCNode Title="LineCode Property " Url="html/b61979d6-7607-4eef-65d1-683562e6a5af.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/9c504c68-7b10-6da2-bcb9-06b8574b1daf.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/a30989cf-6873-aabe-abc1-aa6a15614b48.htm" />
+        <HelpTOCNode Title="NormAmps Property " Url="html/51524398-1a76-f5f5-aa3e-62863cce9c58.htm" />
+        <HelpTOCNode Title="NumCust Property " Url="html/8fea4784-8e7e-d4e5-0197-09c59f2fff45.htm" />
+        <HelpTOCNode Title="Parent Property " Url="html/3d233c30-e25b-2ef0-17d0-17834d58f312.htm" />
+        <HelpTOCNode Title="Phases Property " Url="html/73eac8eb-d79f-63ee-60d2-5a9c455ff7f2.htm" />
+        <HelpTOCNode Title="R0 Property " Url="html/ead836fe-4822-c533-5d7b-9fe3a9cdfb5c.htm" />
+        <HelpTOCNode Title="R1 Property " Url="html/1e376062-b78f-4bd0-757f-a58a5989b8a0.htm" />
+        <HelpTOCNode Title="Rg Property " Url="html/c84ed776-daa6-5bbf-eedf-c7f5220540ef.htm" />
+        <HelpTOCNode Title="Rho Property " Url="html/1cf8a985-94db-d2af-33e2-6a1d91dfbfa9.htm" />
+        <HelpTOCNode Title="Rmatrix Property " Url="html/aa61cf91-5573-a441-cb65-c8814f075e0e.htm" />
+        <HelpTOCNode Title="SeasonRating Property " Url="html/5eb75a4f-e5d0-b808-3955-31146c6ac4b8.htm" />
+        <HelpTOCNode Title="Spacing Property " Url="html/92734ad6-e34b-2254-4136-de588e7dc30d.htm" />
+        <HelpTOCNode Title="TotalCust Property " Url="html/44ca6dd7-b21d-0e8b-9c05-5ed86345891c.htm" />
+        <HelpTOCNode Title="Units Property " Url="html/db326c03-f7cb-af8b-2bfe-f25cf3b55ab8.htm" />
+        <HelpTOCNode Title="X0 Property " Url="html/a7a983a0-723c-ce43-2696-685ed20314a2.htm" />
+        <HelpTOCNode Title="X1 Property " Url="html/0881e5fa-5857-3c83-9c95-81e6d9d8538e.htm" />
+        <HelpTOCNode Title="Xg Property " Url="html/15875246-4ffc-938a-9f0e-3bca65d7adcf.htm" />
+        <HelpTOCNode Title="Xmatrix Property " Url="html/a1fc51ce-f78d-c452-d16c-6cc72312880a.htm" />
+        <HelpTOCNode Title="Yprim Property " Url="html/20663e1a-3005-8666-3dbd-ef6603fee339.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="b13c7464-8ba1-44ce-a3ca-d469da55dcfa" Title="Lines Methods" Url="html/22ca0ccd-edda-2667-d486-9609c5c178fa.htm">
+        <HelpTOCNode Title="New Method " Url="html/cbf2b905-f2bf-708e-a031-217c423522db.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Lines Fields" Url="html/2f9f16b3-3249-9237-3afb-229bf1553d69.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="aa6390cb-3c0a-4693-9c09-e43ed807a1ef" Title="LineSpacings Class" Url="html/40af52c5-5ac8-4292-3b15-0c59c51420e6.htm">
+      <HelpTOCNode Title="LineSpacings Constructor " Url="html/1bd18eec-ae4d-95ed-be89-f200df05df85.htm" />
+      <HelpTOCNode Id="a7048e18-8d19-43ba-a76f-69761c724556" Title="LineSpacings Properties" Url="html/4343d600-a804-658e-9416-8557f305f6e7.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/d7274926-8eec-be86-1074-6b371cacb444.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/11a8dea0-228a-b74e-f4cb-ee455016876f.htm" />
+        <HelpTOCNode Title="First Property " Url="html/a1989628-d981-bcfe-f62b-1b49d4b94bb6.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/37da8608-a7e4-75ff-6cd2-56d04cb44527.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/2b16dba5-e775-4476-8c4c-703b164256ef.htm" />
+        <HelpTOCNode Title="Nconds Property " Url="html/0f892a59-2ae7-bd95-ebbd-e70cff9746b7.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/869823df-87d3-1168-8ec2-ab01627a2563.htm" />
+        <HelpTOCNode Title="Phases Property " Url="html/fb33e4ab-e80b-b086-d1c6-30739f813884.htm" />
+        <HelpTOCNode Title="Units Property " Url="html/272fbd79-9652-b46d-d7f7-c5c46dab6571.htm" />
+        <HelpTOCNode Title="Xcoords Property " Url="html/8bbf6a77-c864-be60-ed59-2123f63d15cb.htm" />
+        <HelpTOCNode Title="Ycoords Property " Url="html/7578a832-80f7-92ec-99af-555920185883.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="LineSpacings Methods" Url="html/ec8b8c32-4ace-9d72-c4fa-e00d55a06d26.htm" />
+      <HelpTOCNode Title="LineSpacings Fields" Url="html/74b29b05-5d41-d801-da4d-5054a15f84cc.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="LineUnits Enumeration" Url="html/0285dff0-d2b1-f804-b4dc-51088a60e297.htm" />
+    <HelpTOCNode Title="LoadModels Enumeration" Url="html/69f50a2c-90bc-2bc3-872e-711276f809bf.htm" />
+    <HelpTOCNode Id="db128aa0-7e14-4ca6-9c47-c011f3444c5c" Title="Loads Class" Url="html/349c5efc-1974-eadb-6e0e-6b7bcc75d9a0.htm">
+      <HelpTOCNode Title="Loads Constructor " Url="html/125fa8a2-5031-db77-f687-ebac60b53ad8.htm" />
+      <HelpTOCNode Id="e90161f1-262e-401e-8c06-6be443bbeae5" Title="Loads Properties" Url="html/f22488e2-b3d0-7d60-bd61-9eb2efac448b.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/3772a467-b95b-7863-e0cb-10e451fad0af.htm" />
+        <HelpTOCNode Title="AllocationFactor Property " Url="html/b7bf4250-8da8-afdc-4c22-259893cf88b4.htm" />
+        <HelpTOCNode Title="Cfactor Property " Url="html/be8e383e-0035-046a-58d6-73cd31bb3747.htm" />
+        <HelpTOCNode Title="Class Property " Url="html/abbe7a54-8748-b78f-4668-4ba97a04d7b2.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/fdff2692-1987-9101-2233-82d260da9daa.htm" />
+        <HelpTOCNode Title="CVRcurve Property " Url="html/be4407f7-9362-c49c-d9d7-70a19db51bf3.htm" />
+        <HelpTOCNode Title="CVRvars Property " Url="html/db967cf4-6768-ccbf-4a12-2bb55f8bd522.htm" />
+        <HelpTOCNode Title="CVRwatts Property " Url="html/30e5338e-ae24-1b1d-c797-eddd1ac873bd.htm" />
+        <HelpTOCNode Title="daily Property " Url="html/e0fe1330-53a7-de53-e9a6-ca112f628431.htm" />
+        <HelpTOCNode Title="duty Property " Url="html/ab9d0429-aaa4-825d-4cc4-aafa88e24096.htm" />
+        <HelpTOCNode Title="First Property " Url="html/18983f59-f175-7331-7b46-9f739bf5b78f.htm" />
+        <HelpTOCNode Title="Growth Property " Url="html/9df63b2a-df97-466c-e8d2-eca26cc025f3.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/f60e645a-128f-f28b-b3dc-08852a3f7346.htm" />
+        <HelpTOCNode Title="IsDelta Property " Url="html/bfe1f681-c51e-434d-2f9c-8985221085ca.htm" />
+        <HelpTOCNode Title="kV Property " Url="html/f739c84d-fbd3-8116-ed06-a1bf5f0b254c.htm" />
+        <HelpTOCNode Title="kva Property " Url="html/44e77b93-0fe6-669a-8bea-e30f450bd1a0.htm" />
+        <HelpTOCNode Title="kvar Property " Url="html/9aaf3bfc-2c4d-f67d-b99a-61a91d56ceba.htm" />
+        <HelpTOCNode Title="kW Property " Url="html/1b1cb125-2d94-9443-9332-a5634ee78076.htm" />
+        <HelpTOCNode Title="kwh Property " Url="html/660d08cc-fd12-db81-42d1-4cedd5f9e606.htm" />
+        <HelpTOCNode Title="kwhdays Property " Url="html/b81e24a8-79f8-a5a8-c81d-2b33e6a6ce78.htm" />
+        <HelpTOCNode Title="Model Property " Url="html/0ff875e2-7853-1572-ec61-6d400dac6136.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/81c39416-8e50-2f6d-b2ae-e4756cfd5590.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/5ce84654-b947-eddd-f248-db581f8a6f3d.htm" />
+        <HelpTOCNode Title="NumCust Property " Url="html/db46a9ec-3758-53cd-8743-3cc6b60828db.htm" />
+        <HelpTOCNode Title="PctMean Property " Url="html/48623ecc-166b-26c2-eade-487277a55177.htm" />
+        <HelpTOCNode Title="pctSeriesRL Property " Url="html/fa0e2e90-66c0-b359-bf5b-38eef97c6672.htm" />
+        <HelpTOCNode Title="PctStdDev Property " Url="html/f7c663e2-ac89-331f-d5ec-1bdb2d57bcac.htm" />
+        <HelpTOCNode Title="PF Property " Url="html/4edb2511-828c-5f80-09c5-7f0da95ee3ad.htm" />
+        <HelpTOCNode Title="Phases Property " Url="html/f22756c7-2b8f-64ac-7445-bd50cc6d219a.htm" />
+        <HelpTOCNode Title="RelWeight Property " Url="html/81f2e696-ad28-229b-2e70-d59f4b820812.htm" />
+        <HelpTOCNode Title="Rneut Property " Url="html/db89b0be-59a0-d2e3-f458-a5fd682832a2.htm" />
+        <HelpTOCNode Title="Sensor Property " Url="html/3e97c1b4-0516-7215-21d0-0f7f5e667d38.htm" />
+        <HelpTOCNode Title="Spectrum Property " Url="html/b20b8654-202b-6f4a-9ec8-ea489936179b.htm" />
+        <HelpTOCNode Title="Status Property " Url="html/56b41a80-b713-2e95-1779-1f73bc63ecb4.htm" />
+        <HelpTOCNode Title="Vmaxpu Property " Url="html/9dd2f068-4dbe-46cc-ec16-137fb431f2e4.htm" />
+        <HelpTOCNode Title="Vminemerg Property " Url="html/8fd02368-b533-8934-d661-50254a9e25d0.htm" />
+        <HelpTOCNode Title="Vminnorm Property " Url="html/9e904a34-3154-d61e-0d1f-6f6841b9d654.htm" />
+        <HelpTOCNode Title="Vminpu Property " Url="html/b1a0d243-c81d-d689-d964-a213b6c80594.htm" />
+        <HelpTOCNode Title="xfkVA Property " Url="html/881a72d5-e106-1253-6db0-b12190ee2690.htm" />
+        <HelpTOCNode Title="Xneut Property " Url="html/61009899-a3fa-c858-3a27-02eb5c66dcd0.htm" />
+        <HelpTOCNode Title="Yearly Property " Url="html/7b8563e3-bcbc-82f8-d9fd-865a4265ea8f.htm" />
+        <HelpTOCNode Title="ZIPV Property " Url="html/585b8492-5bbe-efe1-5eb6-3b742064f60b.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Loads Methods" Url="html/bdb86539-7bf2-3828-2dc9-f5f355834649.htm" />
+      <HelpTOCNode Title="Loads Fields" Url="html/97792d39-bea0-c2a6-ce6e-dcf55b0dfd32.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="54afd840-3718-4026-afde-4544d8f289a0" Title="LoadShapes Class" Url="html/b63ecd4a-9ab8-ab40-3406-93b81f8e14bc.htm">
+      <HelpTOCNode Title="LoadShapes Constructor " Url="html/f6f13db5-ebef-6928-f5db-195725d015f1.htm" />
+      <HelpTOCNode Id="20d1e18a-60ac-4629-9eb5-9c21a4abbc25" Title="LoadShapes Properties" Url="html/91363fe5-7c3d-39ec-73de-e43a546f0c07.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/d68ce8c4-0fcd-2f7d-9260-e462147f9e65.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/c9462684-dca4-c3e5-d165-6e42988c01a9.htm" />
+        <HelpTOCNode Title="First Property " Url="html/695de16e-0aa9-27ac-f64b-969f882abb91.htm" />
+        <HelpTOCNode Title="HrInterval Property " Url="html/49a6bf2c-1e87-ac14-9132-f7ccd9a60081.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/c54efb9e-f2b7-1f04-465d-baef47a2f414.htm" />
+        <HelpTOCNode Title="MinInterval Property " Url="html/2371842a-44dd-d341-11c9-8d1f32c873da.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/69f8040b-416e-5c33-1de2-fca02e904943.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/b9e899e8-207f-4305-708a-af9be71e198a.htm" />
+        <HelpTOCNode Title="Npts Property " Url="html/7fdde5d4-e062-7128-6221-fe34452cdbcd.htm" />
+        <HelpTOCNode Title="PBase Property " Url="html/c2e07568-8c3b-e400-2f59-f435315d8dcc.htm" />
+        <HelpTOCNode Title="Pmult Property " Url="html/a43d0617-9fe4-cd59-a192-05592c73b025.htm" />
+        <HelpTOCNode Title="QBase Property " Url="html/15e8e539-04cf-a1e3-ccab-b78f81aa59a0.htm" />
+        <HelpTOCNode Title="Qmult Property " Url="html/3df138e0-4dc7-2145-9328-70c0f68f5b49.htm" />
+        <HelpTOCNode Title="sInterval Property " Url="html/ac04c58b-5ad6-af0d-1a06-e5e927c46b42.htm" />
+        <HelpTOCNode Title="TimeArray Property " Url="html/fe9ab6bb-47a5-b624-6a61-20ae0c2a5c13.htm" />
+        <HelpTOCNode Title="UseActual Property " Url="html/d8e48ad5-13d9-1252-e965-1dd866fe7948.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="7d04327a-4820-4e02-8b94-751c9928fc58" Title="LoadShapes Methods" Url="html/4f6f500a-9de5-0db8-c7a6-9863f6da68f1.htm">
+        <HelpTOCNode Title="New Method " Url="html/365a3108-f4fb-2015-4567-ddbc3487079d.htm" />
+        <HelpTOCNode Title="Normalize Method " Url="html/a61f6343-cb75-1b13-ab47-9ca1995d9cb4.htm" />
+        <HelpTOCNode Title="UseFloat32 Method " Url="html/2d0c8c03-ba47-d400-7448-a65296b080f1.htm" />
+        <HelpTOCNode Title="UseFloat64 Method " Url="html/5baeaebc-2053-fdef-7bda-b1ca248ad7bb.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="LoadShapes Fields" Url="html/3c00334f-13dd-ef64-550b-6b719898b9dd.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="LoadStatus Enumeration" Url="html/b5ece8ad-65d5-9c96-953e-bc507c538978.htm" />
+    <HelpTOCNode Id="5017b602-e812-49b0-b8cb-9e141e89edbd" Title="Meters Class" Url="html/597a7e01-0b1b-3134-23d1-f1c8926da4cf.htm">
+      <HelpTOCNode Title="Meters Constructor " Url="html/fe74e543-48ed-690d-eca3-f2f0924c9453.htm" />
+      <HelpTOCNode Id="5a4a64df-4100-4595-b2fa-7e0ae0d3684f" Title="Meters Properties" Url="html/9348872d-f23f-0c52-fc4d-6c8ded85196b.htm">
+        <HelpTOCNode Title="AllBranchesInZone Property " Url="html/370ba298-7a6b-f956-0a8e-3c58ceb8e6a6.htm" />
+        <HelpTOCNode Title="AllEndElements Property " Url="html/3ced1232-3a58-0671-984a-29c13f70fe87.htm" />
+        <HelpTOCNode Title="AllNames Property " Url="html/546c4ed4-4d9b-11b1-50bb-94e02240b3cd.htm" />
+        <HelpTOCNode Title="AllocFactors Property " Url="html/7ebd99f7-d895-592b-7aad-1d2825a6d8ea.htm" />
+        <HelpTOCNode Title="AvgRepairTime Property " Url="html/ff053557-0b9f-4b75-f441-78179c2d8134.htm" />
+        <HelpTOCNode Title="CalcCurrent Property " Url="html/fa7f58a2-dcf2-34e4-465b-17c5e1f656fd.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/f8a9774b-b187-f26d-f53d-c88c77383efa.htm" />
+        <HelpTOCNode Title="CountBranches Property " Url="html/bfb6f014-cd34-da89-fd84-6a134e3fe093.htm" />
+        <HelpTOCNode Title="CountEndElements Property " Url="html/4110d283-b9cc-fcfa-ce33-a621351f7e6b.htm" />
+        <HelpTOCNode Title="CustInterrupts Property " Url="html/936d4ae5-c4fa-381e-4bcb-39c708b7c3e5.htm" />
+        <HelpTOCNode Title="DIFilesAreOpen Property " Url="html/72396f50-b2aa-f31f-1be8-67f657755be9.htm" />
+        <HelpTOCNode Title="FaultRateXRepairHrs Property " Url="html/64c59b05-60e7-babf-a240-c903bfe9fc4a.htm" />
+        <HelpTOCNode Title="First Property " Url="html/45d3cf10-9758-f8f9-3b66-6acc0ae54254.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/9fa0402f-0415-a230-3080-d5426b94e651.htm" />
+        <HelpTOCNode Title="MeteredElement Property " Url="html/dc6f08e2-75fe-1b4e-8056-a1f3efcffb2b.htm" />
+        <HelpTOCNode Title="MeteredTerminal Property " Url="html/b43466b9-fcaf-918f-9067-c3dce8307837.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/569cba99-fd5b-0bb6-76d6-82b21c5b38d5.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/318474a5-f4ed-7a76-b6ce-e6d04b534053.htm" />
+        <HelpTOCNode Title="NumSectionBranches Property " Url="html/6b06e19e-5340-d1ad-3ea7-5e16092914a7.htm" />
+        <HelpTOCNode Title="NumSectionCustomers Property " Url="html/8eb3fc21-c475-0c5f-b6a2-da5d88c970df.htm" />
+        <HelpTOCNode Title="NumSections Property " Url="html/0e9f023b-994a-8b3d-5385-06d2510ea32c.htm" />
+        <HelpTOCNode Title="OCPDeviceType Property " Url="html/8306c81a-635f-73de-e031-74bfc9aecfe4.htm" />
+        <HelpTOCNode Title="Peakcurrent Property " Url="html/f3867632-47d0-5839-b20a-3288a20d3bf2.htm" />
+        <HelpTOCNode Title="RegisterNames Property " Url="html/dbf154e6-5f6e-51b9-7ea5-2811c34b4168.htm" />
+        <HelpTOCNode Title="RegisterValues Property " Url="html/1e76967f-cbbc-f65a-05bf-c70eac9a5b12.htm" />
+        <HelpTOCNode Title="SAIDI Property " Url="html/5558a174-01ba-5eed-b794-108985177d0d.htm" />
+        <HelpTOCNode Title="SAIFI Property " Url="html/4a2150f4-fa80-6312-9681-ac220b0152c3.htm" />
+        <HelpTOCNode Title="SAIFIKW Property " Url="html/8a3b1b75-802a-952e-607d-efe116f7aa74.htm" />
+        <HelpTOCNode Title="SectSeqIdx Property " Url="html/14032db3-e6e3-2c0f-df5e-70e83c0bd58b.htm" />
+        <HelpTOCNode Title="SectTotalCust Property " Url="html/5bf7e59c-f14f-e124-5e96-b001ffc22764.htm" />
+        <HelpTOCNode Title="SeqListSize Property " Url="html/3ec05840-b8b6-ce50-5f0c-b852e8706a0c.htm" />
+        <HelpTOCNode Title="SequenceIndex Property " Url="html/04075049-d0b8-2cd5-c73d-775493a0aed5.htm" />
+        <HelpTOCNode Title="SumBranchFltRates Property " Url="html/e0c9a107-6567-e2c8-b030-8f7e3b24d81c.htm" />
+        <HelpTOCNode Title="TotalCustomers Property " Url="html/280b6946-9314-5919-a6a0-8383c7cc95b3.htm" />
+        <HelpTOCNode Title="Totals Property " Url="html/6545fd19-a930-363d-2ded-d6a4b854d61e.htm" />
+        <HelpTOCNode Title="ZonePCE Property " Url="html/1b4ad7f6-a199-ea45-23a4-0c89a3410526.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="2b792b79-c410-42e2-b66e-2c5f5774424d" Title="Meters Methods" Url="html/37d90f9f-5c7f-c05f-103f-eff1d9eeb6ab.htm">
+        <HelpTOCNode Title="CloseAllDIFiles Method " Url="html/f0ede5d5-f920-6127-fb2d-b1f1a6d57850.htm" />
+        <HelpTOCNode Title="DoReliabilityCalc Method " Url="html/4ebabe20-81a2-44e4-d4d1-53c007f8c70f.htm" />
+        <HelpTOCNode Title="OpenAllDIFiles Method " Url="html/a879c1bd-ec18-e963-f2b3-b8ff6b5a901d.htm" />
+        <HelpTOCNode Title="Reset Method " Url="html/8e4fd087-af57-3799-3efe-b128da2ea722.htm" />
+        <HelpTOCNode Title="ResetAll Method " Url="html/76c28044-77e8-5469-e76a-290fdc2bfcd1.htm" />
+        <HelpTOCNode Title="Sample Method " Url="html/d7f6ea6f-5ef4-1c2a-a690-799771c9076b.htm" />
+        <HelpTOCNode Title="SampleAll Method " Url="html/23064d8b-b94f-8dcd-b094-ecbb57090a8b.htm" />
+        <HelpTOCNode Title="Save Method " Url="html/0c229959-8b8c-a1e6-cf2d-c3d36d7d9c47.htm" />
+        <HelpTOCNode Title="SaveAll Method " Url="html/6079ce61-380a-513b-add7-2ef5f8ecb0dd.htm" />
+        <HelpTOCNode Title="SetActiveSection Method " Url="html/b5b347ce-af46-a617-3ebc-84a5a8f22a01.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Meters Fields" Url="html/7e98e023-80ce-eda6-42ad-931725126fad.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="MonitorModes Enumeration" Url="html/9a808458-0ef0-12b5-febe-3cc31b62533c.htm" />
+    <HelpTOCNode Id="5b4d9cc8-5557-4eec-b794-38b5b2187a7a" Title="Monitors Class" Url="html/82a6dcbc-3358-38b6-c045-f45ae3b357d5.htm">
+      <HelpTOCNode Title="Monitors Constructor " Url="html/1967a67b-38dc-de2b-9ddc-661307152139.htm" />
+      <HelpTOCNode Id="6c96f599-4f3c-411b-81c6-1e6a9e77778e" Title="Monitors Properties" Url="html/42ecc8b9-94e4-e429-fe8b-0199d985552f.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/67a911d7-f729-8efb-5556-112ce1470c0d.htm" />
+        <HelpTOCNode Title="ByteStream Property " Url="html/d2e9c929-99d8-5cae-b962-707cf390dbc7.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/0a05358e-4c23-eea5-08f3-8af79e868fba.htm" />
+        <HelpTOCNode Title="dblFreq Property " Url="html/4c7ff1ea-4166-f8c1-3945-7898c57cff70.htm" />
+        <HelpTOCNode Title="dblHour Property " Url="html/99c56bab-bbb0-ed61-c511-38001891724c.htm" />
+        <HelpTOCNode Title="Element Property " Url="html/7d369679-b67e-3302-6c09-b167aa1537c2.htm" />
+        <HelpTOCNode Title="FileName Property " Url="html/ef8955fd-e424-9888-21a5-dbb835d78207.htm" />
+        <HelpTOCNode Title="FileVersion Property " Url="html/b514a72c-18d6-fd64-de91-2691394ce979.htm" />
+        <HelpTOCNode Title="First Property " Url="html/84e29d6c-49be-02d6-f52b-048f70797295.htm" />
+        <HelpTOCNode Title="Header Property " Url="html/435a9b73-af3a-48ac-3f51-afd4a99cff15.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/4686abb6-00b6-8a65-007e-7579a14f4437.htm" />
+        <HelpTOCNode Title="Mode Property " Url="html/4c23e986-b555-8a56-431a-ca7742da23a9.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/2ba8e1af-41e5-eece-56ff-251f7d2fefe9.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/793032a0-c7b8-2714-4587-bdd54d96d227.htm" />
+        <HelpTOCNode Title="NumChannels Property " Url="html/34b5a0f6-d125-2342-fdba-551fb896175e.htm" />
+        <HelpTOCNode Title="RecordSize Property " Url="html/615e8dd7-6a89-6c75-4e51-01f099c225b8.htm" />
+        <HelpTOCNode Title="SampleCount Property " Url="html/8b308a2a-f363-0ece-8c36-f3ccd7af734a.htm" />
+        <HelpTOCNode Title="Terminal Property " Url="html/cebedb30-4b3a-0f3f-87fc-6bedae9f30cd.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="6af63f9d-cb22-465c-bd66-612c7292f3d9" Title="Monitors Methods" Url="html/1cb49bd0-5ada-4782-c15c-93d471d300ca.htm">
+        <HelpTOCNode Title="Channel Method " Url="html/a0ce35e5-61e6-2d5e-d05e-3aa62a2f2324.htm" />
+        <HelpTOCNode Title="Process Method " Url="html/d8d033aa-dc3c-66d2-993c-f04c3043e042.htm" />
+        <HelpTOCNode Title="ProcessAll Method " Url="html/05bb806e-355e-3c7b-c451-c12bcf02a419.htm" />
+        <HelpTOCNode Title="Reset Method " Url="html/b1099ea4-d6ad-9b72-7ea4-7401355f107a.htm" />
+        <HelpTOCNode Title="ResetAll Method " Url="html/d347f2a0-5e20-a435-b2a9-79bb85f3d8b7.htm" />
+        <HelpTOCNode Title="Sample Method " Url="html/da9ed0e4-d09e-7370-1b80-bfe75b995206.htm" />
+        <HelpTOCNode Title="SampleAll Method " Url="html/f9290c93-fa1e-8c29-cefb-da02f07757a3.htm" />
+        <HelpTOCNode Title="Save Method " Url="html/d1c62ecf-17b4-f182-3011-a719abe8c93c.htm" />
+        <HelpTOCNode Title="SaveAll Method " Url="html/7057d725-4692-54ff-8ca2-19f9811f76f4.htm" />
+        <HelpTOCNode Title="Show Method " Url="html/d78f49bb-7a95-d2c4-274e-55aee14e972b.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Monitors Fields" Url="html/9f47ab2c-31dc-2723-92be-c67a06d5ebcd.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="61cde3cf-1472-44c4-a15e-f0c6ee7fa599" Title="Parallel Class" Url="html/f3440753-3e74-bdb2-81c6-9052f8742d7e.htm">
+      <HelpTOCNode Title="Parallel Constructor " Url="html/95b5a878-9967-8bc9-fa7f-9935a9c4fbce.htm" />
+      <HelpTOCNode Id="09b62437-d955-4960-856e-46a2854aada8" Title="Parallel Properties" Url="html/d266f496-16c2-e717-aac7-c32eae90245c.htm">
+        <HelpTOCNode Title="ActiveActor Property " Url="html/dc410a45-804d-4d10-2032-1daf69ae0e13.htm" />
+        <HelpTOCNode Title="ActiveParallel Property " Url="html/845cda16-f9a8-0436-4418-c7c0cb014fa0.htm" />
+        <HelpTOCNode Title="ActorCPU Property " Url="html/e8d6f852-823b-7067-551f-1cb5a03e2ada.htm" />
+        <HelpTOCNode Title="ActorProgress Property " Url="html/fc3bbd4c-d248-1052-6e96-b03d4878ee3a.htm" />
+        <HelpTOCNode Title="ActorStatus Property " Url="html/1487d960-72c1-28a2-4d62-36164cedea97.htm" />
+        <HelpTOCNode Title="ConcatenateReports Property " Url="html/06b62371-a87f-ec1a-c86c-dd244c86e1e4.htm" />
+        <HelpTOCNode Title="NumCores Property " Url="html/6eddf064-f3cc-d02d-da08-6d86f8ba3b61.htm" />
+        <HelpTOCNode Title="NumCPUs Property " Url="html/6915824e-31c3-bd39-c726-cf6b12932262.htm" />
+        <HelpTOCNode Title="NumOfActors Property " Url="html/a254164e-5f28-bc0f-5994-667ab4824088.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="48af69d2-7c69-479b-ac66-3d91e4d682ea" Title="Parallel Methods" Url="html/b79d9bca-33c1-60c0-c7d1-e4495e7c743d.htm">
+        <HelpTOCNode Title="CreateActor Method " Url="html/7358d0ea-5858-00c9-0c19-31f591242cb1.htm" />
+        <HelpTOCNode Title="Wait Method " Url="html/16294e06-5782-7a7c-b27a-7121691ca061.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Parallel Fields" Url="html/1a34ee83-0399-ed23-4be1-84de3b3a40ee.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="45dd553c-291e-4e06-a717-47b02aac6090" Title="Parser Class" Url="html/9af8694c-61c0-6d69-292b-1a6268adf270.htm">
+      <HelpTOCNode Title="Parser Constructor " Url="html/d795cb49-7c06-096d-06f4-b54d3e36d1c5.htm" />
+      <HelpTOCNode Id="4c2a3b5c-cc6c-4301-88f7-e960789154a0" Title="Parser Properties" Url="html/a853e8d6-c31a-9e35-b84c-98325f9d6c48.htm">
+        <HelpTOCNode Title="AutoIncrement Property " Url="html/88aade46-2ae5-a352-6a40-773ce06f239c.htm" />
+        <HelpTOCNode Title="BeginQuote Property " Url="html/014bd434-7117-882c-7c7c-c9b0516c7340.htm" />
+        <HelpTOCNode Title="CmdString Property " Url="html/722cad21-fa2c-7c1b-2830-b7bfdfc59f66.htm" />
+        <HelpTOCNode Title="DblValue Property " Url="html/50c29e3c-9598-c5a1-ce8a-639311ef7174.htm" />
+        <HelpTOCNode Title="Delimiters Property " Url="html/a5c05868-b661-621d-55cb-308de3cec9b3.htm" />
+        <HelpTOCNode Title="EndQuote Property " Url="html/ca57e143-123c-6b34-773e-b9618db99afd.htm" />
+        <HelpTOCNode Title="IntValue Property " Url="html/db343dfc-346b-0f81-255e-1784a639faab.htm" />
+        <HelpTOCNode Title="NextParam Property " Url="html/7924ae5d-7e2c-9076-9c29-3f8aa5847851.htm" />
+        <HelpTOCNode Title="StrValue Property " Url="html/fe73ef2b-5775-7f3b-cac4-14af5c12f93d.htm" />
+        <HelpTOCNode Title="WhiteSpace Property " Url="html/e0a72c18-ec03-189d-ca29-5538861270c5.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="6914660b-bc50-41e3-b66a-fbfd988c8148" Title="Parser Methods" Url="html/48d6c9cf-38c1-be63-62e1-cb78a6853062.htm">
+        <HelpTOCNode Title="Matrix Method " Url="html/ac0e8a5b-4a2c-0732-09b0-0aacdcd53ea2.htm" />
+        <HelpTOCNode Title="ResetDelimiters Method " Url="html/2ae7c323-7d79-19de-b4a1-f1e7cc48d307.htm" />
+        <HelpTOCNode Title="SymMatrix Method " Url="html/2a348c8d-49c4-03dd-b0b3-419339b47a70.htm" />
+        <HelpTOCNode Title="Vector Method " Url="html/a86ae141-0c8f-2002-10dd-3becd444de5c.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Parser Fields" Url="html/34302370-234f-f6e4-1b00-343b8a32a5ec.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="034b651f-c596-4458-83eb-5f80bfc90e76" Title="PDElements Class" Url="html/2859ee26-ecb2-ebfa-8924-ae686376cf06.htm">
+      <HelpTOCNode Title="PDElements Constructor " Url="html/2a986e28-0836-7c61-47fb-dc65aaa1e210.htm" />
+      <HelpTOCNode Id="ffba727f-0f33-4d47-bd65-98cd840c56fa" Title="PDElements Properties" Url="html/4c08a266-3c89-9be7-fc3a-1d8576314fd6.htm">
+        <HelpTOCNode Title="AccumulatedL Property " Url="html/ec6b0ebe-953e-9814-3360-df201d8d2bf6.htm" />
+        <HelpTOCNode Title="AllCplxSeqCurrents Property " Url="html/355b483b-c40a-e3c7-b979-dfe83b1f5148.htm" />
+        <HelpTOCNode Title="AllCurrents Property " Url="html/22f21c6c-2669-d87a-ace7-07e5cff733b8.htm" />
+        <HelpTOCNode Title="AllCurrentsMagAng Property " Url="html/8a4047d4-a919-5527-56f2-95d479997b84.htm" />
+        <HelpTOCNode Title="AllNames Property " Url="html/19846ed4-6802-be4c-a8fb-520815f009a7.htm" />
+        <HelpTOCNode Title="AllNumConductors Property " Url="html/7df94682-c5df-a92b-05c3-f387005e2f6e.htm" />
+        <HelpTOCNode Title="AllNumPhases Property " Url="html/ddeb3407-124d-ea5f-d00b-9c9ff6870678.htm" />
+        <HelpTOCNode Title="AllNumTerminals Property " Url="html/d0c3c633-856a-2be3-04b7-6ce61c19f5ea.htm" />
+        <HelpTOCNode Title="AllPowers Property " Url="html/a9327e14-38b6-9ffd-31e2-de91af11c4e7.htm" />
+        <HelpTOCNode Title="AllSeqCurrents Property " Url="html/585c51e8-3365-b34f-8b67-823426b0a5e6.htm" />
+        <HelpTOCNode Title="AllSeqPowers Property " Url="html/7b43b36f-2f8f-7599-6d06-eb69ea3a797d.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/8d67365f-0867-6dbc-41c6-a5bebbc6f255.htm" />
+        <HelpTOCNode Title="FaultRate Property " Url="html/d788386e-ccf4-9ab7-d447-0aa020d63d6b.htm" />
+        <HelpTOCNode Title="First Property " Url="html/f8ca1e6a-8703-afdb-55ff-4e7b6f739437.htm" />
+        <HelpTOCNode Title="FromTerminal Property " Url="html/29e4f8ee-2717-ced2-518b-d22ba396be4b.htm" />
+        <HelpTOCNode Title="IsShunt Property " Url="html/204955c8-8cce-71b9-ad4e-8af8e23e1d0b.htm" />
+        <HelpTOCNode Title="Lambda Property " Url="html/f3dc20eb-6014-19af-6f77-2126e8c7a7d7.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/596e5f34-8ebd-e67a-77e8-bac79849cdef.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/9a43cef6-23b4-5964-33c7-becfe52e48cc.htm" />
+        <HelpTOCNode Title="Numcustomers Property " Url="html/32a8233c-83ea-b064-a284-e8b0361b8df4.htm" />
+        <HelpTOCNode Title="ParentPDElement Property " Url="html/0336f344-a790-20d9-ae45-413449bf05f2.htm" />
+        <HelpTOCNode Title="pctPermanent Property " Url="html/b7d07c24-75c2-3331-b111-ed2a9e12c4b4.htm" />
+        <HelpTOCNode Title="RepairTime Property " Url="html/6059167c-9ca7-36d7-0fd5-6e490ec24c56.htm" />
+        <HelpTOCNode Title="SectionID Property " Url="html/60bbf512-b7ba-fbc8-cbd2-5ec861b725d3.htm" />
+        <HelpTOCNode Title="Totalcustomers Property " Url="html/0a91f7e4-b8b4-faa8-b5e9-7b0b61b92ac4.htm" />
+        <HelpTOCNode Title="TotalMiles Property " Url="html/b237402e-8363-4e31-0ba6-362c09586c5c.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="983bfbf5-8b07-41bc-b64c-4af0db4ea846" Title="PDElements Methods" Url="html/dd5f4f98-ca60-d8ed-92d2-b6f4ab7a90db.htm">
+        <HelpTOCNode Title="AllMaxCurrents Method " Url="html/775ae720-d18a-836d-2209-e89fc4a34460.htm" />
+        <HelpTOCNode Title="AllPctEmerg Method " Url="html/2ca4d7fc-e356-d118-6941-1990a746478f.htm" />
+        <HelpTOCNode Title="AllPctNorm Method " Url="html/ac2a1005-8f03-2768-9bfa-c3c406404ff8.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="PDElements Fields" Url="html/3a28c561-2534-cf0f-7c45-7748efc97aad.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="bcb1bb67-2bd4-4829-8ad8-32ec70b22953" Title="PVSystems Class" Url="html/c24e9ccc-83ca-4a66-478b-98dca6ebd258.htm">
+      <HelpTOCNode Title="PVSystems Constructor " Url="html/8c006773-37cc-f150-d5d4-78e31fe5cbfa.htm" />
+      <HelpTOCNode Id="65b1ce99-9585-4330-9d7c-4d5786132707" Title="PVSystems Properties" Url="html/329a9115-4283-6fe4-cea7-ce6f33b166d9.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/4083723c-2766-8412-0c69-741256f25030.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/0c83f117-adaa-5630-fae6-bda21707261f.htm" />
+        <HelpTOCNode Title="daily Property " Url="html/79dd0f2f-7bf2-e219-4b7c-25b29a1c397e.htm" />
+        <HelpTOCNode Title="duty Property " Url="html/6e9678c5-ea45-b513-5d64-246e0b76ba23.htm" />
+        <HelpTOCNode Title="First Property " Url="html/ae172581-7fd2-cdef-a62b-a505e16eae69.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/7f49ba12-317a-346c-1b01-b8eaa32c9d9a.htm" />
+        <HelpTOCNode Title="Irradiance Property " Url="html/3e8ffab0-4ba8-987e-eb67-deb194723198.htm" />
+        <HelpTOCNode Title="IrradianceNow Property " Url="html/f3cec52d-9466-9251-960c-c44f32e8367d.htm" />
+        <HelpTOCNode Title="kvar Property " Url="html/36d6c1f7-ff6f-a624-5138-0f18181c1487.htm" />
+        <HelpTOCNode Title="kVArated Property " Url="html/8ece8338-aa3c-d758-7b3a-8bb46c795332.htm" />
+        <HelpTOCNode Title="kW Property " Url="html/d30ef2d2-29f2-1646-2135-69e6237023b5.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/e79bf0ef-9de6-d57d-62bb-3cca116e4362.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/1a487ef0-7a64-92d9-6ee5-54b1c5479384.htm" />
+        <HelpTOCNode Title="PF Property " Url="html/744bbee7-d229-da71-facb-3297b2905d11.htm" />
+        <HelpTOCNode Title="Pmpp Property " Url="html/c6511017-89ed-0e91-63a6-74fe2adb9a42.htm" />
+        <HelpTOCNode Title="RegisterNames Property " Url="html/1d521ad5-3386-8431-d2fd-4e489d35dcec.htm" />
+        <HelpTOCNode Title="RegisterValues Property " Url="html/eafe9c11-ab5b-4262-b833-5d183937a63d.htm" />
+        <HelpTOCNode Title="Sensor Property " Url="html/6a0e29ff-264e-14fa-34b9-e232d941a754.htm" />
+        <HelpTOCNode Title="Tdaily Property " Url="html/a90859fd-bc8d-5a45-2eac-6df8bed79ec7.htm" />
+        <HelpTOCNode Title="Tduty Property " Url="html/639f62e4-51f2-fcc7-59a5-f44766580a94.htm" />
+        <HelpTOCNode Title="Tyearly Property " Url="html/c138423c-f6b3-b17e-a39d-25045d016fcf.htm" />
+        <HelpTOCNode Title="yearly Property " Url="html/3bfcc036-69b5-b47e-6beb-61950116920c.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="PVSystems Methods" Url="html/131f6138-0d4f-d81c-15e6-0c6743fedd96.htm" />
+      <HelpTOCNode Title="PVSystems Fields" Url="html/dab3853b-bdf2-c265-c75d-e92461ebc8e7.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="RandomModes Enumeration" Url="html/1618558a-c20d-ccb6-5e35-f8750dbfb99e.htm" />
+    <HelpTOCNode Id="ec187b22-c461-4476-8142-d198f5fed202" Title="Reactors Class" Url="html/4f6935fe-9f01-2d9c-1163-a1c3890f930b.htm">
+      <HelpTOCNode Title="Reactors Constructor " Url="html/708da812-6f17-5a6e-1a58-7db7ed8d7b72.htm" />
+      <HelpTOCNode Id="88e29919-1a9f-471b-a20b-9223193ba18d" Title="Reactors Properties" Url="html/2600e950-cfd2-b103-2a62-25ee0591e8a2.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/bf592b89-a081-925e-0777-d4b5611d21b0.htm" />
+        <HelpTOCNode Title="Bus1 Property " Url="html/50302ba4-33f9-4bee-e58a-9b512b54aa95.htm" />
+        <HelpTOCNode Title="Bus2 Property " Url="html/509a9e6c-fa1d-defd-4730-6127daef4a6d.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/443f18a6-16c1-42ad-2ade-78c57bd3dce7.htm" />
+        <HelpTOCNode Title="First Property " Url="html/f0a305db-ecc2-aeda-6248-35b08f1fda15.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/7d7692d6-7066-415e-22bd-9e3a7ffd375e.htm" />
+        <HelpTOCNode Title="IsDelta Property " Url="html/e6f67cb8-27c0-0729-7a09-ddfed3637e37.htm" />
+        <HelpTOCNode Title="kV Property " Url="html/0840fbda-de5c-603f-163d-f005b9df988f.htm" />
+        <HelpTOCNode Title="kvar Property " Url="html/e6e5599c-b267-7efb-74e2-de062b81652b.htm" />
+        <HelpTOCNode Title="LCurve Property " Url="html/dc9a22bc-82de-d6e6-42f9-82a44c6cfb71.htm" />
+        <HelpTOCNode Title="LmH Property " Url="html/37560795-4736-16ef-eb0c-7e988f3ab5e3.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/2e44f9f9-dcc9-2159-9617-c26549a2a58a.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/dd620901-6fa8-3b86-b29e-741eed925cbb.htm" />
+        <HelpTOCNode Title="Parallel Property " Url="html/31c3d463-05db-5fc0-ea3a-273a219dbfe9.htm" />
+        <HelpTOCNode Title="Phases Property " Url="html/30440151-d097-e49f-cda3-8e151ccc7748.htm" />
+        <HelpTOCNode Title="R Property " Url="html/e3bcb345-8275-e354-d9e3-c9f66436d5b3.htm" />
+        <HelpTOCNode Title="RCurve Property " Url="html/10ee3170-eced-2adf-fc21-121aeae18d3c.htm" />
+        <HelpTOCNode Title="Rmatrix Property " Url="html/e0a18c35-bb5f-9992-64af-8777796b77c8.htm" />
+        <HelpTOCNode Title="Rp Property " Url="html/c92eb050-36fe-d293-959e-ff2b748159a1.htm" />
+        <HelpTOCNode Title="SpecType Property " Url="html/872dd7c4-acfb-98b6-6298-5fc86fe16df5.htm" />
+        <HelpTOCNode Title="X Property " Url="html/4bccc451-ce9e-5620-a968-459dc4cc89e0.htm" />
+        <HelpTOCNode Title="Xmatrix Property " Url="html/29253c88-baef-61af-714c-a4074f1ae313.htm" />
+        <HelpTOCNode Title="Z Property " Url="html/b56b04de-c5ff-7002-9e60-0de34aa49fc6.htm" />
+        <HelpTOCNode Title="Z0 Property " Url="html/da3eccfb-acd0-ba4e-ca52-b3e523c44e58.htm" />
+        <HelpTOCNode Title="Z1 Property " Url="html/1f269974-0fa3-5409-dbbf-f8bbe1970f29.htm" />
+        <HelpTOCNode Title="Z2 Property " Url="html/5ea4c2c2-e159-e626-b620-8ec4fbfe8758.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Reactors Methods" Url="html/8d2e4efd-b9f0-93e1-ae5c-39ab794f83d0.htm" />
+      <HelpTOCNode Title="Reactors Fields" Url="html/7b2c04a7-6648-9420-8a3c-1c4cb846a255.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="c1dc8de6-1819-4cb2-b096-0eb8c9c80c95" Title="Reclosers Class" Url="html/7768da7e-c62c-8a52-9af8-b9e7d1369f35.htm">
+      <HelpTOCNode Title="Reclosers Constructor " Url="html/5e809f0c-e066-41fd-64cf-d538229e3dc8.htm" />
+      <HelpTOCNode Id="522e654d-cfc5-4bc7-abdd-e1dc97239d72" Title="Reclosers Properties" Url="html/695f2731-aaf1-ab15-37c5-4d94e52f9bf4.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/7f08af89-e79e-a456-2651-a1c4c559d075.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/f12c7711-68a8-fc86-4459-c1d678366467.htm" />
+        <HelpTOCNode Title="First Property " Url="html/8687d083-5cda-dfb9-63d6-5677fe1583fd.htm" />
+        <HelpTOCNode Title="GroundInst Property " Url="html/38966dc3-e4a5-2f21-91a0-e809b02f97c3.htm" />
+        <HelpTOCNode Title="GroundTrip Property " Url="html/815018a2-20f8-8acf-9352-26a5ca28c1e2.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/9fdc21c2-746c-405d-f2aa-fd65f7cf9f1e.htm" />
+        <HelpTOCNode Title="MonitoredObj Property " Url="html/cabbb7c3-811f-7419-f646-acfa45996b90.htm" />
+        <HelpTOCNode Title="MonitoredTerm Property " Url="html/d179d05a-f24b-4632-71ef-3bb7598ebc04.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/3ec796fd-b189-3cd5-b7e4-622c629c5332.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/130c095f-e88b-fc00-6113-a9f3148ba6dc.htm" />
+        <HelpTOCNode Title="NormalState Property " Url="html/339f4ed5-b2c3-ebc5-104a-d51f52cf564f.htm" />
+        <HelpTOCNode Title="NumFast Property " Url="html/048bbe03-7152-c444-442e-93828056c818.htm" />
+        <HelpTOCNode Title="PhaseInst Property " Url="html/46383c97-0d7c-f73d-2c5f-b866f8eb3e62.htm" />
+        <HelpTOCNode Title="PhaseTrip Property " Url="html/6a54f614-9942-ea94-a793-1238bce3aff7.htm" />
+        <HelpTOCNode Title="RecloseIntervals Property " Url="html/44fe0cc3-cc04-87e8-b92d-ee77b0307c47.htm" />
+        <HelpTOCNode Title="Shots Property " Url="html/9f3ad5a9-e9c9-338a-3f2f-6fdaeb3f1dc5.htm" />
+        <HelpTOCNode Title="State Property " Url="html/6a409c58-cf3d-d13c-ff5e-2735b84a8496.htm" />
+        <HelpTOCNode Title="SwitchedObj Property " Url="html/0f6d11b5-857e-b532-ffab-7dc3b6f0ef2e.htm" />
+        <HelpTOCNode Title="SwitchedTerm Property " Url="html/2cda9a93-7c1c-9c6b-17a2-f8b2e042078b.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="8720164b-ed82-4a7a-9963-423caf3dfbf3" Title="Reclosers Methods" Url="html/304c4943-6911-296a-5be1-537acb716d74.htm">
+        <HelpTOCNode Title="Close Method " Url="html/eac4a6cf-6194-8211-0528-bd6717498f18.htm" />
+        <HelpTOCNode Title="Open Method " Url="html/ff4ae624-c2b6-642e-4ac7-bbf1af8c1577.htm" />
+        <HelpTOCNode Title="Reset Method " Url="html/a608a904-6175-2b9c-eb02-6f2111b127e6.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Reclosers Fields" Url="html/30b08d1a-38d0-b29e-cf8f-8ec562d08c02.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="7e8fe6d5-5022-4443-86f7-94e6dba7a4d1" Title="ReduceCkt Class" Url="html/863e9f14-6d79-e016-f19d-5b5a18eef9a9.htm">
+      <HelpTOCNode Title="ReduceCkt Constructor " Url="html/5c502ae8-75d0-c39d-33a5-547838b81e27.htm" />
+      <HelpTOCNode Id="4a6aec90-39c9-4bfd-93a6-3ace4659162f" Title="ReduceCkt Properties" Url="html/a09f69ee-42e6-0fbb-6624-51464172658e.htm">
+        <HelpTOCNode Title="EditString Property " Url="html/8aed26c3-17b4-a0aa-2b35-3140923d3898.htm" />
+        <HelpTOCNode Title="EnergyMeter Property " Url="html/fac41d1e-f634-f7d7-1c08-c4d15844dca7.htm" />
+        <HelpTOCNode Title="KeepLoad Property " Url="html/474ac971-7473-bf84-7c75-90076e09ba47.htm" />
+        <HelpTOCNode Title="StartPDElement Property " Url="html/f5714c77-783c-4edb-1d83-29a2c6e21d9d.htm" />
+        <HelpTOCNode Title="Zmag Property " Url="html/c0865fb0-c330-1139-f66b-08fccef1a14e.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="172a8bb1-2b35-43f7-b92c-2b9ded3269e1" Title="ReduceCkt Methods" Url="html/332e69ef-db67-87bb-e21d-66834613cf71.htm">
+        <HelpTOCNode Title="Do1phLaterals Method " Url="html/6cc37e6e-2741-c858-2e8a-afefd628a12c.htm" />
+        <HelpTOCNode Title="DoBranchRemove Method " Url="html/61cf97f0-ea50-f000-aa10-4aa4b5909032.htm" />
+        <HelpTOCNode Title="DoDangling Method " Url="html/b9a5ba07-e2da-9452-a55c-2a8c46eec242.htm" />
+        <HelpTOCNode Title="DoDefault Method " Url="html/6b2cf359-4b16-83d0-af71-77f0ba3f7f54.htm" />
+        <HelpTOCNode Title="DoLoopBreak Method " Url="html/61b3eebc-341c-ad01-7264-65d511a8333d.htm" />
+        <HelpTOCNode Title="DoParallelLines Method " Url="html/c7b9f89f-813f-825b-6e32-24bc01b22387.htm" />
+        <HelpTOCNode Title="DoShortLines Method " Url="html/20e0d5e8-80bd-0ffe-9ac1-1c1cb0df663c.htm" />
+        <HelpTOCNode Title="DoSwitches Method " Url="html/bdf3831c-8d3a-bfcc-f756-e0001ef8d7aa.htm" />
+        <HelpTOCNode Title="SaveCircuit Method " Url="html/67e1e794-f38d-92c8-9f0b-7dbcda089ec4.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ReduceCkt Fields" Url="html/85bdad17-6d43-2715-ad0b-07c1b51813b1.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="c8ea140c-b682-4e1e-95fd-525bf3897487" Title="RegControls Class" Url="html/8240a0f1-4053-f5f4-65b3-6d9273ce900d.htm">
+      <HelpTOCNode Title="RegControls Constructor " Url="html/39857e81-011e-f931-e5e3-8398b73a7562.htm" />
+      <HelpTOCNode Id="cb656a4d-684e-446a-9c7a-4286d24c406e" Title="RegControls Properties" Url="html/0b8cabc2-9a2c-f663-3947-e2892df57c00.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/68bd951d-860e-4b72-e2a8-bdc8c9a4d051.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/b9d97bbe-cd93-cf78-a368-e7cb03304363.htm" />
+        <HelpTOCNode Title="CTPrimary Property " Url="html/30209d4c-1f9c-7323-0bf1-ff08cc1d0a33.htm" />
+        <HelpTOCNode Title="Delay Property " Url="html/3b3515d9-90aa-70a0-1b0d-1bf02391f336.htm" />
+        <HelpTOCNode Title="First Property " Url="html/fdb2a4d6-40ef-4d57-31e8-d23dc6c950bb.htm" />
+        <HelpTOCNode Title="ForwardBand Property " Url="html/ec305046-f190-4b17-0fd5-5785dfc82568.htm" />
+        <HelpTOCNode Title="ForwardR Property " Url="html/607ecd03-e19f-8b6a-5c97-9703d57ef6ab.htm" />
+        <HelpTOCNode Title="ForwardVreg Property " Url="html/33d65a5c-891e-de3d-7781-c471787dace1.htm" />
+        <HelpTOCNode Title="ForwardX Property " Url="html/d744de81-c894-62ec-3caa-e151d9fbebd7.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/27cf6a19-ded9-4fde-69bb-bd7b3adb72fd.htm" />
+        <HelpTOCNode Title="IsInverseTime Property " Url="html/1256fc4e-406d-0407-cc70-dda02279e80c.htm" />
+        <HelpTOCNode Title="IsReversible Property " Url="html/2ce9a1ef-3eb8-5f8e-6ea5-9b743eb8ec89.htm" />
+        <HelpTOCNode Title="MaxTapChange Property " Url="html/3993204b-20b2-b435-50a3-b673a9e72481.htm" />
+        <HelpTOCNode Title="MonitoredBus Property " Url="html/1492e37c-afb1-4fb5-9a4b-3b96c51eaa0c.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/a5780112-f2f3-9311-e93b-6efe33de42c5.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/8b98df78-048e-c4b3-6a00-d0f85389c2f2.htm" />
+        <HelpTOCNode Title="PTratio Property " Url="html/f8a94578-fb75-dfd1-901d-e256c0beba61.htm" />
+        <HelpTOCNode Title="ReverseBand Property " Url="html/99099d46-a2d0-c894-05fe-cbf07677be46.htm" />
+        <HelpTOCNode Title="ReverseR Property " Url="html/4758d2e3-1de8-51c7-2415-97f8a7e5b3c9.htm" />
+        <HelpTOCNode Title="ReverseVreg Property " Url="html/c053cf3c-37ab-069c-7167-35ba866b3e23.htm" />
+        <HelpTOCNode Title="ReverseX Property " Url="html/c167e45c-e937-02de-a623-6d71d9bf889d.htm" />
+        <HelpTOCNode Title="TapDelay Property " Url="html/cac92042-828d-af19-3eaa-74191f9481f2.htm" />
+        <HelpTOCNode Title="TapNumber Property " Url="html/6f757f87-5fe6-ce61-64aa-2fc2c2476900.htm" />
+        <HelpTOCNode Title="TapWinding Property " Url="html/9f93c830-bd48-93b7-e6c0-ff37a3466b87.htm" />
+        <HelpTOCNode Title="Transformer Property " Url="html/5784b7eb-bd5b-c1c1-cd8b-f2569f7a8ec4.htm" />
+        <HelpTOCNode Title="VoltageLimit Property " Url="html/f6d9955a-2832-2309-0b3b-7e581cd504f6.htm" />
+        <HelpTOCNode Title="Winding Property " Url="html/0b488833-cfce-403d-8773-a088d938eb9c.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="4a935241-f3e0-4b57-948d-5508c73b5909" Title="RegControls Methods" Url="html/21ebd79c-ee8f-0d37-3a72-cd482cf0747b.htm">
+        <HelpTOCNode Title="Reset Method " Url="html/e67bb7c4-d6ee-5163-b30f-4b55b341c9a0.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="RegControls Fields" Url="html/89f8633b-b492-b16b-6b75-5005e2fccd66.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="df478448-58b0-42e0-9c91-de8b0de3664c" Title="Relays Class" Url="html/17883398-4b4c-595b-d148-27098ec916fd.htm">
+      <HelpTOCNode Title="Relays Constructor " Url="html/57b692a7-1ffd-a6c1-fbdd-f6401e910c6e.htm" />
+      <HelpTOCNode Id="eca92738-568f-4246-aa4a-a92baf0b3c6e" Title="Relays Properties" Url="html/5aa76518-fd2b-c16b-fa51-ff9fc16dbb8d.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/e55a6af4-25c8-178a-5df2-49e1c118366e.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/90a73c4e-031e-e91c-94e5-97d321e2dfbf.htm" />
+        <HelpTOCNode Title="First Property " Url="html/15edea4d-475d-e510-1be3-65aef5064feb.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/e21ebfb2-693a-41a7-299f-b80b903c1d55.htm" />
+        <HelpTOCNode Title="MonitoredObj Property " Url="html/94d405cc-92e4-7274-6348-6dee8a6e1a44.htm" />
+        <HelpTOCNode Title="MonitoredTerm Property " Url="html/6ad98b2b-41ab-b7eb-8c89-f37d5e08626e.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/10d7d3cd-71e3-d6af-680e-8d14f50f674d.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/5eae1786-7d19-c0ba-862b-4e9eafb3d34d.htm" />
+        <HelpTOCNode Title="NormalState Property " Url="html/2ee7d086-b152-1d39-d1d3-99f7b9ab4c6e.htm" />
+        <HelpTOCNode Title="State Property " Url="html/7eb85d57-2af3-d154-41b6-1a9d5c0b385c.htm" />
+        <HelpTOCNode Title="SwitchedObj Property " Url="html/b53ae825-7718-5a49-aa9e-63c538c3fd00.htm" />
+        <HelpTOCNode Title="SwitchedTerm Property " Url="html/1bc3a5fd-5376-f762-de3b-8bb373e290b0.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="b43e1645-425f-43ef-88f2-a85512641c66" Title="Relays Methods" Url="html/f88bfc39-df67-1648-d7a5-7b01fef929e3.htm">
+        <HelpTOCNode Title="Close Method " Url="html/8f6371ab-de79-0edd-ccf0-0f8cfb5339ad.htm" />
+        <HelpTOCNode Title="Open Method " Url="html/a7f04857-ebb8-0e91-d3c1-9c4abc7326e5.htm" />
+        <HelpTOCNode Title="Reset Method " Url="html/6b5a004f-53ee-1365-6886-91ac937093a8.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Relays Fields" Url="html/eb0d1fe6-a5d3-8d2a-01f8-4f3d615a4de8.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="d6ba53ee-8fbc-4d31-b030-48687854222a" Title="Sensors Class" Url="html/9d182b47-7b1c-5683-419e-10a654c20e2f.htm">
+      <HelpTOCNode Title="Sensors Constructor " Url="html/5e4f41a4-8eda-e8ea-3d92-b87329bd6e9b.htm" />
+      <HelpTOCNode Id="6b4e9e74-0ae4-4c69-833d-42392ee98eff" Title="Sensors Properties" Url="html/d591e702-699f-006f-773d-57b214b699f9.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/e6a9f84d-420b-3d3d-f8ec-2564520eb785.htm" />
+        <HelpTOCNode Title="AllocationFactor Property " Url="html/a9329ad9-b100-5ed1-9c0e-095eadffbc59.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/b25fd91c-8a05-1ec0-27a6-e477f75a8c7c.htm" />
+        <HelpTOCNode Title="Currents Property " Url="html/ef48bf20-dff1-267d-e909-2767e4be1538.htm" />
+        <HelpTOCNode Title="First Property " Url="html/822da562-0880-b9f7-4b0a-a5eddd174d86.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/16c4cdec-cfc6-6630-ad2a-f5dea5eaf464.htm" />
+        <HelpTOCNode Title="IsDelta Property " Url="html/bec04e20-8907-9809-75e0-5a18163893e7.htm" />
+        <HelpTOCNode Title="kVARS Property " Url="html/646a974b-ba62-8ec4-a4e5-392444792517.htm" />
+        <HelpTOCNode Title="kVbase Property " Url="html/72a0077a-c3ab-37ab-96af-cb7de52174c9.htm" />
+        <HelpTOCNode Title="kVS Property " Url="html/c3ab4a3f-b55b-e24c-ba24-4f3bc827e3b6.htm" />
+        <HelpTOCNode Title="kWS Property " Url="html/a5f32ac7-a73a-11d7-97a0-084ebd0daa26.htm" />
+        <HelpTOCNode Title="MeteredElement Property " Url="html/c53f141b-b6bd-7e20-0003-7d4749d4983f.htm" />
+        <HelpTOCNode Title="MeteredTerminal Property " Url="html/3bb71dc2-a00c-b82b-1036-05df3c44ad4d.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/8ae70d2c-56f2-8e10-2458-1d1b24f71a91.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/8ddbd83f-0bc3-be58-f96e-84628fc30020.htm" />
+        <HelpTOCNode Title="PctError Property " Url="html/60ee6283-2aa4-f626-d8db-d2427e9195cd.htm" />
+        <HelpTOCNode Title="ReverseDelta Property " Url="html/4a941f90-1589-4c46-a954-cdd9c4bfdf8f.htm" />
+        <HelpTOCNode Title="Weight Property " Url="html/25b169b7-1e1b-eba8-e97c-60110d985d04.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="df98ba6c-16bd-44a3-a419-2d096c39dc9c" Title="Sensors Methods" Url="html/96583280-35a9-d732-f7fb-0e6af02d350f.htm">
+        <HelpTOCNode Title="Reset Method " Url="html/6ff2a67a-41e5-2a70-b5c5-298bb81a7e08.htm" />
+        <HelpTOCNode Title="ResetAll Method " Url="html/97b159b3-da55-3f73-21fc-eb95dd90ac8a.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Sensors Fields" Url="html/e621c364-36f7-033c-d273-f684f82b1d91.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="6ac5f249-380c-48f2-bbdd-47a363afcf02" Title="Settings Class" Url="html/bfce6160-afaf-a1a1-e4cc-72929e8fdbb8.htm">
+      <HelpTOCNode Title="Settings Constructor " Url="html/9767e2e6-6a3e-c182-3cb0-e7de637f9d1e.htm" />
+      <HelpTOCNode Id="d881e93a-0cf9-421d-aa2a-6956d8595d08" Title="Settings Properties" Url="html/2831969a-767c-d738-444f-80d82230544a.htm">
+        <HelpTOCNode Title="AllocationFactors Property " Url="html/6d055d49-c4be-f3e5-9d1a-226d22031792.htm" />
+        <HelpTOCNode Title="AllowDuplicates Property " Url="html/f94936a8-15da-1914-ef47-d5c157e24399.htm" />
+        <HelpTOCNode Title="AutoBusList Property " Url="html/fa122065-5dc6-0f12-5715-f85cbca67f94.htm" />
+        <HelpTOCNode Title="CktModel Property " Url="html/fe894547-3f6d-fb21-fea4-73d5a409ad0f.htm" />
+        <HelpTOCNode Title="ControlTrace Property " Url="html/f4cdda02-8555-e743-119e-5e0e70f44e09.htm" />
+        <HelpTOCNode Title="EmergVmaxpu Property " Url="html/80cc534b-4f4e-7316-5227-7c29d5d76616.htm" />
+        <HelpTOCNode Title="EmergVminpu Property " Url="html/4d46bf9d-6a37-ef7c-f8d8-d24744e1d75f.htm" />
+        <HelpTOCNode Title="IterateDisabled Property " Url="html/0956af29-4d1b-0187-423b-0ed4e1358125.htm" />
+        <HelpTOCNode Title="LoadsTerminalCheck Property " Url="html/a47604c5-36e6-4814-d93a-7debe48a4b01.htm" />
+        <HelpTOCNode Title="LossRegs Property " Url="html/76e40e94-49f7-4528-20c6-c587e3009819.htm" />
+        <HelpTOCNode Title="LossWeight Property " Url="html/ea9236ea-38c1-fbe1-36f9-9735bc5b3902.htm" />
+        <HelpTOCNode Title="NormVmaxpu Property " Url="html/fad74584-1ed0-93a9-b002-849a5aa0b7fd.htm" />
+        <HelpTOCNode Title="NormVminpu Property " Url="html/6480097d-80d9-14ff-f335-17e549069a9c.htm" />
+        <HelpTOCNode Title="PriceCurve Property " Url="html/b05e1a3d-9138-b4b2-6d4d-ca908f6d3a7e.htm" />
+        <HelpTOCNode Title="PriceSignal Property " Url="html/96ccb4ab-03a5-52df-e2dd-fcf5ab0abdaf.htm" />
+        <HelpTOCNode Title="Trapezoidal Property " Url="html/fdd9413f-dad3-03f5-1def-327fa2923edc.htm" />
+        <HelpTOCNode Title="UEregs Property " Url="html/63974dbe-d260-1c58-5d5b-c7b6830770ea.htm" />
+        <HelpTOCNode Title="UEweight Property " Url="html/428ee4b6-b96a-aef5-aa62-1729c85fea93.htm" />
+        <HelpTOCNode Title="VoltageBases Property " Url="html/c4b1658d-9409-087a-c288-96f4e1c7065f.htm" />
+        <HelpTOCNode Title="ZoneLock Property " Url="html/302a6cdb-ef4f-5d5c-f503-a664e582215c.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Settings Methods" Url="html/7d2e08a3-8cc5-f3ab-5772-e7ed7e40b72e.htm" />
+      <HelpTOCNode Title="Settings Fields" Url="html/413877e6-c235-ece7-4256-d2a124e34650.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="d0e8f9f7-90e6-40db-a331-d748a35edea6" Title="Solution Class" Url="html/23ffd60a-a41c-6ada-c5e1-241a20192f2e.htm">
+      <HelpTOCNode Title="Solution Constructor " Url="html/a3b8206a-f8e1-bb82-05ad-f5acb9b27c03.htm" />
+      <HelpTOCNode Id="ce240849-4f22-46fd-9104-0ccd4f5aa174" Title="Solution Properties" Url="html/407bab3e-8d8c-a7e4-5bc0-2c6a0005e463.htm">
+        <HelpTOCNode Title="AddType Property " Url="html/c44247cc-cf2b-23b7-9406-5f343fc80c4e.htm" />
+        <HelpTOCNode Title="Algorithm Property " Url="html/7d535fe9-ca18-9796-5153-61c8386788f6.htm" />
+        <HelpTOCNode Title="BusLevels Property " Url="html/b365c88a-2156-00a7-cc45-ef088c214317.htm" />
+        <HelpTOCNode Title="Capkvar Property " Url="html/5176992d-0f7e-84eb-e6b7-7df99772c943.htm" />
+        <HelpTOCNode Title="ControlActionsDone Property " Url="html/0f99ad53-d82b-739f-f9d2-ff1f3f23a9e3.htm" />
+        <HelpTOCNode Title="ControlIterations Property " Url="html/7f061bea-7540-9cc5-e13f-2a3485b6f821.htm" />
+        <HelpTOCNode Title="ControlMode Property " Url="html/0d99b049-73ea-4946-6faf-27358fe554b5.htm" />
+        <HelpTOCNode Title="Converged Property " Url="html/c5de9876-5a9b-c867-0184-3e38643f7e29.htm" />
+        <HelpTOCNode Title="dblHour Property " Url="html/a9f11bb4-4739-6575-540f-2091284e7df7.htm" />
+        <HelpTOCNode Title="DefaultDaily Property " Url="html/98fc11b0-a0c6-1b10-2da2-a5f440999e88.htm" />
+        <HelpTOCNode Title="DefaultYearly Property " Url="html/e240f489-b45d-402f-5982-a0db840abdc9.htm" />
+        <HelpTOCNode Title="EventLog Property " Url="html/e479e1d2-97b9-55d3-a951-b3c85f8ff9cb.htm" />
+        <HelpTOCNode Title="Frequency Property " Url="html/af765d6e-9d00-1c1d-5c67-031a925806d8.htm" />
+        <HelpTOCNode Title="GenkW Property " Url="html/698d7021-b3f4-c43f-485c-24999e4fbe3e.htm" />
+        <HelpTOCNode Title="GenMult Property " Url="html/7df6b599-3866-7dba-4738-f69533984b50.htm" />
+        <HelpTOCNode Title="GenPF Property " Url="html/99646945-8c59-58d6-2451-261c296e2095.htm" />
+        <HelpTOCNode Title="Hour Property " Url="html/617ec90e-3fe2-008d-a801-1368f63c3bd2.htm" />
+        <HelpTOCNode Title="IncMatrix Property " Url="html/8354570b-424b-4191-9bbc-8d556701c834.htm" />
+        <HelpTOCNode Title="IncMatrixCols Property " Url="html/70d12275-3718-cada-e586-6ecac5917459.htm" />
+        <HelpTOCNode Title="IncMatrixRows Property " Url="html/adbc0fbc-6308-d9bb-110c-a1d1c09071f3.htm" />
+        <HelpTOCNode Title="IntervalHrs Property " Url="html/b7303ac5-689a-5e75-c7fa-ccda0688ad64.htm" />
+        <HelpTOCNode Title="Iterations Property " Url="html/0f227ede-4cf5-a03f-cdf6-7a22cdde6f1e.htm" />
+        <HelpTOCNode Title="Laplacian Property " Url="html/12dee573-b824-0a4e-02eb-204b3cca8fb0.htm" />
+        <HelpTOCNode Title="LDCurve Property " Url="html/75e56964-2e12-7cc7-459a-f20ed4124e82.htm" />
+        <HelpTOCNode Title="LoadModel Property " Url="html/80e06261-9611-9801-3fd6-2ff91a4e1dcf.htm" />
+        <HelpTOCNode Title="LoadMult Property " Url="html/ea3290ad-3e6a-3a1f-ee38-e830dbdcc931.htm" />
+        <HelpTOCNode Title="MaxControlIterations Property " Url="html/7458b792-3fe9-45ec-b443-3abf9abbc744.htm" />
+        <HelpTOCNode Title="MaxIterations Property " Url="html/1f4608ef-75e4-4e31-ef86-9b7e98d10fa6.htm" />
+        <HelpTOCNode Title="MinIterations Property " Url="html/f227081e-bf79-5301-978c-2063f8734bdd.htm" />
+        <HelpTOCNode Title="Mode Property " Url="html/5b67f9cf-b387-253c-bd24-d4a0b5b1e17b.htm" />
+        <HelpTOCNode Title="ModeID Property " Url="html/238f6090-f59b-a661-c6c5-89c81480237e.htm" />
+        <HelpTOCNode Title="MostIterationsDone Property " Url="html/1252c2ff-2887-a49a-6c97-188620c07936.htm" />
+        <HelpTOCNode Title="Number Property " Url="html/7da3816d-1926-78c3-2456-f7f726cf4eda.htm" />
+        <HelpTOCNode Title="pctGrowth Property " Url="html/2040f4e4-4b50-66bc-67b9-a29e2e301b8c.htm" />
+        <HelpTOCNode Title="Process_Time Property " Url="html/0cc0f7d9-38c7-975d-8a9c-9e94e5281a5e.htm" />
+        <HelpTOCNode Title="Random Property " Url="html/4a6123ab-1922-a959-0842-b13d46e2018a.htm" />
+        <HelpTOCNode Title="Seconds Property " Url="html/7c7f425e-1470-1987-da62-ff7a9f2ed898.htm" />
+        <HelpTOCNode Title="StepSize Property " Url="html/be909f36-96ea-4902-832e-34bd5e85f7ba.htm" />
+        <HelpTOCNode Title="StepsizeHr Property " Url="html/6fa12a3f-11c6-30fc-f31d-9b23cbeea788.htm" />
+        <HelpTOCNode Title="StepsizeMin Property " Url="html/3bf920b5-0ddf-d560-329f-598787e60073.htm" />
+        <HelpTOCNode Title="SystemYChanged Property " Url="html/504961d7-d23c-de14-d69b-759b3a95d8f3.htm" />
+        <HelpTOCNode Title="Time_of_Step Property " Url="html/c568011a-7b55-fe8d-5d87-2e4f3a19f08c.htm" />
+        <HelpTOCNode Title="Tolerance Property " Url="html/523fc28f-ec05-a905-6f7b-6ca2476c0cca.htm" />
+        <HelpTOCNode Title="Total_Time Property " Url="html/069739d0-1dda-bd5d-8638-bd44df4a36c9.htm" />
+        <HelpTOCNode Title="Totaliterations Property " Url="html/7a6d83ac-d29d-9f27-586e-6c646a0aead0.htm" />
+        <HelpTOCNode Title="Year Property " Url="html/c22a7264-d490-107e-fc14-a6831bedcede.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="9d216610-ab19-4735-83f5-d071bfac1480" Title="Solution Methods" Url="html/2b4241ef-6100-ce52-8adb-076d71d04dc6.htm">
+        <HelpTOCNode Title="BuildYMatrix Method " Url="html/3a07bb56-d967-9ce1-cfc1-6e20c9ad8cb2.htm" />
+        <HelpTOCNode Title="CheckControls Method " Url="html/d149e30c-7c10-31c3-f065-09b975a2208f.htm" />
+        <HelpTOCNode Title="CheckFaultStatus Method " Url="html/d3fa0a96-1f3d-ff7a-90bf-3d61ae7d1098.htm" />
+        <HelpTOCNode Title="Cleanup Method " Url="html/3464b49a-45ee-295f-bbac-7ab393506f2d.htm" />
+        <HelpTOCNode Title="DoControlActions Method " Url="html/cd0b94cc-c1b8-acc5-39ba-210a7d07be85.htm" />
+        <HelpTOCNode Title="FinishTimeStep Method " Url="html/94051208-af24-f867-3e07-dc359a0ab5b8.htm" />
+        <HelpTOCNode Title="InitSnap Method " Url="html/a31e9580-5ab0-ce97-6048-cc0e9b90939c.htm" />
+        <HelpTOCNode Title="Sample_DoControlActions Method " Url="html/d1e110e7-8ce4-6564-6ceb-c5cdb27fa96c.htm" />
+        <HelpTOCNode Title="SampleControlDevices Method " Url="html/b5db2e48-67b7-9f71-6e29-f34a4b0a6ec7.htm" />
+        <HelpTOCNode Title="Solve Method " Url="html/fdafc96b-8d7f-2412-dd3a-6e97a1668a45.htm" />
+        <HelpTOCNode Title="SolveDirect Method " Url="html/d32ac276-4d33-edfe-afb8-0fa2377ea4f7.htm" />
+        <HelpTOCNode Title="SolveNoControl Method " Url="html/6eb6a886-e06d-9eb9-501b-856a761c610d.htm" />
+        <HelpTOCNode Title="SolvePflow Method " Url="html/be061c8d-f02b-fe05-5a21-62a309444a9c.htm" />
+        <HelpTOCNode Title="SolvePlusControl Method " Url="html/a77d0f07-671c-2e68-18b9-e96f0055c17b.htm" />
+        <HelpTOCNode Title="SolveSnap Method " Url="html/058e1623-d0ba-9d43-9b73-cf4c50a3c58d.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Solution Fields" Url="html/e5eefc04-794c-a5b9-a96d-4f051483deb2.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="SolutionAlgorithms Enumeration" Url="html/dcffb1c5-1d6e-0291-ee7a-c195253dc765.htm" />
+    <HelpTOCNode Title="SolutionLoadModels Enumeration" Url="html/4c0aa1b4-86a8-ade2-814a-e9684b019abe.htm" />
+    <HelpTOCNode Title="SolveModes Enumeration" Url="html/430c34f9-89ef-57fb-571a-12bf8c4b795e.htm" />
+    <HelpTOCNode Title="SolverOptions Enumeration" Url="html/d53baa47-4d2d-f448-a69b-9ae0edee11bd.htm" />
+    <HelpTOCNode Id="880ca825-ac1d-411c-81a8-9011d6c0e9a0" Title="Storages Class" Url="html/19fb0bdf-a31d-d76f-3488-45ba00c8a8c4.htm">
+      <HelpTOCNode Title="Storages Constructor " Url="html/5e324900-d8c9-4221-8eee-efe0d5b2d653.htm" />
+      <HelpTOCNode Id="e0b3a1f3-f54b-4e21-80f9-6e188321c6d5" Title="Storages Properties" Url="html/9a141302-0781-fe6f-10d1-8ab3e93d7e36.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/9f876387-3b12-6d5e-a0a8-db2669e4d889.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/9e62aa40-69bd-217d-8886-90f8f3aa5577.htm" />
+        <HelpTOCNode Title="First Property " Url="html/0c4db38c-dca2-7bf3-047b-ebc5c9e60b92.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/34e5e096-02da-b6c8-8d54-f8bba9b62d7d.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/8c15ef86-1de9-8dd6-2c86-7df00230bf4c.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/fe79e424-9070-7312-7a9b-c3247e5f27cb.htm" />
+        <HelpTOCNode Title="puSOC Property " Url="html/02e0c3db-83ee-0306-772b-49c4c1caabd1.htm" />
+        <HelpTOCNode Title="RegisterNames Property " Url="html/fb8582ab-f45d-bfe2-4323-7d7c4da33109.htm" />
+        <HelpTOCNode Title="RegisterValues Property " Url="html/3ef4f281-ac72-70a3-a12c-3c6d6146ca35.htm" />
+        <HelpTOCNode Title="State Property " Url="html/3610febc-0da1-ebf4-ea24-d3145687518b.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Storages Methods" Url="html/8dba4075-cf3b-0d7e-058b-3e780aad959e.htm" />
+      <HelpTOCNode Title="Storages Fields" Url="html/21868562-2289-d41a-fefe-a374ef24abce.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="StorageStates Enumeration" Url="html/ae0cc31e-6ba7-a85b-26a9-4e8e8cb18af3.htm" />
+    <HelpTOCNode Id="dc7066ae-92c6-46d7-90cf-97ac09bcaf96" Title="SwtControls Class" Url="html/b8bd23b5-8572-c436-2b45-027cde0ab018.htm">
+      <HelpTOCNode Title="SwtControls Constructor " Url="html/71d8aea1-a575-5406-2cfd-dfb4ec0a33a7.htm" />
+      <HelpTOCNode Id="696d07a7-91c0-47de-a5ef-e506f2e2359d" Title="SwtControls Properties" Url="html/d5df17cf-4cc5-5203-8a77-f14fb0483468.htm">
+        <HelpTOCNode Title="Action Property " Url="html/63db3b23-32af-1de1-7ace-758ce9658ee8.htm" />
+        <HelpTOCNode Title="AllNames Property " Url="html/b4c63803-a8d7-8123-b868-d57b91932517.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/c9979e5c-1e0e-4a10-41b0-eb3ea65a5823.htm" />
+        <HelpTOCNode Title="Delay Property " Url="html/e5c9d0be-318c-799f-6e85-911eceacae31.htm" />
+        <HelpTOCNode Title="First Property " Url="html/53d78f75-8834-d3b2-a304-95df307c81c2.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/9a4fbd9b-736d-ef00-9980-475261439753.htm" />
+        <HelpTOCNode Title="IsLocked Property " Url="html/607a49a6-64ac-9e16-2049-0a21942d2195.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/4d21f379-ed83-535b-b789-0575d06e6dc0.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/5372bd91-1ce6-b4a2-17be-1f0b156f8d35.htm" />
+        <HelpTOCNode Title="NormalState Property " Url="html/ff345ea4-6db3-cf99-6eab-9b075e812ffa.htm" />
+        <HelpTOCNode Title="State Property " Url="html/d1d9eb55-ff24-67e4-cbaa-02322da0ff13.htm" />
+        <HelpTOCNode Title="SwitchedObj Property " Url="html/06b12902-18fc-675e-3dc4-822125c735b9.htm" />
+        <HelpTOCNode Title="SwitchedTerm Property " Url="html/53228b56-0426-5800-1e6c-0de798b9d2c8.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="a936a7c5-e716-4ff1-b710-e36be13a05a9" Title="SwtControls Methods" Url="html/a4fad307-6600-6f6b-5d38-4cc95630b8c3.htm">
+        <HelpTOCNode Title="Reset Method " Url="html/a14616ab-095e-d718-ded7-9499f1b18bf0.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="SwtControls Fields" Url="html/341ac0f8-a9f7-b760-5281-20893ad2286d.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="c0b96b50-f16a-4126-951b-54f28d9d5b88" Title="Text Class" Url="html/b82e895f-ffb2-5d0d-39b3-9e55de608b33.htm">
+      <HelpTOCNode Title="Text Constructor " Url="html/a329b937-60bb-68ec-563d-1495d8f9b067.htm" />
+      <HelpTOCNode Id="e71fd048-9837-493d-b376-fcc8ee09e899" Title="Text Properties" Url="html/28ddb442-12a9-3c12-13f5-db962e70c37e.htm">
+        <HelpTOCNode Title="Command Property " Url="html/f284bf71-87d4-d0c9-7011-16e988b648c3.htm" />
+        <HelpTOCNode Title="Result Property " Url="html/9d4a4e20-b4ef-3eda-b31a-a9b3207bf39e.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="d890edb9-fb7c-4b9f-b664-c176189c1bfa" Title="Text Methods" Url="html/51db5aa8-e001-b6d3-7834-c970a1d69245.htm">
+        <HelpTOCNode Id="ab048615-b29e-4521-8c35-6872adf030fe" Title="Commands Method " Url="html/fc0f8c25-6149-8bd7-0580-3bd90dafbd89.htm">
+          <HelpTOCNode Title="Commands Method (String)" Url="html/513ef08e-657e-9e15-06ce-59b0f6fd3141.htm" />
+          <HelpTOCNode Title="Commands Method (String[])" Url="html/9a1aebf3-a495-2e38-1da4-83bce545a8ea.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Title="Text Fields" Url="html/fc0db904-90dd-2a07-8336-cbc26dbe31ff.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="b0d1e2b7-b5f0-4d3b-8e34-4afd6727e056" Title="Topology Class" Url="html/7d973e5e-c2ad-5aa2-dd51-fecba51ce93d.htm">
+      <HelpTOCNode Title="Topology Constructor " Url="html/a036925e-47d5-7fa1-8043-95eb123685e9.htm" />
+      <HelpTOCNode Id="98084a44-815d-4cef-9531-c36ef937f02b" Title="Topology Properties" Url="html/b2adb791-a6aa-315e-47fe-9aaf39ff53fd.htm">
+        <HelpTOCNode Title="ActiveBranch Property " Url="html/68de3add-9912-8478-bba2-9008e3527968.htm" />
+        <HelpTOCNode Title="ActiveLevel Property " Url="html/609dfcb9-8a2b-6b5c-bbdd-36bbc3cc8afa.htm" />
+        <HelpTOCNode Title="AllIsolatedBranches Property " Url="html/21e27fb3-251a-160d-9168-7c01a0089863.htm" />
+        <HelpTOCNode Title="AllIsolatedLoads Property " Url="html/483df136-9a40-4b62-f289-ed585bfba95d.htm" />
+        <HelpTOCNode Title="AllLoopedPairs Property " Url="html/69b7f98b-abb3-097b-d5dd-c63c6f6e075c.htm" />
+        <HelpTOCNode Title="BackwardBranch Property " Url="html/a7285520-0f27-3345-987b-cf6cc0eb22d8.htm" />
+        <HelpTOCNode Title="BranchName Property " Url="html/87ba4b62-d31c-02eb-62ed-a21b7dc873c6.htm" />
+        <HelpTOCNode Title="BusName Property " Url="html/d6368617-812a-c62d-3c1a-28d30c722c91.htm" />
+        <HelpTOCNode Title="First Property " Url="html/50e0c848-f7e8-66d1-4d65-3cfdac8005ba.htm" />
+        <HelpTOCNode Title="FirstLoad Property " Url="html/7164974a-9054-a490-9837-b0357870840c.htm" />
+        <HelpTOCNode Title="ForwardBranch Property " Url="html/31c0231f-a361-83df-4b17-eb247d3eab95.htm" />
+        <HelpTOCNode Title="LoopedBranch Property " Url="html/39e4dc02-b9aa-eefe-6e58-30ba3da25914.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/41d172af-109a-5f6e-e852-3fc1a7bf6bd1.htm" />
+        <HelpTOCNode Title="NextLoad Property " Url="html/5ac144df-f335-cca1-e3f8-ef7ce45eca56.htm" />
+        <HelpTOCNode Title="NumIsolatedBranches Property " Url="html/8d5eab57-211a-6b4f-aa4e-296c55e36ab3.htm" />
+        <HelpTOCNode Title="NumIsolatedLoads Property " Url="html/36c183c8-7980-69d4-74f9-e83fbd4b0947.htm" />
+        <HelpTOCNode Title="NumLoops Property " Url="html/852bffcc-f60f-a0e4-114e-0eb54e450ce4.htm" />
+        <HelpTOCNode Title="ParallelBranch Property " Url="html/9b375ba2-b9a6-6b1b-c22b-ab16bdae8048.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Topology Methods" Url="html/2bd98f25-44a0-908e-0227-7b9c82c1e0b6.htm" />
+      <HelpTOCNode Title="Topology Fields" Url="html/d4be2307-fd49-130b-b6c9-4ad6485a1b11.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="2f87afe5-1dfc-46f6-b0e6-7cf4e54bb22d" Title="Transformers Class" Url="html/74a15263-4ebb-3608-6018-5794059034a6.htm">
+      <HelpTOCNode Title="Transformers Constructor " Url="html/821a5a41-d9df-ec10-6eee-4e5ca1300a47.htm" />
+      <HelpTOCNode Id="2856033b-9b6c-42ab-8671-d6b229e5f7b2" Title="Transformers Properties" Url="html/f800d113-2e43-916f-a5a6-d92cef55c9d9.htm">
+        <HelpTOCNode Title="AllLossesByType Property " Url="html/692b0700-cd8f-2902-6f00-eaa040908532.htm" />
+        <HelpTOCNode Title="AllNames Property " Url="html/59db07c9-b2d2-af24-ad46-bfd49715c5a2.htm" />
+        <HelpTOCNode Title="CoreType Property " Url="html/4d1078ea-2527-d011-de8e-444c97826e97.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/277f3756-fcc5-12bb-a8ec-3cc4b3b21162.htm" />
+        <HelpTOCNode Title="First Property " Url="html/a69cc2db-fd06-4269-2ac1-0dfdb10ff75a.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/594c0aa4-e416-8783-0116-d08aa3e69925.htm" />
+        <HelpTOCNode Title="IsDelta Property " Url="html/c19b69ed-ab9e-856e-63f0-2101310829d7.htm" />
+        <HelpTOCNode Title="kV Property " Url="html/a6f5d97b-53b8-4c13-1bc8-0dec2d8df3c9.htm" />
+        <HelpTOCNode Title="kVA Property " Url="html/120132a3-60d5-66d3-5df3-27e3fcb64257.htm" />
+        <HelpTOCNode Title="LossesByType Property " Url="html/483ca504-9450-5c86-ce88-ab67815697bb.htm" />
+        <HelpTOCNode Title="MaxTap Property " Url="html/97415d12-7745-143b-6185-313c36f5eb27.htm" />
+        <HelpTOCNode Title="MinTap Property " Url="html/331e8e78-ea51-549e-df2b-9b1699a72637.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/c8a0d146-5348-c115-7e8e-0356d6f89bbb.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/0c00f7a8-ace5-f4dd-b711-a3f034ce84d6.htm" />
+        <HelpTOCNode Title="NumTaps Property " Url="html/c6e9f889-729b-8ea0-3393-ef57d6414864.htm" />
+        <HelpTOCNode Title="NumWindings Property " Url="html/7ab8afc2-c818-ef9b-ed4c-037ac30e3626.htm" />
+        <HelpTOCNode Title="R Property " Url="html/0ce35771-b99f-ef2d-a844-6f5249359903.htm" />
+        <HelpTOCNode Title="RdcOhms Property " Url="html/45af7407-984e-b9c5-4bb4-eae4792a13b9.htm" />
+        <HelpTOCNode Title="Rneut Property " Url="html/82e3bc67-693b-d7df-54ba-9a4ca0f5bd40.htm" />
+        <HelpTOCNode Title="strWdgCurrents Property " Url="html/69c41d06-3542-fc46-2918-18eaafb5149c.htm" />
+        <HelpTOCNode Title="Tap Property " Url="html/ed156f75-81c4-a34c-c78c-91f5e199930f.htm" />
+        <HelpTOCNode Title="Wdg Property " Url="html/0c210a1a-3136-f6c9-ec68-814a0dddb123.htm" />
+        <HelpTOCNode Title="WdgCurrents Property " Url="html/bb2f2a60-96cf-6ac4-11e2-8ec0af8c57a0.htm" />
+        <HelpTOCNode Title="WdgVoltages Property " Url="html/d814568c-5b8c-63c4-9047-43bba32e924c.htm" />
+        <HelpTOCNode Title="XfmrCode Property " Url="html/5892bbbd-bb6c-8a9b-2a94-672b7d1cb5ed.htm" />
+        <HelpTOCNode Title="Xhl Property " Url="html/65819435-400f-aabd-842c-7591a28a75a3.htm" />
+        <HelpTOCNode Title="Xht Property " Url="html/acca68a7-7170-d238-2701-da26a8e0bfe3.htm" />
+        <HelpTOCNode Title="Xlt Property " Url="html/6292e0da-6eb5-d1b1-e539-b935900671db.htm" />
+        <HelpTOCNode Title="Xneut Property " Url="html/a826cfbe-9889-3666-077b-70e4817d20ac.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Transformers Methods" Url="html/e25728df-9026-c76e-ce0e-4faac0aaf700.htm" />
+      <HelpTOCNode Title="Transformers Fields" Url="html/d7d66a76-a46a-bfe4-3ddd-52e48f1d322e.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="9d330ed5-018f-4026-b327-430b61191a50" Title="TSData Class" Url="html/2a7eaa72-a6b2-a695-462f-c17108d2a237.htm">
+      <HelpTOCNode Title="TSData Constructor " Url="html/1a426688-6c14-6b6c-d9e4-b49549521b0f.htm" />
+      <HelpTOCNode Id="054dd973-2947-43a9-a8d9-9dea96aa4eac" Title="TSData Properties" Url="html/5e3601ee-b03c-abef-eca5-9a5a35e315ee.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/863734f1-0209-1d2c-ea9f-7eea69189715.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/76b13a11-a0b3-281b-ec70-c6daa20bbdbc.htm" />
+        <HelpTOCNode Title="DiaCable Property " Url="html/d3ddc558-6f0a-2e60-cac2-fb48d136bd31.htm" />
+        <HelpTOCNode Title="DiaIns Property " Url="html/e820e8ee-07a2-e7d5-3a39-1aaa40937ed9.htm" />
+        <HelpTOCNode Title="Diameter Property " Url="html/cb6afa96-f1ac-8c20-fadc-241936db8403.htm" />
+        <HelpTOCNode Title="DiaShield Property " Url="html/3aa215b4-ecd3-e250-3f75-ea6816299df7.htm" />
+        <HelpTOCNode Title="EmergAmps Property " Url="html/634bd7c7-ddc7-2a4a-8879-0991da756cd2.htm" />
+        <HelpTOCNode Title="EpsR Property " Url="html/a6a71d43-a48b-338a-aadd-6471ccb523b2.htm" />
+        <HelpTOCNode Title="First Property " Url="html/453e4f30-759d-edb3-0b03-a515ff5c0fde.htm" />
+        <HelpTOCNode Title="GMRac Property " Url="html/ad45e313-31eb-a915-3a18-581d5ac8b2a5.htm" />
+        <HelpTOCNode Title="GMRUnits Property " Url="html/6d69e7c0-72fb-9315-e8c7-b81616b87ff4.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/35b86af4-5070-6b63-d7a6-c177de2a1f80.htm" />
+        <HelpTOCNode Title="InsLayer Property " Url="html/b592dfc9-8e19-963a-e4c3-7f3f0b6f16bd.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/49284b93-b3fe-4d98-3682-870a91a66791.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/3b14fc4b-3652-a3ca-a85e-e385c3118fe5.htm" />
+        <HelpTOCNode Title="NormAmps Property " Url="html/9fb977ac-0766-8f56-9c33-25201f472c89.htm" />
+        <HelpTOCNode Title="Rac Property " Url="html/53d22259-17e6-6aed-9375-72041ed90b1f.htm" />
+        <HelpTOCNode Title="Radius Property " Url="html/3871179a-bd3c-942d-95a3-d89e8fc5703c.htm" />
+        <HelpTOCNode Title="RadiusUnits Property " Url="html/0fa1c44e-f5f4-9d61-9aab-72233870cf1d.htm" />
+        <HelpTOCNode Title="Rdc Property " Url="html/e521d06f-bde3-ae87-1091-d14eeec89b81.htm" />
+        <HelpTOCNode Title="ResistanceUnits Property " Url="html/789dd935-53e8-eeb2-21ad-6dc1d590ca47.htm" />
+        <HelpTOCNode Title="TapeLap Property " Url="html/1990bc76-d2ae-c537-dae6-a360855c1a96.htm" />
+        <HelpTOCNode Title="TapeLayer Property " Url="html/0a0b8c74-6a1d-fae3-4fb3-03d1e10961f0.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="TSData Methods" Url="html/ef66fc99-2b0a-705b-1d06-53b7a5db0ac1.htm" />
+      <HelpTOCNode Title="TSData Fields" Url="html/71e61414-5274-0120-5bb8-22af10bc7af8.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="9d0916ec-6c9d-448b-8006-8d458ddc52fe" Title="Vsources Class" Url="html/d5a65e7b-3be8-3440-7a0d-cee16d474372.htm">
+      <HelpTOCNode Title="Vsources Constructor " Url="html/30476760-16d8-855d-2b2e-95e9937296d9.htm" />
+      <HelpTOCNode Id="9072d5ee-0406-4900-9eed-6aafe09e9d20" Title="Vsources Properties" Url="html/de860be0-2b7b-b171-45cb-76d3ddbb68fd.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/97481a4f-de98-29ed-6b5c-d6ed2c88c514.htm" />
+        <HelpTOCNode Title="AngleDeg Property " Url="html/eeaaeab0-926d-cde1-26de-f81c0c4772ca.htm" />
+        <HelpTOCNode Title="BasekV Property " Url="html/dd67ddee-752f-5961-b0fe-67549f6d7062.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/9b048ec7-7edb-0f06-23aa-e78edf225877.htm" />
+        <HelpTOCNode Title="First Property " Url="html/ceab1a47-8889-cea8-d7db-565dfa3549a9.htm" />
+        <HelpTOCNode Title="Frequency Property " Url="html/85fb2e82-0439-6089-be01-4f6e8137c1e0.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/23afcb28-0497-a8c4-42ab-351b219b2314.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/b1b5d7d5-a2f2-87d5-4801-75465e8197d9.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/4415b2e6-9732-64a7-d6e3-8c87dbd5dc79.htm" />
+        <HelpTOCNode Title="Phases Property " Url="html/3b7c821f-9818-cb32-adb0-082d87ae6e37.htm" />
+        <HelpTOCNode Title="pu Property " Url="html/a5f653d2-7ac6-2675-08a2-53af5cf4a61e.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Vsources Methods" Url="html/0e2209b6-9891-8b6c-befa-59668d5a80e0.htm" />
+      <HelpTOCNode Title="Vsources Fields" Url="html/5b40e9cf-1db4-d001-ccd8-10117f7b324f.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="9fddd783-1d05-46b4-bde1-eb10b1d409e5" Title="WireData Class" Url="html/9a48d311-f50b-3189-79c1-b980e455123c.htm">
+      <HelpTOCNode Title="WireData Constructor " Url="html/3c1c0a34-033a-9f5e-c132-d369019c71c5.htm" />
+      <HelpTOCNode Id="bd2d1088-c386-4613-b000-4e4c18170623" Title="WireData Properties" Url="html/3eb50f24-b4b0-f174-9adf-c7cc6601b521.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/cc131c29-645d-a7f9-af2b-e59916e9cbe8.htm" />
+        <HelpTOCNode Title="CapRadius Property " Url="html/1321e25d-af99-3049-da95-01ba9c3dd436.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/213386ff-589d-3999-ccc8-4ed1da7cf5d3.htm" />
+        <HelpTOCNode Title="Diameter Property " Url="html/c975c051-6872-6e9d-c018-50fe0bacaa6a.htm" />
+        <HelpTOCNode Title="EmergAmps Property " Url="html/b0934fe0-d5a2-af7a-4f61-cb2c24613aec.htm" />
+        <HelpTOCNode Title="First Property " Url="html/97562363-494f-914f-00ad-7530ec1cb28c.htm" />
+        <HelpTOCNode Title="GMRac Property " Url="html/9863d1ff-e74e-0933-a86b-de731f85798d.htm" />
+        <HelpTOCNode Title="GMRUnits Property " Url="html/cabf0e1d-61d9-a3d1-ad8b-191614f6051c.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/d666fa18-b2d4-2709-1b5c-67cb541c1aca.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/cd8c38be-214c-8469-e813-d97c54e254ce.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/99ac19a3-46fa-88b1-798d-8ac12ec4211e.htm" />
+        <HelpTOCNode Title="NormAmps Property " Url="html/5b1ab55f-c803-17e2-03d8-be439be7464c.htm" />
+        <HelpTOCNode Title="Rac Property " Url="html/a28f916c-9df6-e7cf-8fc8-0cf04baa133b.htm" />
+        <HelpTOCNode Title="Radius Property " Url="html/99140d9b-a85f-a862-b846-56f6dbcf3738.htm" />
+        <HelpTOCNode Title="RadiusUnits Property " Url="html/57a1d37a-94b2-cca2-8086-ec003bdce350.htm" />
+        <HelpTOCNode Title="Rdc Property " Url="html/7145fe97-f891-3cf1-7ff8-6a34765172bc.htm" />
+        <HelpTOCNode Title="ResistanceUnits Property " Url="html/5c930530-f680-df10-1557-fbf9a6df149f.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="WireData Methods" Url="html/a2323f45-896e-47f3-f80d-0e514eed3f79.htm" />
+      <HelpTOCNode Title="WireData Fields" Url="html/6a5a2f08-9747-033d-bd41-207c6ba06109.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="2895b97e-bd33-4389-8245-702a4c689af0" Title="XYCurves Class" Url="html/d2d5f416-e5ce-9a24-789e-ee6cf753ec5d.htm">
+      <HelpTOCNode Title="XYCurves Constructor " Url="html/f47507a9-429c-ca37-a373-de7fc507896b.htm" />
+      <HelpTOCNode Id="a0ff25c8-7f1a-40f6-92b3-361b85194a62" Title="XYCurves Properties" Url="html/70af7e08-01e3-83f4-3756-3ac0203bbf16.htm">
+        <HelpTOCNode Title="AllNames Property " Url="html/2da00123-1935-0604-544e-a74e0e5498e5.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/8612622d-4dba-9617-e9c7-25206b0d47a5.htm" />
+        <HelpTOCNode Title="First Property " Url="html/f474fee1-ae43-d8a4-b2f6-1f5b7806ecaf.htm" />
+        <HelpTOCNode Title="idx Property " Url="html/fb73ff24-2962-6747-86ff-b74d9800e886.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/7375a1b7-39f0-3446-97b6-f023bab58f30.htm" />
+        <HelpTOCNode Title="Next Property " Url="html/129e0005-f038-7d89-9327-1709d1dfcddf.htm" />
+        <HelpTOCNode Title="Npts Property " Url="html/41e7c6bb-9255-1ed6-9efa-62c2aaa3b723.htm" />
+        <HelpTOCNode Title="x Property " Url="html/56a74de9-b0c9-7ea3-1cb4-deb7ade9debe.htm" />
+        <HelpTOCNode Title="Xarray Property " Url="html/e0bb1e36-5296-e99c-22f8-82a519cfaac2.htm" />
+        <HelpTOCNode Title="Xscale Property " Url="html/9e21e028-1420-8914-031c-77c14b277383.htm" />
+        <HelpTOCNode Title="Xshift Property " Url="html/60c5b1e3-c08a-f370-1739-ac7e59136699.htm" />
+        <HelpTOCNode Title="y Property " Url="html/b22e1932-d49b-1963-b8aa-a888f42bf794.htm" />
+        <HelpTOCNode Title="Yarray Property " Url="html/445f4054-05b4-5699-f75f-d4a8acd733bb.htm" />
+        <HelpTOCNode Title="Yscale Property " Url="html/2e289c8a-3368-806d-3326-009173e7f11e.htm" />
+        <HelpTOCNode Title="Yshift Property " Url="html/c39d0afc-f285-43c0-58c3-72a83f8fe38f.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="XYCurves Methods" Url="html/ce295f5c-7d25-3d48-7b17-1382de54ef03.htm" />
+      <HelpTOCNode Title="XYCurves Fields" Url="html/403523bf-152b-3f58-659d-844bf87420ea.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="05bbfd94-bf6c-49c7-b781-6d2568008ab3" Title="YMatrix Class" Url="html/e9ffbfa5-012f-0ee2-cd31-e01694666a83.htm">
+      <HelpTOCNode Title="YMatrix Constructor " Url="html/7a12ffea-df2f-4412-bf12-c616f30c35da.htm" />
+      <HelpTOCNode Id="c59384ab-380b-445f-963c-98238360dec6" Title="YMatrix Properties" Url="html/3bad02e3-1d0b-6627-f914-be185303d007.htm">
+        <HelpTOCNode Title="Iteration Property " Url="html/907b9457-0f00-e3ae-0046-46fc5a16e36c.htm" />
+        <HelpTOCNode Title="LoadsNeedUpdating Property " Url="html/e1312fd5-a190-1873-13fa-f25a3be631a7.htm" />
+        <HelpTOCNode Title="SolutionInitialized Property " Url="html/5e9e0e65-2608-d56d-8da7-0b8d223b2859.htm" />
+        <HelpTOCNode Title="SolverOptions Property " Url="html/0a00e24f-f14e-3425-eca2-e2659696146e.htm" />
+        <HelpTOCNode Title="SystemYChanged Property " Url="html/0081d736-30c0-76b8-74e2-5a8ef920d323.htm" />
+        <HelpTOCNode Title="UseAuxCurrents Property " Url="html/1a104603-23e1-da80-1a30-70e9f82bef6e.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="6e7d313f-e91e-4247-8997-35f56122571d" Title="YMatrix Methods" Url="html/2fa3f56a-c48e-e9f7-9ddc-54da0197d4c1.htm">
+        <HelpTOCNode Title="AddInAuxCurrents Method " Url="html/41715033-fafa-de34-f6f0-d317e89167ee.htm" />
+        <HelpTOCNode Title="BuildYMatrixD Method " Url="html/fa8492b9-e0a7-443b-b037-0e05bfcb5616.htm" />
+        <HelpTOCNode Title="CheckConvergence Method " Url="html/6e0ea9b6-b9d5-b688-12f9-629956650d2d.htm" />
+        <HelpTOCNode Title="GetPCInjCurr Method " Url="html/87eae875-1a99-34c3-bc9a-9ce7f13fcd0e.htm" />
+        <HelpTOCNode Title="GetSourceInjCurrents Method " Url="html/e1245993-5c91-f999-2f6f-ff722efe63f4.htm" />
+        <HelpTOCNode Title="SetGeneratordQdV Method " Url="html/2b8f6287-4d70-7abc-c8e8-bdbf7e9a21a9.htm" />
+        <HelpTOCNode Title="ZeroInjCurr Method " Url="html/541b70f8-8ca8-79ba-9a5c-215ad7c7bcd1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="YMatrix Fields" Url="html/c855d788-3087-29d8-8dc9-72142bbed2a1.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="YMatrixModes Enumeration" Url="html/7981037e-107a-a0d4-905e-81245faf67ed.htm" />
+    <HelpTOCNode Id="229ed5fa-af62-4f8a-b542-9137487faffc" Title="ZIP Class" Url="html/6d994c78-4b73-f575-b3b3-03c8fb6e427b.htm">
+      <HelpTOCNode Title="ZIP Constructor " Url="html/cce58764-a05b-a815-e894-496596543345.htm" />
+      <HelpTOCNode Id="61d02921-72ab-47e5-80e9-4afb65409d5e" Title="ZIP Methods" Url="html/e83fff79-fab1-3506-eca8-53fa389b60c6.htm">
+        <HelpTOCNode Title="Close Method " Url="html/b64bccea-8adc-f092-1e96-85e02aab649d.htm" />
+        <HelpTOCNode Title="Contains Method " Url="html/50672265-008b-2dc3-70c8-9bb9d0a8a633.htm" />
+        <HelpTOCNode Title="Extract Method " Url="html/737482d8-9a17-dbc6-ddbb-310cb9540f4d.htm" />
+        <HelpTOCNode Title="List Method " Url="html/cf3a7cb4-0423-e2d3-378c-e43072269d4f.htm" />
+        <HelpTOCNode Title="Open Method " Url="html/9140d652-95fc-66d0-770d-32aa47bf1972.htm" />
+        <HelpTOCNode Title="Redirect Method " Url="html/c36fb2f5-76b4-5a25-15dd-2bf63e56e29f.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ZIP Fields" Url="html/1df93854-0545-175c-b670-2d615cf5a568.htm" />
+    </HelpTOCNode>
+  </HelpTOCNode>
+  <HelpTOCNode Id="a0bdf87c-f5fd-48d1-bb9d-7b43a1efcedd" Title="dss_sharp.detail" Url="html/eb9e8dc0-92ec-612e-8faa-f2972a02aea3.htm">
+    <HelpTOCNode Id="488e1304-b46e-4dc7-bb5b-2b742412b92c" Title="APIUtil Class" Url="html/bb631801-a63a-ee75-071a-e2af49ab6884.htm">
+      <HelpTOCNode Title="APIUtil Constructor " Url="html/a2ed5c9e-7007-50ac-5d02-98557c9070d9.htm" />
+      <HelpTOCNode Id="96df9d42-0215-4b78-9206-97bf7aa019e6" Title="APIUtil Methods" Url="html/7b84671d-d93e-6616-56e3-15baea4f11c1.htm">
+        <HelpTOCNode Title="CheckForError Method " Url="html/de8ea54d-4a25-12b2-d387-9b48c8cfe60f.htm" />
+        <HelpTOCNode Title="Finalize Method " Url="html/da419e50-0cf0-897e-a90c-9d54ea1bd8c5.htm" />
+        <HelpTOCNode Title="get_float64_gr_array Method " Url="html/fbca5d92-1f26-c233-c1c8-f588e5580dfe.htm" />
+        <HelpTOCNode Title="get_int32_gr_array Method " Url="html/e369e867-0cb6-5d62-d2c5-f47a75b3a5ee.htm" />
+        <HelpTOCNode Title="get_int8_gr_array Method " Url="html/afc6d7d5-667f-7c12-1c58-c29b889409bd.htm" />
+        <HelpTOCNode Title="get_string Method " Url="html/130df412-c207-a74e-5181-b8fa360e3db1.htm" />
+        <HelpTOCNode Id="287897e6-0f7b-4a6a-9ba6-382048c5d906" Title="get_string_array Method " Url="html/87f70fee-143f-235c-07e1-8b2a07dcb6bd.htm">
+          <HelpTOCNode Title="get_string_array Method (APIUtil.StringArrayDelegate2, Int32)" Url="html/709dddb5-707d-a067-432b-0db5dc7a4a71.htm" />
+          <HelpTOCNode Title="get_string_array Method (APIUtil.StringArrayDelegate3, String)" Url="html/09e5c2b4-420c-2464-fc43-9a4c5bf2b703.htm" />
+          <HelpTOCNode Title="get_string_array Method (APIUtil.StringArrayDelegate1, Boolean, Boolean)" Url="html/6107b840-a324-0189-8b3e-958c7c720d46.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="117fadb5-8935-4246-ba38-b561c9328d96" Title="APIUtil Fields" Url="html/ffef4135-dd45-15c6-e939-35dfe2786fbe.htm">
+        <HelpTOCNode Title="ctx Field" Url="html/6ad7e37e-9d38-1580-d42c-f5eff4dd63ea.htm" />
+        <HelpTOCNode Title="errorPtr Field" Url="html/b0482114-0c3a-5231-88e7-280ebc61d145.htm" />
+        <HelpTOCNode Title="ownsCtx Field" Url="html/c98eade6-f5d0-8309-7273-15c5a1eeea26.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="APIUtil.StringArrayDelegate1 Delegate" Url="html/4d45c709-234b-9e61-7ecb-bd5ef0073cb4.htm" />
+    <HelpTOCNode Title="APIUtil.StringArrayDelegate2 Delegate" Url="html/6bb49cdb-584c-bfb2-f4ad-4b0a433a3d3c.htm" />
+    <HelpTOCNode Title="APIUtil.StringArrayDelegate3 Delegate" Url="html/fc182ae6-a9e7-a6f8-03fe-4c05267b4f28.htm" />
+    <HelpTOCNode Id="5442cb42-8d3b-4e13-a15d-018948675a65" Title="ContextState Class" Url="html/2d77fe71-7b82-71eb-42a7-ef1e92549556.htm">
+      <HelpTOCNode Title="ContextState Constructor " Url="html/77309d7d-8d02-e9fd-ae8d-3775fc77f954.htm" />
+      <HelpTOCNode Id="bf4b6495-5e04-48ea-8cb1-97121e002da5" Title="ContextState Methods" Url="html/155ea67d-f689-756a-a1c8-4cff8ee65b8c.htm">
+        <HelpTOCNode Title="CheckForError Method " Url="html/c9187797-9053-f473-c6c7-29a3c04fbf61.htm" />
+        <HelpTOCNode Title="GetContextHandle Method " Url="html/f54c3797-900c-08a3-aab8-9af5bdb769ed.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="6c76d621-0d5a-4224-ac6f-6c5235c0d428" Title="ContextState Fields" Url="html/9129e8c3-fc34-7869-1bec-20a2fd182925.htm">
+        <HelpTOCNode Title="apiutil Field" Url="html/b04b774b-543e-1927-55b4-91d173b14f5c.htm" />
+        <HelpTOCNode Title="ctx Field" Url="html/6927a3f6-8036-9576-659f-8580f0bd80b1.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+</HelpTOC>
