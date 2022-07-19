@@ -1,3 +1,6 @@
 .vs
 obj
 bin/
+messages/
+runtimes/
+.vscode/

@@ -11070,6 +11070,17 @@ namespace dss_sharp
                 }
             }
         }
+        public void SolveAll()
+        {
+            try
+            {
+                DSS_CAPI.ctx_Solution_SolveAll(ctx);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
     }
 
     public class LineGeometries : ContextState

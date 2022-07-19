@@ -19,12 +19,10 @@ namespace dss_sharp
     public class DSSException : Exception
     {
         public int ErrorNumber;
-        public string ErrorMessage;
 
-        public DSSException(int number, string message)
+        public DSSException(int number, string message): base(message)
         {
             ErrorNumber = number;
-            ErrorMessage = message;
         }
     }
 
