@@ -1,4 +1,5 @@
 [![Build](https://github.com/dss-extensions/dss_sharp/actions/workflows/dotnet.yml/badge.svg)](https://github.com/dss-extensions/dss_sharp/actions/workflows/dotnet.yml)
+[![Latest NuGet release](https://img.shields.io/nuget/v/dss_sharp?label=NuGet+release&cacheSeconds=3600)](https://www.nuget.org/packages/dss_sharp/)
 
 # DSS Sharp
 
