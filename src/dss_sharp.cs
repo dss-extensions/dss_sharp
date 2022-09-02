@@ -6,11 +6,10 @@
 // See LICENSE for more information.
 //
 // NOTE: This file is partially generated from other files. If you would like to contribute 
-//       a patch // or suggestion, please open a issue ticket on:
+//       a patch or suggestion, please open an issue ticket on:
 //       https://github.com/dss-extensions/dss_sharp/issues/
         
 using System;
-using System.Runtime.InteropServices;
 using dss_sharp.detail;
 using dss_sharp.native;
 
@@ -76,7 +75,7 @@ namespace dss_sharp
         dssActionOpen = 1, // Open a switch
         dssActionClose = 2, // Close a switch
         dssActionReset = 3, // Reset to the shelf state (unlocked, closed for a switch)
-        dssActionLock = 4, // Lock a switch, prventing both manual and automatic operation
+        dssActionLock = 4, // Lock a switch, preventing both manual and automatic operation
         dssActionUnlock = 5, // Unlock a switch, permitting both manual and automatic operation
         dssActionTapUp = 6, // Move a regulator tap up
         dssActionTapDown = 7 // Move a regulator tap down
@@ -7276,14 +7275,7 @@ namespace dss_sharp
         {
             get
             {
-                try
-                {
-                    return APIUtil.get_string(DSS_CAPI.ctx_Error_Get_Description(ctx));
-                }
-                finally
-                {
-                    CheckForError();
-                }
+                return APIUtil.get_string(DSS_CAPI.ctx_Error_Get_Description(ctx));
             }
         }
 
@@ -7294,14 +7286,7 @@ namespace dss_sharp
         {
             get
             {
-                try
-                {
-                    return DSS_CAPI.ctx_Error_Get_Number(ctx);
-                }
-                finally
-                {
-                    CheckForError();
-                }
+                return DSS_CAPI.ctx_Error_Get_Number(ctx);
             }
         }
 
@@ -7348,9 +7333,8 @@ namespace dss_sharp
         /// 
         /// Extended errors use the Error interface to provide a more clear message
         /// and should help users, especially new users, to find usage issues earlier.
-        /// 
-        /// At Python level, an exception is raised when an error is detected through
-        /// the Error interface.
+        /// Combined with the automatic exception mapping mechanism (see `UseExceptions`),
+        /// a more modern and safe experience is achieved in dss_sharp.
         /// 
         /// The current default state is ON. For compatibility, the user can turn it
         /// off to restore the previous behavior.
@@ -7382,6 +7366,31 @@ namespace dss_sharp
                 }
             }
         }
+
+        /// <summary>
+        /// UseExceptions controls whether the error numbers from the DSS engine are
+        /// automatically mapped to .NET exceptions. The default and recommended state
+        /// is `true`, but users can disable this to achieve better compatibility with
+        /// old, COM-based code. Note that most code from OpenDSS users "in the wild" 
+        /// do not check for errors, so the exception mapping can unearth hidden errors
+        /// that were being ignored in old code.
+        /// 
+        /// NOTE: This is a global, static setting. Affects all DSS instances in the process.
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public static bool UseExceptions
+        {
+            get
+            {
+                return APIUtil.exceptionsAllowed;
+            }
+            set
+            {
+                APIUtil.exceptionsAllowed = value;
+            }
+        }
+
     }
 
     public class Fuses : ContextState

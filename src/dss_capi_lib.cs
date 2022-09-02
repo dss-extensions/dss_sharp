@@ -6,7 +6,7 @@
 // See LICENSE for more information.
 //
 // NOTE: This file is partially generated from other files. If you would like to contribute 
-//       a patch // or suggestion, please open a issue ticket on:
+//       a patch or suggestion, please open an issue ticket on:
 //       https://github.com/dss-extensions/dss_sharp/issues/
 
 using System;

@@ -63,6 +63,7 @@ namespace dss_sharp
         /// </summary>
         public class APIUtil
         {
+            public static bool exceptionsAllowed = true;
             private static bool MOLoaded = false;
             public delegate void StringArrayDelegate1(IntPtr ctx, ref IntPtr resultPtr, int[] resultCount);
             public delegate void StringArrayDelegate2(IntPtr ctx, ref IntPtr resultPtr, int[] resultCount, int param1);
@@ -210,8 +211,17 @@ namespace dss_sharp
                 return result;
             }
 
+            /// <summary>
+            /// If the exception mapping mechanism is enabled, the DSS.Error.Number code is inspected.
+            /// If non-zero, the matching DSS.Error.Description message is read and a DSSException is
+            /// thrown. This is called internally after most of the dss_sharp DSS C-API calls to ensure
+            /// most engine errors are being handled as early as possible.
+            ///
+            /// If exceptions cannot be used, check `DSS.Error.Number` directly.
+            /// </summary>
             public void CheckForError()
             {
+                if (!exceptionsAllowed) return;
                 var error_num = Marshal.ReadInt32(errorPtr);
                 if (error_num != 0)
                 {
