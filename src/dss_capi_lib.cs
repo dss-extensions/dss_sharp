@@ -1,7 +1,7 @@
 
 // dss_sharp: A compatibility layer for DSS C-API that mimics the official OpenDSS COM interface.
-// Copyright (c) 2016-2022 Paulo Meira
-// Copyright (c) 2018-2022 DSS Extensions contributors
+// Copyright (c) 2016-2023 Paulo Meira
+// Copyright (c) 2018-2023 DSS Extensions contributors
 //
 // See LICENSE for more information.
 //
@@ -18,8 +18,12 @@ namespace dss_sharp
     {
         /// <summary>
         /// The DSS_CAPI static class exposes DSS C-API functions to C#.
-        /// Some functions are not exposed through the traditional API classes,
-        /// but advanced users are free to use them.
+        /// DSS C-API is the library from DSS Extensions that implements the 
+        /// (customized, not supported by EPRI, etc.) OpenDSS engine and wraps
+        /// it in easily consumable C-compatible functions.
+        ///
+        /// Some functions in this class are not exposed through the traditional
+        /// API classes, but advanced users are free to use them.
         /// </summary>
         public static class DSS_CAPI
         {
@@ -1120,6 +1124,15 @@ namespace dss_sharp
             #endif
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern int ctx_CktElement_Get_VariableIdx(IntPtr /* void */ ctx);
+
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr ctx_CktElement_Get_VariableName(IntPtr /* void */ ctx);
+
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ctx_CktElement_Get_VariableValue(IntPtr /* void */ ctx);
+
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern double ctx_CktElement_Get_Variablei(IntPtr /* void */ ctx, int Idx, ref int Code);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
@@ -1183,6 +1196,20 @@ namespace dss_sharp
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Set_Variable(IntPtr /* void */ ctx, [param: MarshalAs(UnmanagedType.LPStr)] string MyVarName, ref int Code, double Value);
             #endif
+
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ctx_CktElement_Set_VariableIdx(IntPtr /* void */ ctx, int Value);
+
+            #if NETSTANDARD2_1_OR_GREATER
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ctx_CktElement_Set_VariableName(IntPtr /* void */ ctx, [param: MarshalAs(UnmanagedType.LPUTF8Str)] string Value);
+            #else
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ctx_CktElement_Set_VariableName(IntPtr /* void */ ctx, [param: MarshalAs(UnmanagedType.LPStr)] string Value);
+            #endif
+
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ctx_CktElement_Set_VariableValue(IntPtr /* void */ ctx, double Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Set_Variablei(IntPtr /* void */ ctx, int Idx, ref int Code, double Value);
@@ -1356,10 +1383,16 @@ namespace dss_sharp
             public static extern void ctx_DSS_Get_Classes_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern uint ctx_DSS_Get_CompatFlags(IntPtr /* void */ ctx);
+
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr ctx_DSS_Get_DataPath(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr ctx_DSS_Get_DefaultEditor(IntPtr /* void */ ctx);
+
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern ushort ctx_DSS_Get_EnableArrayDimensions(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern ushort ctx_DSS_Get_LegacyModels(IntPtr /* void */ ctx);
@@ -1444,6 +1477,9 @@ namespace dss_sharp
                 ctx_DSS_Set_COMErrorResults(ctx, (ushort) (Value ? 1u : 0u));
             }
 
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ctx_DSS_Set_CompatFlags(IntPtr /* void */ ctx, uint Value);
+
             #if NETSTANDARD2_1_OR_GREATER
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_DSS_Set_DataPath(IntPtr /* void */ ctx, [param: MarshalAs(UnmanagedType.LPUTF8Str)] string Value);
@@ -1451,6 +1487,14 @@ namespace dss_sharp
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_DSS_Set_DataPath(IntPtr /* void */ ctx, [param: MarshalAs(UnmanagedType.LPStr)] string Value);
             #endif
+
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ctx_DSS_Set_EnableArrayDimensions(IntPtr /* void */ ctx, ushort Value);
+
+            public static void ctx_DSS_Set_EnableArrayDimensions(IntPtr /* void */ ctx, bool Value)
+            {
+                ctx_DSS_Set_EnableArrayDimensions(ctx, (ushort) (Value ? 1u : 0u));
+            }
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_DSS_Set_LegacyModels(IntPtr /* void */ ctx, ushort Value);
@@ -1492,6 +1536,14 @@ namespace dss_sharp
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr ctx_Error_Get_NumberPtr(IntPtr /* void */ ctx);
+
+            #if NETSTANDARD2_1_OR_GREATER
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ctx_Error_Set_Description(IntPtr /* void */ ctx, [param: MarshalAs(UnmanagedType.LPUTF8Str)] string Value);
+            #else
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ctx_Error_Set_Description(IntPtr /* void */ ctx, [param: MarshalAs(UnmanagedType.LPStr)] string Value);
+            #endif
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Error_Set_EarlyAbort(IntPtr /* void */ ctx, ushort Value);
