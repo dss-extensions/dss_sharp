@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+    <None Include="$(MSBuildThisFileDirectory)\x64\dss_capi.dll" Condition="'$(Platform)'=='x64'">
+      <Link>dss_capi.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)\x64\libklusolvex.dll" Condition="'$(Platform)'=='x64'">
+      <Link>libklusolvex.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)\x64\libwinpthread-1.dll" Condition="'$(Platform)'=='x64'">
+      <Link>libwinpthread-1.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)\x86\dss_capi.dll" Condition="'$(Platform)'=='x86'">
+      <Link>dss_capi.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)\x86\libklusolvex.dll" Condition="'$(Platform)'=='x86'">
+      <Link>libklusolvex.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <MOFiles Include="$(MSBuildProjectDirectory)\messages\*.mo" />
+    <None Include="@(MOFiles)">
+      <Link>messages\%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>	
+  </ItemGroup>
+</Project>

@@ -1,7 +1,7 @@
 
 // dss_sharp: A compatibility layer for DSS C-API that mimics the official OpenDSS COM interface.
-// Copyright (c) 2016-2022 Paulo Meira
-// Copyright (c) 2018-2022 DSS Extensions contributors
+// Copyright (c) 2016-2023 Paulo Meira
+// Copyright (c) 2018-2023 DSS Extensions contributors
 //
 // See LICENSE for more information.
 //
@@ -16,32 +16,55 @@ using dss_sharp.native;
 namespace dss_sharp
 {
     public enum MonitorModes {
-        dssVI = 0x00000000, // Monitor records Voltage and Current at the terminal (Default)
-        dssPower = 0x00000001, // Monitor records kW, kvar or kVA, angle values, etc. at the terminal to which it is connected.
-        dssTaps = 0x00000002, // For monitoring Regulator and Transformer taps
-        dssStates = 0x00000003, // For monitoring State Variables (for PC Elements only)
-        dssSequence = 0x00000010, // Reports the monitored quantities as sequence quantities
-        dssMagnitude = 0x00000020, // Reports the monitored quantities in Magnitude Only
-        dssPosOnly = 0x00000040 // Reports the Positive Seq only or avg of all phases
+        /// <summary>Monitor records Voltage and Current at the terminal (Default)</summary>
+        dssVI = 0x00000000,
+        /// <summary>Monitor records kW, kvar or kVA, angle values, etc. at the terminal to which it is connected.</summary>
+        dssPower = 0x00000001,
+        /// <summary>For monitoring Regulator and Transformer taps</summary>
+        dssTaps = 0x00000002,
+        /// <summary>For monitoring State Variables (for PC Elements only)</summary>
+        dssStates = 0x00000003,
+        /// <summary>Reports the monitored quantities as sequence quantities</summary>
+        dssSequence = 0x00000010,
+        /// <summary>Reports the monitored quantities in Magnitude Only</summary>
+        dssMagnitude = 0x00000020,
+        /// <summary>Reports the Positive Seq only or avg of all phases</summary>
+        dssPosOnly = 0x00000040
     };
 
     public enum SolveModes {
-        dssSnapShot = 0, // Solve a single snapshot power flow
-        dssDaily = 1, // Solve following Daily load shapes
-        dssYearly = 2, // Solve following Yearly load shapes
-        dssMonte1 = 3, // Monte Carlo Mode 1
-        dssLD1 = 4, // Load-duration Mode 1
-        dssPeakDay = 5, // Solves for Peak Day using Daily load curve
-        dssDutyCycle = 6, // Solve following Duty Cycle load shapes
-        dssDirect = 7, // Solve direct (forced admittance model)
-        dssMonteFault = 8, // Monte carlo Fault Study
-        dssFaultStudy = 9, // Fault study at all buses
-        dssMonte2 = 10, // Monte Carlo Mode 2
-        dssMonte3 = 11, // Monte Carlo Mode 3
-        dssLD2 = 12, // Load-Duration Mode 2
-        dssAutoAdd = 13, // Auto add generators or capacitors
-        dssDynamic = 14, // Solve for dynamics
-        dssHarmonic = 15 // Harmonic solution mode
+        /// <summary>Solve a single snapshot power flow</summary>
+        dssSnapShot = 0,
+        /// <summary>Solve following Daily load shapes</summary>
+        dssDaily = 1,
+        /// <summary>Solve following Yearly load shapes</summary>
+        dssYearly = 2,
+        /// <summary>Monte Carlo Mode 1</summary>
+        dssMonte1 = 3,
+        /// <summary>Load-duration Mode 1</summary>
+        dssLD1 = 4,
+        /// <summary>Solves for Peak Day using Daily load curve</summary>
+        dssPeakDay = 5,
+        /// <summary>Solve following Duty Cycle load shapes</summary>
+        dssDutyCycle = 6,
+        /// <summary>Solve direct (forced admittance model)</summary>
+        dssDirect = 7,
+        /// <summary>Monte carlo Fault Study</summary>
+        dssMonteFault = 8,
+        /// <summary>Fault study at all buses</summary>
+        dssFaultStudy = 9,
+        /// <summary>Monte Carlo Mode 2</summary>
+        dssMonte2 = 10,
+        /// <summary>Monte Carlo Mode 3</summary>
+        dssMonte3 = 11,
+        /// <summary>Load-Duration Mode 2</summary>
+        dssLD2 = 12,
+        /// <summary>Auto add generators or capacitors</summary>
+        dssAutoAdd = 13,
+        /// <summary>Solve for dynamics</summary>
+        dssDynamic = 14,
+        /// <summary>Harmonic solution mode</summary>
+        dssHarmonic = 15
     };
 
     public enum Options {
@@ -63,22 +86,35 @@ namespace dss_sharp
     };
 
     public enum CapControlModes {
-        dssCapControlCurrent = 0, // Current control, ON and OFF settings on CT secondary
-        dssCapControlVoltage = 1, // Voltage control, ON and OFF settings on the PT secondary base
-        dssCapControlKVAR = 2, // kVAR control, ON and OFF settings on PT / CT base
-        dssCapControlTime = 3, // Time control, ON and OFF settings are seconds from midnight
-        dssCapControlPF = 4 // ON and OFF settings are power factor, negative for leading
+        /// <summary>Current control, ON and OFF settings on CT secondary</summary>
+        dssCapControlCurrent = 0,
+        /// <summary>Voltage control, ON and OFF settings on the PT secondary base</summary>
+        dssCapControlVoltage = 1,
+        /// <summary>kVAR control, ON and OFF settings on PT / CT base</summary>
+        dssCapControlKVAR = 2,
+        /// <summary>Time control, ON and OFF settings are seconds from midnight</summary>
+        dssCapControlTime = 3,
+        /// <summary>ON and OFF settings are power factor, negative for leading</summary>
+        dssCapControlPF = 4
     };
 
     public enum ActionCodes {
-        dssActionNone = 0, // No action
-        dssActionOpen = 1, // Open a switch
-        dssActionClose = 2, // Close a switch
-        dssActionReset = 3, // Reset to the shelf state (unlocked, closed for a switch)
-        dssActionLock = 4, // Lock a switch, preventing both manual and automatic operation
-        dssActionUnlock = 5, // Unlock a switch, permitting both manual and automatic operation
-        dssActionTapUp = 6, // Move a regulator tap up
-        dssActionTapDown = 7 // Move a regulator tap down
+        /// <summary>No action</summary>
+        dssActionNone = 0,
+        /// <summary>Open a switch</summary>
+        dssActionOpen = 1,
+        /// <summary>Close a switch</summary>
+        dssActionClose = 2,
+        /// <summary>Reset to the shelf state (unlocked, closed for a switch)</summary>
+        dssActionReset = 3,
+        /// <summary>Lock a switch, preventing both manual and automatic operation</summary>
+        dssActionLock = 4,
+        /// <summary>Unlock a switch, permitting both manual and automatic operation</summary>
+        dssActionUnlock = 5,
+        /// <summary>Move a regulator tap up</summary>
+        dssActionTapUp = 6,
+        /// <summary>Move a regulator tap down</summary>
+        dssActionTapDown = 7
     };
 
     public enum LoadStatus {
@@ -99,39 +135,60 @@ namespace dss_sharp
     };
 
     public enum LineUnits {
-        dssLineUnitsNone = 0, // No line length unit.
-        dssLineUnitsMiles = 1, // Line length units in miles.
-        dssLineUnitskFt = 2, // Line length units are in thousand feet.
-        dssLineUnitskm = 3, // Line length units are km.
-        dssLineUnitsmeter = 4, // Line length units are meters.
-        dssLineUnitsft = 5, // Line units in feet.
-        dssLineUnitsinch = 6, // Line length units are inches.
-        dssLineUnitscm = 7, // Line units are cm.
-        dssLineUnitsmm = 8, // Line length units are mm.
-        dssLineUnitsMaxnum = 9 // Maximum number of line units constants.
+        /// <summary>No line length unit.</summary>
+        dssLineUnitsNone = 0,
+        /// <summary>Line length units in miles.</summary>
+        dssLineUnitsMiles = 1,
+        /// <summary>Line length units are in thousand feet.</summary>
+        dssLineUnitskFt = 2,
+        /// <summary>Line length units are km.</summary>
+        dssLineUnitskm = 3,
+        /// <summary>Line length units are meters.</summary>
+        dssLineUnitsmeter = 4,
+        /// <summary>Line units in feet.</summary>
+        dssLineUnitsft = 5,
+        /// <summary>Line length units are inches.</summary>
+        dssLineUnitsinch = 6,
+        /// <summary>Line units are cm.</summary>
+        dssLineUnitscm = 7,
+        /// <summary>Line length units are mm.</summary>
+        dssLineUnitsmm = 8,
+        /// <summary>Maximum number of line units constants.</summary>
+        dssLineUnitsMaxnum = 9
     };
 
     public enum SolutionLoadModels { // Solution.LoadModel
-        PowerFlow = 1, // Power Flow load model option
-        Admittance = 2 // Admittance load model option
+        /// <summary>Power Flow load model option</summary>
+        PowerFlow = 1,
+        /// <summary>Admittance load model option</summary>
+        Admittance = 2
     };
 
     public enum SolutionAlgorithms { // Solution.Algorithm
-        NormalSolve = 0, // Solution algorithm option - Normal solution mode
-        NewtonSolve = 1 // Solution algorithm option - Newton solution
+        /// <summary>Solution algorithm option - Normal solution mode</summary>
+        NormalSolve = 0,
+        /// <summary>Solution algorithm option - Newton solution</summary>
+        NewtonSolve = 1
     };
 
     public enum ControlModes { // Solution.ControlMode
-        Static = 0, // Control Mode option - Static
-        Event = 1, // Control Mode Option - Event driven solution mode
-        Time = 2, // Control mode option - Time driven mode
-        Multirate = 3, // Control mode option - Multirate mode
-        ControlOff = -1 // Control Mode OFF
+        /// <summary>Control Mode option - Static)</summary>
+        Static = 0,
+        /// <summary>Control Mode Option - Event driven solution mode)</summary> 
+        Event = 1,
+        /// <summary>Control mode option - Time driven mode)</summary> 
+        Time = 2, 
+        /// <summary>Control mode option - Multirate mode)</summary>
+        Multirate = 3, 
+        /// <summary>Control Mode OFF)</summary>
+        ControlOff = -1
     };
 
     public enum CktModels { // Settings.CktModel
-        Multiphase = 0, // Circuit model is multiphase (default)
-        PositiveSeq = 1 // Circuit model is positive sequence model only
+        /// <summary>Circuit model is multiphase (default)</summary>
+        Multiphase = 0,
+        /// <summary>Circuit model is positive sequence model only</summary>
+        PositiveSeq = 1 
     };
 
     public enum RandomModes { // Solution.Random
@@ -141,8 +198,10 @@ namespace dss_sharp
     };
 
     public enum AutoAddTypes { // Solution.AddType
-        AddGen = 1, // Add generators in AutoAdd mode
-        AddCap = 2 // Add capacitors in AutoAdd mode
+        /// <summary>Add generators in AutoAdd mode</summary>
+        AddGen = 1,
+        /// <summary>Add capacitors in AutoAdd mode</summary>
+        AddCap = 2
     };
 
     public enum GeneratorStatus {
@@ -195,11 +254,42 @@ namespace dss_sharp
     public enum SolverOptions {
         // The values themselves are subject to change in future versions,
         // use this enum for easier upgrades
+        /// <summary>Default mode, rebuilding everything</summary>
         ReuseNothing = 0,
-        ReuseCompressedMatrix = 1, // Reuse only the prepared CSC matrix
-        ReuseSymbolicFactorization = 2, // Reuse the symbolic factorization, implies ReuseCompressedMatrix
-        ReuseNumericFactorization = 3, // Reuse the numeric factorization, implies ReuseSymbolicFactorization
-        AlwaysResetYPrimInvalid = 0x10000000 // Bit flag, see CktElement.pas
+        /// <summary>Reuse only the prepared CSC matrix</summary>
+        ReuseCompressedMatrix = 1,
+        /// <summary>Reuse the symbolic factorization, implies ReuseCompressedMatrix</summary>
+        ReuseSymbolicFactorization = 2,
+        /// <summary>Reuse the numeric factorization, implies ReuseSymbolicFactorization</summary>
+        ReuseNumericFactorization = 3,
+        /// <summary>Bit flag, see CktElement.pas</summary>
+        AlwaysResetYPrimInvalid = 0x10000000
+    };
+
+    [Flags]
+    public enum DSSCompatFlags {
+        /// <summary>
+        /// If enabled, don't check for NaNs in the inner solution loop. 
+        /// This can lead to various errors. 
+        /// This flag is useful for legacy applications that don't handle OpenDSS API errors properly.
+        /// Through the development of DSS Extensions, we noticed this is actually a quite common issue.
+        /// </summary>
+        NoSolverFloatChecks = 0x00000001,
+
+        /// <summary>
+        /// If enabled, toggle worse precision for certain aspects of the engine. For example, the sequence-to-phase 
+        /// (`As2p`) and sequence-to-phase (`Ap2s`) transform matrices. On DSS C-API, we fill the matrix explicitly
+        /// using higher precision, while numerical inversion of an initially worse precision matrix is used in the 
+        /// official OpenDSS. We will introduce better precision for other aspects of the engine in the future, 
+        /// so this flag can be used to toggle the old/bad values where feasible.
+        /// </summary>
+        BadPrecision = 0x00000002,
+
+        /// <summary>
+        /// Toggle some InvControl behavior introduced in OpenDSS 9.6.1.1. It could be a regression 
+        /// but needs further investigation, so we added this flag in the time being.        
+        /// </summary>
+        InvControl9611 = 0x00000004
     };
 
     public class Bus : ContextState
@@ -302,7 +392,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// False=0 else True. Indicates whether a coordinate has been defined for this bus
+        /// Indicates whether a coordinate has been defined for this bus
         /// </summary>
         public bool Coorddefined
         {
@@ -557,7 +647,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Double Array of sequence voltages at this bus.
+        /// Double Array of sequence voltages at this bus. Magnitudes only.
         /// </summary>
         public double[] SeqVoltages
         {
@@ -613,7 +703,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Array of doubles containing voltages in Magnitude (VLN), angle (deg)
+        /// Array of doubles containing voltages in Magnitude (VLN), angle (degrees)
         /// </summary>
         public double[] VMagAngle
         {
@@ -708,7 +798,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Complex Positive-Sequence short circuit impedance at bus..
+        /// Complex Positive-Sequence short circuit impedance at bus.
         /// </summary>
         public double[] Zsc1
         {
@@ -783,7 +873,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Array of doubles containig voltage magnitude, angle pairs in per unit
+        /// Array of doubles containing voltage magnitude, angle (degrees) pairs in per unit
         /// </summary>
         public double[] puVmagAngle
         {
@@ -821,7 +911,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Array of doubles (complex) containing the complete 012 Zsc matrix
+        /// Array of doubles (complex) containing the complete 012 Zsc matrix. 
+        /// Only available after Zsc is computed, either through the "ZscRefresh" command, or running a "FaultStudy" solution.
+        /// Only available for buses with 3 nodes.
         /// </summary>
         public double[] ZSC012Matrix
         {
@@ -2177,7 +2269,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Currents in magnitude, angle format as a array of doubles.
+        /// Currents in magnitude, angle (degrees) format as a array of doubles.
         /// </summary>
         public double[] CurrentsMagAng
         {
@@ -2391,7 +2483,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Total losses in the element: two-element complex array
+        /// Total losses in the element: two-element double array (complex), in VA (watts, vars)
         /// </summary>
         public double[] Losses
         {
@@ -2641,7 +2733,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Residual currents for each terminal: (mag, angle)
+        /// Residual currents for each terminal: (magnitude, angle in degrees)
         /// </summary>
         public double[] Residuals
         {
@@ -2660,7 +2752,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Double array of symmetrical component currents into each 3-phase terminal
+        /// Double array of symmetrical component currents (magnitudes only) into each 3-phase terminal
         /// </summary>
         public double[] SeqCurrents
         {
@@ -2679,7 +2771,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Double array of sequence powers into each 3-phase teminal
+        /// Complex array of sequence powers (kW, kvar) into each 3-phase teminal
         /// </summary>
         public double[] SeqPowers
         {
@@ -2698,7 +2790,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Double array of symmetrical component voltages at each 3-phase terminal
+        /// Double array of symmetrical component voltages (magnitudes only) at each 3-phase terminal
         /// </summary>
         public double[] SeqVoltages
         {
@@ -2755,7 +2847,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// YPrim matrix, column order, complex numbers (paired)
+        /// YPrim matrix, column order, complex numbers
         /// </summary>
         public double[] Yprim
         {
@@ -2776,6 +2868,8 @@ namespace dss_sharp
         /// <summary>
         /// Returns true if the current active element is isolated.
         /// Note that this only fetches the current value. See also the Topology interface.
+        /// 
+        /// (API Extension)
         /// </summary>
         public bool IsIsolated
         {
@@ -4356,6 +4450,9 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Reactance matrix (full), ohms per unit length. Array of doubles.
+        /// </summary>
         public double[] Xmatrix
         {
             get
@@ -4384,7 +4481,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Yprimitive: Does Nothing at present on Put; Dangerous
+        /// Yprimitive for the active line object (complex array).
         /// </summary>
         public double[] Yprim
         {
@@ -4433,6 +4530,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Sets/gets the Line element switch status. Setting it has side-effects to the line parameters.
+        /// 
+        /// (API Extension)
         /// </summary>
         public bool IsSwitch
         {
@@ -4470,6 +4569,9 @@ namespace dss_sharp
 
         /// <summary>
         /// {True | False*} Designates whether to allow duplicate names of objects
+        /// 
+        /// **NOTE**: for DSS Extensions, we are considering removing this option in a future 
+        /// release since it has performance impacts even when not used.
         /// </summary>
         public bool AllowDuplicates
         {
@@ -4818,7 +4920,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// {True | False *} Gets value of trapezoidal integration flag in energy meters.
+        /// Gets value of trapezoidal integration flag in energy meters. Defaults to `false`.
         /// </summary>
         public bool Trapezoidal
         {
@@ -4984,7 +5086,7 @@ namespace dss_sharp
 
         /// <summary>
         /// Controls whether the terminals are checked when updating the currents in Load component. Defaults to True.
-        /// If the loads are guaranteed to have their terminals closed throughout the simulation, this can be set to False to save some time.
+        /// If the loads are guaranteed to have their terminals closed throughout the simulation, this can be set to `false` to save some time.
         /// 
         /// (API Extension)
         /// </summary>
@@ -5499,7 +5601,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Time delay [s] before swithcing off a step. Control may reset before actually switching.
+        /// Time delay [s] before switching off a step. Control may reset before actually switching.
         /// </summary>
         public double DelayOff
         {
@@ -6535,7 +6637,7 @@ namespace dss_sharp
         /// <summary>
         /// System Y matrix (after a solution has been performed). 
         /// This is deprecated as it returns a dense matrix. Only use it for small systems.
-        /// For large scale systems, prefer YMatrix.GetCompressedYMatrix.
+        /// For large-scale systems, prefer YMatrix.GetCompressedYMatrix.
         /// </summary>
         public double[] SystemY
         {
@@ -6554,7 +6656,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Total power, kW delivered to the circuit
+        /// Total power (complex), kVA delivered to the circuit
         /// </summary>
         public double[] TotalPower
         {
@@ -7322,7 +7424,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Controls whether the extended error mechanism is used. Defaults to True.
+        /// Controls whether the extended error mechanism is used. Defaults to "true".
         /// 
         /// Extended errors are errors derived from checks across the API to ensure
         /// a valid state. Although many of these checks are already present in the 
@@ -9432,8 +9534,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// (read) Get the characters used for White space in the command string.  Default is blank and Tab.
-        /// (write) Set the characters used for White space in the command string.  Default is blank and Tab.
+        /// Get/set the characters used for White space in the command string.  Default is blank and Tab.
         /// </summary>
         public string WhiteSpace
         {
@@ -10377,7 +10478,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Number of iterations taken for last solution. (Same as TotalIterations)
+        /// Number of iterations taken for last solution. (Same as Totaliterations)
         /// </summary>
         public int Iterations
         {
@@ -10569,7 +10670,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Set present solution mode (by a text code - see DSS Help)
+        /// Set present solution mode
         /// </summary>
         public int Mode
         {
@@ -13476,6 +13577,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of phases
+        /// 
+        /// (API Extension)
         /// </summary>
         public int Phases
         {
@@ -14883,7 +14986,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Double array of the symmetrical component currents into each 3-phase terminal, for each PD element.
+        /// Double array of the symmetrical component currents (magnitudes only) into each 3-phase terminal, for each PD element.
         /// 
         /// (API Extension)
         /// </summary>
@@ -14925,7 +15028,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Double array of sequence powers into each 3-phase teminal, for each PD element
+        /// Complex array of sequence powers into each 3-phase teminal, for each PD element
         /// 
         /// (API Extension)
         /// </summary>
@@ -15319,7 +15422,11 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Name of the loadshape for a daily PVSystem profile.
+        /// Name of the dispatch shape to use for daily simulations. Must be previously
+        /// defined as a Loadshape object of 24 hrs, typically. In the default dispatch
+        /// mode, the PVSystem element uses this loadshape to trigger State changes.
+        /// 
+        /// (API Extension)
         /// </summary>
         public string daily
         {
@@ -15351,6 +15458,8 @@ namespace dss_sharp
         /// Name of the load shape to use for duty cycle dispatch simulations such as
         /// for solar ramp rate studies. Must be previously defined as a Loadshape
         /// object. Typically would have time intervals of 1-5 seconds.
+        /// 
+        /// (API Extension)
         /// </summary>
         public string duty
         {
@@ -15383,6 +15492,8 @@ namespace dss_sharp
         /// as a Loadshape object. If this is not specified, the Daily dispatch shape,
         /// if any, is repeated during Yearly solution modes. In the default dispatch
         /// mode, the PVSystem element uses this loadshape to trigger State changes.
+        /// 
+        /// (API Extension)
         /// </summary>
         public string yearly
         {
@@ -15415,6 +15526,8 @@ namespace dss_sharp
         /// as a TShape object of 24 hrs, typically. The PVSystem element uses this
         /// TShape to determine the Pmpp from the Pmpp vs T curve. Units must agree
         /// with the Pmpp vs T curve.
+        /// 
+        /// (API Extension)
         /// </summary>
         public string Tdaily
         {
@@ -15450,6 +15563,8 @@ namespace dss_sharp
         /// points in the actual shape, the shape is assumed to repeat. The PVSystem
         /// model uses this TShape to determine the Pmpp from the Pmpp vs T curve.
         /// Units must agree with the Pmpp vs T curve.
+        /// 
+        /// (API Extension)
         /// </summary>
         public string Tduty
         {
@@ -15483,6 +15598,8 @@ namespace dss_sharp
         /// any, is repeated during Yearly solution modes. The PVSystem element uses
         /// this TShape to determine the Pmpp from the Pmpp vs T curve. Units must
         /// agree with the Pmpp vs T curve.
+        /// 
+        /// (API Extension)
         /// </summary>
         public string Tyearly
         {
@@ -20532,7 +20649,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Transformer Core Type: 0=shell;1 = 1-phase; 3= 3-leg; 5= 5-leg
+        /// Transformer Core Type: 0=Shell; 1=1ph; 3-3leg; 4=4-Leg; 5=5-leg; 9=Core-1-phase
         /// </summary>
         public int CoreType
         {
@@ -20591,6 +20708,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array with the losses by type (total losses, load losses, no-load losses), in VA
+        /// 
+        /// (API Extension)
         /// </summary>
         public double[] LossesByType
         {
@@ -20610,6 +20729,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array with the losses by type (total losses, load losses, no-load losses), in VA, concatenated for ALL transformers
+        /// 
+        /// (API Extension)
         /// </summary>
         public double[] AllLossesByType
         {
@@ -23369,17 +23490,12 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// If enabled, the legacy/deprecated models for PVSystem, InvControl, Storage and StorageControl are used.
-        /// In the official OpenDSS version 9.0, the old models where removed. They are temporarily present here
-        /// but may be removed in the near future. If they are important to you, please open an issue on GitHub
-        /// or contact the authors from DSS Extensions: https://github.com/dss-extensions/
+        /// LegacyModels was a flag used to toggle legacy (pre-2019) models for PVSystem, InvControl, Storage and
+        /// StorageControl.
+        /// In the official OpenDSS version 9.0, the old models were removed. They were temporarily present here
+        /// but were also removed in DSS C-API v0.13.0.
         /// 
-        /// After toggling LegacyModels, run a "clear" command and the models will be loaded accordingly.
-        /// Defaults to False. 
-        /// 
-        /// This can also be enabled by setting the environment variable DSS_CAPI_LEGACY_MODELS to 1.
-        /// 
-        /// NOTE: this option will be removed in a future release.
+        /// **NOTE**: this property will be removed for v1.0. It is left to avoid breaking the current API too soon.
         /// 
         /// (API Extension)
         /// </summary>
@@ -23415,8 +23531,8 @@ namespace dss_sharp
         /// 
         /// If you have issues with long paths, enabling this might help in some scenarios.
         /// 
-        /// Defaults to True (allow changes, backwards compatible) in the 0.10.x versions of DSS C-API. 
-        /// This might change to False in future versions.
+        /// Defaults to "true" (allow changes, backwards compatible) in the 0.10.x versions of DSS C-API. 
+        /// This might change to false in future versions.
         /// 
         /// This can also be set through the environment variable DSS_CAPI_ALLOW_CHANGE_DIR. Set it to 0 to
         /// disallow changing the active working directory.
@@ -23452,7 +23568,7 @@ namespace dss_sharp
         /// <summary>
         /// If enabled, the `DOScmd` command is allowed. Otherwise, an error is reported if the user tries to use it.
         /// 
-        /// Defaults to False/0 (disabled state). Users should consider DOScmd deprecated on DSS Extensions.
+        /// Defaults to false/0 (disabled state). Users should consider DOScmd deprecated on DSS Extensions.
         /// 
         /// This can also be set through the environment variable DSS_CAPI_ALLOW_DOSCMD. Setting it to 1 enables
         /// the command.
@@ -23490,11 +23606,11 @@ namespace dss_sharp
         /// official OpenDSS COM interface. 
         /// 
         /// For example, consider the function `Loads_Get_ZIPV`. If there is no active circuit or active load element:
-        /// - In the disabled state (COMErrorResults=False), the function will return "[]", an array with 0 elements.
-        /// - In the enabled state (COMErrorResults=True), the function will return "[0.0]" instead. This should
+        /// - In the disabled state (COMErrorResults=false), the function will return "[]", an array with 0 elements.
+        /// - In the enabled state (COMErrorResults=true), the function will return "[0.0]" instead. This should
         /// be compatible with the return value of the official COM interface.
         /// 
-        /// Defaults to True/1 (enabled state) in the v0.12.x series. This will change to false in future series.
+        /// Defaults to "true" (enabled state) in the v0.12.x series. This will change to false in future series.
         /// 
         /// This can also be set through the environment variable DSS_CAPI_COM_DEFAULTS. Setting it to 0 disables
         /// the legacy/COM behavior. The value can be toggled through the API at any time.
@@ -23527,6 +23643,63 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Controls some compatibility flags introduced to toggle some behavior from the official OpenDSS.
+        /// 
+        /// **THESE FLAGS ARE GLOBAL, affecting all DSS engines in the process.**
+        /// 
+        /// The current bit flags are:
+        /// 
+        /// - NoSolverFloatChecks = 0x1 (bit 0): If enabled, don't check for NaNs in the inner solution loop. This can lead to various errors.
+        ///     This flag is useful for legacy applications that don't handle OpenDSS API errors properly. Through the 
+        ///     development of DSS Extensions, we noticed this is actually a quite common issue.
+        ///
+        /// - BadPrecision = 0x2 (bit 1): Toggle worse precision for certain aspects of the engine. For example, 
+        ///     the sequence-to-phase (`As2p`) and sequence-to-phase (`Ap2s`) transform matrices. On DSS C-API, 
+        ///     we fill the matrix explicitly using higher precision, while numerical inversion of an initially 
+        ///     worse precision matrix is used in the official OpenDSS. We will introduce better precision for 
+        ///     other aspects of the engine in the future, so this flag can be used to toggle the old/bad values 
+        ///     where feasible.
+        /// - InvControl9611 = 0x4 (bit 2): Toggle some InvControl behavior introduced in OpenDSS 9.6.1.1. 
+        ///     It could be a regression but needs further investigation, so we added this flag in the time being.
+        /// 
+        /// These flags may change for each version of DSS C-API, but the same value will not be reused. That is,
+        /// when we remove a compatibility flag, it will have no effect but will also not affect anything else
+        /// besides raising an error if the user tries to toggle a flag that was available in a previous version.
+        /// 
+        /// We expect to keep a very limited number of flags. Since the flags are more transient than the other
+        /// options/flags, it was preferred to add this generic function instead of a separate function per
+        /// flag.
+        /// 
+        /// Related enumeration: DSSCompatFlags
+        /// 
+        /// (API Extension)
+        /// </summary>
+        public DSSCompatFlags CompatFlags
+        {
+            get
+            {
+                try
+                {
+                    return (DSSCompatFlags)DSS_CAPI.ctx_DSS_Get_CompatFlags(ctx);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+            set
+            {
+                try
+                {
+                    DSS_CAPI.ctx_DSS_Set_CompatFlags(ctx, (uint)value);
+                }
+                finally
+                {
+                    CheckForError();
+                }
+            }
+        }
     }
 
 }
