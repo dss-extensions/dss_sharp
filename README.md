@@ -21,7 +21,7 @@ If you are looking for the bindings to other languages:
 
 - [DSS C-API library](http://github.com/dss-extensions/dss_capi/): the base library that exposes a modified version of EPRI's OpenDSS through a more traditional C interface, built with the open-source Free Pascal compiler instead of Delphi. As of 2022, this base library includes several extensive changes, while retaining very good compatibility.
 - [dss.hpp](https://dss-extensions.org/dss_capi/): header-only library for C++, hosted within DSS C-API (`include/` directory). Allows using DSS C-API more comfortably from C++, abstract memory management and low-level details such as API conventions of the DSS C-API library.
-- [DSS-Python](http://github.com/dss-extensions/dss_python/) is a multi-platform Python module (Windows, Linux, macOS) very compatible with the original COM DLL. See also [OpenDSSDirect.py](http://github.com/dss-extensions/OpenDSSDirect.py/) if you don't need COM compatibility, or just would like to check its extra functionalities (you can mix DSS-Python and OpenDSSDirect.py). DSS-Python includes preliminary plotting capabilites.
+- [DSS-Python](http://github.com/dss-extensions/dss_python/) is a multi-platform Python module (Windows, Linux, macOS) very compatible with the original COM DLL. See also [OpenDSSDirect.py](http://github.com/dss-extensions/OpenDSSDirect.py/) if you don't need COM compatibility, or just would like to check its extra functionalities (you can mix DSS-Python and OpenDSSDirect.py). DSS-Python includes preliminary plotting capabilities.
 [`opendssdirect.utils`](https://dss-extensions.org/OpenDSSDirect.py/opendssdirect.html#module-opendssdirect.utils) to generate some DataFrames.
 - [OpenDSSDirect.jl](http://github.com/dss-extensions/OpenDSSDirect.jl/): a Julia module, created by Tom Short (@tshort), recently migrated with the help of Dheepak Krishnamurthy (@kdheepak) to DSS C-API instead of the DDLL.
 - [DSS_MATLAB](http://github.com/dss-extensions/dss_matlab/): presents multi-platform integration (Windows, Linux, macOS) with DSS C-API and is also very compatible with the COM classes.
@@ -80,3 +80,7 @@ var voltageMags = dss.ActiveCircuit.AllBusVmag;
 ```
 
 You can also download our repository [electricdss-tst](https://github.com/dss-extensions/electricdss-tst) to obtain the test/reference circuits and more already adjusted for multi-platform usage (the original files are distributed in the official OpenDSS installer).
+
+### More
+
+A simple, but almost step-by-step, sample is available here: [WinFormsAppSample](https://github.com/dss-extensions/dss_sharp/tree/master/examples/WinFormsAppSample)

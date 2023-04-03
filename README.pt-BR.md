@@ -30,7 +30,7 @@ Caso você tenha interesse em outras linguagens além de .NET:
 
 Estamos criando documentação geral, inicialmente em inglês, em [https://github.com/dss-extensions/dss-extensions](https://github.com/dss-extensions/dss-extensions). Diversas notas e um FAQ já estão disponíveis. Há também espaço dedicado para discussões, etc.
 
-No momento, os usuários podem seguir a documentação do módulo COM oficial do OpenDSS, pulando a parte de instalação. Caso não tenha OpenDSS instalado, os arquivos também estão disponíveis no [repositório SVN oficial](https://sourceforge.net/p/electricdss/code/HEAD/tree/trunk/Version8/Distrib/Doc/)). 
+No momento, os usuários podem seguir a documentação do módulo COM oficial do OpenDSS, pulando a parte de instalação. Caso não tenha OpenDSS instalado, os arquivos também estão disponíveis no [repositório SVN oficial](https://sourceforge.net/p/electricdss/code/HEAD/tree/trunk/Version8/Distrib/Doc/). 
 
 Em geral atualizada alguns dias após o lançamento de uma nova versão, temos documentação das nossas classes de C#/.NET em https://dss-extensions.org/dss_sharp/
 
@@ -50,7 +50,7 @@ Usuários podem estudar e aprender os principais conceitos empregando a versão 
 
 ### Instalação
 
-Há multiplas formas. Recomendamos empregar NuGet.
+Há múltiplas formas. Recomendamos empregar NuGet.
 
 Se estiver usando versões recentes do Microsoft Visual Studio, pode [instalar empregando o pacote NuGet](https://www.nuget.org/packages/dss_sharp/). 
 
@@ -62,7 +62,7 @@ Caso esteja usando arquivos .csproj no estilo SDK, basta adicionar uma referênc
     </ItemGroup>
 ```
 
-Por fim, se houver interesse em editar o código da DSS Sharp em si, após clonar lembra-se de baixar os DLLs necessários, seja usando o script `scripts/download_native_libs.sh`, ou visitando manualmente a [página de lançamentos da DSS C-API](https://github.com/dss-extensions/dss_capi/releases) para obter as versões necessárias.
+Por fim, se houver interesse em editar o código da DSS Sharp em si, após clonar lembra-se de baixar os DLLs necessários, seja usando o script `scripts/download_native_libs.sh`, ou visitando manualmente a [página de lançamentos da DSS C-API](https://github.com/dss-extensions/dss_capi/releases) para obter as versões necessárias. Alternativamente, copiar os DLLs do pacote NuGet pode ser mais prático.
 
 ### Uso mínimo
 
@@ -82,3 +82,7 @@ var voltageMags = dss.ActiveCircuit.AllBusVmag;
 ```
 
 Você também pode baixar o repositório [electricdss-tst](https://github.com/dss-extensions/electricdss-tst) para obter os circuitos de teste e exemplos já ajustados para uso for multiplataforma (os arquivos originais são distribuídos com a instalação do OpenDSS oficial).
+
+### Mais
+
+Um exemplo simples mas quase passo a passo, está disponível aqui, apenas em inglês: [WinFormsAppSample](https://github.com/dss-extensions/dss_sharp/tree/master/examples/WinFormsAppSample)
