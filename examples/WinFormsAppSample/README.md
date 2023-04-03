@@ -107,27 +107,27 @@ is the ability to get numeric data directly for different scenarios according to
 For example, suppose you wanted to compare the voltages for two scenarios of load. 
 
 ```csharp
-	engine.ActiveCircuit.Solution.LoadMult = 1.0;
-	engine.ActiveCircuit.Solution.Solve();
-	var voltages_base = engine.ActiveCircuit.AllBusVmagPu;
+    engine.ActiveCircuit.Solution.LoadMult = 1.0;
+    engine.ActiveCircuit.Solution.Solve();
+    var voltages_base = engine.ActiveCircuit.AllBusVmagPu;
 
-	engine.ActiveCircuit.Solution.LoadMult = 1.5;
-	engine.ActiveCircuit.Solution.Solve();
-	var voltage_150 = engine.ActiveCircuit.AllBusVmagPu;
+    engine.ActiveCircuit.Solution.LoadMult = 1.5;
+    engine.ActiveCircuit.Solution.Solve();
+    var voltage_150 = engine.ActiveCircuit.AllBusVmagPu;
 ```
 
 You can of course get references to the API elements to make the code less verbose, for example:
 
 ```csharp
-	var circ = engine.ActiveCircuit;
-	
-	circ.Solution.LoadMult = 1.0;
-	circ.Solution.Solve();
-	var voltages_base = circ.AllBusVmagPu;
+    var circ = engine.ActiveCircuit;
+    
+    circ.Solution.LoadMult = 1.0;
+    circ.Solution.Solve();
+    var voltages_base = circ.AllBusVmagPu;
 
-	circ.Solution.LoadMult = 1.5;
-	engine.ActiveCircuit.Solution.Solve();
-	var voltage_150 = circ.AllBusVmagPu;
+    circ.Solution.LoadMult = 1.5;
+    engine.ActiveCircuit.Solution.Solve();
+    var voltage_150 = circ.AllBusVmagPu;
 ```
 
 You are free to use various methods and other .NET packages to compare and evaluate the voltage arrays.
@@ -151,20 +151,20 @@ To better illustrate, let's add a simple chart of the voltages for difference lo
 ```csharp
         private void button3_Click(object sender, EventArgs e)
         {
-			// Try running the test circuit
-			try
-			{
-				engine.Text.Command = @"compile 'C:\Program Files\OpenDSS\IEEETestCases\13Bus\IEEE13Nodeckt.dss'";
-			}
-			catch (DSSException ex)
-			{
-				MessageBox.Show(ex.Message);
-				return;
-			}
-		
-			var circ = engine.ActiveCircuit;
+            // Try running the test circuit
+            try
+            {
+                engine.Text.Command = @"compile 'C:\Program Files\OpenDSS\IEEETestCases\13Bus\IEEE13Nodeckt.dss'";
+            }
+            catch (DSSException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+        
+            var circ = engine.ActiveCircuit;
 
-			// Create an array for the x-axis and clear any previous plot
+            // Create an array for the x-axis and clear any previous plot
             var x = new double[circ.NumNodes];
             for (int i = 0; i < x.Length; ++i)
             {
@@ -173,34 +173,34 @@ To better illustrate, let's add a simple chart of the voltages for difference lo
             var plot = formsPlot1.Plot;
             plot.Clear();
 
-			// Ensure the solution mode is snapshot, and solve the base case
-			circ.Solution.Mode = (int)SolveModes.dssSnapShot;
+            // Ensure the solution mode is snapshot, and solve the base case
+            circ.Solution.Mode = (int)SolveModes.dssSnapShot;
             circ.Solution.LoadMult = 1.0;
             circ.Solution.Solve();
 
-			// Be sure to check the convergency since it doesn't necessarily becomes
-			// an error/exception if the system fails to converge.
-			if (!circ.Solution.Converged)
-			{			
-				MessageBox.Show("Failed to converge.");
-				return;
-			}
-			
-			// Add the base plot
+            // Be sure to check the convergency since it doesn't necessarily becomes
+            // an error/exception if the system fails to converge.
+            if (!circ.Solution.Converged)
+            {            
+                MessageBox.Show("Failed to converge.");
+                return;
+            }
+            
+            // Add the base plot
             plot.AddScatter(x, circ.AllBusVmagPu, label: "Base case");
 
-			// Solve the 1.5x load case, add it to the plot
+            // Solve the 1.5x load case, add it to the plot
             circ.Solution.LoadMult = 1.5;
             circ.Solution.Solve();
-			if (!circ.Solution.Converged)
-			{			
-				MessageBox.Show("Failed to converge.");
-				return;
-			}
-			
+            if (!circ.Solution.Converged)
+            {            
+                MessageBox.Show("Failed to converge.");
+                return;
+            }
+            
             plot.AddScatter(x, circ.AllBusVmagPu, label: "1.5x load");
 
-			// Finishing touches to the chart
+            // Finishing touches to the chart
             plot.Legend();
             plot.XLabel("Bus index");
             plot.YLabel("Voltage (pu)");
@@ -256,10 +256,10 @@ The initialization could also be adjusted to disable certain dss_sharp features
             dss_sharp.Error.UseExceptions = false;
 
             // Disable the early-abort mechanism.
-			// Without it, the engine may continue to run ignoring
-			// some errors -- we highly advice against it, but you
-			// may need to do this to check your COM-based code before
-			// migrating to dss_sharp.
+            // Without it, the engine may continue to run ignoring
+            // some errors -- we highly advice against it, but you
+            // may need to do this to check your COM-based code before
+            // migrating to dss_sharp.
             engine.Error.EarlyAbort = false;
 
             // There are other flags that could be useful;
