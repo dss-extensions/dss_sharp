@@ -269,7 +269,7 @@ The initialization could also be adjusted to disable certain dss_sharp features
         }
 ```
 
-And, without exception, we need to manually check the error number for most of
+And, without exceptions, we need to manually check the error number for most of
 API calls. For example, our previous `button2_Click` now becomes:
 
 ```csharp
@@ -310,9 +310,9 @@ Now, try to run it with our sample app, e.g. type `compile c:\temp\errorsample.d
 With the official COM version, with `AllowForms = false` (typical for automation and large scale projects), you not only will get the
 output from `show voltages ln`, but will also get no error!
 
-When we set `engine.Error.EarlyAbort = false` on dss_sharp, you will get the same dangerous behavior.
+When we set `engine.Error.EarlyAbort = false` on dss_sharp, you will get the same behavior.
 
 On the other hand, the default behavior of dss_sharp and DSS Extensions in general, with `engine.Error.EarlyAbort = true`,
-is to stop the execution on the first error found. As such, we avoid the risk of silently ignoring errors in automated/unattended 
+is to stop the execution on the first error found. As such, we don't inhibit errors in automated/unattended 
 large scale simulations.
 
