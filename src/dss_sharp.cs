@@ -235,14 +235,22 @@ namespace dss_sharp
 
     [Flags]
     public enum DSSJSONFlags {
-        Full = 0x00000001, // 1 << 0,
-        SkipRedundant = 0x00000002, // 1 << 1;
-        EnumAsInt = 0x00000004, // 1 << 2,
-        FullNames = 0x00000008, // 1 << 3,
-        Pretty = 0x00000010, // 1 << 4, 
-        ExcludeDisabled = 0x00000020, // 1 << 5,
-        State = 0x00000040, // 1 << 6, // NOT IMPLEMENTED
-        Debug = 0x00000080 // 1 << 7 // NOT IMPLEMENTED
+        /// <summary>Return all properties, regardless of order or if the property was filled by the user</summary>
+        Full = 0x00000001,
+        /// <summary>Skip redundant properties</summary>
+        SkipRedundant = 0x00000002,
+        /// <summary>Return enums as integers instead of strings</summary>
+        EnumAsInt = 0x00000004,
+        /// <summary>Use full names for the elements, including the class name</summary>
+        FullNames = 0x00000008,
+        /// <summary>Try to "pretty" format the JSON output</summary>
+        Pretty = 0x00000010,
+        /// <summary>Exclude disabled elements (only valid when exporting a collection)</summary>
+        ExcludeDisabled = 0x00000020,
+        /// <summary>Do not add the "DSSClass" property to the output</summary>
+        SkipDSSClass = 0x00000040,
+        /// <summary>Use lowercase representation for the property names (and other keys) instead of the internal variants.</summary>
+        LowercaseKeys = 0x00000080
     };
 
     public enum BatchOperation {
