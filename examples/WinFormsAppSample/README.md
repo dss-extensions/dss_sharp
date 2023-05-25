@@ -101,7 +101,7 @@ If the file doesn't exist, you should instead get a new message box telling you 
 
 ## Multiple scenarios and better control through the API
 
-Although running scripts and exporting text files is useful, the main advantanges of the APIs (either dss_sharp or the official COM module), 
+Although running scripts and exporting text files is useful, the main advantages of the APIs (either dss_sharp or the official COM module), 
 is the ability to get numeric data directly for different scenarios according to the analysis the user is required to achieve.
 
 For example, suppose you wanted to compare the voltages for two scenarios of load. 
@@ -312,7 +312,7 @@ output from `show voltages ln`, but will also get no error!
 
 When we set `engine.Error.EarlyAbort = false` on dss_sharp, you will get the same behavior.
 
-On the other hand, the default behavior of dss_sharp and DSS Extensions in general, with `engine.Error.EarlyAbort = true`,
+On the other hand, the default behavior of dss_sharp and DSS-Extensions in general, with `engine.Error.EarlyAbort = true`,
 is to stop the execution on the first error found. As such, we don't inhibit errors in automated/unattended 
 large scale simulations.
 

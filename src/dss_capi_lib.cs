@@ -1,7 +1,7 @@
 
 // dss_sharp: A compatibility layer for DSS C-API that mimics the official OpenDSS COM interface.
 // Copyright (c) 2016-2023 Paulo Meira
-// Copyright (c) 2018-2023 DSS Extensions contributors
+// Copyright (c) 2018-2023 DSS-Extensions contributors
 //
 // See LICENSE for more information.
 //
@@ -18,7 +18,7 @@ namespace dss_sharp
     {
         /// <summary>
         /// The DSS_CAPI static class exposes DSS C-API functions to C#.
-        /// DSS C-API is the library from DSS Extensions that implements the 
+        /// DSS C-API is the library from DSS-Extensions that implements the 
         /// (customized, not supported by EPRI, etc.) OpenDSS engine and wraps
         /// it in easily consumable C-compatible functions.
         ///

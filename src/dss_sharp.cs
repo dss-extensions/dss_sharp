@@ -1,7 +1,7 @@
 
 // dss_sharp: A compatibility layer for DSS C-API that mimics the official OpenDSS COM interface.
 // Copyright (c) 2016-2023 Paulo Meira
-// Copyright (c) 2018-2023 DSS Extensions contributors
+// Copyright (c) 2018-2023 DSS-Extensions contributors
 //
 // See LICENSE for more information.
 //
@@ -280,7 +280,7 @@ namespace dss_sharp
         /// If enabled, don't check for NaNs in the inner solution loop. 
         /// This can lead to various errors. 
         /// This flag is useful for legacy applications that don't handle OpenDSS API errors properly.
-        /// Through the development of DSS Extensions, we noticed this is actually a quite common issue.
+        /// Through the development of DSS-Extensions, we noticed this is actually a quite common issue.
         /// </summary>
         NoSolverFloatChecks = 0x00000001,
 
@@ -4578,7 +4578,7 @@ namespace dss_sharp
         /// <summary>
         /// {True | False*} Designates whether to allow duplicate names of objects
         /// 
-        /// **NOTE**: for DSS Extensions, we are considering removing this option in a future 
+        /// **NOTE**: for DSS-Extensions, we are considering removing this option in a future 
         /// release since it has performance impacts even when not used.
         /// </summary>
         public bool AllowDuplicates
@@ -23576,7 +23576,7 @@ namespace dss_sharp
         /// <summary>
         /// If enabled, the `DOScmd` command is allowed. Otherwise, an error is reported if the user tries to use it.
         /// 
-        /// Defaults to false/0 (disabled state). Users should consider DOScmd deprecated on DSS Extensions.
+        /// Defaults to false/0 (disabled state). Users should consider DOScmd deprecated on DSS-Extensions.
         /// 
         /// This can also be set through the environment variable DSS_CAPI_ALLOW_DOSCMD. Setting it to 1 enables
         /// the command.
@@ -23660,7 +23660,7 @@ namespace dss_sharp
         /// 
         /// - NoSolverFloatChecks = 0x1 (bit 0): If enabled, don't check for NaNs in the inner solution loop. This can lead to various errors.
         ///     This flag is useful for legacy applications that don't handle OpenDSS API errors properly. Through the 
-        ///     development of DSS Extensions, we noticed this is actually a quite common issue.
+        ///     development of DSS-Extensions, we noticed this is actually a quite common issue.
         ///
         /// - BadPrecision = 0x2 (bit 1): Toggle worse precision for certain aspects of the engine. For example, 
         ///     the sequence-to-phase (`As2p`) and sequence-to-phase (`Ap2s`) transform matrices. On DSS C-API, 

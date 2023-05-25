@@ -1,6 +1,6 @@
 // dss_sharp: A compatibility layer for DSS C-API that mimics the official OpenDSS COM interface.
 // Copyright (c) 2016-2022 Paulo Meira
-// Copyright (c) 2018-2022 DSS Extensions contributors
+// Copyright (c) 2018-2022 DSS-Extensions contributors
 //
 // See LICENSE for more information.
 //
@@ -59,7 +59,7 @@ namespace dss_sharp
 
         /// <summary>
         /// APIUtil provides some common functions to read data and map errors.
-        /// Member names are kept to mirror DSS Python and other projects.
+        /// Member names are kept to mirror DSS-Python and other projects.
         /// </summary>
         public class APIUtil
         {

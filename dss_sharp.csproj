@@ -8,7 +8,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <NoWarn>1591</NoWarn>
     <PlatformTarget>x64</PlatformTarget>
-    <Authors>Paulo Meira, DSS Extensions contributors</Authors>
+    <Authors>Paulo Meira, DSS-Extensions contributors</Authors>
     <PackageVersion>0.13.1</PackageVersion>
     <Title>DSS Sharp</Title>
     <Description>
@@ -18,7 +18,7 @@
 
         Extra features include support for .DSS scripts in ZIP files, creation of multiple DSS instances in the same process (including user-controlled multi-threading), and an extended API for various components.
 
-        DSS Sharp is part of the DSS Extensions group of projects. See more at https://dss-extensions.org/
+        DSS Sharp is part of the DSS-Extensions group of projects. See more at https://dss-extensions.org/
     </Description>
     <PackageId>dss_sharp</PackageId>
     <license>BSD-3-Clause AND LGPL</license>

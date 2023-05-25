@@ -42,9 +42,9 @@ If you are new to OpenDSS in general, there are two main aspects you need to stu
 - The APIs, mostly notably the class organization and logic sequences of the COM API. These are used to further automate the DSS engine, extract data and integrate to third party software. The current APIs all follow the concept of "active object" that may be new for many users.
     - The official COM DLL is available only for Microsoft Windows ([COM is a Microsoft technology](https://en.wikipedia.org/wiki/Component_Object_Model)), while DSS Sharp tries to reproduce the same API without depending on specific platforms — we can use Windows, Linux, or macOS, even on ARM processors.
 
-The official OpenDSS version from EPRI contains lots of material for both topics and, ignoring the whole installation and registering related to COM, are also applicable to DSS Sharp and other DSS Extensions.
+The official OpenDSS version from EPRI contains lots of material for both topics and, ignoring the whole installation and registering related to COM, are also applicable to DSS Sharp and other DSS-Extensions.
 
-You can learn the basics using the official version and migrate to DSS Sharp when required or when you are interested in the extras from DSS Extensions.
+You can learn the basics using the official version and migrate to DSS Sharp when required or when you are interested in the extras from DSS-Extensions.
 
 ### Installing
 
