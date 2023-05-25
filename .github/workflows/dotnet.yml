@@ -18,7 +18,7 @@ jobs:
     - name: Download DSS C-API binaries
       run: bash scripts/download_native_libs.sh
     - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
@@ -30,7 +30,7 @@ jobs:
 #    - name: Test --- TODO!
 #      run: dotnet test --no-build --verbosity normal
     - name: 'Upload artifacts'
-      uses: "actions/upload-artifact@v2"
+      uses: "actions/upload-artifact@v3"
       with:
         name: 'packages'
         path: '${{ github.workspace }}/bin/Release/*.nupkg'

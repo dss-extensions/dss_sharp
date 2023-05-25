@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="dss_sharp" Version="0.13.1" />
+    <PackageReference Include="dss_sharp" Version="0.13.2" />
     <PackageReference Include="ScottPlot.WinForms" Version="4.1.61" />
   </ItemGroup>
 
