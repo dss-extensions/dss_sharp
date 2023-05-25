@@ -5,10 +5,10 @@
 //
 // See LICENSE for more information.
 //
-// NOTE: This file is partially generated from other files. If you would like to contribute 
+// NOTE: This file is partially generated from other files. If you would like to contribute
 //       a patch or suggestion, please open an issue ticket on:
 //       https://github.com/dss-extensions/dss_sharp/issues/
-        
+
 using System;
 using dss_sharp.detail;
 using dss_sharp.native;
@@ -1315,7 +1315,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CNData_Get_GMRUnits(ctx);
+                    return /*LineUnits*/(DSS_CAPI.ctx_CNData_Get_GMRUnits(ctx));
                 }
                 finally
                 {
@@ -1367,7 +1367,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CNData_Get_RadiusUnits(ctx);
+                    return /*LineUnits*/(DSS_CAPI.ctx_CNData_Get_RadiusUnits(ctx));
                 }
                 finally
                 {
@@ -1393,7 +1393,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CNData_Get_ResistanceUnits(ctx);
+                    return /*LineUnits*/(DSS_CAPI.ctx_CNData_Get_ResistanceUnits(ctx));
                 }
                 finally
                 {
@@ -2154,7 +2154,8 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Array of strings listing all the published variable names, if a PCElement. Otherwise, null string.
+        /// Array of strings listing all the published state variable names.
+        /// Valid only for PCElements.
         /// </summary>
         public string[] AllVariableNames
         {
@@ -2173,6 +2174,7 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles. Values of state variables of active element if PC element.
+        /// Valid only for PCElements.
         /// </summary>
         public double[] AllVariableValues
         {
@@ -2693,7 +2695,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_CktElement_Get_OCPDevType(ctx);
+                    return /*OCPDevType*/(DSS_CAPI.ctx_CktElement_Get_OCPDevType(ctx));
                 }
                 finally
                 {
@@ -2703,7 +2705,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Complex array of losses by phase
+        /// Complex array of losses (kVA) by phase
         /// </summary>
         public double[] PhaseLosses
         {
@@ -2722,7 +2724,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Complex array of powers into each conductor of each terminal
+        /// Complex array of powers (kVA) into each conductor of each terminal
         /// </summary>
         public double[] Powers
         {
@@ -2895,7 +2897,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Returns the total powers (complex) at ALL terminals of the active circuit element.
+        /// Returns an array with the total powers (complex, kVA) at ALL terminals of the active circuit element.
         /// </summary>
         public double[] TotalPowers
         {
@@ -4351,7 +4353,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Lines_Get_Units(ctx);
+                    return /*LineUnits*/(DSS_CAPI.ctx_Lines_Get_Units(ctx));
                 }
                 finally
                 {
@@ -4928,7 +4930,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Gets value of trapezoidal integration flag in energy meters. Defaults to `false`.
+        /// Gets value of trapezoidal integration flag in energy meters. Defaults to false.
         /// </summary>
         public bool Trapezoidal
         {
@@ -5093,8 +5095,8 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Controls whether the terminals are checked when updating the currents in Load component. Defaults to True.
-        /// If the loads are guaranteed to have their terminals closed throughout the simulation, this can be set to `false` to save some time.
+        /// Controls whether the terminals are checked when updating the currents in Load component. Defaults to true.
+        /// If the loads are guaranteed to have their terminals closed throughout the simulation, this can be set to false to save some time.
         /// 
         /// (API Extension)
         /// </summary>
@@ -7401,7 +7403,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// EarlyAbort controls whether all errors halts the DSS script processing (Compile/Redirect), defaults to True.
+        /// EarlyAbort controls whether all errors halts the DSS script processing (Compile/Redirect), defaults to true.
         /// 
         /// (API Extension)
         /// </summary>
@@ -7432,7 +7434,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Controls whether the extended error mechanism is used. Defaults to "true".
+        /// Controls whether the extended error mechanism is used. Defaults to true.
         /// 
         /// Extended errors are errors derived from checks across the API to ensure
         /// a valid state. Although many of these checks are already present in the 
@@ -8635,7 +8637,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_LineCodes_Get_Units(ctx);
+                    return /*LineUnits*/(DSS_CAPI.ctx_LineCodes_Get_Units(ctx));
                 }
                 finally
                 {
@@ -10070,7 +10072,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Solution_Get_Algorithm(ctx);
+                    return /*SolutionAlgorithms*/(DSS_CAPI.ctx_Solution_Get_Algorithm(ctx));
                 }
                 finally
                 {
@@ -10186,7 +10188,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Solution_Get_ControlMode(ctx);
+                    return /*ControlModes*/(DSS_CAPI.ctx_Solution_Get_ControlMode(ctx));
                 }
                 finally
                 {
@@ -10686,7 +10688,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Solution_Get_Mode(ctx);
+                    return /*SolveModes*/(DSS_CAPI.ctx_Solution_Get_Mode(ctx));
                 }
                 finally
                 {
@@ -11876,7 +11878,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_LineSpacings_Get_Units(ctx);
+                    return /*LineUnits*/(DSS_CAPI.ctx_LineSpacings_Get_Units(ctx));
                 }
                 finally
                 {
@@ -15383,7 +15385,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// get kW output
+        /// Get kW output
         /// </summary>
         public double kW
         {
@@ -19742,7 +19744,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// MOve back toward the source, return index of new active branch, or 0 if no more.
+        /// Move back toward the source, return index of new active branch, or 0 if no more.
         /// </summary>
         public int BackwardBranch
         {
@@ -21321,7 +21323,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_WireData_Get_GMRUnits(ctx);
+                    return /*LineUnits*/(DSS_CAPI.ctx_WireData_Get_GMRUnits(ctx));
                 }
                 finally
                 {
@@ -21399,7 +21401,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_WireData_Get_ResistanceUnits(ctx);
+                    return /*LineUnits*/(DSS_CAPI.ctx_WireData_Get_ResistanceUnits(ctx));
                 }
                 finally
                 {
@@ -23539,7 +23541,7 @@ namespace dss_sharp
         /// 
         /// If you have issues with long paths, enabling this might help in some scenarios.
         /// 
-        /// Defaults to "true" (allow changes, backwards compatible) in the 0.10.x versions of DSS C-API. 
+        /// Defaults to true (allow changes, backwards compatible) in the 0.10.x versions of DSS C-API. 
         /// This might change to false in future versions.
         /// 
         /// This can also be set through the environment variable DSS_CAPI_ALLOW_CHANGE_DIR. Set it to 0 to
@@ -23576,7 +23578,7 @@ namespace dss_sharp
         /// <summary>
         /// If enabled, the `DOScmd` command is allowed. Otherwise, an error is reported if the user tries to use it.
         /// 
-        /// Defaults to false/0 (disabled state). Users should consider DOScmd deprecated on DSS-Extensions.
+        /// Defaults to false (disabled state). Users should consider DOScmd deprecated on DSS-Extensions.
         /// 
         /// This can also be set through the environment variable DSS_CAPI_ALLOW_DOSCMD. Setting it to 1 enables
         /// the command.
@@ -23614,11 +23616,11 @@ namespace dss_sharp
         /// official OpenDSS COM interface. 
         /// 
         /// For example, consider the function `Loads_Get_ZIPV`. If there is no active circuit or active load element:
-        /// - In the disabled state (COMErrorResults=false), the function will return "[]", an array with 0 elements.
-        /// - In the enabled state (COMErrorResults=true), the function will return "[0.0]" instead. This should
+        /// - In the disabled state (COMErrorResults==false), the function will return "[]", an array with 0 elements.
+        /// - In the enabled state (COMErrorResults==true), the function will return "[0.0]" instead. This should
         /// be compatible with the return value of the official COM interface.
         /// 
-        /// Defaults to "true" (enabled state) in the v0.12.x series. This will change to false in future series.
+        /// Defaults to true (enabled state) in the v0.12.x series. This will change to false in future series.
         /// 
         /// This can also be set through the environment variable DSS_CAPI_COM_DEFAULTS. Setting it to 0 disables
         /// the legacy/COM behavior. The value can be toggled through the API at any time.
