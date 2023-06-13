@@ -295,9 +295,17 @@ namespace dss_sharp
 
         /// <summary>
         /// Toggle some InvControl behavior introduced in OpenDSS 9.6.1.1. It could be a regression 
-        /// but needs further investigation, so we added this flag in the time being.        
+        /// but needs further investigation, so we added this flag in the time being.
         /// </summary>
-        InvControl9611 = 0x00000004
+        InvControl9611 = 0x00000004,
+
+        /// <summary>
+        /// When using "save circuit", the official OpenDSS always includes the "CalcVoltageBases" command in the
+        /// saved script. We found that it is not always a good idea, so we removed the command (leaving it commented).
+        /// Use this flag to enable the command in the saved script.
+        /// </summary>
+        SaveCalcVoltageBases = 0x00000008
+
     };
 
     public class Bus : ContextState
@@ -20604,6 +20612,9 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array of voltages for active winding
+        ///
+        /// WARNING: If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
+        /// in those situations. For more information, see https://github.com/dss-extensions/dss-extensions/issues/24
         /// </summary>
         public double[] WdgVoltages
         {
@@ -20623,6 +20634,9 @@ namespace dss_sharp
 
         /// <summary>
         /// All Winding currents (ph1, wdg1, wdg2,... ph2, wdg1, wdg2 ...)
+        ///
+        /// WARNING: If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
+        /// in those situations. For more information, see https://github.com/dss-extensions/dss-extensions/issues/24
         /// </summary>
         public double[] WdgCurrents
         {
@@ -20642,6 +20656,9 @@ namespace dss_sharp
 
         /// <summary>
         /// All winding currents in CSV string form like the WdgCurrents property
+        ///
+        /// WARNING: If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
+        /// in those situations. For more information, see https://github.com/dss-extensions/dss-extensions/issues/24
         /// </summary>
         public string strWdgCurrents
         {
