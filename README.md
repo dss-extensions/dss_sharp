@@ -25,6 +25,7 @@ If you are looking for the bindings to other languages:
 [`opendssdirect.utils`](https://dss-extensions.org/OpenDSSDirect.py/opendssdirect.html#module-opendssdirect.utils) to generate some DataFrames.
 - [OpenDSSDirect.jl](http://github.com/dss-extensions/OpenDSSDirect.jl/): a Julia module, created by Tom Short (@tshort), recently migrated with the help of Dheepak Krishnamurthy (@kdheepak) to DSS C-API instead of the DDLL.
 - [DSS_MATLAB](http://github.com/dss-extensions/dss_matlab/): presents multi-platform integration (Windows, Linux, macOS) with DSS C-API and is also very compatible with the COM classes.
+- [AltDSS-Rust](https://github.com/dss-extensions/AltDSS-Rust) and [AltDSS-Go](https://github.com/dss-extensions/AltDSS-Go) are new projects to expose the engine to Rust and Go programming languages.
 
 # Documentation
 
@@ -56,7 +57,7 @@ If you're using the SDK style .csproj, you can add a reference like (remember to
 
 ```xml
     <ItemGroup>
-    <PackageReference Include="dss_sharp" Version="0.13.*" />
+    <PackageReference Include="dss_sharp" Version="0.14.*" />
     </ItemGroup>
 ```
 

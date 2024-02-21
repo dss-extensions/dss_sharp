@@ -22,9 +22,10 @@ Caso você tenha interesse em outras linguagens além de .NET:
 
 - [DSS C-API library](http://github.com/dss-extensions/dss_capi/): a biblioteca base que expõe a versão modificada do OpenDSS através de uma interface C mais tradicional, criada empregando o compilador de código aberto Free Pascal ao invés do Delphi. Em 2023, contém diversas extensões e aprimoramentos, mantendo ainda boa compatibilidade.
 - [dss.hpp](https://dss-extensions.org/dss_capi/): biblioteca de headers para C++, hospedada também neste repositório (pasta `include/`). Permite usar a DSS C-API de forma confortável sem ser necessário gerenciar os detalhes como o gerenciamento de memória ou convenção de API da DSS C-API. Atualmente usa Eigen e fmt.
-- [DSS-Python](http://github.com/dss-extensions/dss_python/) é o módulo Python multi-plataforma (Windows, Linux, MacOS) bastante compatível com o módulo COM. Veja também [OpenDSSDirect.py](http://github.com/dss-extensions/OpenDSSDirect.py/) caso não precise de compatibilidade com COM, ou deseje empregar as funcionalidades extras do módulo (inclusive em conjunto).
+- [DSS-Python](http://github.com/dss-extensions/dss_python/) é o módulo Python multi-plataforma (Windows, Linux, MacOS) bastante compatível com o módulo COM. Veja também [OpenDSSDirect.py](http://github.com/dss-extensions/OpenDSSDirect.py/) caso não precise de compatibilidade com COM, ou deseje empregar as funcionalidades extras do módulo (inclusive em conjunto). Há também o novo projeto [AltDSS-Python](http://github.com/dss-extensions/AltDSS-Python) que expande a API para todos os objetos DSS, manipulação de objetos em lote e mais.
 - [OpenDSSDirect.jl](http://github.com/dss-extensions/OpenDSSDirect.jl/) é um módulo em Julia, criado por Tom Short (@tshort), que recentemente passou a empregar DSS C-API no lugar do DLL direto com a ajuda de Dheepak Krishnamurthy (@kdheepak).
 - [DSS MATLAB](http://github.com/dss-extensions/dss_matlab/) permite integração multi-plataforma (Windows, Linux, MacOS) bastante compatível com a API do módulo COM oficial, de fato contorna algumas dificuldades de COM.
+- [AltDSS-Rust](https://github.com/dss-extensions/AltDSS-Rust) e [AltDSS-Go](https://github.com/dss-extensions/AltDSS-Go) são dois novos projetos para linguagens Rust e Go.
 
 # Documentação
 
@@ -58,7 +59,7 @@ Caso esteja usando arquivos .csproj no estilo SDK, basta adicionar uma referênc
 
 ```xml
     <ItemGroup>
-    <PackageReference Include="dss_sharp" Version="0.13.*" />
+    <PackageReference Include="dss_sharp" Version="0.14.*" />
     </ItemGroup>
 ```
 

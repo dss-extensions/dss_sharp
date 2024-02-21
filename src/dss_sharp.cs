@@ -1,7 +1,7 @@
 
 // dss_sharp: A compatibility layer for DSS C-API that mimics the official OpenDSS COM interface.
-// Copyright (c) 2016-2023 Paulo Meira
-// Copyright (c) 2018-2023 DSS-Extensions contributors
+// Copyright (c) 2016-2024 Paulo Meira
+// Copyright (c) 2018-2024 DSS-Extensions contributors
 //
 // See LICENSE for more information.
 //
@@ -247,10 +247,19 @@ namespace dss_sharp
         Pretty = 0x00000010,
         /// <summary>Exclude disabled elements (only valid when exporting a collection)</summary>
         ExcludeDisabled = 0x00000020,
-        /// <summary>Do not add the "DSSClass" property to the output</summary>
-        SkipDSSClass = 0x00000040,
+        /// <summary>Add "DSSClass" property to the output objects</summary>
+        IncludeDSSClass = 0x00000040,
         /// <summary>Use lowercase representation for the property names (and other keys) instead of the internal variants.</summary>
-        LowercaseKeys = 0x00000080
+        LowercaseKeys = 0x00000080,
+        /// <summary>
+        /// Include default unchanged objects in the exports. 
+        /// Any default object that has been edited is always exported. Affects whole circuit and batch exports.
+        /// </summary>
+        IncludeDefaultObjs = 0x00000100,
+        /// <summary>Skip timestamp/version comment, which is added a pre-command by default. Affects whole circuit exports.</summary>
+        SkipTimestamp = 0x00000200,
+        /// <summary>Skip exporting buses. Affects whole circuit exports.</summary>
+        SkipBuses = 0x00000400
     };
 
     public enum BatchOperation {
@@ -306,6 +315,66 @@ namespace dss_sharp
         /// </summary>
         SaveCalcVoltageBases = 0x00000008
 
+    };
+
+    /// <summary>
+    /// This enum is used in the PropertyNameStyle property to control the naming convention.
+    /// Currently, this only affects capitalization, i.e., if you software already uses case
+    /// insensitive string comparisons for the property names, this is not useful. Otherwise,
+    /// you can use `Legacy` to use the older names.
+    /// </summary>
+    public enum DSSPropertyNameStyle {
+        /// <summary>
+        /// By default, the modern names are used. The names were reviewed to try to reach a convention across all components.
+        /// </summary>
+        Modern = 0,
+
+        /// <summary>
+        /// Use all lowercase strings.
+        /// </summary>
+        Lowercase = 1,
+
+        /// <summary>
+        /// Use the previous capitalization of the property names.
+        /// </summary>
+        Legacy = 2
+    };
+
+    /// <summary>
+    /// DSSSaveFlags are bit flags used in the Circuit_Save function to
+    /// customize the saved circuit.
+    /// </summary>
+    [Flags]
+    public enum DSSSaveFlags {
+        /// <summary>Include the command CalcVoltageBases.</summary>
+        CalcVoltageBases = 0x0001,
+
+        /// <summary>Include commands to set the voltage bases individually.</summary>
+        SetVoltageBases = 0x0002,
+
+        /// <summary>Include most of the options (from the Set/Get DSS commands).</summary>
+        IncludeOptions = 0x0004,
+
+        /// <summary>Include disabled circuit elements (and LoadShapes).</summary>
+        IncludeDisabled = 0x0008,
+
+        /// <summary>Exclude default DSS items if they are not modified by the user.</summary>
+        ExcludeDefault = 0x0010,
+
+        /// <summary>Use a single file instead of a folder for output.</summary>
+        SingleFile = 0x0020,
+
+        /// <summary>Save the circuit elements in the order they were loaded in the active circuit. Guarantees better reproducibility, especially when the system is ill-conditioned. Requires "SingleFile" flag.</summary>
+        KeepOrder = 0x0040,
+
+        /// <summary>Do not export meter zones (as "feeders") separately. Has no effect when using a single file.</summary>
+        ExcludeMeterZones = 0x0080,
+
+        /// <summary>Export commands to open terminals of elements.</summary>
+        IsOpen = 0x0100,
+
+        /// <summary>Export to the result string. Requires "SingleFile" flag.</summary>
+        ToString = 0x0200,
     };
 
     public class Bus : ContextState
@@ -383,6 +452,12 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Return a unique node number at the active bus to avoid node collisions and adds 
+        /// it to the node list for the bus.
+        /// 
+        /// Original COM help: https://opendss.epri.com/GetUniqueNodeNumber.html
+        /// </summary>
         public int GetUniqueNodeNumber(int StartNumber)
         {
             try
@@ -395,6 +470,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Refreshes the Zsc matrix for the active bus.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ZscRefresh.html
+        /// </summary>
         public bool ZscRefresh()
         {
             try
@@ -409,6 +489,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Indicates whether a coordinate has been defined for this bus
+        /// 
+        /// Original COM help: https://opendss.epri.com/Coorddefined.html
         /// </summary>
         public bool Coorddefined
         {
@@ -427,6 +509,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex Double array of Sequence Voltages (0, 1, 2) at this Bus.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CplxSeqVoltages.html
         /// </summary>
         public double[] CplxSeqVoltages
         {
@@ -446,6 +530,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Accumulated customer outage durations
+        /// 
+        /// Original COM help: https://opendss.epri.com/Cust_Duration.html
         /// </summary>
         public double Cust_Duration
         {
@@ -464,6 +550,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Annual number of customer-interruptions from this bus
+        /// 
+        /// Original COM help: https://opendss.epri.com/Cust_Interrupts.html
         /// </summary>
         public double Cust_Interrupts
         {
@@ -482,6 +570,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Distance from energymeter (if non-zero)
+        /// 
+        /// Original COM help: https://opendss.epri.com/Distance.html
         /// </summary>
         public double Distance
         {
@@ -500,6 +590,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Average interruption duration, hr.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Int_Duration.html
         /// </summary>
         public double Int_Duration
         {
@@ -518,6 +610,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Short circuit currents at bus; Complex Array.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Isc.html
         /// </summary>
         public double[] Isc
         {
@@ -537,6 +631,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Accumulated failure rate downstream from this bus; faults per year
+        /// 
+        /// Original COM help: https://opendss.epri.com/Lambda.html
         /// </summary>
         public double Lambda
         {
@@ -555,6 +651,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total numbers of customers served downline from this bus
+        /// 
+        /// Original COM help: https://opendss.epri.com/N_Customers.html
         /// </summary>
         public int N_Customers
         {
@@ -573,6 +671,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of interruptions this bus per year
+        /// 
+        /// Original COM help: https://opendss.epri.com/N_interrupts.html
         /// </summary>
         public double N_interrupts
         {
@@ -591,6 +691,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of Bus
+        /// 
+        /// Original COM help: https://opendss.epri.com/Name1.html
         /// </summary>
         public string Name
         {
@@ -609,6 +711,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Integer Array of Node Numbers defined at the bus in same order as the voltages.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Nodes.html
         /// </summary>
         public int[] Nodes
         {
@@ -628,6 +732,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Nodes this bus.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumNodes.html
         /// </summary>
         public int NumNodes
         {
@@ -646,6 +752,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Integer ID of the feeder section in which this bus is located.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SectionID.html
         /// </summary>
         public int SectionID
         {
@@ -664,6 +772,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Double Array of sequence voltages at this bus. Magnitudes only.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SeqVoltages.html
         /// </summary>
         public double[] SeqVoltages
         {
@@ -683,6 +793,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total length of line downline from this bus, in miles. For recloser siting algorithm.
+        /// 
+        /// Original COM help: https://opendss.epri.com/TotalMiles.html
         /// </summary>
         public double TotalMiles
         {
@@ -700,7 +812,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// For 2- and 3-phase buses, returns array of complex numbers represetin L-L voltages in volts. Returns -1.0 for 1-phase bus. If more than 3 phases, returns only first 3.
+        /// For 2- and 3-phase buses, returns array of complex numbers representing L-L voltages in volts. Returns -1.0 for 1-phase bus. If more than 3 phases, returns only first 3.
+        /// 
+        /// Original COM help: https://opendss.epri.com/VLL.html
         /// </summary>
         public double[] VLL
         {
@@ -719,7 +833,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Array of doubles containing voltages in Magnitude (VLN), angle (degrees)
+        /// Array of doubles containing voltages in Magnitude (VLN), angle (degrees) 
+        /// 
+        /// Original COM help: https://opendss.epri.com/VMagAngle.html
         /// </summary>
         public double[] VMagAngle
         {
@@ -739,6 +855,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Open circuit voltage; Complex array.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Voc.html
         /// </summary>
         public double[] Voc
         {
@@ -758,6 +876,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array of voltages at this bus.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Voltages.html
         /// </summary>
         public double[] Voltages
         {
@@ -777,6 +897,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array of Ysc matrix at bus. Column by column.
+        /// 
+        /// Original COM help: https://opendss.epri.com/YscMatrix.html
         /// </summary>
         public double[] YscMatrix
         {
@@ -796,6 +918,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex Zero-Sequence short circuit impedance at bus.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Zsc0.html
         /// </summary>
         public double[] Zsc0
         {
@@ -815,6 +939,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex Positive-Sequence short circuit impedance at bus.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Zsc1.html
         /// </summary>
         public double[] Zsc1
         {
@@ -834,6 +960,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array of Zsc matrix at bus. Column by column.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ZscMatrix.html
         /// </summary>
         public double[] ZscMatrix
         {
@@ -853,6 +981,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Base voltage at bus in kV
+        /// 
+        /// Original COM help: https://opendss.epri.com/kVBase.html
         /// </summary>
         public double kVBase
         {
@@ -871,6 +1001,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Returns Complex array of pu L-L voltages for 2- and 3-phase buses. Returns -1.0 for 1-phase bus. If more than 3 phases, returns only 3 phases.
+        /// 
+        /// Original COM help: https://opendss.epri.com/puVLL.html
         /// </summary>
         public double[] puVLL
         {
@@ -890,6 +1022,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles containing voltage magnitude, angle (degrees) pairs in per unit
+        /// 
+        /// Original COM help: https://opendss.epri.com/puVmagAngle.html
         /// </summary>
         public double[] puVmagAngle
         {
@@ -909,6 +1043,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex Array of pu voltages at the bus.
+        /// 
+        /// Original COM help: https://opendss.epri.com/puVoltages.html
         /// </summary>
         public double[] puVoltages
         {
@@ -930,6 +1066,8 @@ namespace dss_sharp
         /// Array of doubles (complex) containing the complete 012 Zsc matrix. 
         /// Only available after Zsc is computed, either through the "ZscRefresh" command, or running a "FaultStudy" solution.
         /// Only available for buses with 3 nodes.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ZSC012Matrix.html
         /// </summary>
         public double[] ZSC012Matrix
         {
@@ -948,7 +1086,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// X Coordinate for bus (double)
+        /// X Coordinate for bus
+        /// 
+        /// Original COM help: https://opendss.epri.com/x.html
         /// </summary>
         public double x
         {
@@ -977,7 +1117,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Y coordinate for bus(double)
+        /// Y coordinate for bus
+        /// 
+        /// Original COM help: https://opendss.epri.com/y.html
         /// </summary>
         public double y
         {
@@ -1007,6 +1149,8 @@ namespace dss_sharp
 
         /// <summary>
         /// List of strings: Full Names of LOAD elements connected to the active bus.
+        /// 
+        /// Original COM help: https://opendss.epri.com/LoadList.html
         /// </summary>
         public string[] LoadList
         {
@@ -1025,6 +1169,8 @@ namespace dss_sharp
 
         /// <summary>
         /// List of strings: Full Names of LINE elements connected to the active bus.
+        /// 
+        /// Original COM help: https://opendss.epri.com/LineList.html
         /// </summary>
         public string[] LineList
         {
@@ -1844,6 +1990,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Steps available in cap bank to be switched ON.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AvailableSteps.html
         /// </summary>
         public int AvailableSteps
         {
@@ -1862,6 +2010,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Delta connection or wye?
+        /// 
+        /// Original COM help: https://opendss.epri.com/IsDelta.html
         /// </summary>
         public bool IsDelta
         {
@@ -1891,6 +2041,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of steps (default 1) for distributing and switching the total bank kVAR.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumSteps.html
         /// </summary>
         public int NumSteps
         {
@@ -1919,7 +2071,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// A array of  integer [0..numsteps-1] indicating state of each step. If the read value is -1 an error has occurred.
+        /// An array of integers [0..NumSteps-1] indicating state of each step. If the read value is -1 an error has occurred.
+        /// 
+        /// Original COM help: https://opendss.epri.com/States.html
         /// </summary>
         public int[] States
         {
@@ -1950,6 +2104,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Bank kV rating. Use LL for 2 or 3 phases, or actual can rating for 1 phase.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kV.html
         /// </summary>
         public double kV
         {
@@ -2092,6 +2248,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Close the specified terminal and phase, if non-zero, or all conductors at the terminal.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Close1.html
+        /// </summary>
         public void Close(int Term, int Phs)
         {
             try
@@ -2131,6 +2292,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Open the specified terminal and phase, if non-zero, or all conductors at the terminal.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Open1.html
+        /// </summary>
         public void Open(int Term, int Phs)
         {
             try
@@ -2145,6 +2311,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array containing all property names of the active device.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllPropertyNames.html
         /// </summary>
         public string[] AllPropertyNames
         {
@@ -2164,6 +2332,8 @@ namespace dss_sharp
         /// <summary>
         /// Array of strings listing all the published state variable names.
         /// Valid only for PCElements.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllVariableNames.html
         /// </summary>
         public string[] AllVariableNames
         {
@@ -2183,6 +2353,8 @@ namespace dss_sharp
         /// <summary>
         /// Array of doubles. Values of state variables of active element if PC element.
         /// Valid only for PCElements.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllVariableValues.html
         /// </summary>
         public double[] AllVariableValues
         {
@@ -2201,7 +2373,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Array of strings. Get  Bus definitions to which each terminal is connected.
+        /// Bus definitions to which each terminal is connected.
+        /// 
+        /// Original COM help: https://opendss.epri.com/BusNames.html
         /// </summary>
         public string[] BusNames
         {
@@ -2231,6 +2405,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex double array of Sequence Currents for all conductors of all terminals of active circuit element.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CplxSeqCurrents.html
         /// </summary>
         public double[] CplxSeqCurrents
         {
@@ -2250,6 +2426,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex double array of Sequence Voltage for all terminals of active circuit element.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CplxSeqVoltages1.html
         /// </summary>
         public double[] CplxSeqVoltages
         {
@@ -2269,6 +2447,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array of currents into each conductor of each terminal
+        /// 
+        /// Original COM help: https://opendss.epri.com/Currents1.html
         /// </summary>
         public double[] Currents
         {
@@ -2288,6 +2468,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Currents in magnitude, angle (degrees) format as a array of doubles.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CurrentsMagAng.html
         /// </summary>
         public double[] CurrentsMagAng
         {
@@ -2307,6 +2489,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Display name of the object (not necessarily unique)
+        /// 
+        /// Original COM help: https://opendss.epri.com/DisplayName.html
         /// </summary>
         public string DisplayName
         {
@@ -2336,6 +2520,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Emergency Ampere Rating for PD elements
+        /// 
+        /// Original COM help: https://opendss.epri.com/EmergAmps.html
         /// </summary>
         public double EmergAmps
         {
@@ -2365,6 +2551,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Boolean indicating that element is currently in the circuit.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Enabled.html
         /// </summary>
         public bool Enabled
         {
@@ -2394,6 +2582,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of the Energy Meter this element is assigned to.
+        /// 
+        /// Original COM help: https://opendss.epri.com/EnergyMeter.html
         /// </summary>
         public string EnergyMeter
         {
@@ -2412,6 +2602,8 @@ namespace dss_sharp
 
         /// <summary>
         /// globally unique identifier for this object
+        /// 
+        /// Original COM help: https://opendss.epri.com/GUID.html
         /// </summary>
         public string GUID
         {
@@ -2430,6 +2622,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Pointer to this object
+        /// 
+        /// Original COM help: https://opendss.epri.com/Handle.html
         /// </summary>
         public int Handle
         {
@@ -2447,7 +2641,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// True if a recloser, relay, or fuse controlling this ckt element. OCP = Overcurrent Protection
+        /// True if a recloser, relay, or fuse controlling this ckt element. OCP = Overcurrent Protection 
+        /// 
+        /// Original COM help: https://opendss.epri.com/HasOCPDevice.html
         /// </summary>
         public bool HasOCPDevice
         {
@@ -2466,6 +2662,8 @@ namespace dss_sharp
 
         /// <summary>
         /// This element has a SwtControl attached.
+        /// 
+        /// Original COM help: https://opendss.epri.com/HasSwitchControl.html
         /// </summary>
         public bool HasSwitchControl
         {
@@ -2484,6 +2682,8 @@ namespace dss_sharp
 
         /// <summary>
         /// This element has a CapControl or RegControl attached.
+        /// 
+        /// Original COM help: https://opendss.epri.com/HasVoltControl.html
         /// </summary>
         public bool HasVoltControl
         {
@@ -2502,6 +2702,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total losses in the element: two-element double array (complex), in VA (watts, vars)
+        /// 
+        /// Original COM help: https://opendss.epri.com/Losses1.html
         /// </summary>
         public double[] Losses
         {
@@ -2521,6 +2723,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Full Name of Active Circuit Element
+        /// 
+        /// Original COM help: https://opendss.epri.com/Name4.html
         /// </summary>
         public string Name
         {
@@ -2538,7 +2742,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Array of integer containing the node numbers (representing phases, for example) for each conductor of each terminal.
+        /// Array of integer containing the node numbers (representing phases, for example) for each conductor of each terminal. 
+        /// 
+        /// Original COM help: https://opendss.epri.com/NodeOrder.html
         /// </summary>
         public int[] NodeOrder
         {
@@ -2558,6 +2764,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Normal ampere rating for PD Elements
+        /// 
+        /// Original COM help: https://opendss.epri.com/NormalAmps.html
         /// </summary>
         public double NormalAmps
         {
@@ -2587,6 +2795,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Conductors per Terminal
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumConductors.html
         /// </summary>
         public int NumConductors
         {
@@ -2606,6 +2816,8 @@ namespace dss_sharp
         /// <summary>
         /// Number of controls connected to this device. 
         /// Use to determine valid range for index into Controller array.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumControls.html
         /// </summary>
         public int NumControls
         {
@@ -2624,6 +2836,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Phases
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumPhases.html
         /// </summary>
         public int NumPhases
         {
@@ -2642,6 +2856,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Properties this Circuit Element.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumProperties.html
         /// </summary>
         public int NumProperties
         {
@@ -2660,6 +2876,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Terminals this Circuit Element
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumTerminals.html
         /// </summary>
         public int NumTerminals
         {
@@ -2678,6 +2896,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Index into Controller list of OCP Device controlling this CktElement
+        /// 
+        /// Original COM help: https://opendss.epri.com/OCPDevIndex.html
         /// </summary>
         public int OCPDevIndex
         {
@@ -2696,6 +2916,8 @@ namespace dss_sharp
 
         /// <summary>
         /// 0=None; 1=Fuse; 2=Recloser; 3=Relay;  Type of OCP controller device
+        /// 
+        /// Original COM help: https://opendss.epri.com/OCPDevType.html
         /// </summary>
         public int OCPDevType
         {
@@ -2714,6 +2936,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array of losses (kVA) by phase
+        /// 
+        /// Original COM help: https://opendss.epri.com/PhaseLosses.html
         /// </summary>
         public double[] PhaseLosses
         {
@@ -2733,6 +2957,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array of powers (kVA) into each conductor of each terminal
+        /// 
+        /// Original COM help: https://opendss.epri.com/Powers.html
         /// </summary>
         public double[] Powers
         {
@@ -2752,6 +2978,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Residual currents for each terminal: (magnitude, angle in degrees)
+        /// 
+        /// Original COM help: https://opendss.epri.com/Residuals.html
         /// </summary>
         public double[] Residuals
         {
@@ -2771,6 +2999,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Double array of symmetrical component currents (magnitudes only) into each 3-phase terminal
+        /// 
+        /// Original COM help: https://opendss.epri.com/SeqCurrents.html
         /// </summary>
         public double[] SeqCurrents
         {
@@ -2789,7 +3019,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Complex array of sequence powers (kW, kvar) into each 3-phase teminal
+        /// Complex array of sequence powers (kW, kvar) into each 3-phase terminal
+        /// 
+        /// Original COM help: https://opendss.epri.com/SeqPowers.html
         /// </summary>
         public double[] SeqPowers
         {
@@ -2809,6 +3041,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Double array of symmetrical component voltages (magnitudes only) at each 3-phase terminal
+        /// 
+        /// Original COM help: https://opendss.epri.com/SeqVoltages1.html
         /// </summary>
         public double[] SeqVoltages
         {
@@ -2828,6 +3062,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array of voltages at terminals
+        /// 
+        /// Original COM help: https://opendss.epri.com/Voltages1.html
         /// </summary>
         public double[] Voltages
         {
@@ -2847,6 +3083,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Voltages at each conductor in magnitude, angle form as array of doubles.
+        /// 
+        /// Original COM help: https://opendss.epri.com/VoltagesMagAng.html
         /// </summary>
         public double[] VoltagesMagAng
         {
@@ -2866,6 +3104,8 @@ namespace dss_sharp
 
         /// <summary>
         /// YPrim matrix, column order, complex numbers
+        /// 
+        /// Original COM help: https://opendss.epri.com/Yprim.html
         /// </summary>
         public double[] Yprim
         {
@@ -2887,7 +3127,7 @@ namespace dss_sharp
         /// Returns true if the current active element is isolated.
         /// Note that this only fetches the current value. See also the Topology interface.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public bool IsIsolated
         {
@@ -2906,6 +3146,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Returns an array with the total powers (complex, kVA) at ALL terminals of the active circuit element.
+        /// 
+        /// Original COM help: https://opendss.epri.com/TotalPowers.html
         /// </summary>
         public double[] TotalPowers
         {
@@ -2925,6 +3167,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of integers, a copy of the internal NodeRef of the CktElement.
+        /// 
+        /// **(API Extension)**
         /// </summary>
         public int[] NodeRef
         {
@@ -3082,7 +3326,9 @@ namespace dss_sharp
 
 
         /// <summary>
-        /// Indicates whether the generator is forced ON regardles of other dispatch criteria.
+        /// Indicates whether the generator is forced ON regardless of other dispatch criteria.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ForcedON.html
         /// </summary>
         public bool ForcedON
         {
@@ -3112,6 +3358,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Generator Model
+        /// 
+        /// Original COM help: https://opendss.epri.com/Model.html
         /// </summary>
         public int Model
         {
@@ -3141,6 +3389,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Power factor (pos. = producing vars). Updates kvar based on present kW value.
+        /// 
+        /// Original COM help: https://opendss.epri.com/PF.html
         /// </summary>
         public double PF
         {
@@ -3170,6 +3420,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of phases
+        /// 
+        /// Original COM help: https://opendss.epri.com/Phases.html
         /// </summary>
         public int Phases
         {
@@ -3199,6 +3451,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of Names of all generator energy meter registers
+        /// 
+        /// See also the enum `GeneratorRegisters`.
         /// </summary>
         public string[] RegisterNames
         {
@@ -3216,7 +3470,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Array of valus in generator energy meter registers.
+        /// Array of values in generator energy meter registers.
+        /// 
+        /// Original COM help: https://opendss.epri.com/RegisterValues.html
         /// </summary>
         public double[] RegisterValues
         {
@@ -3236,6 +3492,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Vmaxpu for generator model
+        /// 
+        /// Original COM help: https://opendss.epri.com/Vmaxpu.html
         /// </summary>
         public double Vmaxpu
         {
@@ -3265,6 +3523,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Vminpu for Generator model
+        /// 
+        /// Original COM help: https://opendss.epri.com/Vminpu.html
         /// </summary>
         public double Vminpu
         {
@@ -3294,6 +3554,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Voltage base for the active generator, kV
+        /// 
+        /// Original COM help: https://opendss.epri.com/kV1.html
         /// </summary>
         public double kV
         {
@@ -3323,6 +3585,8 @@ namespace dss_sharp
 
         /// <summary>
         /// kVA rating of the generator
+        /// 
+        /// Original COM help: https://opendss.epri.com/kVArated.html
         /// </summary>
         public double kVArated
         {
@@ -3352,6 +3616,8 @@ namespace dss_sharp
 
         /// <summary>
         /// kW output for the active generator. kvar is updated for current power factor.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kW.html
         /// </summary>
         public double kW
         {
@@ -3381,6 +3647,8 @@ namespace dss_sharp
 
         /// <summary>
         /// kvar output for the active generator. Updates power factor based on present kW value.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kvar.html
         /// </summary>
         public double kvar
         {
@@ -3411,7 +3679,7 @@ namespace dss_sharp
         /// <summary>
         /// Name of the loadshape for a daily generation profile.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string daily
         {
@@ -3442,7 +3710,7 @@ namespace dss_sharp
         /// <summary>
         /// Name of the loadshape for a duty cycle simulation.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string duty
         {
@@ -3473,7 +3741,7 @@ namespace dss_sharp
         /// <summary>
         /// Name of yearly loadshape
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string Yearly
         {
@@ -3506,7 +3774,7 @@ namespace dss_sharp
         /// 
         /// Related enumeration: GeneratorStatus
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public GeneratorStatus Status
         {
@@ -3514,7 +3782,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return (GeneratorStatus)DSS_CAPI.ctx_Generators_Get_Status(ctx);
+                    return (GeneratorStatus)(DSS_CAPI.ctx_Generators_Get_Status(ctx));
                 }
                 finally
                 {
@@ -3537,7 +3805,7 @@ namespace dss_sharp
         /// <summary>
         /// Generator connection. True/1 if delta connection, False/0 if wye.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public bool IsDelta
         {
@@ -3568,7 +3836,7 @@ namespace dss_sharp
         /// <summary>
         /// kVA rating of electrical machine. Applied to machine or inverter definition for Dynamics mode solutions.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double kva
         {
@@ -3599,7 +3867,7 @@ namespace dss_sharp
         /// <summary>
         /// An arbitrary integer number representing the class of Generator so that Generator values may be segregated by class.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public int Class
         {
@@ -3630,7 +3898,7 @@ namespace dss_sharp
         /// <summary>
         /// Bus to which the Generator is connected. May include specific node specification.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string Bus1
         {
@@ -3811,6 +4079,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of bus for terminal 1.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Bus1.html
         /// </summary>
         public string Bus1
         {
@@ -3840,6 +4110,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of bus for terminal 2.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Bus2.html
         /// </summary>
         public string Bus2
         {
@@ -3869,6 +4141,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Zero Sequence capacitance, nanofarads per unit length.
+        /// 
+        /// Original COM help: https://opendss.epri.com/C0.html
         /// </summary>
         public double C0
         {
@@ -3898,6 +4172,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Positive Sequence capacitance, nanofarads per unit length.
+        /// 
+        /// Original COM help: https://opendss.epri.com/C1.html
         /// </summary>
         public double C1
         {
@@ -3954,6 +4230,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Emergency (maximum) ampere rating of Line.
+        /// 
+        /// Original COM help: https://opendss.epri.com/EmergAmps1.html
         /// </summary>
         public double EmergAmps
         {
@@ -3983,6 +4261,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Line geometry code
+        /// 
+        /// Original COM help: https://opendss.epri.com/Geometry.html
         /// </summary>
         public string Geometry
         {
@@ -4012,6 +4292,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Length of line section in units compatible with the LineCode definition.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Length.html
         /// </summary>
         public double Length
         {
@@ -4041,6 +4323,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of LineCode object that defines the impedances.
+        /// 
+        /// Original COM help: https://opendss.epri.com/LineCode.html
         /// </summary>
         public string LineCode
         {
@@ -4070,6 +4354,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Normal ampere rating of Line.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NormAmps.html
         /// </summary>
         public double NormAmps
         {
@@ -4099,6 +4385,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of customers on this line section.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumCust.html
         /// </summary>
         public int NumCust
         {
@@ -4117,6 +4405,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Sets Parent of the active Line to be the active line. Returns 0 if no parent or action fails.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Parent.html
         /// </summary>
         public int Parent
         {
@@ -4135,6 +4425,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Phases, this Line element.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Phases1.html
         /// </summary>
         public int Phases
         {
@@ -4164,6 +4456,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Zero Sequence resistance, ohms per unit length.
+        /// 
+        /// Original COM help: https://opendss.epri.com/R0.html
         /// </summary>
         public double R0
         {
@@ -4193,6 +4487,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Positive Sequence resistance, ohms per unit length.
+        /// 
+        /// Original COM help: https://opendss.epri.com/R1.html
         /// </summary>
         public double R1
         {
@@ -4222,6 +4518,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Earth return resistance value used to compute line impedances at power frequency
+        /// 
+        /// Original COM help: https://opendss.epri.com/Rg.html
         /// </summary>
         public double Rg
         {
@@ -4251,6 +4549,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Earth Resistivity, m-ohms
+        /// 
+        /// Original COM help: https://opendss.epri.com/Rho.html
         /// </summary>
         public double Rho
         {
@@ -4280,6 +4580,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Resistance matrix (full), ohms per unit length. Array of doubles.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Rmatrix.html
         /// </summary>
         public double[] Rmatrix
         {
@@ -4310,6 +4612,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Line spacing code
+        /// 
+        /// Original COM help: https://opendss.epri.com/Spacing.html
         /// </summary>
         public string Spacing
         {
@@ -4339,6 +4643,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total Number of customers served from this line section.
+        /// 
+        /// Original COM help: https://opendss.epri.com/TotalCust.html
         /// </summary>
         public int TotalCust
         {
@@ -4383,6 +4689,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Zero Sequence reactance ohms per unit length.
+        /// 
+        /// Original COM help: https://opendss.epri.com/X0.html
         /// </summary>
         public double X0
         {
@@ -4412,6 +4720,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Positive Sequence reactance, ohms per unit length.
+        /// 
+        /// Original COM help: https://opendss.epri.com/X1.html
         /// </summary>
         public double X1
         {
@@ -4441,6 +4751,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Earth return reactance value used to compute line impedances at power frequency
+        /// 
+        /// Original COM help: https://opendss.epri.com/Xg.html
         /// </summary>
         public double Xg
         {
@@ -4470,6 +4782,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Reactance matrix (full), ohms per unit length. Array of doubles.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Xmatrix.html
         /// </summary>
         public double[] Xmatrix
         {
@@ -4500,6 +4814,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Yprimitive for the active line object (complex array).
+        /// 
+        /// Original COM help: https://opendss.epri.com/Yprim1.html
         /// </summary>
         public double[] Yprim
         {
@@ -4530,6 +4846,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Delivers the rating for the current season (in Amps)  if the "SeasonalRatings" option is active
+        /// 
+        /// Original COM help: https://opendss.epri.com/SeasonRating.html
         /// </summary>
         public double SeasonRating
         {
@@ -4549,7 +4867,7 @@ namespace dss_sharp
         /// <summary>
         /// Sets/gets the Line element switch status. Setting it has side-effects to the line parameters.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public bool IsSwitch
         {
@@ -4619,6 +4937,8 @@ namespace dss_sharp
 
         /// <summary>
         /// List of Buses or (File=xxxx) syntax for the AutoAdd solution mode.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AutoBusList.html
         /// </summary>
         public string AutoBusList
         {
@@ -4647,7 +4967,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// {dssMultiphase (0) * | dssPositiveSeq (1) } Indicate if the circuit model is positive sequence.
+        /// Indicate if the circuit model is positive sequence.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CktModel.html
         /// </summary>
         public int CktModel
         {
@@ -4655,7 +4977,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Settings_Get_CktModel(ctx);
+                    return /*CktModels*/(DSS_CAPI.ctx_Settings_Get_CktModel(ctx));
                 }
                 finally
                 {
@@ -4676,7 +4998,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// {True | False*} Denotes whether to trace the control actions to a file.
+        /// Denotes whether to trace the control actions to a file.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ControlTrace.html
         /// </summary>
         public bool ControlTrace
         {
@@ -4706,6 +5030,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Per Unit maximum voltage for Emergency conditions.
+        /// 
+        /// Original COM help: https://opendss.epri.com/EmergVmaxpu.html
         /// </summary>
         public double EmergVmaxpu
         {
@@ -4735,6 +5061,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Per Unit minimum voltage for Emergency conditions.
+        /// 
+        /// Original COM help: https://opendss.epri.com/EmergVminpu.html
         /// </summary>
         public double EmergVminpu
         {
@@ -4764,6 +5092,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Integer array defining which energy meter registers to use for computing losses
+        /// 
+        /// Original COM help: https://opendss.epri.com/LossRegs.html
         /// </summary>
         public int[] LossRegs
         {
@@ -4794,6 +5124,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Weighting factor applied to Loss register values.
+        /// 
+        /// Original COM help: https://opendss.epri.com/LossWeight.html
         /// </summary>
         public double LossWeight
         {
@@ -4823,6 +5155,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Per Unit maximum voltage for Normal conditions.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NormVmaxpu.html
         /// </summary>
         public double NormVmaxpu
         {
@@ -4852,6 +5186,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Per Unit minimum voltage for Normal conditions.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NormVminpu.html
         /// </summary>
         public double NormVminpu
         {
@@ -4881,6 +5217,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of LoadShape object that serves as the source of price signal data for yearly simulations, etc.
+        /// 
+        /// Original COM help: https://opendss.epri.com/PriceCurve.html
         /// </summary>
         public string PriceCurve
         {
@@ -4910,6 +5248,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Price Signal for the Circuit
+        /// 
+        /// Original COM help: https://opendss.epri.com/PriceSignal.html
         /// </summary>
         public double PriceSignal
         {
@@ -4939,6 +5279,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Gets value of trapezoidal integration flag in energy meters. Defaults to false.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Trapezoidal.html
         /// </summary>
         public bool Trapezoidal
         {
@@ -4968,6 +5310,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of Integers defining energy meter registers to use for computing UE
+        /// 
+        /// Original COM help: https://opendss.epri.com/UEregs.html
         /// </summary>
         public int[] UEregs
         {
@@ -4998,6 +5342,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Weighting factor applied to UE register values.
+        /// 
+        /// Original COM help: https://opendss.epri.com/UEweight.html
         /// </summary>
         public double UEweight
         {
@@ -5027,6 +5373,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles defining the legal voltage bases in kV L-L
+        /// 
+        /// Original COM help: https://opendss.epri.com/VoltageBases.html
         /// </summary>
         public double[] VoltageBases
         {
@@ -5056,7 +5404,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// {True | False*}  Locks Zones on energy meters to prevent rebuilding if a circuit change occurs.
+        /// Locks Zones on energy meters to prevent rebuilding if a circuit change occurs.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ZoneLock.html
         /// </summary>
         public bool ZoneLock
         {
@@ -5106,7 +5456,7 @@ namespace dss_sharp
         /// Controls whether the terminals are checked when updating the currents in Load component. Defaults to true.
         /// If the loads are guaranteed to have their terminals closed throughout the simulation, this can be set to false to save some time.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public bool LoadsTerminalCheck
         {
@@ -5142,7 +5492,7 @@ namespace dss_sharp
         /// Set it to 1 (or `True`) to include disabled elements.
         /// Other numeric values are reserved for other potential behaviors.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public int IterateDisabled
         {
@@ -5169,6 +5519,26 @@ namespace dss_sharp
                 }
             }
         }
+
+        /// <summary>
+        /// Switch the property names according to the target style.
+        ///
+        /// Use this method for compatibility with code that doesn't consider that
+        /// OpenDSS is case insensitive.
+        /// 
+        /// **(API Extension)**
+        /// </summary>
+        public void SetPropertyNameStyle(DSSPropertyNameStyle value)
+        {
+            try
+            {
+                DSS_CAPI.ctx_Settings_SetPropertyNameStyle(ctx, (int)value);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
     }
 
     public class ActiveClass : ContextState
@@ -5180,6 +5550,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Returns name of active class.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ActiveClassName.html
         /// </summary>
         public string ActiveClassName
         {
@@ -5198,6 +5570,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of strings consisting of all element names in the active class.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllNames.html
         /// </summary>
         public string[] AllNames
         {
@@ -5216,6 +5590,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of elements in Active Class. Same as NumElements Property.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Count.html
         /// </summary>
         public int Count
         {
@@ -5233,7 +5609,12 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Sets first element in the active class to be the active DSS object. If object is a CktElement, ActiveCktELment also points to this element. Returns 0 if none.
+        /// Sets first element in the active class to be the active DSS object. 
+        /// If the object is a CktElement, ActiveCktELement also points to this element. 
+        /// 
+        /// Returns 0 if none.
+        /// 
+        /// Original COM help: https://opendss.epri.com/First.html
         /// </summary>
         public int First
         {
@@ -5252,6 +5633,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of the Active Element of the Active Class
+        /// 
+        /// Original COM help: https://opendss.epri.com/Name.html
         /// </summary>
         public string Name
         {
@@ -5280,7 +5663,12 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Sets next element in active class to be the active DSS object. If object is a CktElement, ActiveCktElement also points to this element.  Returns 0 if no more.
+        /// Sets next element in active class to be the active DSS object. 
+        /// If the object is a CktElement, ActiveCktElement also points to this element.
+        /// 
+        /// Returns 0 if no more.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Next.html
         /// </summary>
         public int Next
         {
@@ -5299,6 +5687,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of elements in this class. Same as Count property.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumElements.html
         /// </summary>
         public int NumElements
         {
@@ -5317,6 +5707,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get the name of the parent class of the active class
+        /// 
+        /// Original COM help: https://opendss.epri.com/ActiveClassParent.html
         /// </summary>
         public string ActiveClassParent
         {
@@ -5340,7 +5732,7 @@ namespace dss_sharp
         /// 
         /// Additionally, the `ExcludeDisabled` flag can be used to excluded disabled elements from the output.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string ToJSON(DSSJSONFlags options=0)
         {
@@ -5493,6 +5885,11 @@ namespace dss_sharp
         }
 
 
+        /// <summary>
+        /// Force a reset of this CapControl.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Reset.html
+        /// </summary>
         public void Reset()
         {
             try
@@ -5506,7 +5903,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Transducer ratio from pirmary current to control current.
+        /// Transducer ratio from primary current to control current.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CTratio.html
         /// </summary>
         public double CTratio
         {
@@ -5536,6 +5935,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of the Capacitor that is controlled.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Capacitor.html
         /// </summary>
         public string Capacitor
         {
@@ -5563,6 +5964,13 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Dead time after capacitor is turned OFF before it can be turned back ON for the active CapControl.
+        /// 
+        /// Default is 300 sec.
+        /// 
+        /// Original COM help: https://opendss.epri.com/DeadTime.html
+        /// </summary>
         public double DeadTime
         {
             get
@@ -5591,6 +5999,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Time delay [s] to switch on after arming.  Control may reset before actually switching.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Delay.html
         /// </summary>
         public double Delay
         {
@@ -5620,6 +6030,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Time delay [s] before switching off a step. Control may reset before actually switching.
+        /// 
+        /// Original COM help: https://opendss.epri.com/DelayOff.html
         /// </summary>
         public double DelayOff
         {
@@ -5649,6 +6061,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Type of automatic controller.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Mode.html
         /// </summary>
         public CapControlModes Mode
         {
@@ -5656,7 +6070,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return (CapControlModes)DSS_CAPI.ctx_CapControls_Get_Mode(ctx);
+                    return (CapControlModes)(DSS_CAPI.ctx_CapControls_Get_Mode(ctx));
                 }
                 finally
                 {
@@ -5678,6 +6092,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Full name of the element that PT and CT are connected to.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MonitoredObj.html
         /// </summary>
         public string MonitoredObj
         {
@@ -5707,6 +6123,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Terminal number on the element that PT and CT are connected to.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MonitoredTerm.html
         /// </summary>
         public int MonitoredTerm
         {
@@ -5736,6 +6154,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Threshold to switch off a step. See Mode for units.
+        /// 
+        /// Original COM help: https://opendss.epri.com/OFFSetting.html
         /// </summary>
         public double OFFSetting
         {
@@ -5765,6 +6185,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Threshold to arm or switch on a step.  See Mode for units.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ONSetting.html
         /// </summary>
         public double ONSetting
         {
@@ -5794,6 +6216,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Transducer ratio from primary feeder to control voltage.
+        /// 
+        /// Original COM help: https://opendss.epri.com/PTratio.html
         /// </summary>
         public double PTratio
         {
@@ -5823,6 +6247,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Enables Vmin and Vmax to override the control Mode
+        /// 
+        /// Original COM help: https://opendss.epri.com/UseVoltOverride.html
         /// </summary>
         public bool UseVoltOverride
         {
@@ -5852,6 +6278,8 @@ namespace dss_sharp
 
         /// <summary>
         /// With VoltOverride, swtich off whenever PT voltage exceeds this level.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Vmax.html
         /// </summary>
         public double Vmax
         {
@@ -5881,6 +6309,8 @@ namespace dss_sharp
 
         /// <summary>
         /// With VoltOverride, switch ON whenever PT voltage drops below this level.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Vmin.html
         /// </summary>
         public double Vmin
         {
@@ -6070,6 +6500,21 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Compute the maximum load the active circuit can serve in the PRESENT YEAR.
+        /// 
+        /// This method uses the EnergyMeter objects with the registers set with the 
+        /// `SET UEREGS= (...)` command for the AutoAdd functions. 
+        /// 
+        /// Returns the metered kW (load + losses - generation) and per unit load multiplier 
+        /// for the loading level at which something in the system reports an overload or 
+        /// undervoltage. If no violations, then it returns the metered kW for peak load 
+        /// for the year (1.0 multiplier). 
+        /// 
+        /// Aborts and returns 0 if no EnergyMeters.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Capacity1.html
+        /// </summary>
         public double Capacity(double Start, double Increment)
         {
             try
@@ -6082,6 +6527,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Disable a circuit element by name (removes from circuit but leave in database).
+        /// 
+        /// Original COM help: https://opendss.epri.com/Disable.html
+        /// </summary>
         public void Disable(string Name)
         {
             try
@@ -6094,6 +6544,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Enable a circuit element by name
+        /// 
+        /// Original COM help: https://opendss.epri.com/Enable.html
+        /// </summary>
         public void Enable(string Name)
         {
             try
@@ -6106,6 +6561,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Call `EndOfTimeStepCleanup` in SolutionAlgs (Do cleanup, sample monitors, and increment time).
+        /// 
+        /// Original COM help: https://opendss.epri.com/EndOfTimeStepUpdate.html
+        /// </summary>
         public void EndOfTimeStepUpdate()
         {
             try
@@ -6118,6 +6578,13 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Set the first element of active class to be the Active element in the active circuit.
+        /// 
+        /// Returns 0 if none.
+        /// 
+        /// Original COM help: https://opendss.epri.com/FirstElement.html
+        /// </summary>
         public int FirstElement()
         {
             try
@@ -6130,6 +6597,13 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Set the first Power Conversion (PC) element to be the active element.
+        /// 
+        /// Returns 0 if none.
+        /// 
+        /// Original COM help: https://opendss.epri.com/FirstPCElement.html
+        /// </summary>
         public int FirstPCElement()
         {
             try
@@ -6142,6 +6616,13 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Set the first Power Delivery (PD) element to be the active element.
+        /// 
+        /// Returns 0 if none.
+        /// 
+        /// Original COM help: https://opendss.epri.com/FirstPDElement.html
+        /// </summary>
         public int FirstPDElement()
         {
             try
@@ -6217,6 +6698,12 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Set the next element of the active class to be the active element in the active circuit.
+        /// Returns 0 if no more elements..
+        /// 
+        /// Original COM help: https://opendss.epri.com/NextElement.html
+        /// </summary>
         public int NextElement()
         {
             try
@@ -6229,6 +6716,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Get the next Power Conversion (PC) element to be the active element.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NextPCElement.html
+        /// </summary>
         public int NextPCElement()
         {
             try
@@ -6241,6 +6733,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Get the next Power Delivery (PD) element to be the active element.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NextPDElement.html
+        /// </summary>
         public int NextPDElement()
         {
             try
@@ -6253,6 +6750,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Force all Meters and Monitors to take a sample.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Sample.html
+        /// </summary>
         public void Sample()
         {
             try
@@ -6265,6 +6767,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Force all meters and monitors to save their current buffers.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SaveSample.html
+        /// </summary>
         public void SaveSample()
         {
             try
@@ -6277,6 +6784,13 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Sets Active bus by name. 
+        /// 
+        /// Ignores node list. Returns bus index (zero based) compatible with `AllBusNames` and Buses collection.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SetActiveBus.html
+        /// </summary>
         public int SetActiveBus(string BusName)
         {
             try
@@ -6289,6 +6803,14 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Set ActiveBus by an integer value. 
+        /// 
+        /// 0-based index compatible with SetActiveBus return value and AllBusNames indexing. 
+        /// Returns 0 if OK.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SetActiveBusi.html
+        /// </summary>
         public int SetActiveBusi(int BusIndex)
         {
             try
@@ -6301,6 +6823,13 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Set the active class by name. 
+        /// 
+        /// Use FirstElement, NextElement to iterate through the class. Returns -1 if fails.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SetActiveClass.html
+        /// </summary>
         public int SetActiveClass(string ClassName)
         {
             try
@@ -6313,6 +6842,13 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Set the Active Circuit Element using the full object name (e.g. "generator.g1"). 
+        /// 
+        /// Returns -1 if not found. Else index to be used in CktElements collection or `AllElementNames`.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SetActiveElement.html
+        /// </summary>
         public int SetActiveElement(string FullName)
         {
             try
@@ -6325,6 +6861,13 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Force an update to all storage classes. 
+        /// 
+        /// Typically done after a solution. Done automatically in intrinsic solution modes.
+        /// 
+        /// Original COM help: https://opendss.epri.com/UpdateStorage.html
+        /// </summary>
         public void UpdateStorage()
         {
             try
@@ -6339,6 +6882,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Returns distance from each bus to parent EnergyMeter. Corresponds to sequence in AllBusNames.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllBusDistances.html
         /// </summary>
         public double[] AllBusDistances
         {
@@ -6358,6 +6903,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of strings containing names of all buses in circuit (see AllNodeNames).
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllBusNames.html
         /// </summary>
         public string[] AllBusNames
         {
@@ -6376,6 +6923,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of magnitudes (doubles) of voltages at all buses
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllBusVmag.html
         /// </summary>
         public double[] AllBusVmag
         {
@@ -6395,6 +6944,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Double Array of all bus voltages (each node) magnitudes in Per unit
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllBusVmagPu.html
         /// </summary>
         public double[] AllBusVmagPu
         {
@@ -6414,6 +6965,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array of all bus, node voltages from most recent solution
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllBusVolts.html
         /// </summary>
         public double[] AllBusVolts
         {
@@ -6433,6 +6986,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of total losses (complex) in each circuit element
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllElementLosses.html
         /// </summary>
         public double[] AllElementLosses
         {
@@ -6452,6 +7007,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of strings containing Full Name of all elements.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllElementNames.html
         /// </summary>
         public string[] AllElementNames
         {
@@ -6470,6 +7027,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Returns an array of distances from parent EnergyMeter for each Node. Corresponds to AllBusVMag sequence.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllNodeDistances.html
         /// </summary>
         public double[] AllNodeDistances
         {
@@ -6489,6 +7048,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of strings containing full name of each node in system in same order as returned by AllBusVolts, etc.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllNodeNames.html
         /// </summary>
         public string[] AllNodeNames
         {
@@ -6507,6 +7068,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex total line losses in the circuit
+        /// 
+        /// Original COM help: https://opendss.epri.com/LineLosses.html
         /// </summary>
         public double[] LineLosses
         {
@@ -6526,6 +7089,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total losses in active circuit, complex number (two-element array of double).
+        /// 
+        /// Original COM help: https://opendss.epri.com/Losses.html
         /// </summary>
         public double[] Losses
         {
@@ -6563,6 +7128,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total number of Buses in the circuit.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumBuses.html
         /// </summary>
         public int NumBuses
         {
@@ -6581,6 +7148,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of CktElements in the circuit.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumCktElements.html
         /// </summary>
         public int NumCktElements
         {
@@ -6599,6 +7168,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total number of nodes in the circuit.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumNodes1.html
         /// </summary>
         public int NumNodes
         {
@@ -6617,6 +7188,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Sets Parent PD element, if any, to be the active circuit element and returns index>0; Returns 0 if it fails or not applicable.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ParentPDElement.html
         /// </summary>
         public int ParentPDElement
         {
@@ -6635,6 +7208,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex losses in all transformers designated to substations.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SubstationLosses.html
         /// </summary>
         public double[] SubstationLosses
         {
@@ -6656,6 +7231,8 @@ namespace dss_sharp
         /// System Y matrix (after a solution has been performed). 
         /// This is deprecated as it returns a dense matrix. Only use it for small systems.
         /// For large-scale systems, prefer YMatrix.GetCompressedYMatrix.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SystemY.html
         /// </summary>
         public double[] SystemY
         {
@@ -6675,6 +7252,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total power (complex), kVA delivered to the circuit
+        /// 
+        /// Original COM help: https://opendss.epri.com/TotalPower.html
         /// </summary>
         public double[] TotalPower
         {
@@ -6693,7 +7272,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Array of doubles containing complex injection currents for the present solution. Is is the "I" vector of I=YV
+        /// Array of doubles containing complex injection currents for the present solution. It is the "I" vector of I=YV
+        /// 
+        /// Original COM help: https://opendss.epri.com/YCurrents.html
         /// </summary>
         public double[] YCurrents
         {
@@ -6713,6 +7294,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of strings containing the names of the nodes in the same order as the Y matrix
+        /// 
+        /// Original COM help: https://opendss.epri.com/YNodeOrder.html
         /// </summary>
         public string[] YNodeOrder
         {
@@ -6731,6 +7314,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array of actual node voltages in same order as SystemY matrix.
+        /// 
+        /// Original COM help: https://opendss.epri.com/YNodeVarray.html
         /// </summary>
         public double[] YNodeVarray
         {
@@ -6751,7 +7336,7 @@ namespace dss_sharp
         /// Array of total losses (complex) in a selection of elements.
         /// Use the element indices (starting at 1) as parameter.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double[] ElementLosses(int[] value)
         {
@@ -6759,6 +7344,85 @@ namespace dss_sharp
             {
                 DSS_CAPI.ctx_Circuit_Get_ElementLosses_GR(ctx, value, value.Length);
                 return apiutil.get_float64_gr_array();
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Returns data for all objects and basic circuit properties as a JSON-encoded string.
+        /// 
+        /// The JSON data is organized using the JSON schema proposed at 
+        /// https://github.com/dss-extensions/AltDSS-Schema
+        /// 
+        /// The `options` parameter contains bit-flags to toggle specific features.
+        /// See the enum `DSSJSONFlags` or `Obj_ToJSON` (C-API) for more.
+        /// 
+        /// **(API Extension)**
+        /// </summary>
+        public string ToJSON(DSSJSONFlags options=0)
+        {
+            try
+            {
+                return APIUtil.get_string(DSS_CAPI.ctx_Circuit_ToJSON(ctx, (int)options));
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Replaces the circuit, if any, with the one provided from a JSON-encoded string.
+        /// 
+        /// The expected layout is defined from the JSON schema proposed at
+        /// https://github.com/dss-extensions/AltDSS-Schema
+        /// 
+        /// The `options` parameter contains bit-flags to toggle specific features.
+        /// See the enum `DSSJSONFlags`.
+        /// 
+        /// **(API Extension)**
+        /// </summary>
+        public void FromJSON(string data, DSSJSONFlags options=0)
+        {
+            try
+            {
+                DSS_CAPI.ctx_Circuit_FromJSON(ctx, data, (int)options);
+            }
+            finally
+            {
+                CheckForError();
+            }
+        }
+
+        /// <summary>
+        /// Equivalent of the "save circuit" DSS command, but allows customization
+        /// through the `saveFlags` argument, which is a set of bit flags. 
+        /// See the "DSSSaveFlags" enumeration for available flags:
+        /// 
+        /// - `CalcVoltageBases`: Include the command CalcVoltageBases.
+        /// - `SetVoltageBases`: Include commands to set the voltage bases individually.
+        /// - `IncludeOptions`: Include most of the options (from the Set/Get DSS commands).
+        /// - `IncludeDisabled`: Include disabled circuit elements (and LoadShapes).
+        /// - `ExcludeDefault`: Exclude default DSS items if they are not modified by the user.
+        /// - `SingleFile`: Use a single file instead of a folder for output.
+        /// - `KeepOrder`: Save the circuit elements in the order they were loaded in the active circuit. Guarantees better reproducibility, especially when the system is ill-conditioned. Requires "SingleFile" flag.
+        /// - `ExcludeMeterZones`: Do not export meter zones (as "feeders") separately. Has no effect when using a single file.
+        /// - `IsOpen`: Export commands to open terminals of elements.
+        /// - `ToString`: to the result string. Requires "SingleFile" flag.
+        /// 
+        /// If `SingleFile` is enabled, the first argument (`dirOrFilePath`) is the file path,
+        /// otherwise it is the folder path. For string output, the argument is not used.
+        /// 
+        /// **(API Extension)**
+        /// </summary>
+        public string Save(string dirOrFilePath, DSSSaveFlags options)
+        {
+            try
+            {
+                return APIUtil.get_string(DSS_CAPI.ctx_Circuit_Save(ctx, dirOrFilePath, (int)options));
             }
             finally
             {
@@ -6774,6 +7438,11 @@ namespace dss_sharp
         {
         }
 
+        /// <summary>
+        /// Clear all actions from the Control Proxy's Action List (they are popped off the list). 
+        /// 
+        /// Original COM help: https://opendss.epri.com/ClearActions.html
+        /// </summary>
         public void ClearActions()
         {
             try
@@ -6786,6 +7455,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Clear the control queue.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ClearQueue.html
+        /// </summary>
         public void ClearQueue()
         {
             try
@@ -6798,6 +7472,13 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Delete an Action from the DSS Control Queue by the handle that is returned when the action is added.
+        /// 
+        /// (The Push function returns the handle.)
+        /// 
+        /// Original COM help: https://opendss.epri.com/Delete.html
+        /// </summary>
         public void Delete(int ActionHandle)
         {
             try
@@ -6810,6 +7491,13 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Execute all actions currently on the Control Queue. 
+        /// 
+        /// Side effect: clears the queue.
+        /// 
+        /// Original COM help: https://opendss.epri.com/DoAllQueue.html
+        /// </summary>
         public void DoAllQueue()
         {
             try
@@ -6822,6 +7510,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Export the queue to a CSV table and show it.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Show.html
+        /// </summary>
         public void Show()
         {
             try
@@ -6835,7 +7528,12 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Code for the active action. Long integer code to tell the control device what to do
+        /// Code for the active action. Integer code to tell the control device what to do.
+        /// 
+        /// Use this to determine what the user-defined controls are supposed to do.
+        /// It can be any 32-bit integer of the user's choosing and is the same value that the control pushed onto the control queue earlier.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ActionCode.html
         /// </summary>
         public int ActionCode
         {
@@ -6854,6 +7552,13 @@ namespace dss_sharp
 
         /// <summary>
         /// Handle (User defined) to device that must act on the pending action.
+        /// 
+        /// The user-written code driving the interface may support more than one 
+        /// control element as necessary to perform the simulation. This handle is
+        /// an index returned to the user program that lets the program know which
+        /// control is to perform the active action.
+        /// 
+        /// Original COM help: https://opendss.epri.com/DeviceHandle.html
         /// </summary>
         public int DeviceHandle
         {
@@ -6871,7 +7576,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Number of Actions on the current actionlist (that have been popped off the control queue by CheckControlActions)
+        /// Number of Actions on the current action list (that have been popped off the control queue by CheckControlActions)
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumActions.html
         /// </summary>
         public int NumActions
         {
@@ -6889,6 +7596,8 @@ namespace dss_sharp
         }
         /// <summary>
         /// Push a control action onto the DSS control queue by time, action code, and device handle (user defined). Returns Control Queue handle.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Push.html
         /// </summary>
         public int Push(int Hour, double Seconds, int ActionCode, int DeviceHandle)
         {
@@ -6904,6 +7613,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Pops next action off the action list and makes it the active action. Returns zero if none.
+        /// 
+        /// Original COM help: https://opendss.epri.com/PopAction.html
         /// </summary>
         public int PopAction
         {
@@ -6922,6 +7633,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of strings containing the entire queue in CSV format
+        /// 
+        /// Original COM help: https://opendss.epri.com/Queue.html
         /// </summary>
         public string[] Queue
         {
@@ -6940,6 +7653,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of items on the OpenDSS control Queue
+        /// 
+        /// Original COM help: https://opendss.epri.com/QueueSize.html
         /// </summary>
         public int QueueSize
         {
@@ -6958,6 +7673,8 @@ namespace dss_sharp
 
         /// <summary>
         /// (write-only) Set the active action by index
+        /// 
+        /// Original COM help: https://opendss.epri.com/Action.html
         /// </summary>
         public int Action
         {
@@ -6986,6 +7703,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of strings containing the names of all properties for the active DSS object.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllPropertyNames1.html
         /// </summary>
         public string[] AllPropertyNames
         {
@@ -7004,6 +7723,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Full Name of Active DSS Object (general element or circuit element).
+        /// 
+        /// Original COM help: https://opendss.epri.com/Name5.html
         /// </summary>
         public string Name
         {
@@ -7022,6 +7743,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Properties for the active DSS object.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumProperties1.html
         /// </summary>
         public int NumProperties
         {
@@ -7043,7 +7766,7 @@ namespace dss_sharp
         /// The `options` parameter contains bit-flags to toggle specific features.
         /// See `Obj_ToJSON` (C-API) for more.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string ToJSON(DSSJSONFlags options=0)
         {
@@ -7091,6 +7814,8 @@ namespace dss_sharp
 
         /// <summary>
         /// (write-only) Caption to appear on the bottom of the DSS Progress form.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Caption.html
         /// </summary>
         public string Caption
         {
@@ -7109,6 +7834,8 @@ namespace dss_sharp
 
         /// <summary>
         /// (write-only) Percent progress to indicate [0..100]
+        /// 
+        /// Original COM help: https://opendss.epri.com/PctProgress.html
         /// </summary>
         public int PctProgress
         {
@@ -7167,6 +7894,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Description of the property.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Description.html
         /// </summary>
         public string Description
         {
@@ -7185,6 +7914,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of Property
+        /// 
+        /// Original COM help: https://opendss.epri.com/Name6.html
         /// </summary>
         public string Name
         {
@@ -7201,6 +7932,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Get/set the value of the active property. The value must be specified as a string.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Val.html
+        /// </summary>
         public string Val
         {
             get
@@ -7237,6 +7973,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get i-th command
+        /// 
+        /// Original COM help: https://opendss.epri.com/Command.html
         /// </summary>
         public string Command(int i)
         {
@@ -7252,6 +7990,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get help string for i-th command
+        /// 
+        /// Original COM help: https://opendss.epri.com/CommandHelp.html
         /// </summary>
         public string CommandHelp(int i)
         {
@@ -7267,6 +8007,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get i-th option
+        /// 
+        /// Original COM help: https://opendss.epri.com/Option.html
         /// </summary>
         public string Option(int i)
         {
@@ -7282,6 +8024,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get help string for i-th option
+        /// 
+        /// Original COM help: https://opendss.epri.com/OptionHelp.html
         /// </summary>
         public string OptionHelp(int i)
         {
@@ -7297,6 +8041,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get present value of i-th option
+        /// 
+        /// Original COM help: https://opendss.epri.com/OptionValue.html
         /// </summary>
         public string OptionValue(int i)
         {
@@ -7312,6 +8058,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of DSS Executive Commands
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumCommands.html
         /// </summary>
         public int NumCommands
         {
@@ -7330,6 +8078,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of DSS Executive Options
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumOptions.html
         /// </summary>
         public int NumOptions
         {
@@ -7390,6 +8140,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Description of error for last operation
+        /// 
+        /// Original COM help: https://opendss.epri.com/Description1.html
         /// </summary>
         public string Description
         {
@@ -7401,6 +8153,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Error Number (returns current value and then resets to zero)
+        /// 
+        /// Original COM help: https://opendss.epri.com/Number.html
         /// </summary>
         public int Number
         {
@@ -7413,7 +8167,7 @@ namespace dss_sharp
         /// <summary>
         /// EarlyAbort controls whether all errors halts the DSS script processing (Compile/Redirect), defaults to true.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public bool EarlyAbort
         {
@@ -7459,7 +8213,7 @@ namespace dss_sharp
         /// The current default state is ON. For compatibility, the user can turn it
         /// off to restore the previous behavior.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public bool ExtendedErrors
         {
@@ -7653,6 +8407,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Close all phases of the fuse.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Close3.html
         /// </summary>
         public void Close()
         {
@@ -7668,6 +8424,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Current state of the fuses. TRUE if any fuse on any phase is blown. Else FALSE.
+        /// 
+        /// Original COM help: https://opendss.epri.com/IsBlown.html
         /// </summary>
         public bool IsBlown()
         {
@@ -7683,6 +8441,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Manual opening of all phases of the fuse.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Open2.html
         /// </summary>
         public void Open()
         {
@@ -7698,6 +8458,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Reset fuse to normal state.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Reset7.html
         /// </summary>
         public void Reset()
         {
@@ -7714,6 +8476,8 @@ namespace dss_sharp
         /// <summary>
         /// A fixed delay time in seconds added to the fuse blowing time determined by the TCC curve. Default is 0.
         /// This represents a fuse clear or other delay.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Delay1.html
         /// </summary>
         public double Delay
         {
@@ -7743,6 +8507,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Full name of the circuit element to which the fuse is connected.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MonitoredObj1.html
         /// </summary>
         public string MonitoredObj
         {
@@ -7772,6 +8538,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Terminal number to which the fuse is connected.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MonitoredTerm1.html
         /// </summary>
         public int MonitoredTerm
         {
@@ -7800,7 +8568,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Number of phases, this fuse.
+        /// Number of phases, this fuse. 
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumPhases1.html
         /// </summary>
         public int NumPhases
         {
@@ -7819,7 +8589,10 @@ namespace dss_sharp
 
         /// <summary>
         /// Multiplier or actual amps for the TCCcurve object. Defaults to 1.0. 
+        /// 
         /// Multiply current values of TCC curve by this to get actual amps.
+        /// 
+        /// Original COM help: https://opendss.epri.com/RatedCurrent.html
         /// </summary>
         public double RatedCurrent
         {
@@ -7850,6 +8623,8 @@ namespace dss_sharp
         /// <summary>
         /// Full name of the circuit element switch that the fuse controls. 
         /// Defaults to the MonitoredObj.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SwitchedObj.html
         /// </summary>
         public string SwitchedObj
         {
@@ -7879,6 +8654,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of the terminal of the controlled element containing the switch controlled by the fuse.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SwitchedTerm.html
         /// </summary>
         public int SwitchedTerm
         {
@@ -7908,6 +8685,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of the TCCcurve object that determines fuse blowing.
+        /// 
+        /// Original COM help: https://opendss.epri.com/TCCcurve.html
         /// </summary>
         public string TCCcurve
         {
@@ -7937,6 +8716,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of strings indicating the state of each phase of the fuse.
+        /// 
+        /// Original COM help: https://opendss.epri.com/State2.html
         /// </summary>
         public string[] State
         {
@@ -7966,6 +8747,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of strings indicating the normal state of each phase of the fuse.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NormalState2.html
         /// </summary>
         public string[] NormalState
         {
@@ -8134,6 +8917,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Magnitude of the ISource in amps
+        /// 
+        /// Original COM help: https://opendss.epri.com/Amps.html
         /// </summary>
         public double Amps
         {
@@ -8163,6 +8948,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Phase angle for ISource, degrees
+        /// 
+        /// Original COM help: https://opendss.epri.com/AngleDeg.html
         /// </summary>
         public double AngleDeg
         {
@@ -8192,6 +8979,8 @@ namespace dss_sharp
 
         /// <summary>
         /// The present frequency of the ISource, Hz
+        /// 
+        /// Original COM help: https://opendss.epri.com/Frequency.html
         /// </summary>
         public double Frequency
         {
@@ -8360,6 +9149,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Zero-sequence capacitance, nF per unit length
+        /// 
+        /// Original COM help: https://opendss.epri.com/C2.html
         /// </summary>
         public double C0
         {
@@ -8389,6 +9180,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Positive-sequence capacitance, nF per unit length
+        /// 
+        /// Original COM help: https://opendss.epri.com/C3.html
         /// </summary>
         public double C1
         {
@@ -8418,6 +9211,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Capacitance matrix, nF per unit length
+        /// 
+        /// Original COM help: https://opendss.epri.com/Cmatrix1.html
         /// </summary>
         public double[] Cmatrix
         {
@@ -8448,6 +9243,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Emergency ampere rating
+        /// 
+        /// Original COM help: https://opendss.epri.com/EmergAmps2.html
         /// </summary>
         public double EmergAmps
         {
@@ -8477,6 +9274,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Flag denoting whether impedance data were entered in symmetrical components
+        /// 
+        /// Original COM help: https://opendss.epri.com/IsZ1Z0.html
         /// </summary>
         public bool IsZ1Z0
         {
@@ -8495,6 +9294,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Normal Ampere rating
+        /// 
+        /// Original COM help: https://opendss.epri.com/NormAmps1.html
         /// </summary>
         public double NormAmps
         {
@@ -8524,6 +9325,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Phases
+        /// 
+        /// Original COM help: https://opendss.epri.com/Phases2.html
         /// </summary>
         public int Phases
         {
@@ -8553,6 +9356,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Zero-Sequence Resistance, ohms per unit length
+        /// 
+        /// Original COM help: https://opendss.epri.com/R2.html
         /// </summary>
         public double R0
         {
@@ -8582,6 +9387,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Positive-sequence resistance ohms per unit length
+        /// 
+        /// Original COM help: https://opendss.epri.com/R3.html
         /// </summary>
         public double R1
         {
@@ -8611,6 +9418,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Resistance matrix, ohms per unit length
+        /// 
+        /// Original COM help: https://opendss.epri.com/Rmatrix1.html
         /// </summary>
         public double[] Rmatrix
         {
@@ -8667,6 +9476,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Zero Sequence Reactance, Ohms per unit length
+        /// 
+        /// Original COM help: https://opendss.epri.com/X2.html
         /// </summary>
         public double X0
         {
@@ -8695,7 +9506,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Posiive-sequence reactance, ohms per unit length
+        /// Positive-sequence reactance, ohms per unit length
+        /// 
+        /// Original COM help: https://opendss.epri.com/X3.html
         /// </summary>
         public double X1
         {
@@ -8725,6 +9538,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Reactance matrix, ohms per unit length
+        /// 
+        /// Original COM help: https://opendss.epri.com/Xmatrix1.html
         /// </summary>
         public double[] Xmatrix
         {
@@ -8906,6 +9721,11 @@ namespace dss_sharp
         }
 
 
+        /// <summary>
+        /// Post-process monitor samples taken so far, e.g., Pst for mode=4.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Process.html
+        /// </summary>
         public void Process()
         {
             try
@@ -8918,6 +9738,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Post-process all monitor samples taken so far, e.g., Pst for mode=4.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ProcessAll.html
+        /// </summary>
         public void ProcessAll()
         {
             try
@@ -8930,6 +9755,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Reset active Monitor object.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Reset3.html
+        /// </summary>
         public void Reset()
         {
             try
@@ -8942,6 +9772,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Reset all Monitor objects.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ResetAll1.html
+        /// </summary>
         public void ResetAll()
         {
             try
@@ -8954,6 +9789,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Instruct the active Monitor to take a sample of the present state.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Sample2.html
+        /// </summary>
         public void Sample()
         {
             try
@@ -8966,6 +9806,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Instruct all Monitor objects to take a sample of the present state.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SampleAll1.html
+        /// </summary>
         public void SampleAll()
         {
             try
@@ -8978,6 +9823,15 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Instructs the active monitor to save its current sample buffer to its monitor stream. 
+        /// 
+        /// After the data is on the stream, you can access the ByteStream or channel data. 
+        /// 
+        /// **Most standard solution modes do this automatically.**
+        /// 
+        /// Original COM help: https://opendss.epri.com/Save1.html
+        /// </summary>
         public void Save()
         {
             try
@@ -8990,6 +9844,13 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Instructs the all monitor objects to save their current sample buffers to the respective monitor streams.
+        /// 
+        /// **Most standard solution modes do this automatically.**
+        /// 
+        /// Original COM help: https://opendss.epri.com/SaveAll1.html
+        /// </summary>
         public void SaveAll()
         {
             try
@@ -9002,6 +9863,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Convert the monitor data to text and displays it with the text editor.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Show3.html
+        /// </summary>
         public void Show()
         {
             try
@@ -9016,6 +9882,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Byte Array containing monitor stream values. Make sure a "save" is done first (standard solution modes do this automatically)
+        /// 
+        /// Original COM help: https://opendss.epri.com/ByteStream.html
         /// </summary>
         public byte[] ByteStream
         {
@@ -9035,6 +9903,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Full object name of element being monitored.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Element.html
         /// </summary>
         public string Element
         {
@@ -9064,6 +9934,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of CSV file associated with active Monitor.
+        /// 
+        /// Original COM help: https://opendss.epri.com/FileName.html
         /// </summary>
         public string FileName
         {
@@ -9082,6 +9954,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Monitor File Version (integer)
+        /// 
+        /// Original COM help: https://opendss.epri.com/FileVersion.html
         /// </summary>
         public int FileVersion
         {
@@ -9100,6 +9974,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Header string;  Array of strings containing Channel names
+        /// 
+        /// Original COM help: https://opendss.epri.com/Header.html
         /// </summary>
         public string[] Header
         {
@@ -9118,6 +9994,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Set Monitor mode (bitmask integer - see DSS Help)
+        /// 
+        /// Original COM help: https://opendss.epri.com/Mode1.html
         /// </summary>
         public int Mode
         {
@@ -9147,6 +10025,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Channels in the active Monitor
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumChannels.html
         /// </summary>
         public int NumChannels
         {
@@ -9165,6 +10045,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Size of each record in ByteStream (Integer). Same as NumChannels.
+        /// 
+        /// Original COM help: https://opendss.epri.com/RecordSize.html
         /// </summary>
         public int RecordSize
         {
@@ -9183,6 +10065,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Samples in Monitor at Present
+        /// 
+        /// Original COM help: https://opendss.epri.com/SampleCount.html
         /// </summary>
         public int SampleCount
         {
@@ -9201,6 +10085,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Terminal number of element being monitored.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Terminal.html
         /// </summary>
         public int Terminal
         {
@@ -9230,6 +10116,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles containing frequency values for harmonics mode solutions; Empty for time mode solutions (use dblHour)
+        /// 
+        /// Original COM help: https://opendss.epri.com/dblFreq.html
         /// </summary>
         public double[] dblFreq
         {
@@ -9249,6 +10137,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles containing time value in hours for time-sampled monitor values; Empty if frequency-sampled values for harmonics solution (see dblFreq)
+        /// 
+        /// Original COM help: https://opendss.epri.com/dblHour.html
         /// </summary>
         public double[] dblHour
         {
@@ -9322,6 +10212,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Reset the delimiters to their default values.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ResetDelimiters.html
+        /// </summary>
         public void ResetDelimiters()
         {
             try
@@ -9335,7 +10230,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Default is FALSE. If TRUE parser automatically advances to next token after DblValue, IntValue, or StrValue. Simpler when you don't need to check for parameter names.
+        /// Default is FALSE. If TRUE, the parser automatically advances to next token after DblValue, IntValue, or StrValue. Simpler when you don't need to check for parameter names.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AutoIncrement.html
         /// </summary>
         public bool AutoIncrement
         {
@@ -9365,6 +10262,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/Set String containing the the characters for Quoting in OpenDSS scripts. Matching pairs defined in EndQuote. Default is "'([{.
+        /// 
+        /// Original COM help: https://opendss.epri.com/BeginQuote.html
         /// </summary>
         public string BeginQuote
         {
@@ -9394,6 +10293,8 @@ namespace dss_sharp
 
         /// <summary>
         /// String to be parsed. Loading this string resets the Parser to the beginning of the line. Then parse off the tokens in sequence.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CmdString.html
         /// </summary>
         public string CmdString
         {
@@ -9423,6 +10324,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Return next parameter as a double.
+        /// 
+        /// Original COM help: https://opendss.epri.com/DblValue.html
         /// </summary>
         public double DblValue
         {
@@ -9440,7 +10343,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// String defining hard delimiters used to separate token on the command string. Default is , and =. The = separates token name from token value. These override whitesspace to separate tokens.
+        /// String defining hard delimiters used to separate token on the command string. Default is , and =. The = separates token name from token value. These override whitespace to separate tokens.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Delimiters.html
         /// </summary>
         public string Delimiters
         {
@@ -9470,6 +10375,8 @@ namespace dss_sharp
 
         /// <summary>
         /// String containing characters, in order, that match the beginning quote characters in BeginQuote. Default is "')]}
+        /// 
+        /// Original COM help: https://opendss.epri.com/EndQuote.html
         /// </summary>
         public string EndQuote
         {
@@ -9499,6 +10406,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Return next parameter as a long integer.
+        /// 
+        /// Original COM help: https://opendss.epri.com/IntValue.html
         /// </summary>
         public int IntValue
         {
@@ -9517,6 +10426,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get next token and return tag name (before = sign) if any. See AutoIncrement.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NextParam.html
         /// </summary>
         public string NextParam
         {
@@ -9535,6 +10446,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Return next parameter as a string
+        /// 
+        /// Original COM help: https://opendss.epri.com/StrValue.html
         /// </summary>
         public string StrValue
         {
@@ -9553,6 +10466,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/set the characters used for White space in the command string.  Default is blank and Tab.
+        /// 
+        /// Original COM help: https://opendss.epri.com/WhiteSpace.html
         /// </summary>
         public string WhiteSpace
         {
@@ -9590,6 +10505,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Zmag (ohms) for Reduce Option for Z of short lines
+        /// 
+        /// Original COM help: https://opendss.epri.com/Zmag.html
         /// </summary>
         public double Zmag
         {
@@ -9618,7 +10535,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Keep load flag (T/F) for Reduction options that remove branches
+        /// Keep load flag for Reduction options that remove branches
+        /// 
+        /// Original COM help: https://opendss.epri.com/KeepLoad.html
         /// </summary>
         public bool KeepLoad
         {
@@ -9648,6 +10567,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Edit String for RemoveBranches functions
+        /// 
+        /// Original COM help: https://opendss.epri.com/EditString.html
         /// </summary>
         public string EditString
         {
@@ -9677,6 +10598,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Start element for Remove Branch function
+        /// 
+        /// Original COM help: https://opendss.epri.com/StartPDElement.html
         /// </summary>
         public string StartPDElement
         {
@@ -9705,7 +10628,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Name of Energymeter to use for reduction
+        /// Name of EnergyMeter to use for reduction
+        /// 
+        /// Original COM help: https://opendss.epri.com/EnergyMeter1.html
         /// </summary>
         public string EnergyMeter
         {
@@ -9751,6 +10676,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Do Default Reduction algorithm
+        /// 
+        /// Original COM help: https://opendss.epri.com/DoDefault.html
         /// </summary>
         public void DoDefault()
         {
@@ -9766,6 +10693,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Do ShortLines algorithm: Set Zmag first if you don't want the default
+        /// 
+        /// Original COM help: https://opendss.epri.com/DoShortLines.html
         /// </summary>
         public void DoShortLines()
         {
@@ -9781,6 +10710,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Reduce Dangling Algorithm; branches with nothing connected
+        /// 
+        /// Original COM help: https://opendss.epri.com/DoDangling.html
         /// </summary>
         public void DoDangling()
         {
@@ -9794,6 +10725,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Break (disable) all the loops found in the active circuit.
+        /// 
+        /// Disables one of the Line objects at the head of a loop to force the circuit to be radial.
+        /// </summary>
         public void DoLoopBreak()
         {
             try
@@ -9806,6 +10742,9 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Merge all parallel lines found in the circuit to facilitate its reduction.
+        /// </summary>
         public void DoParallelLines()
         {
             try
@@ -9818,6 +10757,9 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Merge Line objects in which the IsSwitch property is true with the down-line Line object.
+        /// </summary>
         public void DoSwitches()
         {
             try
@@ -9830,6 +10772,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Remove all 1-phase laterals in the active EnergyMeter's zone.
+        /// 
+        /// Loads and other shunt elements are moved to the parent 3-phase bus.
+        /// </summary>
         public void Do1phLaterals()
         {
             try
@@ -9842,6 +10789,13 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Remove (disable) all branches down-line from the active PDElement. 
+        /// 
+        /// Circuit must have an EnergyMeter on this branch.
+        /// If KeepLoad=Y (default), a new Load element is defined and kW, kvar are set to present power flow solution for the first element eliminated. 
+        /// The EditString is applied to each new Load element defined.
+        /// </summary>
         public void DoBranchRemove()
         {
             try
@@ -10044,6 +10998,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Type of device to add in AutoAdd Mode: {dssGen (Default) | dssCap}
+        /// 
+        /// Original COM help: https://opendss.epri.com/AddType.html
         /// </summary>
         public int AddType
         {
@@ -10072,7 +11028,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Base Solution algorithm: {dssNormalSolve | dssNewtonSolve}
+        /// Base Solution algorithm
+        /// 
+        /// Original COM help: https://opendss.epri.com/Algorithm.html
         /// </summary>
         public int Algorithm
         {
@@ -10102,6 +11060,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Capacitor kvar for adding capacitors in AutoAdd mode
+        /// 
+        /// Original COM help: https://opendss.epri.com/Capkvar.html
         /// </summary>
         public double Capkvar
         {
@@ -10131,6 +11091,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Flag indicating the control actions are done.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ControlActionsDone.html
         /// </summary>
         public bool ControlActionsDone
         {
@@ -10160,6 +11122,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Value of the control iteration counter
+        /// 
+        /// Original COM help: https://opendss.epri.com/ControlIterations.html
         /// </summary>
         public int ControlIterations
         {
@@ -10188,7 +11152,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// {dssStatic* | dssEvent | dssTime}  Modes for control devices
+        /// Modes for control devices
+        /// 
+        /// Original COM help: https://opendss.epri.com/ControlMode.html
         /// </summary>
         public int ControlMode
         {
@@ -10218,6 +11184,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Flag to indicate whether the circuit solution converged
+        /// 
+        /// Original COM help: https://opendss.epri.com/Converged.html
         /// </summary>
         public bool Converged
         {
@@ -10247,6 +11215,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Default daily load shape (defaults to "Default")
+        /// 
+        /// Original COM help: https://opendss.epri.com/DefaultDaily.html
         /// </summary>
         public string DefaultDaily
         {
@@ -10276,6 +11246,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Default Yearly load shape (defaults to "Default")
+        /// 
+        /// Original COM help: https://opendss.epri.com/DefaultYearly.html
         /// </summary>
         public string DefaultYearly
         {
@@ -10305,6 +11277,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of strings containing the Event Log
+        /// 
+        /// Original COM help: https://opendss.epri.com/EventLog.html
         /// </summary>
         public string[] EventLog
         {
@@ -10323,6 +11297,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Set the Frequency for next solution
+        /// 
+        /// Original COM help: https://opendss.epri.com/Frequency1.html
         /// </summary>
         public double Frequency
         {
@@ -10352,6 +11328,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Default Multiplier applied to generators (like LoadMult)
+        /// 
+        /// Original COM help: https://opendss.epri.com/GenMult.html
         /// </summary>
         public double GenMult
         {
@@ -10381,6 +11359,8 @@ namespace dss_sharp
 
         /// <summary>
         /// PF for generators in AutoAdd mode
+        /// 
+        /// Original COM help: https://opendss.epri.com/GenPF.html
         /// </summary>
         public double GenPF
         {
@@ -10410,6 +11390,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Generator kW for AutoAdd mode
+        /// 
+        /// Original COM help: https://opendss.epri.com/GenkW.html
         /// </summary>
         public double GenkW
         {
@@ -10439,6 +11421,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Set Hour for time series solutions.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Hour.html
         /// </summary>
         public int Hour
         {
@@ -10497,6 +11481,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of iterations taken for last solution. (Same as Totaliterations)
+        /// 
+        /// Original COM help: https://opendss.epri.com/Iterations.html
         /// </summary>
         public int Iterations
         {
@@ -10515,6 +11501,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Load-Duration Curve name for LD modes
+        /// 
+        /// Original COM help: https://opendss.epri.com/LDCurve.html
         /// </summary>
         public string LDCurve
         {
@@ -10544,6 +11532,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Load Model: {dssPowerFlow (default) | dssAdmittance}
+        /// 
+        /// Original COM help: https://opendss.epri.com/LoadModel.html
         /// </summary>
         public int LoadModel
         {
@@ -10573,6 +11563,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Default load multiplier applied to all non-fixed loads
+        /// 
+        /// Original COM help: https://opendss.epri.com/LoadMult.html
         /// </summary>
         public double LoadMult
         {
@@ -10602,6 +11594,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Maximum allowable control iterations
+        /// 
+        /// Original COM help: https://opendss.epri.com/MaxControlIterations.html
         /// </summary>
         public int MaxControlIterations
         {
@@ -10631,6 +11625,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Max allowable iterations.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MaxIterations.html
         /// </summary>
         public int MaxIterations
         {
@@ -10660,6 +11656,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Minimum number of iterations required for a power flow solution.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MinIterations.html
         /// </summary>
         public int MinIterations
         {
@@ -10689,6 +11687,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Set present solution mode
+        /// 
+        /// Original COM help: https://opendss.epri.com/Mode2.html
         /// </summary>
         public int Mode
         {
@@ -10718,6 +11718,8 @@ namespace dss_sharp
 
         /// <summary>
         /// ID (text) of the present solution mode
+        /// 
+        /// Original COM help: https://opendss.epri.com/ModeID.html
         /// </summary>
         public string ModeID
         {
@@ -10736,6 +11738,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Max number of iterations required to converge at any control iteration of the most recent solution.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MostIterationsDone.html
         /// </summary>
         public int MostIterationsDone
         {
@@ -10754,6 +11758,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of solutions to perform for Monte Carlo and time series simulations
+        /// 
+        /// Original COM help: https://opendss.epri.com/Number1.html
         /// </summary>
         public int Number
         {
@@ -10783,6 +11789,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Gets the time required to perform the latest solution (Read only)
+        /// 
+        /// Original COM help: https://opendss.epri.com/Process_Time.html
         /// </summary>
         public double Process_Time
         {
@@ -10801,6 +11809,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Randomization mode for random variables "Gaussian" or "Uniform"
+        /// 
+        /// Original COM help: https://opendss.epri.com/Random.html
         /// </summary>
         public int Random
         {
@@ -10830,6 +11840,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Seconds from top of the hour.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Seconds.html
         /// </summary>
         public double Seconds
         {
@@ -10859,6 +11871,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Time step size in sec
+        /// 
+        /// Original COM help: https://opendss.epri.com/StepSize.html
         /// </summary>
         public double StepSize
         {
@@ -10888,6 +11902,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Flag that indicates if elements of the System Y have been changed by recent activity.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SystemYChanged.html
         /// </summary>
         public bool SystemYChanged
         {
@@ -10906,6 +11922,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get the solution process time + sample time for time step
+        /// 
+        /// Original COM help: https://opendss.epri.com/Time_of_Step.html
         /// </summary>
         public double Time_of_Step
         {
@@ -10924,6 +11942,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Solution convergence tolerance.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Tolerance.html
         /// </summary>
         public double Tolerance
         {
@@ -10953,6 +11973,10 @@ namespace dss_sharp
 
         /// <summary>
         /// Gets/sets the accumulated time of the simulation
+        /// 
+        /// This accumulator has to be reset manually.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Total_Time.html
         /// </summary>
         public double Total_Time
         {
@@ -10982,6 +12006,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total iterations including control iterations for most recent solution.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Totaliterations.html
         /// </summary>
         public int Totaliterations
         {
@@ -11000,6 +12026,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Set year for planning studies
+        /// 
+        /// Original COM help: https://opendss.epri.com/Year.html
         /// </summary>
         public int Year
         {
@@ -11029,6 +12057,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Hour as a double, including fractional part
+        /// 
+        /// Original COM help: https://opendss.epri.com/dblHour1.html
         /// </summary>
         public double dblHour
         {
@@ -11058,6 +12088,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Percent default  annual load growth rate
+        /// 
+        /// Original COM help: https://opendss.epri.com/pctGrowth.html
         /// </summary>
         public double pctGrowth
         {
@@ -11121,6 +12153,16 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Bus levels for all the buses in the model. 
+        /// 
+        /// The bus levels are calculated after calculating the incidence branch-to-node (B2N) 
+        /// matrix and they represent the distance from the buses to a reference that goes from
+        /// the feeder head to the farthest bus in the model. The bus level index matches with
+        /// the bus list obtained with the circuit interface.
+        /// 
+        /// Original COM help: https://opendss.epri.com/BusLevels.html
+        /// </summary>
         public int[] BusLevels
         {
             get
@@ -11137,6 +12179,17 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Incidence branch-to-node (B2N) matrix calculated for the model as a vector of integers.
+        /// 
+        /// The vector represents a sparse matrix (non-zero values are the only ones delivered) and
+        /// can be interpreted as follows: The first element is the row number, the second one is
+        /// the column and the third is the value, this way, by dividing the number of elements
+        /// in the array by 3 the user can obtain the number of rows in case of wanting to sort 
+        /// the vector values within a matrix.
+        /// 
+        /// Original COM help: https://opendss.epri.com/IncMatrix.html
+        /// </summary>
         public int[] IncMatrix
         {
             get
@@ -11153,6 +12206,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Names of the columns of the branch-to-node (B2N) matrix.
+        /// 
+        /// Original COM help: https://opendss.epri.com/IncMatrixCols.html
+        /// </summary>
         public string[] IncMatrixCols
         {
             get
@@ -11168,6 +12226,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Names of the rows of the branch-to-node (B2N) matrix.
+        /// 
+        /// Original COM help: https://opendss.epri.com/IncMatrixRows.html
+        /// </summary>
         public string[] IncMatrixRows
         {
             get
@@ -11183,6 +12246,18 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Laplacian matrix calculated in OpenDSS based on the latest branch-to-node (B2N) matrix.
+        /// 
+        /// The vector represents a sparse matrix (non-zero values are the only ones delivered) and
+        /// can be interpreted as follows: The first element is the row number, the second one is
+        /// the column and the third is the value, this way, by dividing the number of elements
+        /// in the array by 3 the user can obtain the number of rows in case of wanting to sort
+        /// the vector values within a matrix. The tables for the columns and rows are the same
+        /// as the columns for the B2N columns (square matrix).        
+        /// 
+        /// Original COM help: https://opendss.epri.com/Laplacian.html
+        /// </summary>
         public int[] Laplacian
         {
             get
@@ -11198,6 +12273,11 @@ namespace dss_sharp
                 }
             }
         }
+        /// <summary>
+        /// Solves all the circuits (Actors) loaded into memory by the user.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SolveAll.html
+        /// </summary>
         public void SolveAll()
         {
             try
@@ -12105,6 +13185,9 @@ namespace dss_sharp
         }
 
 
+        /// <summary>
+        /// Create a new LoadShape, with default parameters
+        /// </summary>
         public int New(string Name)
         {
             try
@@ -12117,6 +13200,9 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Normalize the LoadShape data inplace
+        /// </summary>
         public void Normalize()
         {
             try
@@ -12130,7 +13216,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Fixed interval time value, hours.
+        /// Fixed interval time value, in hours.
+        /// 
+        /// Original COM help: https://opendss.epri.com/HrInterval.html
         /// </summary>
         public double HrInterval
         {
@@ -12160,6 +13248,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Fixed Interval time value, in minutes
+        /// 
+        /// Original COM help: https://opendss.epri.com/MinInterval.html
         /// </summary>
         public double MinInterval
         {
@@ -12189,6 +13279,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/set Number of points in active Loadshape.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Npts.html
         /// </summary>
         public int Npts
         {
@@ -12216,6 +13308,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Base P value for normalization. Default is zero, meaning the peak will be used.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Pbase.html
+        /// </summary>
         public double PBase
         {
             get
@@ -12244,6 +13341,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles for the P multiplier in the Loadshape.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Pmult.html
         /// </summary>
         public double[] Pmult
         {
@@ -12274,6 +13373,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Base for normalizing Q curve. If left at zero, the peak value is used.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Qbase.html
         /// </summary>
         public double QBase
         {
@@ -12303,6 +13404,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles containing the Q multipliers.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Qmult.html
         /// </summary>
         public double[] Qmult
         {
@@ -12332,7 +13435,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Time array in hours correscponding to P and Q multipliers when the Interval=0.
+        /// Time array in hours corresponding to P and Q multipliers when the Interval=0.
+        /// 
+        /// Original COM help: https://opendss.epri.com/TimeArray.html
         /// </summary>
         public double[] TimeArray
         {
@@ -12363,6 +13468,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Boolean flag to let Loads know to use the actual value in the curve rather than use the value as a multiplier.
+        /// 
+        /// Original COM help: https://opendss.epri.com/UseActual.html
         /// </summary>
         public bool UseActual
         {
@@ -12390,6 +13497,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Fixed interval time value, in seconds.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Sinterval.html
+        /// </summary>
         public double sInterval
         {
             get
@@ -12420,7 +13532,7 @@ namespace dss_sharp
         /// Converts the current LoadShape data to float32/single precision.
         /// If there is no data or the data is already represented using float32, nothing is done.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public void UseFloat32()
         {
@@ -12438,7 +13550,7 @@ namespace dss_sharp
         /// Converts the current LoadShape data to float64/double precision.
         /// If there is no data or the data is already represented using float64, nothing is done.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public void UseFloat64()
         {
@@ -12593,6 +13705,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Factor for allocating loads by connected xfkva
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllocationFactor.html
         /// </summary>
         public double AllocationFactor
         {
@@ -12622,6 +13736,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of a loadshape with both Mult and Qmult, for CVR factors as a function of time.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CVRcurve.html
         /// </summary>
         public string CVRcurve
         {
@@ -12651,6 +13767,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Percent reduction in Q for percent reduction in V. Must be used with dssLoadModelCVR.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CVRvars.html
         /// </summary>
         public double CVRvars
         {
@@ -12680,6 +13798,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Percent reduction in P for percent reduction in V. Must be used with dssLoadModelCVR.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CVRwatts.html
         /// </summary>
         public double CVRwatts
         {
@@ -12709,6 +13829,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Factor relates average to peak kw.  Used for allocation with kwh and kwhdays
+        /// 
+        /// Original COM help: https://opendss.epri.com/Cfactor.html
         /// </summary>
         public double Cfactor
         {
@@ -12736,6 +13858,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Code number used to separate loads by class or group. No effect on the solution.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Class.html
+        /// </summary>
         public int Class
         {
             get
@@ -12764,6 +13891,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of the growthshape curve for yearly load growth factors.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Growth.html
         /// </summary>
         public string Growth
         {
@@ -12793,6 +13922,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Delta loads are connected line-to-line.
+        /// 
+        /// Original COM help: https://opendss.epri.com/IsDelta1.html
         /// </summary>
         public bool IsDelta
         {
@@ -12822,6 +13953,8 @@ namespace dss_sharp
 
         /// <summary>
         /// The Load Model defines variation of P and Q with voltage.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Model1.html
         /// </summary>
         public LoadModels Model
         {
@@ -12829,7 +13962,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return (LoadModels)DSS_CAPI.ctx_Loads_Get_Model(ctx);
+                    return (LoadModels)(DSS_CAPI.ctx_Loads_Get_Model(ctx));
                 }
                 finally
                 {
@@ -12851,6 +13984,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of customers in this load, defaults to one.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumCust1.html
         /// </summary>
         public int NumCust
         {
@@ -12880,6 +14015,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get or set Power Factor for Active Load. Specify leading PF as negative. Updates kvar based on present value of kW
+        /// 
+        /// Original COM help: https://opendss.epri.com/PF1.html
         /// </summary>
         public double PF
         {
@@ -12909,6 +14046,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Average percent of nominal load in Monte Carlo studies; only if no loadshape defined for this load.
+        /// 
+        /// Original COM help: https://opendss.epri.com/PctMean.html
         /// </summary>
         public double PctMean
         {
@@ -12938,6 +14077,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Percent standard deviation for Monte Carlo load studies; if there is no loadshape assigned to this load.
+        /// 
+        /// Original COM help: https://opendss.epri.com/PctStdDev.html
         /// </summary>
         public double PctStdDev
         {
@@ -12967,6 +14108,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Relative Weighting factor for the active LOAD
+        /// 
+        /// Original COM help: https://opendss.epri.com/RelWeight.html
         /// </summary>
         public double RelWeight
         {
@@ -12996,6 +14139,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Neutral resistance for wye-connected loads.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Rneut.html
         /// </summary>
         public double Rneut
         {
@@ -13024,7 +14169,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Name of harmonic current spectrrum shape.
+        /// Name of harmonic current spectrum shape.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Spectrum.html
         /// </summary>
         public string Spectrum
         {
@@ -13054,6 +14201,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Response to load multipliers: Fixed (growth only), Exempt (no LD curve), Variable (all).
+        /// 
+        /// Original COM help: https://opendss.epri.com/Status.html
         /// </summary>
         public LoadStatus Status
         {
@@ -13061,7 +14210,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return (LoadStatus)DSS_CAPI.ctx_Loads_Get_Status(ctx);
+                    return (LoadStatus)(DSS_CAPI.ctx_Loads_Get_Status(ctx));
                 }
                 finally
                 {
@@ -13083,6 +14232,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Maximum per-unit voltage to use the load model. Above this, constant Z applies.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Vmaxpu1.html
         /// </summary>
         public double Vmaxpu
         {
@@ -13112,6 +14263,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Minimum voltage for unserved energy (UE) evaluation.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Vminemerg.html
         /// </summary>
         public double Vminemerg
         {
@@ -13141,6 +14294,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Minimum voltage for energy exceeding normal (EEN) evaluations.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Vminnorm.html
         /// </summary>
         public double Vminnorm
         {
@@ -13170,6 +14325,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Minimum voltage to apply the load model. Below this, constant Z is used.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Vminpu1.html
         /// </summary>
         public double Vminpu
         {
@@ -13199,6 +14356,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Neutral reactance for wye-connected loads.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Xneut.html
         /// </summary>
         public double Xneut
         {
@@ -13228,6 +14387,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of yearly duration loadshape
+        /// 
+        /// Original COM help: https://opendss.epri.com/Yearly.html
         /// </summary>
         public string Yearly
         {
@@ -13257,6 +14418,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of 7 doubles with values for ZIPV property of the load object
+        /// 
+        /// Original COM help: https://opendss.epri.com/ZIPV.html
         /// </summary>
         public double[] ZIPV
         {
@@ -13287,6 +14450,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of the loadshape for a daily load profile.
+        /// 
+        /// Original COM help: https://opendss.epri.com/daily.html
         /// </summary>
         public string daily
         {
@@ -13316,6 +14481,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of the loadshape for a duty cycle simulation.
+        /// 
+        /// Original COM help: https://opendss.epri.com/duty.html
         /// </summary>
         public string duty
         {
@@ -13344,7 +14511,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Set kV rating for active Load. For 2 or more phases set Line-Line kV. Else actual kV across terminals.
+        /// kV rating for active Load. For 2 or more phases set Line-Line kV. Else actual kV across terminals.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kV2.html
         /// </summary>
         public double kV
         {
@@ -13374,6 +14543,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Set kW for active Load. Updates kvar based on present PF.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kW1.html
         /// </summary>
         public double kW
         {
@@ -13403,6 +14574,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Base load kva. Also defined kw and kvar or pf input, or load allocation by kwh or xfkva.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kva.html
         /// </summary>
         public double kva
         {
@@ -13431,7 +14604,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Get/set kvar for active Load. If set, updates PF based on present kW.
+        /// Reactive power in kvar for active Load. If set, updates PF based on present kW.
+        /// 
+        ///         Original COM help: https://opendss.epri.com/kvar1.html
         /// </summary>
         public double kvar
         {
@@ -13460,7 +14635,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// kwh billed for this period. Can be used with Cfactor for load allocation.
+        /// kWh billed for this period. Can be used with Cfactor for load allocation.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kwh.html
         /// </summary>
         public double kwh
         {
@@ -13489,7 +14666,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Length of kwh billing period for average demand calculation. Default 30.
+        /// Length of kWh billing period for average demand calculation. Default 30.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kwhdays.html
         /// </summary>
         public double kwhdays
         {
@@ -13519,6 +14698,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Percent of Load that is modeled as series R-L for harmonics studies
+        /// 
+        /// Original COM help: https://opendss.epri.com/pctSeriesRL.html
         /// </summary>
         public double pctSeriesRL
         {
@@ -13548,6 +14729,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Rated service transformer kVA for load allocation, using AllocationFactor. Affects kW, kvar, and pf.
+        /// 
+        /// Original COM help: https://opendss.epri.com/xfkVA.html
         /// </summary>
         public double xfkVA
         {
@@ -13577,6 +14760,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of the sensor monitoring this load.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Sensor.html
         /// </summary>
         public string Sensor
         {
@@ -13596,7 +14781,7 @@ namespace dss_sharp
         /// <summary>
         /// Number of phases
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public int Phases
         {
@@ -13781,6 +14966,11 @@ namespace dss_sharp
         }
 
 
+        /// <summary>
+        /// Close All Demand Interval Files. Users are required to close the DI files at the end of a run.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CloseAllDIFiles.html
+        /// </summary>
         public void CloseAllDIFiles()
         {
             try
@@ -13793,6 +14983,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Calculate reliability indices
+        /// 
+        /// Original COM help: https://opendss.epri.com/DoReliabilityCalc.html
+        /// </summary>
         public void DoReliabilityCalc(bool AssumeRestoration)
         {
             try
@@ -13805,6 +15000,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Open Demand Interval (DI) files
+        /// 
+        /// Original COM help: https://opendss.epri.com/OpenAllDIFiles.html
+        /// </summary>
         public void OpenAllDIFiles()
         {
             try
@@ -13817,6 +15017,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Resets registers of active meter.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Reset2.html
+        /// </summary>
         public void Reset()
         {
             try
@@ -13829,6 +15034,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Resets registers of all meter objects.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ResetAll.html
+        /// </summary>
         public void ResetAll()
         {
             try
@@ -13841,6 +15051,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Forces active Meter to take a sample.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Sample1.html
+        /// </summary>
         public void Sample()
         {
             try
@@ -13853,6 +15068,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Causes all EnergyMeter objects to take a sample at the present time.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SampleAll.html
+        /// </summary>
         public void SampleAll()
         {
             try
@@ -13865,6 +15085,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Saves meter register values.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Save.html
+        /// </summary>
         public void Save()
         {
             try
@@ -13877,6 +15102,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Save All EnergyMeter objects
+        /// 
+        /// Original COM help: https://opendss.epri.com/SaveAll.html
+        /// </summary>
         public void SaveAll()
         {
             try
@@ -13902,7 +15132,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Wide string list of all branches in zone of the active energymeter object.
+        /// Wide string list of all branches in zone of the active EnergyMeter object.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllBranchesInZone.html
         /// </summary>
         public string[] AllBranchesInZone
         {
@@ -13921,6 +15153,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of names of all zone end elements.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllEndElements.html
         /// </summary>
         public string[] AllEndElements
         {
@@ -13939,6 +15173,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles: set the phase allocation factors for the active meter.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllocFactors.html
         /// </summary>
         public double[] AllocFactors
         {
@@ -13969,6 +15205,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Average Repair time in this section of the meter zone
+        /// 
+        /// Original COM help: https://opendss.epri.com/AvgRepairTime.html
         /// </summary>
         public double AvgRepairTime
         {
@@ -13987,6 +15225,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Set the magnitude of the real part of the Calculated Current (normally determined by solution) for the Meter to force some behavior on Load Allocation
+        /// 
+        /// Original COM help: https://opendss.epri.com/CalcCurrent.html
         /// </summary>
         public double[] CalcCurrent
         {
@@ -14016,7 +15256,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Number of branches in Active energymeter zone. (Same as sequencelist size)
+        /// Number of branches in Active EnergyMeter zone. (Same as sequence list size)
+        /// 
+        /// Original COM help: https://opendss.epri.com/CountBranches.html
         /// </summary>
         public int CountBranches
         {
@@ -14035,6 +15277,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of zone end elements in the active meter zone.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CountEndElements.html
         /// </summary>
         public int CountEndElements
         {
@@ -14053,6 +15297,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total customer interruptions for this Meter zone based on reliability calcs.
+        /// 
+        /// Original COM help: https://opendss.epri.com/CustInterrupts.html
         /// </summary>
         public double CustInterrupts
         {
@@ -14071,6 +15317,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Global Flag in the DSS to indicate if Demand Interval (DI) files have been properly opened.
+        /// 
+        /// Original COM help: https://opendss.epri.com/DIFilesAreOpen.html
         /// </summary>
         public bool DIFilesAreOpen
         {
@@ -14089,6 +15337,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Sum of Fault Rate time Repair Hrs in this section of the meter zone
+        /// 
+        /// Original COM help: https://opendss.epri.com/FaultRateXRepairHrs.html
         /// </summary>
         public double FaultRateXRepairHrs
         {
@@ -14106,7 +15356,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Set Name of metered element
+        /// Name of metered element
+        /// 
+        /// Original COM help: https://opendss.epri.com/MeteredElement.html
         /// </summary>
         public string MeteredElement
         {
@@ -14135,7 +15387,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// set Number of Metered Terminal
+        /// Number of Metered Terminal
+        /// 
+        /// Original COM help: https://opendss.epri.com/MeteredTerminal.html
         /// </summary>
         public int MeteredTerminal
         {
@@ -14165,6 +15419,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of branches (lines) in this section
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumSectionBranches.html
         /// </summary>
         public int NumSectionBranches
         {
@@ -14183,6 +15439,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Customers in the active section.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumSectionCustomers.html
         /// </summary>
         public int NumSectionCustomers
         {
@@ -14201,6 +15459,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of feeder sections in this meter's zone
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumSections.html
         /// </summary>
         public int NumSections
         {
@@ -14219,6 +15479,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Type of OCP device. 1=Fuse; 2=Recloser; 3=Relay
+        /// 
+        /// Original COM help: https://opendss.epri.com/OCPDeviceType.html
         /// </summary>
         public int OCPDeviceType
         {
@@ -14226,7 +15488,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Meters_Get_OCPDeviceType(ctx);
+                    return /*OCPDevType*/(DSS_CAPI.ctx_Meters_Get_OCPDeviceType(ctx));
                 }
                 finally
                 {
@@ -14237,6 +15499,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles to set values of Peak Current property
+        /// 
+        /// Original COM help: https://opendss.epri.com/Peakcurrent.html
         /// </summary>
         public double[] Peakcurrent
         {
@@ -14267,6 +15531,12 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of strings containing the names of the registers.
+        /// 
+        /// See also the enum `EnergyMeterRegisters` for the standard register names.
+        /// Besides those listed in the enumeration, users may need to check `RegisterNames`
+        /// in order to find a specific register index at runtime.
+        /// 
+        /// Original COM help: https://opendss.epri.com/RegisterNames1.html
         /// </summary>
         public string[] RegisterNames
         {
@@ -14285,6 +15555,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of all the values contained in the Meter registers for the active Meter.
+        /// 
+        /// Original COM help: https://opendss.epri.com/RegisterValues1.html
         /// </summary>
         public double[] RegisterValues
         {
@@ -14304,6 +15576,8 @@ namespace dss_sharp
 
         /// <summary>
         /// SAIDI for this meter's zone. Execute DoReliabilityCalc first.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SAIDI.html
         /// </summary>
         public double SAIDI
         {
@@ -14322,6 +15596,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Returns SAIFI for this meter's Zone. Execute Reliability Calc method first.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SAIFI.html
         /// </summary>
         public double SAIFI
         {
@@ -14340,6 +15616,8 @@ namespace dss_sharp
 
         /// <summary>
         /// SAIFI based on kW rather than number of customers. Get after reliability calcs.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SAIFIKW.html
         /// </summary>
         public double SAIFIKW
         {
@@ -14358,6 +15636,8 @@ namespace dss_sharp
 
         /// <summary>
         /// SequenceIndex of the branch at the head of this section
+        /// 
+        /// Original COM help: https://opendss.epri.com/SectSeqIdx.html
         /// </summary>
         public int SectSeqIdx
         {
@@ -14376,6 +15656,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total Customers downline from this section
+        /// 
+        /// Original COM help: https://opendss.epri.com/SectTotalCust.html
         /// </summary>
         public int SectTotalCust
         {
@@ -14393,7 +15675,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Size of Sequence List
+        /// Size of the Sequence List
+        /// 
+        /// Original COM help: https://opendss.epri.com/SeqListSize.html
         /// </summary>
         public int SeqListSize
         {
@@ -14411,7 +15695,10 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Get/set Index into Meter's SequenceList that contains branch pointers in lexical order. Earlier index guaranteed to be upline from later index. Sets PDelement active.
+        /// Get/set Index into Meter's SequenceList that contains branch pointers in lexical order. 
+        /// Earlier index guaranteed to be upline from later index. Sets PDelement active.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SequenceIndex.html
         /// </summary>
         public int SequenceIndex
         {
@@ -14441,6 +15728,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Sum of the branch fault rates in this section of the meter's zone
+        /// 
+        /// Original COM help: https://opendss.epri.com/SumBranchFltRates.html
         /// </summary>
         public double SumBranchFltRates
         {
@@ -14459,6 +15748,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total Number of customers in this zone (downline from the EnergyMeter)
+        /// 
+        /// Original COM help: https://opendss.epri.com/TotalCustomers.html
         /// </summary>
         public int TotalCustomers
         {
@@ -14477,6 +15768,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Totals of all registers of all meters
+        /// 
+        /// Original COM help: https://opendss.epri.com/Totals.html
         /// </summary>
         public double[] Totals
         {
@@ -14504,7 +15797,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// accummulated failure rate for this branch on downline
+        /// Accumulated failure rate for this branch on downline
+        /// 
+        /// Original COM help: https://opendss.epri.com/AccumulatedL.html
         /// </summary>
         public double AccumulatedL
         {
@@ -14523,6 +15818,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of PD elements (including disabled elements)
+        /// 
+        /// Original COM help: https://opendss.epri.com/Count12.html
         /// </summary>
         public int Count
         {
@@ -14629,6 +15926,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Failure rate for this branch. Faults per year including length of line.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Lambda1.html
         /// </summary>
         public double Lambda
         {
@@ -14696,6 +15995,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of customers, this branch
+        /// 
+        /// Original COM help: https://opendss.epri.com/Numcustomers.html
         /// </summary>
         public int Numcustomers
         {
@@ -14733,6 +16034,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Average repair time for this element in hours
+        /// 
+        /// Original COM help: https://opendss.epri.com/RepairTime.html
         /// </summary>
         public double RepairTime
         {
@@ -14762,6 +16065,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Integer ID of the feeder section that this PDElement branch is part of
+        /// 
+        /// Original COM help: https://opendss.epri.com/SectionID1.html
         /// </summary>
         public int SectionID
         {
@@ -14780,6 +16085,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total miles of line from this element to the end of the zone. For recloser siting algorithm.
+        /// 
+        /// Original COM help: https://opendss.epri.com/TotalMiles1.html
         /// </summary>
         public double TotalMiles
         {
@@ -14798,6 +16105,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Total number of customers from this branch to the end of the zone
+        /// 
+        /// Original COM help: https://opendss.epri.com/TotalCustomers1.html
         /// </summary>
         public int Totalcustomers
         {
@@ -14816,6 +16125,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/Set percent of faults that are permanent (require repair). Otherwise, fault is assumed to be transient/temporary.
+        /// 
+        /// Original COM help: https://opendss.epri.com/pctPermanent.html
         /// </summary>
         public double pctPermanent
         {
@@ -14846,7 +16157,7 @@ namespace dss_sharp
         /// <summary>
         /// Array of strings consisting of all PD element names.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string[] AllNames
         {
@@ -14873,7 +16184,7 @@ namespace dss_sharp
         /// See also: 
         /// https://sourceforge.net/p/electricdss/discussion/beginners/thread/da5b93ca/
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double[] AllMaxCurrents(bool AllNodes=false)
         {
@@ -14899,7 +16210,7 @@ namespace dss_sharp
         /// See also: 
         /// https://sourceforge.net/p/electricdss/discussion/beginners/thread/da5b93ca/
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double[] AllPctNorm(bool AllNodes=false)
         {
@@ -14925,7 +16236,7 @@ namespace dss_sharp
         /// See also: 
         /// https://sourceforge.net/p/electricdss/discussion/beginners/thread/da5b93ca/
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double[] AllPctEmerg(bool AllNodes=false)
         {
@@ -14943,7 +16254,7 @@ namespace dss_sharp
         /// <summary>
         /// Complex array of currents for all conductors, all terminals, for each PD element.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double[] AllCurrents
         {
@@ -14964,7 +16275,7 @@ namespace dss_sharp
         /// <summary>
         /// Complex array (magnitude and angle format) of currents for all conductors, all terminals, for each PD element.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double[] AllCurrentsMagAng
         {
@@ -14985,7 +16296,7 @@ namespace dss_sharp
         /// <summary>
         /// Complex double array of Sequence Currents for all conductors of all terminals, for each PD elements.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double[] AllCplxSeqCurrents
         {
@@ -15006,7 +16317,7 @@ namespace dss_sharp
         /// <summary>
         /// Double array of the symmetrical component currents (magnitudes only) into each 3-phase terminal, for each PD element.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double[] AllSeqCurrents
         {
@@ -15027,7 +16338,7 @@ namespace dss_sharp
         /// <summary>
         /// Complex array of powers into each conductor of each terminal, for each PD element.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double[] AllPowers
         {
@@ -15046,9 +16357,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Complex array of sequence powers into each 3-phase teminal, for each PD element
+        /// Complex array of sequence powers into each 3-phase terminal, for each PD element
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double[] AllSeqPowers
         {
@@ -15069,7 +16380,7 @@ namespace dss_sharp
         /// <summary>
         /// Integer array listing the number of phases of all PD elements
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public int[] AllNumPhases
         {
@@ -15090,7 +16401,7 @@ namespace dss_sharp
         /// <summary>
         /// Integer array listing the number of conductors of all PD elements
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public int[] AllNumConductors
         {
@@ -15111,7 +16422,7 @@ namespace dss_sharp
         /// <summary>
         /// Integer array listing the number of terminals of all PD elements
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public int[] AllNumTerminals
         {
@@ -15270,6 +16581,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/set the present value of the Irradiance property in kW/m²
+        /// 
+        /// Original COM help: https://opendss.epri.com/Irradiance.html
         /// </summary>
         public double Irradiance
         {
@@ -15299,6 +16612,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/set the power factor for the active PVSystem
+        /// 
+        /// Original COM help: https://opendss.epri.com/PF2.html
         /// </summary>
         public double PF
         {
@@ -15327,7 +16642,11 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Array of PVSYSTEM energy meter register names
+        /// Array of PVSystem energy meter register names
+        /// 
+        /// See also the enum `GeneratorRegisters`.
+        /// 
+        /// Original COM help: https://opendss.epri.com/RegisterNames2.html
         /// </summary>
         public string[] RegisterNames
         {
@@ -15346,6 +16665,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles containing values in PVSystem registers.
+        /// 
+        /// Original COM help: https://opendss.epri.com/RegisterValues2.html
         /// </summary>
         public double[] RegisterValues
         {
@@ -15365,6 +16686,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/set Rated kVA of the PVSystem
+        /// 
+        /// Original COM help: https://opendss.epri.com/kVArated1.html
         /// </summary>
         public double kVArated
         {
@@ -15394,6 +16717,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get kW output
+        /// 
+        /// Original COM help: https://opendss.epri.com/kW2.html
         /// </summary>
         public double kW
         {
@@ -15412,6 +16737,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/set kvar output value
+        /// 
+        /// Original COM help: https://opendss.epri.com/kvar2.html
         /// </summary>
         public double kvar
         {
@@ -15444,7 +16771,7 @@ namespace dss_sharp
         /// defined as a Loadshape object of 24 hrs, typically. In the default dispatch
         /// mode, the PVSystem element uses this loadshape to trigger State changes.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string daily
         {
@@ -15477,7 +16804,7 @@ namespace dss_sharp
         /// for solar ramp rate studies. Must be previously defined as a Loadshape
         /// object. Typically would have time intervals of 1-5 seconds.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string duty
         {
@@ -15511,7 +16838,7 @@ namespace dss_sharp
         /// if any, is repeated during Yearly solution modes. In the default dispatch
         /// mode, the PVSystem element uses this loadshape to trigger State changes.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string yearly
         {
@@ -15545,7 +16872,7 @@ namespace dss_sharp
         /// TShape to determine the Pmpp from the Pmpp vs T curve. Units must agree
         /// with the Pmpp vs T curve.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string Tdaily
         {
@@ -15582,7 +16909,7 @@ namespace dss_sharp
         /// model uses this TShape to determine the Pmpp from the Pmpp vs T curve.
         /// Units must agree with the Pmpp vs T curve.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string Tduty
         {
@@ -15617,7 +16944,7 @@ namespace dss_sharp
         /// this TShape to determine the Pmpp from the Pmpp vs T curve. Units must
         /// agree with the Pmpp vs T curve.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public string Tyearly
         {
@@ -15648,6 +16975,8 @@ namespace dss_sharp
         /// <summary>
         /// Returns the current irradiance value for the active PVSystem. Use it to 
         /// know what's the current irradiance value for the PV during a simulation.
+        /// 
+        /// Original COM help: https://opendss.epri.com/IrradianceNow.html
         /// </summary>
         public double IrradianceNow
         {
@@ -15665,8 +16994,10 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Gets/sets the rated max power of the PV array for 1.0 kW/sq-m irradiance 
+        /// Gets/sets the rated max power of the PV array for 1.0 kW/m² irradiance 
         /// and a user-selected array temperature of the active PVSystem.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Pmpp.html
         /// </summary>
         public double Pmpp
         {
@@ -15696,6 +17027,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of the sensor monitoring this element.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Sensor1.html
         /// </summary>
         public string Sensor
         {
@@ -16608,7 +17941,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Ground (3I0) instantaneous trip setting - curve multipler or actual amps.
+        /// Ground (3I0) instantaneous trip setting - curve multiplier or actual amps.
+        /// 
+        /// Original COM help: https://opendss.epri.com/GroundInst.html
         /// </summary>
         public double GroundInst
         {
@@ -16638,6 +17973,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Ground (3I0) trip multiplier or actual amps
+        /// 
+        /// Original COM help: https://opendss.epri.com/GroundTrip.html
         /// </summary>
         public double GroundTrip
         {
@@ -16667,6 +18004,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Full name of object this Recloser to be monitored.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MonitoredObj2.html
         /// </summary>
         public string MonitoredObj
         {
@@ -16695,7 +18034,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Terminal number of Monitored object for the Recloser
+        /// Terminal number of Monitored object for the Recloser 
+        /// 
+        /// Original COM help: https://opendss.epri.com/MonitoredTerm2.html
         /// </summary>
         public int MonitoredTerm
         {
@@ -16725,6 +18066,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of fast shots
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumFast.html
         /// </summary>
         public int NumFast
         {
@@ -16753,7 +18096,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Phase instantaneous curve multipler or actual amps
+        /// Phase instantaneous curve multiplier or actual amps
+        /// 
+        /// Original COM help: https://opendss.epri.com/PhaseInst.html
         /// </summary>
         public double PhaseInst
         {
@@ -16783,6 +18128,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Phase trip curve multiplier or actual amps
+        /// 
+        /// Original COM help: https://opendss.epri.com/PhaseTrip.html
         /// </summary>
         public double PhaseTrip
         {
@@ -16812,6 +18159,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of Doubles: reclose intervals, s, between shots.
+        /// 
+        /// Original COM help: https://opendss.epri.com/RecloseIntervals.html
         /// </summary>
         public double[] RecloseIntervals
         {
@@ -16831,6 +18180,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of shots to lockout (fast + delayed)
+        /// 
+        /// Original COM help: https://opendss.epri.com/Shots.html
         /// </summary>
         public int Shots
         {
@@ -16860,6 +18211,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Full name of the circuit element that is being switched by the Recloser.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SwitchedObj1.html
         /// </summary>
         public string SwitchedObj
         {
@@ -16889,6 +18242,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Terminal number of the controlled device being switched by the Recloser
+        /// 
+        /// Original COM help: https://opendss.epri.com/SwitchedTerm1.html
         /// </summary>
         public int SwitchedTerm
         {
@@ -16944,7 +18299,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return (ActionCodes)DSS_CAPI.ctx_Reclosers_Get_State(ctx);
+                    return (ActionCodes)(DSS_CAPI.ctx_Reclosers_Get_State(ctx));
                 }
                 finally
                 {
@@ -16966,6 +18321,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/set normal state (ActionCodes.Open=1, ActionCodes.Close=2) of the recloser.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NormalState1.html
         /// </summary>
         public ActionCodes NormalState
         {
@@ -16973,7 +18330,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return (ActionCodes)DSS_CAPI.ctx_Reclosers_Get_NormalState(ctx);
+                    return (ActionCodes)(DSS_CAPI.ctx_Reclosers_Get_NormalState(ctx));
                 }
                 finally
                 {
@@ -17146,6 +18503,8 @@ namespace dss_sharp
 
         /// <summary>
         /// CT primary ampere rating (secondary is 0.2 amperes)
+        /// 
+        /// Original COM help: https://opendss.epri.com/CTPrimary.html
         /// </summary>
         public double CTPrimary
         {
@@ -17175,6 +18534,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Time delay [s] after arming before the first tap change. Control may reset before actually changing taps.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Delay2.html
         /// </summary>
         public double Delay
         {
@@ -17203,7 +18564,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Regulation bandwidth in forward direciton, centered on Vreg
+        /// Regulation bandwidth in forward direction, centered on Vreg
+        /// 
+        /// Original COM help: https://opendss.epri.com/ForwardBand.html
         /// </summary>
         public double ForwardBand
         {
@@ -17233,6 +18596,8 @@ namespace dss_sharp
 
         /// <summary>
         /// LDC R setting in Volts
+        /// 
+        /// Original COM help: https://opendss.epri.com/ForwardR.html
         /// </summary>
         public double ForwardR
         {
@@ -17262,6 +18627,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Target voltage in the forward direction, on PT secondary base.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ForwardVreg.html
         /// </summary>
         public double ForwardVreg
         {
@@ -17291,6 +18658,8 @@ namespace dss_sharp
 
         /// <summary>
         /// LDC X setting in Volts
+        /// 
+        /// Original COM help: https://opendss.epri.com/ForwardX.html
         /// </summary>
         public double ForwardX
         {
@@ -17319,7 +18688,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Time delay is inversely adjsuted, proportinal to the amount of voltage outside the regulating band.
+        /// Time delay is inversely adjusted, proportional to the amount of voltage outside the regulating band.
+        /// 
+        /// Original COM help: https://opendss.epri.com/IsInverseTime.html
         /// </summary>
         public bool IsInverseTime
         {
@@ -17349,6 +18720,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Regulator can use different settings in the reverse direction.  Usually not applicable to substation transformers.
+        /// 
+        /// Original COM help: https://opendss.epri.com/IsReversible.html
         /// </summary>
         public bool IsReversible
         {
@@ -17377,7 +18750,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Maximum tap change per iteration in STATIC solution mode. 1 is more realistic, 16 is the default for a faster soluiton.
+        /// Maximum tap change per iteration in STATIC solution mode. 1 is more realistic, 16 is the default for a faster solution.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MaxTapChange.html
         /// </summary>
         public int MaxTapChange
         {
@@ -17407,6 +18782,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of a remote regulated bus, in lieu of LDC settings
+        /// 
+        /// Original COM help: https://opendss.epri.com/MonitoredBus.html
         /// </summary>
         public string MonitoredBus
         {
@@ -17436,6 +18813,8 @@ namespace dss_sharp
 
         /// <summary>
         /// PT ratio for voltage control settings
+        /// 
+        /// Original COM help: https://opendss.epri.com/PTratio1.html
         /// </summary>
         public double PTratio
         {
@@ -17465,6 +18844,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Bandwidth in reverse direction, centered on reverse Vreg.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ReverseBand.html
         /// </summary>
         public double ReverseBand
         {
@@ -17494,6 +18875,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Reverse LDC R setting in Volts.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ReverseR.html
         /// </summary>
         public double ReverseR
         {
@@ -17523,6 +18906,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Target voltage in the revese direction, on PT secondary base.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ReverseVreg.html
         /// </summary>
         public double ReverseVreg
         {
@@ -17552,6 +18937,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Reverse LDC X setting in volts.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ReverseX.html
         /// </summary>
         public double ReverseX
         {
@@ -17581,6 +18968,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Time delay [s] for subsequent tap changes in a set. Control may reset before actually changing taps.
+        /// 
+        /// Original COM help: https://opendss.epri.com/TapDelay.html
         /// </summary>
         public double TapDelay
         {
@@ -17609,7 +18998,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Integer number of the tap that the controlled transformer winding is currentliy on.
+        /// Integer number of the tap that the controlled transformer winding is currently on.
+        /// 
+        /// Original COM help: https://opendss.epri.com/TapNumber.html
         /// </summary>
         public int TapNumber
         {
@@ -17639,6 +19030,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Tapped winding number
+        /// 
+        /// Original COM help: https://opendss.epri.com/TapWinding.html
         /// </summary>
         public int TapWinding
         {
@@ -17668,6 +19061,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of the transformer this regulator controls
+        /// 
+        /// Original COM help: https://opendss.epri.com/Transformer.html
         /// </summary>
         public string Transformer
         {
@@ -17697,6 +19092,8 @@ namespace dss_sharp
 
         /// <summary>
         /// First house voltage limit on PT secondary base.  Setting to 0 disables this function.
+        /// 
+        /// Original COM help: https://opendss.epri.com/VoltageLimit.html
         /// </summary>
         public double VoltageLimit
         {
@@ -17726,6 +19123,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Winding number for PT and CT connections
+        /// 
+        /// Original COM help: https://opendss.epri.com/Winding.html
         /// </summary>
         public int Winding
         {
@@ -17894,6 +19293,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Full name of object this Relay is monitoring.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MonitoredObj3.html
         /// </summary>
         public string MonitoredObj
         {
@@ -17923,6 +19324,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of terminal of monitored element that this Relay is monitoring.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MonitoredTerm3.html
         /// </summary>
         public int MonitoredTerm
         {
@@ -17952,6 +19355,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Full name of element that will be switched when relay trips.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SwitchedObj2.html
         /// </summary>
         public string SwitchedObj
         {
@@ -17981,6 +19386,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Terminal number of the switched object that will be opened when the relay trips.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SwitchedTerm2.html
         /// </summary>
         public int SwitchedTerm
         {
@@ -18010,6 +19417,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Open relay's controlled element and lock out the relay.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Open4.html
         /// </summary>
         public void Open()
         {
@@ -18025,6 +19434,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Close the switched object controlled by the relay. Resets relay to first operation.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Close5.html
         /// </summary>
         public void Close()
         {
@@ -18066,7 +19477,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return (ActionCodes)DSS_CAPI.ctx_Relays_Get_State(ctx);
+                    return (ActionCodes)(DSS_CAPI.ctx_Relays_Get_State(ctx));
                 }
                 finally
                 {
@@ -18088,6 +19499,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Normal state of relay.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NormalState3.html
         /// </summary>
         public ActionCodes NormalState
         {
@@ -18095,7 +19508,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return (ActionCodes)DSS_CAPI.ctx_Relays_Get_NormalState(ctx);
+                    return (ActionCodes)(DSS_CAPI.ctx_Relays_Get_NormalState(ctx));
                 }
                 finally
                 {
@@ -18280,6 +19693,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles for the line current measurements; don't use with kWS and kVARS.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Currents2.html
         /// </summary>
         public double[] Currents
         {
@@ -18310,6 +19725,8 @@ namespace dss_sharp
 
         /// <summary>
         /// True if measured voltages are line-line. Currents are always line currents.
+        /// 
+        /// Original COM help: https://opendss.epri.com/IsDelta2.html
         /// </summary>
         public bool IsDelta
         {
@@ -18339,6 +19756,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Full Name of the measured element
+        /// 
+        /// Original COM help: https://opendss.epri.com/MeteredElement1.html
         /// </summary>
         public string MeteredElement
         {
@@ -18368,6 +19787,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of the measured terminal in the measured element.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MeteredTerminal1.html
         /// </summary>
         public int MeteredTerminal
         {
@@ -18397,6 +19818,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Assumed percent error in the Sensor measurement. Default is 1.
+        /// 
+        /// Original COM help: https://opendss.epri.com/PctError.html
         /// </summary>
         public double PctError
         {
@@ -18426,6 +19849,8 @@ namespace dss_sharp
 
         /// <summary>
         /// True if voltage measurements are 1-3, 3-2, 2-1.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ReverseDelta.html
         /// </summary>
         public bool ReverseDelta
         {
@@ -18455,6 +19880,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Weighting factor for this Sensor measurement with respect to other Sensors. Default is 1.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Weight.html
         /// </summary>
         public double Weight
         {
@@ -18484,6 +19911,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles for Q measurements. Overwrites Currents with a new estimate using kWS.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kVARS.html
         /// </summary>
         public double[] kVARS
         {
@@ -18514,6 +19943,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles for the LL or LN (depending on Delta connection) voltage measurements.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kVS.html
         /// </summary>
         public double[] kVS
         {
@@ -18544,6 +19975,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Voltage base for the sensor measurements. LL for 2 and 3-phase sensors, LN for 1-phase sensors.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kVBase1.html
         /// </summary>
         public double kVbase
         {
@@ -18573,6 +20006,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles for P measurements. Overwrites Currents with a new estimate using kVARS.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kWS.html
         /// </summary>
         public double[] kWS
         {
@@ -18603,6 +20038,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of doubles for the allocation factors for each phase.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllocationFactor1.html
         /// </summary>
         public double[] AllocationFactor
         {
@@ -18773,6 +20210,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Open or Close the switch. No effect if switch is locked.  However, Reset removes any lock and then closes the switch (shelf state).
+        /// 
+        /// Original COM help: https://opendss.epri.com/Action1.html
         /// </summary>
         public ActionCodes Action
         {
@@ -18801,7 +20240,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Time delay [s] betwen arming and opening or closing the switch.  Control may reset before actually operating the switch.
+        /// Time delay [s] between arming and opening or closing the switch.  Control may reset before actually operating the switch.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Delay3.html
         /// </summary>
         public double Delay
         {
@@ -18831,6 +20272,8 @@ namespace dss_sharp
 
         /// <summary>
         /// The lock prevents both manual and automatic switch operation.
+        /// 
+        /// Original COM help: https://opendss.epri.com/IsLocked.html
         /// </summary>
         public bool IsLocked
         {
@@ -18859,7 +20302,7 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Get/set Normal state of switch (see actioncodes) dssActionOpen or dssActionClose
+        /// Get/set Normal state of switch (see ActionCodes) dssActionOpen or dssActionClose
         /// </summary>
         public ActionCodes NormalState
         {
@@ -18889,6 +20332,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Set it to force the switch to a specified state, otherwise read its present state.
+        /// 
+        /// Original COM help: https://opendss.epri.com/State.html
         /// </summary>
         public ActionCodes State
         {
@@ -18896,7 +20341,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return (ActionCodes)DSS_CAPI.ctx_SwtControls_Get_State(ctx);
+                    return (ActionCodes)(DSS_CAPI.ctx_SwtControls_Get_State(ctx));
                 }
                 finally
                 {
@@ -18918,6 +20363,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Full name of the switched element.
+        /// 
+        /// Original COM help: https://opendss.epri.com/SwitchedObj3.html
         /// </summary>
         public string SwitchedObj
         {
@@ -18947,6 +20394,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Terminal number where the switch is located on the SwitchedObj
+        /// 
+        /// Original COM help: https://opendss.epri.com/SwitchedTerm3.html
         /// </summary>
         public int SwitchedTerm
         {
@@ -19573,7 +21022,7 @@ namespace dss_sharp
             /// <summary>
             /// Runs a list of strings as commands directly in the DSS engine.
             /// Intermediate results are ignored.
-            /// 
+            ///
             /// (API Extensions)
             /// </summary>
             public void Commands(string[] value)
@@ -19591,7 +21040,7 @@ namespace dss_sharp
             /// <summary>
             /// Runs a large string as commands directly in the DSS engine.
             /// Intermediate results are ignored.
-            /// 
+            ///
             /// (API Extensions)
             /// </summary>
             public void Commands(string value)
@@ -19608,6 +21057,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Input command string for the DSS.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Command1.html
         /// </summary>
         public string Command
         {
@@ -19637,6 +21088,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Result string for the last command.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Result.html
         /// </summary>
         public string Result
         {
@@ -19663,6 +21116,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Returns index of the active branch
+        /// 
+        /// Original COM help: https://opendss.epri.com/ActiveBranch.html
         /// </summary>
         public int ActiveBranch
         {
@@ -19681,6 +21136,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Topological depth of the active branch
+        /// 
+        /// Original COM help: https://opendss.epri.com/ActiveLevel.html
         /// </summary>
         public int ActiveLevel
         {
@@ -19699,6 +21156,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of all isolated branch names.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllIsolatedBranches.html
         /// </summary>
         public string[] AllIsolatedBranches
         {
@@ -19717,6 +21176,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of all isolated load names.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllIsolatedLoads.html
         /// </summary>
         public string[] AllIsolatedLoads
         {
@@ -19735,6 +21196,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Array of all looped element names, by pairs.
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllLoopedPairs.html
         /// </summary>
         public string[] AllLoopedPairs
         {
@@ -19753,6 +21216,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Move back toward the source, return index of new active branch, or 0 if no more.
+        /// 
+        /// Original COM help: https://opendss.epri.com/BackwardBranch.html
         /// </summary>
         public int BackwardBranch
         {
@@ -19771,6 +21236,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Name of the active branch.
+        /// 
+        /// Original COM help: https://opendss.epri.com/BranchName.html
         /// </summary>
         public string BranchName
         {
@@ -19800,6 +21267,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Set the active branch to one containing this bus, return index or 0 if not found
+        /// 
+        /// Original COM help: https://opendss.epri.com/BusName.html
         /// </summary>
         public string BusName
         {
@@ -19829,6 +21298,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Sets the first branch active, returns 0 if none.
+        /// 
+        /// Original COM help: https://opendss.epri.com/First19.html
         /// </summary>
         public int First
         {
@@ -19847,6 +21318,8 @@ namespace dss_sharp
 
         /// <summary>
         /// First load at the active branch, return index or 0 if none.
+        /// 
+        /// Original COM help: https://opendss.epri.com/FirstLoad.html
         /// </summary>
         public int FirstLoad
         {
@@ -19865,6 +21338,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Move forward in the tree, return index of new active branch or 0 if no more
+        /// 
+        /// Original COM help: https://opendss.epri.com/ForwardBranch.html
         /// </summary>
         public int ForwardBranch
         {
@@ -19883,6 +21358,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Move to looped branch, return index or 0 if none.
+        /// 
+        /// Original COM help: https://opendss.epri.com/LoopedBranch.html
         /// </summary>
         public int LoopedBranch
         {
@@ -19901,6 +21378,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Sets the next branch active, returns 0 if no more.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Next18.html
         /// </summary>
         public int Next
         {
@@ -19919,6 +21398,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Next load at the active branch, return index or 0 if no more.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NextLoad.html
         /// </summary>
         public int NextLoad
         {
@@ -19937,6 +21418,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of isolated branches (PD elements and capacitors).
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumIsolatedBranches.html
         /// </summary>
         public int NumIsolatedBranches
         {
@@ -19955,6 +21438,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of isolated loads
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumIsolatedLoads.html
         /// </summary>
         public int NumIsolatedLoads
         {
@@ -19973,6 +21458,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of loops
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumLoops.html
         /// </summary>
         public int NumLoops
         {
@@ -19991,6 +21478,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Move to directly parallel branch, return index or 0 if none.
+        /// 
+        /// Original COM help: https://opendss.epri.com/ParallelBranch.html
         /// </summary>
         public int ParallelBranch
         {
@@ -20148,6 +21637,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Active Winding delta or wye connection?
+        /// 
+        /// Original COM help: https://opendss.epri.com/IsDelta3.html
         /// </summary>
         public bool IsDelta
         {
@@ -20177,6 +21668,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Active Winding maximum tap in per-unit.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MaxTap.html
         /// </summary>
         public double MaxTap
         {
@@ -20206,6 +21699,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Active Winding minimum tap in per-unit.
+        /// 
+        /// Original COM help: https://opendss.epri.com/MinTap.html
         /// </summary>
         public double MinTap
         {
@@ -20234,7 +21729,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Active Winding number of tap steps betwein MinTap and MaxTap.
+        /// Active Winding number of tap steps between MinTap and MaxTap.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumTaps.html
         /// </summary>
         public int NumTaps
         {
@@ -20264,6 +21761,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of windings on this transformer. Allocates memory; set or change this property first.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumWindings.html
         /// </summary>
         public int NumWindings
         {
@@ -20293,6 +21792,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Active Winding resistance in %
+        /// 
+        /// Original COM help: https://opendss.epri.com/R.html
         /// </summary>
         public double R
         {
@@ -20322,6 +21823,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Active Winding neutral resistance [ohms] for wye connections. Set less than zero for ungrounded wye.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Rneut1.html
         /// </summary>
         public double Rneut
         {
@@ -20351,6 +21854,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Active Winding tap in per-unit.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Tap.html
         /// </summary>
         public double Tap
         {
@@ -20380,6 +21885,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Active Winding Number from 1..NumWindings. Update this before reading or setting a sequence of winding properties (R, Tap, kV, kVA, etc.)
+        /// 
+        /// Original COM help: https://opendss.epri.com/Wdg.html
         /// </summary>
         public int Wdg
         {
@@ -20408,7 +21915,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Name of an XfrmCode that supplies electircal parameters for this Transformer.
+        /// Name of an XfrmCode that supplies electrical parameters for this Transformer.
+        /// 
+        /// Original COM help: https://opendss.epri.com/XfmrCode1.html
         /// </summary>
         public string XfmrCode
         {
@@ -20438,6 +21947,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Percent reactance between windings 1 and 2, on winding 1 kVA base. Use for 2-winding or 3-winding transformers.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Xhl.html
         /// </summary>
         public double Xhl
         {
@@ -20466,7 +21977,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Percent reactance between windigns 1 and 3, on winding 1 kVA base.  Use for 3-winding transformers only.
+        /// Percent reactance between windings 1 and 3, on winding 1 kVA base.  Use for 3-winding transformers only.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Xht.html
         /// </summary>
         public double Xht
         {
@@ -20496,6 +22009,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Percent reactance between windings 2 and 3, on winding 1 kVA base. Use for 3-winding transformers only.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Xlt.html
         /// </summary>
         public double Xlt
         {
@@ -20525,6 +22040,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Active Winding neutral reactance [ohms] for wye connections.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Xneut1.html
         /// </summary>
         public double Xneut
         {
@@ -20554,6 +22071,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Active Winding kV rating.  Phase-phase for 2 or 3 phases, actual winding kV for 1 phase transformer.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kV3.html
         /// </summary>
         public double kV
         {
@@ -20583,6 +22102,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Active Winding kVA rating. On winding 1, this also determines normal and emergency current ratings for all windings.
+        /// 
+        /// Original COM help: https://opendss.epri.com/kva1.html
         /// </summary>
         public double kVA
         {
@@ -20612,9 +22133,11 @@ namespace dss_sharp
 
         /// <summary>
         /// Complex array of voltages for active winding
-        ///
-        /// WARNING: If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
+        /// 
+        /// **WARNING:** If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
         /// in those situations. For more information, see https://github.com/dss-extensions/dss-extensions/issues/24
+        /// 
+        /// Original COM help: https://opendss.epri.com/WdgVoltages.html
         /// </summary>
         public double[] WdgVoltages
         {
@@ -20634,9 +22157,11 @@ namespace dss_sharp
 
         /// <summary>
         /// All Winding currents (ph1, wdg1, wdg2,... ph2, wdg1, wdg2 ...)
-        ///
-        /// WARNING: If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
+        /// 
+        /// **WARNING:** If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
         /// in those situations. For more information, see https://github.com/dss-extensions/dss-extensions/issues/24
+        /// 
+        /// Original COM help: https://opendss.epri.com/WdgCurrents.html
         /// </summary>
         public double[] WdgCurrents
         {
@@ -20656,8 +22181,8 @@ namespace dss_sharp
 
         /// <summary>
         /// All winding currents in CSV string form like the WdgCurrents property
-        ///
-        /// WARNING: If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
+        /// 
+        /// **WARNING:** If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
         /// in those situations. For more information, see https://github.com/dss-extensions/dss-extensions/issues/24
         /// </summary>
         public string strWdgCurrents
@@ -20677,6 +22202,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Transformer Core Type: 0=Shell; 1=1ph; 3-3leg; 4=4-Leg; 5=5-leg; 9=Core-1-phase
+        /// 
+        /// Original COM help: https://opendss.epri.com/CoreType.html
         /// </summary>
         public int CoreType
         {
@@ -20706,6 +22233,8 @@ namespace dss_sharp
 
         /// <summary>
         /// dc Resistance of active winding in ohms for GIC analysis
+        /// 
+        /// Original COM help: https://opendss.epri.com/RdcOhms.html
         /// </summary>
         public double RdcOhms
         {
@@ -20736,7 +22265,7 @@ namespace dss_sharp
         /// <summary>
         /// Complex array with the losses by type (total losses, load losses, no-load losses), in VA
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double[] LossesByType
         {
@@ -20757,7 +22286,7 @@ namespace dss_sharp
         /// <summary>
         /// Complex array with the losses by type (total losses, load losses, no-load losses), in VA, concatenated for ALL transformers
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public double[] AllLossesByType
         {
@@ -20916,6 +22445,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Phase angle of first phase in degrees
+        /// 
+        /// Original COM help: https://opendss.epri.com/AngleDeg1.html
         /// </summary>
         public double AngleDeg
         {
@@ -20945,6 +22476,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Source voltage in kV
+        /// 
+        /// Original COM help: https://opendss.epri.com/BasekV.html
         /// </summary>
         public double BasekV
         {
@@ -20974,6 +22507,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Source frequency in Hz
+        /// 
+        /// Original COM help: https://opendss.epri.com/Frequency2.html
         /// </summary>
         public double Frequency
         {
@@ -21003,6 +22538,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of phases
+        /// 
+        /// Original COM help: https://opendss.epri.com/Phases3.html
         /// </summary>
         public int Phases
         {
@@ -21032,6 +22569,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Per-unit value of source voltage
+        /// 
+        /// Original COM help: https://opendss.epri.com/pu.html
         /// </summary>
         public double pu
         {
@@ -21634,6 +23173,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/Set Number of points in X-Y curve
+        /// 
+        /// Original COM help: https://opendss.epri.com/Npts1.html
         /// </summary>
         public int Npts
         {
@@ -21663,6 +23204,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/set X values as a Array of doubles. Set Npts to max number expected if setting
+        /// 
+        /// Original COM help: https://opendss.epri.com/Xarray.html
         /// </summary>
         public double[] Xarray
         {
@@ -21693,6 +23236,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Factor to scale X values from original curve
+        /// 
+        /// Original COM help: https://opendss.epri.com/Xscale.html
         /// </summary>
         public double Xscale
         {
@@ -21722,6 +23267,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Amount to shift X value from original curve
+        /// 
+        /// Original COM help: https://opendss.epri.com/Xshift.html
         /// </summary>
         public double Xshift
         {
@@ -21751,6 +23298,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/Set Y values in curve; Set Npts to max number expected if setting
+        /// 
+        /// Original COM help: https://opendss.epri.com/Yarray.html
         /// </summary>
         public double[] Yarray
         {
@@ -21781,6 +23330,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Factor to scale Y values from original curve
+        /// 
+        /// Original COM help: https://opendss.epri.com/Yscale.html
         /// </summary>
         public double Yscale
         {
@@ -21810,6 +23361,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Amount to shift Y value from original curve
+        /// 
+        /// Original COM help: https://opendss.epri.com/Yshift.html
         /// </summary>
         public double Yshift
         {
@@ -21839,6 +23392,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Set X value or get interpolated value after setting Y
+        /// 
+        /// Original COM help: https://opendss.epri.com/x4.html
         /// </summary>
         public double x
         {
@@ -21868,6 +23423,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Set Y value or get interpolated Y value after setting X
+        /// 
+        /// Original COM help: https://opendss.epri.com/y1.html
         /// </summary>
         public double y
         {
@@ -22165,7 +23722,7 @@ namespace dss_sharp
         /// <summary>
         /// Extracts the contents of the file "FileName" from the current (open) ZIP file.
         /// Returns a byte-string.
-        /// 
+        ///
         /// (API Extension)
         /// </summary>
         public byte[] Extract(string FileName)
@@ -22184,10 +23741,10 @@ namespace dss_sharp
         /// <summary>
         /// List of strings consisting of all names match the regular expression provided in regexp.
         /// If no expression is provided, all names in the current open ZIP are returned.
-        /// 
-        /// See https://regex.sorokin.engineer/en/latest/regular_expressions.html for information on 
+        ///
+        /// See https://regex.sorokin.engineer/en/latest/regular_expressions.html for information on
         /// the expression syntax and options.
-        /// 
+        ///
         /// (API Extension)
         /// </summary>
         public string[] List(string regexp="")
@@ -22208,7 +23765,7 @@ namespace dss_sharp
         /// Besides that, the full filenames inside the ZIP must be shorter than 256 characters.
         /// The limitations should be removed in a future revision.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public void Open(string FileName)
         {
@@ -22225,7 +23782,7 @@ namespace dss_sharp
         /// <summary>
         /// Closes the current open ZIP file
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public void Close()
         {
@@ -22245,7 +23802,7 @@ namespace dss_sharp
         /// be present inside the ZIP, using relative paths. The only exceptions are
         /// memory-mapped files.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public void Redirect(string FileInZip)
         {
@@ -22262,7 +23819,7 @@ namespace dss_sharp
         /// <summary>
         /// Check if the given path name is present in the current ZIP file.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public bool Contains(string Name)
         {
@@ -22854,8 +24411,6 @@ namespace dss_sharp
 
         /// <summary>
         /// Get/set state: 0=Idling; 1=Discharging; -1=Charging;
-        /// 
-        /// Related enumeration: StorageStates
         /// </summary>
         public int State
         {
@@ -22863,7 +24418,7 @@ namespace dss_sharp
             {
                 try
                 {
-                    return DSS_CAPI.ctx_Storages_Get_State(ctx);
+                    return /*StorageStates*/(DSS_CAPI.ctx_Storages_Get_State(ctx));
                 }
                 finally
                 {
@@ -22884,7 +24439,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Array of Names of all Storage energy meter registers
+        /// Array of Storage energy meter register names
+        /// 
+        /// See also the enum `GeneratorRegisters`.
         /// </summary>
         public string[] RegisterNames
         {
@@ -22928,6 +24485,9 @@ namespace dss_sharp
         {
         }
 
+        /// <summary>
+        /// Create a new actor, if there are still cores available.
+        /// </summary>
         public void CreateActor()
         {
             try
@@ -22940,6 +24500,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Suspends the host's thread until all the OpenDSS running jobs finish.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Wait.html
+        /// </summary>
         public void Wait()
         {
             try
@@ -22954,6 +24519,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Gets/sets the ID of the Active Actor
+        /// 
+        /// Original COM help: https://opendss.epri.com/ActiveActor.html
         /// </summary>
         public int ActiveActor
         {
@@ -22984,6 +24551,8 @@ namespace dss_sharp
         /// <summary>
         /// (read) Sets ON/OFF (1/0) Parallel features of the Engine
         /// (write) Delivers if the Parallel features of the Engine are Active
+        /// 
+        /// Original COM help: https://opendss.epri.com/ActiveParallel.html
         /// </summary>
         public int ActiveParallel
         {
@@ -23013,6 +24582,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Gets/sets the CPU of the Active Actor
+        /// 
+        /// Original COM help: https://opendss.epri.com/ActorCPU.html
         /// </summary>
         public int ActorCPU
         {
@@ -23042,6 +24613,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Gets the progress of all existing actors in pct
+        /// 
+        /// Original COM help: https://opendss.epri.com/ActorProgress.html
         /// </summary>
         public int[] ActorProgress
         {
@@ -23061,6 +24634,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Gets the status of each actor
+        /// 
+        /// Original COM help: https://opendss.epri.com/ActorStatus.html
         /// </summary>
         public int[] ActorStatus
         {
@@ -23081,6 +24656,8 @@ namespace dss_sharp
         /// <summary>
         /// (read) Reads the values of the ConcatenateReports option (1=enabled, 0=disabled)
         /// (write) Enable/Disable (1/0) the ConcatenateReports option for extracting monitors data
+        /// 
+        /// Original COM help: https://opendss.epri.com/ConcatenateReports.html
         /// </summary>
         public int ConcatenateReports
         {
@@ -23110,6 +24687,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Delivers the number of CPUs on the current PC
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumCPUs.html
         /// </summary>
         public int NumCPUs
         {
@@ -23128,6 +24707,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Delivers the number of Cores of the local PC
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumCores.html
         /// </summary>
         public int NumCores
         {
@@ -23146,6 +24727,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Gets the number of Actors created
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumOfActors.html
         /// </summary>
         public int NumOfActors
         {
@@ -23177,7 +24760,6 @@ namespace dss_sharp
         public DSSimComs DSSim_Coms;
         public YMatrix YMatrix;
         public ZIP ZIP;
-        // public Obj Obj;
 
         public DSS(APIUtil util) : base(util)
         {
@@ -23193,7 +24775,6 @@ namespace dss_sharp
             DSSim_Coms = new DSSimComs(util);
             YMatrix = new YMatrix(util);
             ZIP = new ZIP(util);
-            // Obj = new Obj(util); -- not yet...
         }
     
 
@@ -23236,6 +24817,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// This is a no-op function, does nothing. Left for compatibility.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Reset1.html
+        /// </summary>
         public void Reset()
         {
             try
@@ -23260,6 +24846,18 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// This is a no-op function, does nothing. Left for compatibility.
+        /// 
+        /// Calling `Start` in AltDSS/DSS-Extensions is required but that is already
+        /// handled automatically, so the users do not need to call it manually,
+        /// unless using AltDSS/DSS C-API directly without further tools.
+        /// 
+        /// On the official OpenDSS, `Start` also does nothing at all in the current 
+        /// versions.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Start.html
+        /// </summary>
         public bool Start(int code)
         {
             try
@@ -23274,6 +24872,8 @@ namespace dss_sharp
 
         /// <summary>
         /// List of DSS intrinsic classes (names of the classes)
+        /// 
+        /// Original COM help: https://opendss.epri.com/Classes1.html
         /// </summary>
         public string[] Classes
         {
@@ -23292,6 +24892,8 @@ namespace dss_sharp
 
         /// <summary>
         /// DSS Data File Path.  Default path for reports, etc. from DSS
+        /// 
+        /// Original COM help: https://opendss.epri.com/DataPath.html
         /// </summary>
         public string DataPath
         {
@@ -23321,6 +24923,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Returns the path name for the default text editor.
+        /// 
+        /// Original COM help: https://opendss.epri.com/DefaultEditor.html
         /// </summary>
         public string DefaultEditor
         {
@@ -23339,6 +24943,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of Circuits currently defined
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumCircuits.html
         /// </summary>
         public int NumCircuits
         {
@@ -23357,6 +24963,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of DSS intrinsic classes
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumClasses.html
         /// </summary>
         public int NumClasses
         {
@@ -23375,6 +24983,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Number of user-defined classes
+        /// 
+        /// Original COM help: https://opendss.epri.com/NumUserClasses.html
         /// </summary>
         public int NumUserClasses
         {
@@ -23393,6 +25003,8 @@ namespace dss_sharp
 
         /// <summary>
         /// List of user-defined classes
+        /// 
+        /// Original COM help: https://opendss.epri.com/UserClasses.html
         /// </summary>
         public string[] UserClasses
         {
@@ -23411,6 +25023,8 @@ namespace dss_sharp
 
         /// <summary>
         /// Get version string for the DSS.
+        /// 
+        /// Original COM help: https://opendss.epri.com/Version.html
         /// </summary>
         public string Version
         {
@@ -23428,7 +25042,9 @@ namespace dss_sharp
         }
 
         /// <summary>
-        /// Gets/sets whether text output is allowed
+        /// Gets/sets whether text output is allowed (DSS-Extensions) or general forms/windows are shown (official OpenDSS).
+        /// 
+        /// Original COM help: https://opendss.epri.com/AllowForms.html
         /// </summary>
         public bool AllowForms
         {
@@ -23463,7 +25079,7 @@ namespace dss_sharp
         /// If you set to 0 (false), the editor is not executed. Note that other side effects,
         /// such as the creation of files, are not affected.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public bool AllowEditor
         {
@@ -23495,7 +25111,6 @@ namespace dss_sharp
         {
             try
             {
-                // #warning ("ShowPanel is not implemented.");
             }
             finally
             {
@@ -23503,6 +25118,11 @@ namespace dss_sharp
             }
         }
 
+        /// <summary>
+        /// Make a new circuit and returns the interface to the active circuit.
+        /// 
+        /// Original COM help: https://opendss.epri.com/NewCircuit.html
+        /// </summary>
         public Circuit NewCircuit(string name)
         {
             try
@@ -23524,7 +25144,7 @@ namespace dss_sharp
         /// 
         /// **NOTE**: this property will be removed for v1.0. It is left to avoid breaking the current API too soon.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public bool LegacyModels
         {
@@ -23564,7 +25184,7 @@ namespace dss_sharp
         /// This can also be set through the environment variable DSS_CAPI_ALLOW_CHANGE_DIR. Set it to 0 to
         /// disallow changing the active working directory.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public bool AllowChangeDir
         {
@@ -23600,7 +25220,7 @@ namespace dss_sharp
         /// This can also be set through the environment variable DSS_CAPI_ALLOW_DOSCMD. Setting it to 1 enables
         /// the command.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public bool AllowDOScmd
         {
@@ -23633,16 +25253,17 @@ namespace dss_sharp
         /// official OpenDSS COM interface. 
         /// 
         /// For example, consider the function `Loads_Get_ZIPV`. If there is no active circuit or active load element:
+        /// 
         /// - In the disabled state (COMErrorResults==false), the function will return "[]", an array with 0 elements.
         /// - In the enabled state (COMErrorResults==true), the function will return "[0.0]" instead. This should
         /// be compatible with the return value of the official COM interface.
         /// 
         /// Defaults to true (enabled state) in the v0.12.x series. This will change to false in future series.
         /// 
-        /// This can also be set through the environment variable DSS_CAPI_COM_DEFAULTS. Setting it to 0 disables
+        /// This can also be set through the environment variable `DSS_CAPI_COM_DEFAULTS`. Setting it to 0 disables
         /// the legacy/COM behavior. The value can be toggled through the API at any time.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public bool COMErrorResults
         {
@@ -23673,22 +25294,7 @@ namespace dss_sharp
         /// <summary>
         /// Controls some compatibility flags introduced to toggle some behavior from the official OpenDSS.
         /// 
-        /// **THESE FLAGS ARE GLOBAL, affecting all DSS engines in the process.**
-        /// 
-        /// The current bit flags are:
-        /// 
-        /// - NoSolverFloatChecks = 0x1 (bit 0): If enabled, don't check for NaNs in the inner solution loop. This can lead to various errors.
-        ///     This flag is useful for legacy applications that don't handle OpenDSS API errors properly. Through the 
-        ///     development of DSS-Extensions, we noticed this is actually a quite common issue.
-        ///
-        /// - BadPrecision = 0x2 (bit 1): Toggle worse precision for certain aspects of the engine. For example, 
-        ///     the sequence-to-phase (`As2p`) and sequence-to-phase (`Ap2s`) transform matrices. On DSS C-API, 
-        ///     we fill the matrix explicitly using higher precision, while numerical inversion of an initially 
-        ///     worse precision matrix is used in the official OpenDSS. We will introduce better precision for 
-        ///     other aspects of the engine in the future, so this flag can be used to toggle the old/bad values 
-        ///     where feasible.
-        /// - InvControl9611 = 0x4 (bit 2): Toggle some InvControl behavior introduced in OpenDSS 9.6.1.1. 
-        ///     It could be a regression but needs further investigation, so we added this flag in the time being.
+        /// **THE FLAGS ARE GLOBAL, affecting all DSS engines in the process.**
         /// 
         /// These flags may change for each version of DSS C-API, but the same value will not be reused. That is,
         /// when we remove a compatibility flag, it will have no effect but will also not affect anything else
@@ -23698,9 +25304,9 @@ namespace dss_sharp
         /// options/flags, it was preferred to add this generic function instead of a separate function per
         /// flag.
         /// 
-        /// Related enumeration: DSSCompatFlags
+        /// See the enumeration `DSSCompatFlags` for available flags, including description.
         /// 
-        /// (API Extension)
+        /// **(API Extension)**
         /// </summary>
         public DSSCompatFlags CompatFlags
         {

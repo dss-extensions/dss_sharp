@@ -1,7 +1,7 @@
 
 // dss_sharp: A compatibility layer for DSS C-API that mimics the official OpenDSS COM interface.
-// Copyright (c) 2016-2023 Paulo Meira
-// Copyright (c) 2018-2023 DSS-Extensions contributors
+// Copyright (c) 2016-2024 Paulo Meira
+// Copyright (c) 2018-2024 DSS-Extensions contributors
 //
 // See LICENSE for more information.
 //
@@ -67,9 +67,6 @@ namespace dss_sharp
             #endif
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr DSS_ExtractSchema(IntPtr /* void */ ctx);
-
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr DSS_Get_PAnsiChar(IntPtr /* void */ p, int index);
 
             #if NETSTANDARD2_1_OR_GREATER
@@ -92,61 +89,13 @@ namespace dss_sharp
             public static extern void DSS_WaitPascalThread(IntPtr /* void */ handle);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr Obj_GetAsString(IntPtr /* void */ obj, int Index);
-
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr Obj_GetClassIdx(IntPtr /* void */ obj);
-
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr Obj_GetClassName(IntPtr /* void */ obj);
-
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr Obj_GetHandleByIdx(IntPtr /* void */ ctx, int ClsIdx, int Idx);
-
-            #if NETSTANDARD2_1_OR_GREATER
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr Obj_GetHandleByName(IntPtr /* void */ ctx, int ClsIdx, [param: MarshalAs(UnmanagedType.LPUTF8Str)] string Name);
-            #else
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr Obj_GetHandleByName(IntPtr /* void */ ctx, int ClsIdx, [param: MarshalAs(UnmanagedType.LPStr)] string Name);
-            #endif
-
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr Obj_GetName(IntPtr /* void */ obj);
-
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr Obj_GetObject(IntPtr /* void */ obj, int Index);
-
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern int[] Obj_GetPropSeqPtr(IntPtr /* void */ obj);
-
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr Obj_GetString(IntPtr /* void */ obj, int Index);
-
-            #if NETSTANDARD2_1_OR_GREATER
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr Obj_New(IntPtr /* void */ ctx, int ClsIdx, [param: MarshalAs(UnmanagedType.LPUTF8Str)] string Name, ushort Activate, ushort BeginEdit);
-            #else
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr Obj_New(IntPtr /* void */ ctx, int ClsIdx, [param: MarshalAs(UnmanagedType.LPStr)] string Name, ushort Activate, ushort BeginEdit);
-            #endif
-
-            public static IntPtr Obj_New(IntPtr /* void */ ctx, int ClsIdx, string Name, bool Activate, bool BeginEdit)
-            {
-                return Obj_New(ctx, ClsIdx, Name, (ushort) (Activate ? 1u : 0u), (ushort) (BeginEdit ? 1u : 0u));
-            }
-
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr Obj_ToJSON(IntPtr /* void */ obj, int options);
-
-            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr ctx_ActiveClass_Get_ActiveClassName(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr ctx_ActiveClass_Get_ActiveClassParent(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_ActiveClass_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_ActiveClass_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_ActiveClass_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -181,16 +130,16 @@ namespace dss_sharp
             public static extern int ctx_Bus_GetUniqueNodeNumber(IntPtr /* void */ ctx, int StartNumber);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_AllPCEatBus(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_AllPCEatBus(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_AllPDEatBus(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_AllPDEatBus(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern ushort ctx_Bus_Get_Coorddefined(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_CplxSeqVoltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_CplxSeqVoltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_CplxSeqVoltages_GR(IntPtr /* void */ ctx);
@@ -208,7 +157,7 @@ namespace dss_sharp
             public static extern double ctx_Bus_Get_Int_Duration(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_Isc(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_Isc(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_Isc_GR(IntPtr /* void */ ctx);
@@ -217,13 +166,13 @@ namespace dss_sharp
             public static extern double ctx_Bus_Get_Lambda(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_LineList(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_LineList(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_LineList_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_LoadList(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_LoadList(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_LoadList_GR(IntPtr /* void */ ctx);
@@ -241,7 +190,7 @@ namespace dss_sharp
             public static extern int ctx_Bus_Get_Next(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_Nodes(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_Nodes(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_Nodes_GR(IntPtr /* void */ ctx);
@@ -253,7 +202,7 @@ namespace dss_sharp
             public static extern int ctx_Bus_Get_SectionID(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_SeqVoltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_SeqVoltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_SeqVoltages_GR(IntPtr /* void */ ctx);
@@ -262,55 +211,55 @@ namespace dss_sharp
             public static extern double ctx_Bus_Get_TotalMiles(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_VLL(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_VLL(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_VLL_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_VMagAngle(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_VMagAngle(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_VMagAngle_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_Voc(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_Voc(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_Voc_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_Voltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_Voltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_Voltages_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_YscMatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_YscMatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_YscMatrix_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_ZSC012Matrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_ZSC012Matrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_ZSC012Matrix_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_Zsc0(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_Zsc0(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_Zsc0_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_Zsc1(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_Zsc1(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_Zsc1_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_ZscMatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_ZscMatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_ZscMatrix_GR(IntPtr /* void */ ctx);
@@ -319,19 +268,19 @@ namespace dss_sharp
             public static extern double ctx_Bus_Get_kVBase(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_puVLL(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_puVLL(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_puVLL_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_puVmagAngle(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_puVmagAngle(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_puVmagAngle_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Bus_Get_puVoltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Bus_Get_puVoltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Bus_Get_puVoltages_GR(IntPtr /* void */ ctx);
@@ -352,7 +301,7 @@ namespace dss_sharp
             public static extern ushort ctx_Bus_ZscRefresh(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CNData_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CNData_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CNData_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -492,7 +441,7 @@ namespace dss_sharp
             public static extern void ctx_CNData_Set_k(IntPtr /* void */ ctx, int Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CapControls_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CapControls_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CapControls_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -632,7 +581,7 @@ namespace dss_sharp
             public static extern void ctx_Capacitors_Close(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Capacitors_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Capacitors_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Capacitors_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -659,7 +608,7 @@ namespace dss_sharp
             public static extern int ctx_Capacitors_Get_NumSteps(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Capacitors_Get_States(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Capacitors_Get_States(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Capacitors_Get_States_GR(IntPtr /* void */ ctx);
@@ -741,23 +690,31 @@ namespace dss_sharp
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern int ctx_Circuit_FirstPDElement(IntPtr /* void */ ctx);
 
+            #if NETSTANDARD2_1_OR_GREATER
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllBusDistances(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_FromJSON(IntPtr /* void */ ctx, [param: MarshalAs(UnmanagedType.LPUTF8Str)] string circ, int options);
+            #else
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ctx_Circuit_FromJSON(IntPtr /* void */ ctx, [param: MarshalAs(UnmanagedType.LPStr)] string circ, int options);
+            #endif
+
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ctx_Circuit_Get_AllBusDistances(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_AllBusDistances_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllBusNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_AllBusNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_AllBusNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllBusVmag(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_AllBusVmag(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllBusVmagPu(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_AllBusVmagPu(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_AllBusVmagPu_GR(IntPtr /* void */ ctx);
@@ -766,28 +723,28 @@ namespace dss_sharp
             public static extern void ctx_Circuit_Get_AllBusVmag_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllBusVolts(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_AllBusVolts(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_AllBusVolts_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllElementLosses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_AllElementLosses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_AllElementLosses_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllElementNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_AllElementNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_AllElementNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllNodeDistances(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_AllNodeDistances(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllNodeDistancesByPhase(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, int Phase);
+            public static extern void ctx_Circuit_Get_AllNodeDistancesByPhase(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, int Phase);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_AllNodeDistancesByPhase_GR(IntPtr /* void */ ctx, int Phase);
@@ -796,10 +753,10 @@ namespace dss_sharp
             public static extern void ctx_Circuit_Get_AllNodeDistances_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllNodeNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_AllNodeNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllNodeNamesByPhase(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount, int Phase);
+            public static extern void ctx_Circuit_Get_AllNodeNamesByPhase(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims, int Phase);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_AllNodeNamesByPhase_GR(IntPtr /* void */ ctx, int Phase);
@@ -808,31 +765,31 @@ namespace dss_sharp
             public static extern void ctx_Circuit_Get_AllNodeNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllNodeVmagByPhase(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, int Phase);
+            public static extern void ctx_Circuit_Get_AllNodeVmagByPhase(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, int Phase);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_AllNodeVmagByPhase_GR(IntPtr /* void */ ctx, int Phase);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_AllNodeVmagPUByPhase(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, int Phase);
+            public static extern void ctx_Circuit_Get_AllNodeVmagPUByPhase(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, int Phase);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_AllNodeVmagPUByPhase_GR(IntPtr /* void */ ctx, int Phase);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_ElementLosses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, int[] ElementsPtr, int ElementsCount);
+            public static extern void ctx_Circuit_Get_ElementLosses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, int[] ElementsPtr, int ElementsCount);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_ElementLosses_GR(IntPtr /* void */ ctx, int[] ElementsPtr, int ElementsCount);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_LineLosses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_LineLosses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_LineLosses_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_Losses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_Losses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_Losses_GR(IntPtr /* void */ ctx);
@@ -853,37 +810,37 @@ namespace dss_sharp
             public static extern int ctx_Circuit_Get_ParentPDElement(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_SubstationLosses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_SubstationLosses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_SubstationLosses_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_SystemY(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_SystemY(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_SystemY_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_TotalPower(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_TotalPower(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_TotalPower_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_YCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_YCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_YCurrents_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_YNodeOrder(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_YNodeOrder(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_YNodeOrder_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Circuit_Get_YNodeVarray(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Circuit_Get_YNodeVarray(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Get_YNodeVarray_GR(IntPtr /* void */ ctx);
@@ -899,6 +856,14 @@ namespace dss_sharp
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_Sample(IntPtr /* void */ ctx);
+
+            #if NETSTANDARD2_1_OR_GREATER
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr ctx_Circuit_Save(IntPtr /* void */ ctx, [param: MarshalAs(UnmanagedType.LPUTF8Str)] string dirOrFilePath, int saveFlags);
+            #else
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr ctx_Circuit_Save(IntPtr /* void */ ctx, [param: MarshalAs(UnmanagedType.LPStr)] string dirOrFilePath, int saveFlags);
+            #endif
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_SaveSample(IntPtr /* void */ ctx);
@@ -942,31 +907,34 @@ namespace dss_sharp
             #endif
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr ctx_Circuit_ToJSON(IntPtr /* void */ ctx, int options);
+
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Circuit_UpdateStorage(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Close(IntPtr /* void */ ctx, int Term, int Phs);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_AllPropertyNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_AllPropertyNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_AllPropertyNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_AllVariableNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_AllVariableNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_AllVariableNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_AllVariableValues(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_AllVariableValues(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_AllVariableValues_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_BusNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_BusNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_BusNames_GR(IntPtr /* void */ ctx);
@@ -975,22 +943,22 @@ namespace dss_sharp
             public static extern IntPtr ctx_CktElement_Get_Controller(IntPtr /* void */ ctx, int idx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_CplxSeqCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_CplxSeqCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_CplxSeqCurrents_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_CplxSeqVoltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_CplxSeqVoltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_CplxSeqVoltages_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_Currents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_Currents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_CurrentsMagAng(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_CurrentsMagAng(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_CurrentsMagAng_GR(IntPtr /* void */ ctx);
@@ -1029,7 +997,7 @@ namespace dss_sharp
             public static extern ushort ctx_CktElement_Get_IsIsolated(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_Losses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_Losses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_Losses_GR(IntPtr /* void */ ctx);
@@ -1038,13 +1006,13 @@ namespace dss_sharp
             public static extern IntPtr ctx_CktElement_Get_Name(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_NodeOrder(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_NodeOrder(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_NodeOrder_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_NodeRef(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_NodeRef(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_NodeRef_GR(IntPtr /* void */ ctx);
@@ -1074,43 +1042,43 @@ namespace dss_sharp
             public static extern int ctx_CktElement_Get_OCPDevType(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_PhaseLosses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_PhaseLosses(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_PhaseLosses_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_Powers(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_Powers(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_Powers_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_Residuals(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_Residuals(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_Residuals_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_SeqCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_SeqCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_SeqCurrents_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_SeqPowers(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_SeqPowers(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_SeqPowers_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_SeqVoltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_SeqVoltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_SeqVoltages_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_TotalPowers(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_TotalPowers(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_TotalPowers_GR(IntPtr /* void */ ctx);
@@ -1136,10 +1104,10 @@ namespace dss_sharp
             public static extern double ctx_CktElement_Get_Variablei(IntPtr /* void */ ctx, int Idx, ref int Code);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_Voltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_Voltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_VoltagesMagAng(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_VoltagesMagAng(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_VoltagesMagAng_GR(IntPtr /* void */ ctx);
@@ -1148,7 +1116,7 @@ namespace dss_sharp
             public static extern void ctx_CktElement_Get_Voltages_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CktElement_Get_Yprim(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CktElement_Get_Yprim(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_CktElement_Get_Yprim_GR(IntPtr /* void */ ctx);
@@ -1239,7 +1207,7 @@ namespace dss_sharp
             public static extern int ctx_CtrlQueue_Get_PopAction(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_CtrlQueue_Get_Queue(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_CtrlQueue_Get_Queue(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern int ctx_CtrlQueue_Get_QueueSize(IntPtr /* void */ ctx);
@@ -1257,7 +1225,7 @@ namespace dss_sharp
             public static extern void ctx_CtrlQueue_Show(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_DSSElement_Get_AllPropertyNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_DSSElement_Get_AllPropertyNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_DSSElement_Get_AllPropertyNames_GR(IntPtr /* void */ ctx);
@@ -1377,7 +1345,7 @@ namespace dss_sharp
             public static extern ushort ctx_DSS_Get_COMErrorResults(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_DSS_Get_Classes(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_DSS_Get_Classes(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_DSS_Get_Classes_GR(IntPtr /* void */ ctx);
@@ -1407,7 +1375,7 @@ namespace dss_sharp
             public static extern int ctx_DSS_Get_NumUserClasses(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_DSS_Get_UserClasses(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_DSS_Get_UserClasses(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_DSS_Get_UserClasses_GR(IntPtr /* void */ ctx);
@@ -1508,13 +1476,13 @@ namespace dss_sharp
             public static extern ushort ctx_DSS_Start(IntPtr /* void */ ctx, int code);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_DSSimComs_BusVoltage(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, ulong Index);
+            public static extern void ctx_DSSimComs_BusVoltage(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, ulong Index);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_DSSimComs_BusVoltage_GR(IntPtr /* void */ ctx, ulong Index);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_DSSimComs_BusVoltagepu(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, ulong Index);
+            public static extern void ctx_DSSimComs_BusVoltagepu(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, ulong Index);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_DSSimComs_BusVoltagepu_GR(IntPtr /* void */ ctx, ulong Index);
@@ -1565,7 +1533,7 @@ namespace dss_sharp
             public static extern void ctx_Fuses_Close(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Fuses_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Fuses_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Fuses_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -1592,7 +1560,7 @@ namespace dss_sharp
             public static extern int ctx_Fuses_Get_Next(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Fuses_Get_NormalState(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Fuses_Get_NormalState(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern int ctx_Fuses_Get_NumPhases(IntPtr /* void */ ctx);
@@ -1601,7 +1569,7 @@ namespace dss_sharp
             public static extern double ctx_Fuses_Get_RatedCurrent(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Fuses_Get_State(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Fuses_Get_State(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr ctx_Fuses_Get_SwitchedObj(IntPtr /* void */ ctx);
@@ -1688,7 +1656,7 @@ namespace dss_sharp
             public static extern void ctx_Fuses_Set_idx(IntPtr /* void */ ctx, int Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_GICSources_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_GICSources_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_GICSources_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -1774,7 +1742,7 @@ namespace dss_sharp
             public static extern void ctx_GICSources_Set_idx(IntPtr /* void */ ctx, int Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Generators_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Generators_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Generators_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -1813,13 +1781,13 @@ namespace dss_sharp
             public static extern int ctx_Generators_Get_Phases(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Generators_Get_RegisterNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Generators_Get_RegisterNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Generators_Get_RegisterNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Generators_Get_RegisterValues(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Generators_Get_RegisterValues(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Generators_Get_RegisterValues_GR(IntPtr /* void */ ctx);
@@ -1959,7 +1927,7 @@ namespace dss_sharp
             public static extern IntPtr ctx_Get_Prime();
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_ISources_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_ISources_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_ISources_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -2009,7 +1977,7 @@ namespace dss_sharp
             public static extern void ctx_ISources_Set_idx(IntPtr /* void */ ctx, int Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineCodes_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LineCodes_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineCodes_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -2021,7 +1989,7 @@ namespace dss_sharp
             public static extern double ctx_LineCodes_Get_C1(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineCodes_Get_Cmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LineCodes_Get_Cmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineCodes_Get_Cmatrix_GR(IntPtr /* void */ ctx);
@@ -2057,7 +2025,7 @@ namespace dss_sharp
             public static extern double ctx_LineCodes_Get_R1(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineCodes_Get_Rmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LineCodes_Get_Rmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineCodes_Get_Rmatrix_GR(IntPtr /* void */ ctx);
@@ -2072,7 +2040,7 @@ namespace dss_sharp
             public static extern double ctx_LineCodes_Get_X1(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineCodes_Get_Xmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LineCodes_Get_Xmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineCodes_Get_Xmatrix_GR(IntPtr /* void */ ctx);
@@ -2131,19 +2099,19 @@ namespace dss_sharp
             public static extern void ctx_LineCodes_Set_idx(IntPtr /* void */ ctx, int Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineGeometries_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LineGeometries_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineGeometries_Get_AllNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineGeometries_Get_Cmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, double Frequency, double Length, int Units);
+            public static extern void ctx_LineGeometries_Get_Cmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, double Frequency, double Length, int Units);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineGeometries_Get_Cmatrix_GR(IntPtr /* void */ ctx, double Frequency, double Length, int Units);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineGeometries_Get_Conductors(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LineGeometries_Get_Conductors(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineGeometries_Get_Conductors_GR(IntPtr /* void */ ctx);
@@ -2179,37 +2147,37 @@ namespace dss_sharp
             public static extern double ctx_LineGeometries_Get_RhoEarth(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineGeometries_Get_Rmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, double Frequency, double Length, int Units);
+            public static extern void ctx_LineGeometries_Get_Rmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, double Frequency, double Length, int Units);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineGeometries_Get_Rmatrix_GR(IntPtr /* void */ ctx, double Frequency, double Length, int Units);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineGeometries_Get_Units(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LineGeometries_Get_Units(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineGeometries_Get_Units_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineGeometries_Get_Xcoords(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LineGeometries_Get_Xcoords(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineGeometries_Get_Xcoords_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineGeometries_Get_Xmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, double Frequency, double Length, int Units);
+            public static extern void ctx_LineGeometries_Get_Xmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, double Frequency, double Length, int Units);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineGeometries_Get_Xmatrix_GR(IntPtr /* void */ ctx, double Frequency, double Length, int Units);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineGeometries_Get_Ycoords(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LineGeometries_Get_Ycoords(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineGeometries_Get_Ycoords_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineGeometries_Get_Zmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, double Frequency, double Length, int Units);
+            public static extern void ctx_LineGeometries_Get_Zmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, double Frequency, double Length, int Units);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineGeometries_Get_Zmatrix_GR(IntPtr /* void */ ctx, double Frequency, double Length, int Units);
@@ -2261,7 +2229,7 @@ namespace dss_sharp
             public static extern void ctx_LineGeometries_Set_idx(IntPtr /* void */ ctx, int Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineSpacings_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LineSpacings_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineSpacings_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -2288,13 +2256,13 @@ namespace dss_sharp
             public static extern int ctx_LineSpacings_Get_Units(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineSpacings_Get_Xcoords(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LineSpacings_Get_Xcoords(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineSpacings_Get_Xcoords_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LineSpacings_Get_Ycoords(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LineSpacings_Get_Ycoords(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LineSpacings_Get_Ycoords_GR(IntPtr /* void */ ctx);
@@ -2329,7 +2297,7 @@ namespace dss_sharp
             public static extern void ctx_LineSpacings_Set_idx(IntPtr /* void */ ctx, int Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Lines_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Lines_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Lines_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -2347,7 +2315,7 @@ namespace dss_sharp
             public static extern double ctx_Lines_Get_C1(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Lines_Get_Cmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Lines_Get_Cmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Lines_Get_Cmatrix_GR(IntPtr /* void */ ctx);
@@ -2404,7 +2372,7 @@ namespace dss_sharp
             public static extern double ctx_Lines_Get_Rho(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Lines_Get_Rmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Lines_Get_Rmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Lines_Get_Rmatrix_GR(IntPtr /* void */ ctx);
@@ -2431,13 +2399,13 @@ namespace dss_sharp
             public static extern double ctx_Lines_Get_Xg(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Lines_Get_Xmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Lines_Get_Xmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Lines_Get_Xmatrix_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Lines_Get_Yprim(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Lines_Get_Yprim(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Lines_Get_Yprim_GR(IntPtr /* void */ ctx);
@@ -2567,7 +2535,7 @@ namespace dss_sharp
             public static extern void ctx_Lines_Set_idx(IntPtr /* void */ ctx, int Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LoadShapes_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LoadShapes_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LoadShapes_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -2603,7 +2571,7 @@ namespace dss_sharp
             public static extern double ctx_LoadShapes_Get_PBase(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LoadShapes_Get_Pmult(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LoadShapes_Get_Pmult(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LoadShapes_Get_Pmult_GR(IntPtr /* void */ ctx);
@@ -2612,7 +2580,7 @@ namespace dss_sharp
             public static extern double ctx_LoadShapes_Get_Qbase(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LoadShapes_Get_Qmult(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LoadShapes_Get_Qmult(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LoadShapes_Get_Qmult_GR(IntPtr /* void */ ctx);
@@ -2621,7 +2589,7 @@ namespace dss_sharp
             public static extern double ctx_LoadShapes_Get_SInterval(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_LoadShapes_Get_TimeArray(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_LoadShapes_Get_TimeArray(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_LoadShapes_Get_TimeArray_GR(IntPtr /* void */ ctx);
@@ -2710,7 +2678,7 @@ namespace dss_sharp
             public static extern void ctx_LoadShapes_UseFloat64(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Loads_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Loads_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Loads_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -2803,7 +2771,7 @@ namespace dss_sharp
             public static extern IntPtr ctx_Loads_Get_Yearly(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Loads_Get_ZIPV(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Loads_Get_ZIPV(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Loads_Get_ZIPV_GR(IntPtr /* void */ ctx);
@@ -3004,25 +2972,25 @@ namespace dss_sharp
             }
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Meters_Get_AllBranchesInZone(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Meters_Get_AllBranchesInZone(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Meters_Get_AllBranchesInZone_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Meters_Get_AllEndElements(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Meters_Get_AllEndElements(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Meters_Get_AllEndElements_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Meters_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Meters_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Meters_Get_AllNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Meters_Get_AllocFactors(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Meters_Get_AllocFactors(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Meters_Get_AllocFactors_GR(IntPtr /* void */ ctx);
@@ -3031,7 +2999,7 @@ namespace dss_sharp
             public static extern double ctx_Meters_Get_AvgRepairTime(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Meters_Get_CalcCurrent(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Meters_Get_CalcCurrent(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Meters_Get_CalcCurrent_GR(IntPtr /* void */ ctx);
@@ -3082,19 +3050,19 @@ namespace dss_sharp
             public static extern int ctx_Meters_Get_OCPDeviceType(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Meters_Get_Peakcurrent(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Meters_Get_Peakcurrent(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Meters_Get_Peakcurrent_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Meters_Get_RegisterNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Meters_Get_RegisterNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Meters_Get_RegisterNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Meters_Get_RegisterValues(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Meters_Get_RegisterValues(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Meters_Get_RegisterValues_GR(IntPtr /* void */ ctx);
@@ -3127,13 +3095,13 @@ namespace dss_sharp
             public static extern int ctx_Meters_Get_TotalCustomers(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Meters_Get_Totals(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Meters_Get_Totals(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Meters_Get_Totals_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Meters_Get_ZonePCE(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Meters_Get_ZonePCE(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern int ctx_Meters_Get_idx(IntPtr /* void */ ctx);
@@ -3197,19 +3165,19 @@ namespace dss_sharp
             public static extern void ctx_Meters_Set_idx(IntPtr /* void */ ctx, int Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Monitors_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Monitors_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Monitors_Get_AllNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Monitors_Get_ByteStream(IntPtr /* void */ ctx, ref IntPtr /* int8_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Monitors_Get_ByteStream(IntPtr /* void */ ctx, ref IntPtr /* int8_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Monitors_Get_ByteStream_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Monitors_Get_Channel(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, int Index);
+            public static extern void ctx_Monitors_Get_Channel(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, int Index);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Monitors_Get_Channel_GR(IntPtr /* void */ ctx, int Index);
@@ -3230,7 +3198,7 @@ namespace dss_sharp
             public static extern int ctx_Monitors_Get_First(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Monitors_Get_Header(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Monitors_Get_Header(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Monitors_Get_Header_GR(IntPtr /* void */ ctx);
@@ -3257,13 +3225,13 @@ namespace dss_sharp
             public static extern int ctx_Monitors_Get_Terminal(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Monitors_Get_dblFreq(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Monitors_Get_dblFreq(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Monitors_Get_dblFreq_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Monitors_Get_dblHour(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Monitors_Get_dblHour(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Monitors_Get_dblHour_GR(IntPtr /* void */ ctx);
@@ -3330,16 +3298,16 @@ namespace dss_sharp
             public static extern double ctx_PDElements_Get_AccumulatedL(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllCplxSeqCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PDElements_Get_AllCplxSeqCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_PDElements_Get_AllCplxSeqCurrents_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PDElements_Get_AllCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllCurrentsMagAng(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PDElements_Get_AllCurrentsMagAng(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_PDElements_Get_AllCurrentsMagAng_GR(IntPtr /* void */ ctx);
@@ -3348,11 +3316,11 @@ namespace dss_sharp
             public static extern void ctx_PDElements_Get_AllCurrents_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllMaxCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, ushort AllNodes);
+            public static extern void ctx_PDElements_Get_AllMaxCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, ushort AllNodes);
 
-            public static void ctx_PDElements_Get_AllMaxCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, bool AllNodes)
+            public static void ctx_PDElements_Get_AllMaxCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, bool AllNodes)
             {
-                ctx_PDElements_Get_AllMaxCurrents(ctx, ref ResultPtr, ResultCount, (ushort) (AllNodes ? 1u : 0u));
+                ctx_PDElements_Get_AllMaxCurrents(ctx, ref ResultPtr, ResultDims, (ushort) (AllNodes ? 1u : 0u));
             }
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
@@ -3364,35 +3332,35 @@ namespace dss_sharp
             }
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PDElements_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_PDElements_Get_AllNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllNumConductors(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PDElements_Get_AllNumConductors(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_PDElements_Get_AllNumConductors_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllNumPhases(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PDElements_Get_AllNumPhases(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_PDElements_Get_AllNumPhases_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllNumTerminals(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PDElements_Get_AllNumTerminals(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_PDElements_Get_AllNumTerminals_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllPctEmerg(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, ushort AllNodes);
+            public static extern void ctx_PDElements_Get_AllPctEmerg(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, ushort AllNodes);
 
-            public static void ctx_PDElements_Get_AllPctEmerg(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, bool AllNodes)
+            public static void ctx_PDElements_Get_AllPctEmerg(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, bool AllNodes)
             {
-                ctx_PDElements_Get_AllPctEmerg(ctx, ref ResultPtr, ResultCount, (ushort) (AllNodes ? 1u : 0u));
+                ctx_PDElements_Get_AllPctEmerg(ctx, ref ResultPtr, ResultDims, (ushort) (AllNodes ? 1u : 0u));
             }
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
@@ -3404,11 +3372,11 @@ namespace dss_sharp
             }
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllPctNorm(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, ushort AllNodes);
+            public static extern void ctx_PDElements_Get_AllPctNorm(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, ushort AllNodes);
 
-            public static void ctx_PDElements_Get_AllPctNorm(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, bool AllNodes)
+            public static void ctx_PDElements_Get_AllPctNorm(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, bool AllNodes)
             {
-                ctx_PDElements_Get_AllPctNorm(ctx, ref ResultPtr, ResultCount, (ushort) (AllNodes ? 1u : 0u));
+                ctx_PDElements_Get_AllPctNorm(ctx, ref ResultPtr, ResultDims, (ushort) (AllNodes ? 1u : 0u));
             }
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
@@ -3420,19 +3388,19 @@ namespace dss_sharp
             }
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllPowers(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PDElements_Get_AllPowers(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_PDElements_Get_AllPowers_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllSeqCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PDElements_Get_AllSeqCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_PDElements_Get_AllSeqCurrents_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PDElements_Get_AllSeqPowers(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PDElements_Get_AllSeqPowers(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_PDElements_Get_AllSeqPowers_GR(IntPtr /* void */ ctx);
@@ -3500,7 +3468,7 @@ namespace dss_sharp
             public static extern void ctx_PDElements_Set_pctPermanent(IntPtr /* void */ ctx, double Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PVSystems_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PVSystems_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_PVSystems_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -3530,13 +3498,13 @@ namespace dss_sharp
             public static extern double ctx_PVSystems_Get_Pmpp(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PVSystems_Get_RegisterNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PVSystems_Get_RegisterNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_PVSystems_Get_RegisterNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_PVSystems_Get_RegisterValues(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_PVSystems_Get_RegisterValues(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_PVSystems_Get_RegisterValues_GR(IntPtr /* void */ ctx);
@@ -3661,13 +3629,13 @@ namespace dss_sharp
             public static extern int ctx_Parallel_Get_ActorCPU(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Parallel_Get_ActorProgress(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Parallel_Get_ActorProgress(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Parallel_Get_ActorProgress_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Parallel_Get_ActorStatus(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Parallel_Get_ActorStatus(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Parallel_Get_ActorStatus_GR(IntPtr /* void */ ctx);
@@ -3721,7 +3689,7 @@ namespace dss_sharp
             public static extern int ctx_Parser_Get_IntValue(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Parser_Get_Matrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, int ExpectedOrder);
+            public static extern void ctx_Parser_Get_Matrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, int ExpectedOrder);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Parser_Get_Matrix_GR(IntPtr /* void */ ctx, int ExpectedOrder);
@@ -3733,13 +3701,13 @@ namespace dss_sharp
             public static extern IntPtr ctx_Parser_Get_StrValue(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Parser_Get_SymMatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, int ExpectedOrder);
+            public static extern void ctx_Parser_Get_SymMatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, int ExpectedOrder);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Parser_Get_SymMatrix_GR(IntPtr /* void */ ctx, int ExpectedOrder);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Parser_Get_Vector(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount, int ExpectedSize);
+            public static extern void ctx_Parser_Get_Vector(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims, int ExpectedSize);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Parser_Get_Vector_GR(IntPtr /* void */ ctx, int ExpectedSize);
@@ -3799,7 +3767,7 @@ namespace dss_sharp
             #endif
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Reactors_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Reactors_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Reactors_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -3844,7 +3812,7 @@ namespace dss_sharp
             public static extern IntPtr ctx_Reactors_Get_RCurve(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Reactors_Get_Rmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Reactors_Get_Rmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Reactors_Get_Rmatrix_GR(IntPtr /* void */ ctx);
@@ -3859,28 +3827,28 @@ namespace dss_sharp
             public static extern double ctx_Reactors_Get_X(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Reactors_Get_Xmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Reactors_Get_Xmatrix(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Reactors_Get_Xmatrix_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Reactors_Get_Z(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Reactors_Get_Z(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Reactors_Get_Z0(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Reactors_Get_Z0(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Reactors_Get_Z0_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Reactors_Get_Z1(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Reactors_Get_Z1(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Reactors_Get_Z1_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Reactors_Get_Z2(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Reactors_Get_Z2(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Reactors_Get_Z2_GR(IntPtr /* void */ ctx);
@@ -3999,7 +3967,7 @@ namespace dss_sharp
             public static extern void ctx_Reclosers_Close(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Reclosers_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Reclosers_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Reclosers_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -4041,7 +4009,7 @@ namespace dss_sharp
             public static extern double ctx_Reclosers_Get_PhaseTrip(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Reclosers_Get_RecloseIntervals(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Reclosers_Get_RecloseIntervals(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Reclosers_Get_RecloseIntervals_GR(IntPtr /* void */ ctx);
@@ -4207,7 +4175,7 @@ namespace dss_sharp
             public static extern void ctx_ReduceCkt_Set_Zmag(IntPtr /* void */ ctx, double Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_RegControls_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_RegControls_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_RegControls_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -4391,7 +4359,7 @@ namespace dss_sharp
             public static extern void ctx_Relays_Close(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Relays_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Relays_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Relays_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -4475,13 +4443,13 @@ namespace dss_sharp
             public static extern void ctx_Relays_Set_idx(IntPtr /* void */ ctx, int Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Sensors_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Sensors_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Sensors_Get_AllNames_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Sensors_Get_AllocationFactor(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Sensors_Get_AllocationFactor(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Sensors_Get_AllocationFactor_GR(IntPtr /* void */ ctx);
@@ -4490,7 +4458,7 @@ namespace dss_sharp
             public static extern int ctx_Sensors_Get_Count(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Sensors_Get_Currents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Sensors_Get_Currents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Sensors_Get_Currents_GR(IntPtr /* void */ ctx);
@@ -4526,13 +4494,13 @@ namespace dss_sharp
             public static extern int ctx_Sensors_Get_idx(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Sensors_Get_kVARS(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Sensors_Get_kVARS(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Sensors_Get_kVARS_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Sensors_Get_kVS(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Sensors_Get_kVS(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Sensors_Get_kVS_GR(IntPtr /* void */ ctx);
@@ -4541,7 +4509,7 @@ namespace dss_sharp
             public static extern double ctx_Sensors_Get_kVbase(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Sensors_Get_kWS(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Sensors_Get_kWS(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Sensors_Get_kWS_GR(IntPtr /* void */ ctx);
@@ -4639,7 +4607,7 @@ namespace dss_sharp
             public static extern ushort ctx_Settings_Get_LoadsTerminalCheck(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Settings_Get_LossRegs(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Settings_Get_LossRegs(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Settings_Get_LossRegs_GR(IntPtr /* void */ ctx);
@@ -4663,7 +4631,7 @@ namespace dss_sharp
             public static extern ushort ctx_Settings_Get_Trapezoidal(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Settings_Get_UEregs(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Settings_Get_UEregs(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Settings_Get_UEregs_GR(IntPtr /* void */ ctx);
@@ -4672,13 +4640,16 @@ namespace dss_sharp
             public static extern double ctx_Settings_Get_UEweight(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Settings_Get_VoltageBases(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Settings_Get_VoltageBases(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Settings_Get_VoltageBases_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern ushort ctx_Settings_Get_ZoneLock(IntPtr /* void */ ctx);
+
+            [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ctx_Settings_SetPropertyNameStyle(IntPtr /* void */ ctx, int style);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Settings_Set_AllocationFactors(IntPtr /* void */ ctx, double Value);
@@ -4800,7 +4771,7 @@ namespace dss_sharp
             public static extern int ctx_Solution_Get_Algorithm(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Solution_Get_BusLevels(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Solution_Get_BusLevels(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Solution_Get_BusLevels_GR(IntPtr /* void */ ctx);
@@ -4827,7 +4798,7 @@ namespace dss_sharp
             public static extern IntPtr ctx_Solution_Get_DefaultYearly(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Solution_Get_EventLog(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Solution_Get_EventLog(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Solution_Get_EventLog_GR(IntPtr /* void */ ctx);
@@ -4848,16 +4819,16 @@ namespace dss_sharp
             public static extern int ctx_Solution_Get_Hour(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Solution_Get_IncMatrix(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Solution_Get_IncMatrix(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Solution_Get_IncMatrixCols(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Solution_Get_IncMatrixCols(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Solution_Get_IncMatrixCols_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Solution_Get_IncMatrixRows(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Solution_Get_IncMatrixRows(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Solution_Get_IncMatrixRows_GR(IntPtr /* void */ ctx);
@@ -4875,7 +4846,7 @@ namespace dss_sharp
             public static extern IntPtr ctx_Solution_Get_LDCurve(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Solution_Get_Laplacian(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Solution_Get_Laplacian(IntPtr /* void */ ctx, ref IntPtr /* int32_t* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Solution_Get_Laplacian_GR(IntPtr /* void */ ctx);
@@ -5098,7 +5069,7 @@ namespace dss_sharp
             public static extern void ctx_Solution_SolveSnap(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Storages_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Storages_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern int ctx_Storages_Get_Count(IntPtr /* void */ ctx);
@@ -5113,10 +5084,10 @@ namespace dss_sharp
             public static extern int ctx_Storages_Get_Next(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Storages_Get_RegisterNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Storages_Get_RegisterNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Storages_Get_RegisterValues(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Storages_Get_RegisterValues(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Storages_Get_RegisterValues_GR(IntPtr /* void */ ctx);
@@ -5151,7 +5122,7 @@ namespace dss_sharp
             public static extern int ctx_SwtControls_Get_Action(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_SwtControls_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_SwtControls_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_SwtControls_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -5235,7 +5206,7 @@ namespace dss_sharp
             public static extern void ctx_SwtControls_Set_idx(IntPtr /* void */ ctx, int Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_TSData_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_TSData_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_TSData_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -5405,19 +5376,19 @@ namespace dss_sharp
             public static extern int ctx_Topology_Get_ActiveLevel(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Topology_Get_AllIsolatedBranches(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Topology_Get_AllIsolatedBranches(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Topology_Get_AllIsolatedBranches_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Topology_Get_AllIsolatedLoads(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Topology_Get_AllIsolatedLoads(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Topology_Get_AllIsolatedLoads_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Topology_Get_AllLoopedPairs(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Topology_Get_AllLoopedPairs(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Topology_Get_AllLoopedPairs_GR(IntPtr /* void */ ctx);
@@ -5478,13 +5449,13 @@ namespace dss_sharp
             #endif
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Transformers_Get_AllLossesByType(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Transformers_Get_AllLossesByType(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Transformers_Get_AllLossesByType_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Transformers_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Transformers_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Transformers_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -5502,7 +5473,7 @@ namespace dss_sharp
             public static extern ushort ctx_Transformers_Get_IsDelta(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Transformers_Get_LossesByType(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Transformers_Get_LossesByType(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Transformers_Get_LossesByType_GR(IntPtr /* void */ ctx);
@@ -5541,13 +5512,13 @@ namespace dss_sharp
             public static extern int ctx_Transformers_Get_Wdg(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Transformers_Get_WdgCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Transformers_Get_WdgCurrents(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Transformers_Get_WdgCurrents_GR(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Transformers_Get_WdgVoltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Transformers_Get_WdgVoltages(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Transformers_Get_WdgVoltages_GR(IntPtr /* void */ ctx);
@@ -5655,7 +5626,7 @@ namespace dss_sharp
             public static extern void ctx_Transformers_Set_kVA(IntPtr /* void */ ctx, double Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_Vsources_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_Vsources_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_Vsources_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -5717,7 +5688,7 @@ namespace dss_sharp
             public static extern void ctx_Vsources_Set_pu(IntPtr /* void */ ctx, double Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_WireData_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_WireData_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_WireData_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -5815,7 +5786,7 @@ namespace dss_sharp
             public static extern void ctx_WireData_Set_idx(IntPtr /* void */ ctx, int Value);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_XYCurves_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_XYCurves_Get_AllNames(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_XYCurves_Get_AllNames_GR(IntPtr /* void */ ctx);
@@ -5836,7 +5807,7 @@ namespace dss_sharp
             public static extern int ctx_XYCurves_Get_Npts(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_XYCurves_Get_Xarray(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_XYCurves_Get_Xarray(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_XYCurves_Get_Xarray_GR(IntPtr /* void */ ctx);
@@ -5848,7 +5819,7 @@ namespace dss_sharp
             public static extern double ctx_XYCurves_Get_Xshift(IntPtr /* void */ ctx);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_XYCurves_Get_Yarray(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultCount);
+            public static extern void ctx_XYCurves_Get_Yarray(IntPtr /* void */ ctx, ref IntPtr /* double* */ ResultPtr, int[] ResultDims);
 
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
             public static extern void ctx_XYCurves_Get_Yarray_GR(IntPtr /* void */ ctx);
@@ -6016,10 +5987,10 @@ namespace dss_sharp
 
             #if NETSTANDARD2_1_OR_GREATER
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_ZIP_Extract(IntPtr /* void */ ctx, ref IntPtr /* int8_t* */ ResultPtr, int[] ResultCount, [param: MarshalAs(UnmanagedType.LPUTF8Str)] string FileName);
+            public static extern void ctx_ZIP_Extract(IntPtr /* void */ ctx, ref IntPtr /* int8_t* */ ResultPtr, int[] ResultDims, [param: MarshalAs(UnmanagedType.LPUTF8Str)] string FileName);
             #else
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_ZIP_Extract(IntPtr /* void */ ctx, ref IntPtr /* int8_t* */ ResultPtr, int[] ResultCount, [param: MarshalAs(UnmanagedType.LPStr)] string FileName);
+            public static extern void ctx_ZIP_Extract(IntPtr /* void */ ctx, ref IntPtr /* int8_t* */ ResultPtr, int[] ResultDims, [param: MarshalAs(UnmanagedType.LPStr)] string FileName);
             #endif
 
             #if NETSTANDARD2_1_OR_GREATER
@@ -6032,10 +6003,10 @@ namespace dss_sharp
 
             #if NETSTANDARD2_1_OR_GREATER
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_ZIP_List(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount, [param: MarshalAs(UnmanagedType.LPUTF8Str)] string RegExp);
+            public static extern void ctx_ZIP_List(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims, [param: MarshalAs(UnmanagedType.LPUTF8Str)] string RegExp);
             #else
             [DllImport("dss_capi", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void ctx_ZIP_List(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultCount, [param: MarshalAs(UnmanagedType.LPStr)] string RegExp);
+            public static extern void ctx_ZIP_List(IntPtr /* void */ ctx, ref IntPtr /* char** */ ResultPtr, int[] ResultDims, [param: MarshalAs(UnmanagedType.LPStr)] string RegExp);
             #endif
 
             #if NETSTANDARD2_1_OR_GREATER

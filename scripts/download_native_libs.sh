@@ -1,5 +1,5 @@
 if [ -z ${DSS_CAPI_TAG+x} ]; then
-    DSS_CAPI_TAG=0.13.4
+    DSS_CAPI_TAG=0.14.1
 fi
 
 rm -rf runtimes messages
