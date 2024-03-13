@@ -21,17 +21,16 @@ If you are looking for the bindings to other languages:
 
 - [DSS C-API library](http://github.com/dss-extensions/dss_capi/): the base library that exposes a modified version of EPRI's OpenDSS through a more traditional C interface, built with the open-source Free Pascal compiler instead of Delphi. As of 2022, this base library includes several extensive changes, while retaining very good compatibility.
 - [dss.hpp](https://dss-extensions.org/dss_capi/): header-only library for C++, hosted within DSS C-API (`include/` directory). Allows using DSS C-API more comfortably from C++, abstract memory management and low-level details such as API conventions of the DSS C-API library.
-- [DSS-Python](http://github.com/dss-extensions/dss_python/) is a multi-platform Python module (Windows, Linux, macOS) very compatible with the original COM DLL. See also [OpenDSSDirect.py](http://github.com/dss-extensions/OpenDSSDirect.py/) if you don't need COM compatibility, or just would like to check its extra functionalities (you can mix DSS-Python and OpenDSSDirect.py). DSS-Python includes preliminary plotting capabilities.
-[`opendssdirect.utils`](https://dss-extensions.org/OpenDSSDirect.py/opendssdirect.html#module-opendssdirect.utils) to generate some DataFrames.
+- Python: we have multiple alternatives! See https://dss-extensions.org/python_apis.html for more context. For drop-in replacement and API compatibility with the COM DLL, consider DSS-Python.
 - [OpenDSSDirect.jl](http://github.com/dss-extensions/OpenDSSDirect.jl/): a Julia module, created by Tom Short (@tshort), recently migrated with the help of Dheepak Krishnamurthy (@kdheepak) to DSS C-API instead of the DDLL.
 - [DSS_MATLAB](http://github.com/dss-extensions/dss_matlab/): presents multi-platform integration (Windows, Linux, macOS) with DSS C-API and is also very compatible with the COM classes.
 - [AltDSS-Rust](https://github.com/dss-extensions/AltDSS-Rust) and [AltDSS-Go](https://github.com/dss-extensions/AltDSS-Go) are new projects to expose the engine to Rust and Go programming languages.
 
 # Documentation
 
-We will grow general documentation at [https://github.com/dss-extensions/dss-extensions](https://github.com/dss-extensions/dss-extensions). Several notes and a FAQ are already available there.
+We will grow general documentation at [https://github.com/dss-extensions/dss-extensions](https://github.com/dss-extensions/dss-extensions). Several notes and a FAQ are already available there. Some of the new docs are already available at https://dss-extensions.org/ (this DSS language reference and general documents useful for new users).
 
-Currently, users can rely on the official OpenDSS COM documentation (as seen in the official installation and from the [SVN repo](https://sourceforge.net/p/electricdss/code/HEAD/tree/trunk/Version8/Distrib/Doc/)). We provide C#/.NET class library docs at https://dss-extensions.org/dss_sharp/
+Users can rely on the official [OpenDSS COM documentation](https://opendss.epri.com/COMInterface.html). We provide C#/.NET class library docs at https://dss-extensions.org/dss_sharp/
 
 ## At a glance
 
