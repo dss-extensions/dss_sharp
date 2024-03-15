@@ -294,16 +294,18 @@ namespace dss_sharp
         NoSolverFloatChecks = 0x00000001,
 
         /// <summary>
-        /// If enabled, toggle worse precision for certain aspects of the engine. For example, the sequence-to-phase 
-        /// (`As2p`) and sequence-to-phase (`Ap2s`) transform matrices. On DSS C-API, we fill the matrix explicitly
-        /// using higher precision, while numerical inversion of an initially worse precision matrix is used in the 
-        /// official OpenDSS. We will introduce better precision for other aspects of the engine in the future, 
-        /// so this flag can be used to toggle the old/bad values where feasible.
+        /// If enabled, toggle worse precision for certain aspects of the engine. For
+        /// example, the sequence-to-phase (`As2p`) and sequence-to-phase (`Ap2s`)
+        /// transform matrices. On DSS C-API, we fill the matrix explicitly using
+        /// higher precision, while numerical inversion of an initially worse precision
+        /// matrix is used in the official OpenDSS. We will introduce better precision
+        /// for other aspects of the engine in the future, so this flag can be used to
+        /// toggle the old/bad values where feasible.
         /// </summary>
         BadPrecision = 0x00000002,
 
         /// <summary>
-        /// Toggle some InvControl behavior introduced in OpenDSS 9.6.1.1. It could be a regression 
+        /// Toggle some InvControl behavior introduced in OpenDSS 9.6.1.1. It could be a regression
         /// but needs further investigation, so we added this flag in the time being.
         /// </summary>
         InvControl9611 = 0x00000004,
@@ -313,8 +315,39 @@ namespace dss_sharp
         /// saved script. We found that it is not always a good idea, so we removed the command (leaving it commented).
         /// Use this flag to enable the command in the saved script.
         /// </summary>
-        SaveCalcVoltageBases = 0x00000008
+        SaveCalcVoltageBases = 0x00000008,
 
+        /// <summary>
+        /// In the official OpenDSS implementation, the Lines API use the active circuit element instead of the
+        /// active line. This can lead to unexpected behavior if the user is not aware of this detail.
+        /// For example, if the user accidentally enables any other circuit element, the next time they use
+        /// the Lines API, the line object that was previously enabled is overwritten with another unrelated
+        /// object.
+        /// This flag enables this behavior above if compatibility at this level is required. On DSS-Extensions,
+        /// we changed the behavior to follow what most of the other APIs do: use the active object in the internal
+        /// list. This change was done for DSS C-API v0.13.5, as well as the introduction of this flag.
+        /// </summary>
+        ActiveLine = 0x00000010,
+
+        /// <summary>
+        /// On DSS-Extensions/AltDSS, when setting a property invalidates a previous input value, the engine
+        /// will try to mark the invalidated data as unset. This allows for better exports and tracking of
+        /// the current state of DSS objects.
+        /// Set this flag to disable this behavior, following the original OpenDSS implementation for potential
+        /// compatibility with older software that may require the original behavior; note that may lead to
+        /// erroneous interpretation of the data in the DSS properties. This was introduced in DSS C-API v0.14.0
+        /// and will be further developed for future versions.
+        /// </summary>
+        NoPropertyTracking = 0x00000020,
+
+        /// <summary>
+        /// Some specific functions on the official OpenDSS APIs skip important side-effects.
+        /// By default, on DSS-Extensions/AltDSS, those side-effects are enabled. Use this flag
+        /// to try to follow the behavior of the official APIs. Beware that some side-effects are
+        /// important and skipping them may result in incorrect results.
+        /// This flag only affects some of the classic API functions, especially Loads and Generators.
+        /// </summary>
+        SkipSideEffects = 0x00000040,
     };
 
     /// <summary>
